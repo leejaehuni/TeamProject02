@@ -1,66 +1,113 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout/default}">
-	  
-	<th:block layout:fragment="customTitle">
-		<title th:text="${title}"></title>
-	</th:block>
-	<th:block layout:fragment="customContents">
-		<form id="donorGoodsListForm" th:action="@{donations/donorGoodsList}" method="post">
-			<div class="container">
-				<table border="1">
-					<colgroup>
-		                <col width="15%"/>
-		                <col width="*"/>
-		                <col width="15%"/>
-		                <col width="20%"/>
-		            </colgroup>
-					<thead>
-						<tr>
-							<th>기부 게시글 코드</th>
-							<th>판매자 별 사업장 관리번호</th>
-							<th>기증자 아이디</th>
-							<th>기부자 휴대폰번호</th>
-							<th>사업장 연락처</th>
-							<th>기부 상품 사진</th>
-							<th>기부 내용</th>
-							<th>기부 요청 등록 일자</th>
-							<th>기부 상품갯수</th>
-							<th>기부 상품명</th>
-							<th>기부 상품 배송 방법</th>
-						</tr>	
-					</thead>
-					<tbody>
-						<tr th:if="${not #lists.isEmpty(donorGoodsList)}" th:each="l : ${donorGoodsList}">
-							<td th:text="${l.donationBoardCode}"></td>
-							<td th:text="${l.sellerStoreNum}"></td>
-							<td th:text="${l.sellerStoreName}"></td>
-							<td th:text="${l.member.memberId}"></td>
-							<td th:text="${l.memberPhone}"></td>
-							<td th:text="${l.sellerStorePhone}"></td>
-							<td th:text="${l.goodsDonationImg}"></td>
-							<td th:text="${l.donationContent}"></td>
-							<td th:text="${l.donationRequestEntryDate}"></td>
-							<td th:text="${l.goodsDonationCount}"></td>
-							<td th:text="${l.goodsDonationName}"></td>
-							<td th:text="${l.goodsDonationDeliveryWay}"></td>
-							<td>
-								<a th:if="${session.SLEVEL != '3'}" th:href="@{/donations/modifyDonorGoods(donationBoardCode=${l.donationBoardCode})}">수정</a>
-								<a th:unless="${session.SLEVEL != '3'}" href="javascript:void(0);" onclick="alert('구매자는 상품을 수정할 수 없습니다.');">수정</a>
-							</td>
-							<td>
-								<a th:if="${session.SLEVEL != '3'}" th:href="@{/donations/removeDonorGoods(donationBoardCode=${l.donationBoardCode})}">삭제</a>
-								<a th:unless="${session.SLEVEL != '3'}" href="javascript:void(0);" onclick="alert('구매자는 상품을 삭제할 수 없습니다.');">삭제</a>
-							</td>
-						</tr>
-						<tr th:unless="${not #lists.isEmpty(donorGoodsList)}">
-							<td colspan="11">등록된 상품의 정보가 없습니다.</td>
-						</tr>
-					</tbody>
-				</table>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			 <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Bordered table <small>Bordered table subtitle</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="dataTables_length" id="datatable_length">
+                  	<label>한 줄에
+                  	<select name="datatable_length" aria-controls="datatable" class="form-control input-sm">
+	                  <option value="10">10</option>
+	                  <option value="25">25</option>
+	                  <option value="50">50</option>
+	                  <option value="100">100</option>
+                  	</select>줄씩 보이기</label>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+						<thead>
+	                        <tr>
+	                          <th>#</th>
+	                          <th>기부 상품 번호</th>
+	                          <th>기부 상품 사진</th>
+	                          <th>기부 상품명</th>
+	                          <th>기증자 아이디</th>
+	                          <th>기부 상품 배송 방법</th>
+	                          <th>기부 신청 등록 일자</th>
+	                        </tr>
+                        </thead>
+						<tbody>
+							<tr th:each="l : ${donorGoodsList}">
+								<td th:text="${l.donationBoardCode}"></td>
+								<td th:text="${l.goodsDonationImg}"></td>
+								<td th:text="${l.goodsDonationName}"></td>
+								<td th:text="${l.memberId}"></td>
+								<td th:text="${l.goodsDonationDeliveryWay}"></td>
+								<th th:text="${l.donationRequestEntryDate}"></th>
+							</tr>
+						</tbody>
+                    </table>
+					<div class="col-sm-7">
+						<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+							<ul class="pagination">
+								<li class="paginate_button previous disabled" id="datatable_previous">
+									<a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+								</li>
+								<li class="paginate_button active">
+									<a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a>
+								</li>
+								<li class="paginate_button ">
+									<a href="#" aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a>
+								</li>
+								<li class="paginate_button ">
+									<a href="#" aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a>
+								</li>
+								<li class="paginate_button ">
+									<a href="#" aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a>
+								</li>
+								<li class="paginate_button ">
+									<a href="#" aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a>
+								</li>
+								<li class="paginate_button ">
+									<a href="#" aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a>
+								</li>
+								<li class="paginate_button next" id="datatable_next">
+									<a href="#" aria-controls="datatable" data-dt-idx="7" tabindex="0">Next</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
-		</form>
-	</th:block>
-	  
+		</div>		
+		</th:block>
 </html>

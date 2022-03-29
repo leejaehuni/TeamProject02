@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
+@RequestMapping("/donations")
 public class DonorPlaceController {
 	
+	/**
+	 * 기부 상품 사용처 삭제
+	 */
 	@GetMapping("/removeDonorPlace")
 	public String removeDonorPlace(Model model) {
 		
@@ -18,6 +21,9 @@ public class DonorPlaceController {
 		return "donations/removeDonorPlace";
 	}
 	
+	/**
+	 * 기부 상품 사용처 수정
+	 */
 	@GetMapping("/modifyDonorPlace")
 	public String modifyDonorPlace(Model model) {
 		
@@ -27,6 +33,9 @@ public class DonorPlaceController {
 		return "donations/modifyDonorPlace";
 	}
 	
+	/**
+	 * 기부 상품 사용처 등록 승인
+	 */
 	@GetMapping("/donorPlacePass")
 	public String donorPlacePass(Model model) {
 		
@@ -36,6 +45,9 @@ public class DonorPlaceController {
 		return "donations/donorPlacePass";
 	}
 	
+	/**
+	 * 기부 상품 사용처 등록 심사
+	 */
 	@GetMapping("/confirmDonorPlace")
 	public String confirmDonorPlace(Model model) {
 		
@@ -45,6 +57,9 @@ public class DonorPlaceController {
 		return "donations/confirmDonorPlace";
 	}
 	
+	/**
+	 * 기부 상품 사용처 등록 신청
+	 */
 	@GetMapping("/applyDonorPlace")
 	public String applyDonorPlace(Model model) {
 		
@@ -54,6 +69,9 @@ public class DonorPlaceController {
 		return "donations/applyDonorPlace";
 	}
 	
+	/**
+	 * 기부 상품 사용처 등록
+	 */
 	@GetMapping("/addDonorPlace")
 	public String addDonorPlace(Model model) {
 		
@@ -63,6 +81,9 @@ public class DonorPlaceController {
 		return "donations/addDonorPlace";
 	}
 	
+	/**
+	 * 기부 상품 사용처 목록
+	 */
 	@GetMapping("/donorPlaceList")
 	public String getdonorPlaceList(Model model) {
 		

@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div class="container">
+		<form class="addDonorPlace" action="@{donations/addDonorPlace}" method="post" novalidate="">
+	         <span class="section">기부 사용처 등록</span>
+	         <div class="field item form-group">
+	             <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사용처 아이디</strong><span class="required">*</span></label>
+	             <div class="col-md-6 col-sm-6">
+	                 <input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" required="required">
+	             </div>
+	         </div>
+	         <div class="field item form-group">
+	             <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사용처 명</strong><span class="required">*</span></label>
+	             <div class="col-md-6 col-sm-6">
+	                 <input class="form-control" name="occupation" type="text"></div>
+	         </div>
+	         <div class="field item form-group">
+	             <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사용처 전화번호</strong><span class="required">*</span></label>
+	             <div class="col-md-6 col-sm-6">
+	                 <input class="form-control" name="occupation" type="text"></div>
+	         </div>
+	         <div class="field item form-group">
+	             <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사용처 주소</strong><span class="required">*</span></label>
+	             <div class="col-md-6 col-sm-6">
+	                 <input class="form-control" name="occupation" type="text"></div>
+	         </div>
+	         <div class="field item form-group">
+	             <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사용처 이메일</strong><span class="required">*</span></label>
+	             <div class="col-md-6 col-sm-6">
+	                 <input class="form-control" name="email" required="required" type="email"></div>
+	         </div>
+	          <div class="field item form-group">
+	              <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사용처 소개</strong><span class="required">*</span></label>
+	              <div class="col-md-6 col-sm-6">
+	                  <textarea required="required" name="message"></textarea></div>
+	          </div>
+	         	<div class="addDonorPlaceBtn">
+	            	<div class="form-group">
+		                <div class="col-md-6 offset-md-5">
+		                    <button type="button" class="btn btn-primary" id="btn-update">등록</button>
+		                    <button type="button" class="btn btn-secondary" id="btn-cancel">취소</button>
+	                  </div>
+	              </div>
+	          </div>
+	      </form>
+		</div>	
+	</th:block>	
 </html>

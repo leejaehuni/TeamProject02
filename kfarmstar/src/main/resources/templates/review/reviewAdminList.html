@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<div class="row">
+    <div class="col-12">
+		<div class="card">
+			<form th:action="@{/review/reviewList}" method="post" id="reviewDeleteForm">
+        		<div class="card-body">
+                    <div class="table-responsive m-t-40">
+                    	<div class="dataTables_length" id="datatable_length">
+	                  		<label>한 줄에
+		                  	<select name="datatable_length" aria-controls="datatable" class="form-control input-sm">
+			                  <option value="10">10</option>
+			                  <option value="25">25</option>
+			                  <option value="50">50</option>
+			                  <option value="100">100</option>
+		                  	</select>줄씩 보이기</label>
+		                  </div>
+    					<input class="reviewList" type="text" placeholder="상품평을 검색해보세요." maxlength="30">
+       					<div class=" "><a href="#/search"><i class="fa fa-search"></i> 검색</a></div>
+           				<table id="myTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>리뷰번호</th>
+                                    <th>리뷰작성자</th>
+                                    <th>평점</th>                                                                                                                                                                                                                                                                                                                                                                                          
+                                    <th>리뷰 내용</th>
+                                    <th>리뷰작성완료일시</th>
+                                    <th>진행 상태</th>
+                                    <th>삭제</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each="l : ${reviewList}">
+                                  <td th:text="${l.reviewNum}"></td>
+                                  <td th:text="${l.memberId}"></td>
+                                  <td th:text="${l.reviewScore}"></td>
+                                  <td th:text="${l.reviewContent"></td>
+                                  <td th:text="${l.reviewEntryDate}"></td>
+                                  <td th:text></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </form>
+          </div>
+    </div>
+  </div>	 		
+		</th:block>
+</html>

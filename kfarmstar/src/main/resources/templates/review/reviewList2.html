@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<div class="card card-outline-primary" >
+		    <div class="col-lg-12">
+		      <div class="box box-primary">
+		        <div class="card-header" >
+		          <h4 class="m-b-0 text-white" ><i class="fa fa-thumbs-up"> </i> 리뷰 </h4>
+		        </div>
+		        <div class="box-body" style="padding-top: 20px;">
+				<table class="table table-hover">
+					<thead>
+				       <tr>
+				           <th>No.</th>
+				           <th>리뷰내용</th>
+				           <th>평점</th>
+				           <th>리뷰작성자</th>                                                                                                                                                                                                                                                                                                                                                                                           
+				       </tr>
+					</thead>
+					<tbody>
+						<tr th:each="l : ${reviewList}">
+						    <td th:text="${l.reviewNum}"></td>
+						    <td th:text="${l.reviewContent"></td>
+						    <td th:text="${l.reviewScore}"></td>
+						    <td th:text="${l.memberId}"></td>
+						</tr>
+					</tbody>
+				</table>
+		        </div>      
+		        <div class="box-footer">
+		          <div class="pull-right">
+		            <a th:href="@{/}" class="btn btn-success btn-flat"  style="margin-top: 15px; "> 목록</a>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>	 		
+		</th:block>
+</html>
