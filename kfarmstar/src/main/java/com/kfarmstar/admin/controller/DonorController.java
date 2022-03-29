@@ -48,12 +48,12 @@ public class DonorController {
 	/**
 	 * 기부 상품 목록  
 	 */
-	@GetMapping("/DonorGoodsList")
-	public String DonorGoodsList(Model model) {
+	@GetMapping("/donorGoodsList")
+	public String getdonorGoodsList(Model model) {
 		
 		model.addAttribute("title", "FoodRefurb : 기부 상품 목록");
 		model.addAttribute("titleName", "기부 상품  목록");
 		
-		return "donations/DonorGoodsList";
+		return "donations/donorGoodsList";
 	}
 }
