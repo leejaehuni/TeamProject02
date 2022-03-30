@@ -33,161 +33,239 @@
 		
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
-		<div class="col-md-4 col-sm-4  profile_details">
-	      	<div class="well profile_view">
-	        	<div class="col-sm-12">
-        			<h4 class="brief"><i>너굴맨 보육원</i></h4>
-         			<div class="left col-md-7 col-sm-7">
-        			<h2>neogulmaen123</h2>
-        			<p><strong>사용처 소개 :</strong> 안녕하세요 너굴맨 보육원 입니다 리퍼브 상품 후원 감사합니다   </p>
-						<ul class="list-unstyled">
-	       					<li><i class="fa fa-email"></i> 기부 상품 사용처  이메일: </li>
-	       					<li><i class="fa fa-address"></i> 기부 상품 사용처  주소: </li>
-	       					<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #: </li>
-        				</ul>
-	          		</div>
-           			<div class="right col-md-5 col-sm-5 text-center">
-            	 		<img src="#" alt="" class="img-circle img-fluid">
-	           		</div>
-		       	</div>
-				<div class=" col-sm-6 emphasis">
-					<button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-					  </i> <i class="fa fa-comments-o"></i> </button>
-					<button type="button" class="btn btn-primary btn-sm">
-					  <i class="fa fa-user"> </i> 상세 정보
-					</button>
-				</div>
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<link rel="stylesheet" type="text/css" href="asset/css/list.css">
+			<div class="box-body" style="padding-top: 20px;">
+				<ul class="sub_depth">
+					<li><a href="/" data-catecnt="2">Home</a> <span
+						class="icon-arrow-right" data-cnt=""></span></li>
+					<li><a href="/shop" class=" ">상품평관리</a> <span
+						class="icon-arrow-right"></span></li>
+					<li><a href="/21" class="active ">상품평목록</a></li>
+				</ul>
 			</div>
-		</div>
-		<div class="col-md-4 col-sm-4  profile_details">
-	      	<div class="well profile_view">
-	        	<div class="col-sm-12">
-        			<h4 class="brief"><i>당근좋아 보육원</i></h4>
-         			<div class="left col-md-7 col-sm-7">
-        			<h2>carrot7721</h2>
-        			<p><strong>사용처 소개 :</strong> 안녕하세요 당근좋아 보육원 입니다 </p>
-						<ul class="list-unstyled">
-							<li><i class="fa fa-email"></i> 기부 상품 사용처  이메일: </li>
-	       					<li><i class="fa fa-address"></i> 기부 상품 사용처  주소: </li>
-	       					<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #: </li>
-        				</ul>
-	          		</div>
-           			<div class="right col-md-5 col-sm-5 text-center">
-            	 		<img src="#" alt="" class="img-circle img-fluid">
-	           		</div>
-		       	</div>
-				<div class=" col-sm-6 emphasis">
-					<button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-					  </i> <i class="fa fa-comments-o"></i> </button>
-					<button type="button" class="btn btn-primary btn-sm">
-					  <i class="fa fa-user"> </i> 상세 정보
-					</button>
+				<div class="donorPlaceList">
+				  <input type="text" placeholder="검색어 입력">
+				  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
 				</div>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-4  profile_details">
-	      	<div class="well profile_view">
-	        	<div class="col-sm-12">
-        			<h4 class="brief"><i>온 세상 어린이 보육원</i></h4>
-         			<div class="left col-md-7 col-sm-7">
-        			<h2>child1143</h2>
-        			<p><strong>사용처 소개 :</strong> 안녕하세요 온 세상 어린이 보육원 입니다 </p>
-						<ul class="list-unstyled">
-							<li><i class="fa fa-email"></i> 기부 상품 사용처  이메일: </li>
-	       					<li><i class="fa fa-address"></i> 기부 상품 사용처  주소: </li>
-	       					<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #: </li>
-        				</ul>
-	          		</div>
-           			<div class="right col-md-5 col-sm-5 text-center">
-            	 		<img src="#" alt="" class="img-circle img-fluid">
-	           		</div>
-		       	</div>
-				<div class=" col-sm-6 emphasis">
-					<button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-					  </i> <i class="fa fa-comments-o"></i> </button>
-					<button type="button" class="btn btn-primary btn-sm">
-					  <i class="fa fa-user"> </i> 상세 정보
-					</button>
+				<div class="col-md-4 col-sm-4  profile_details">
+					<div class="well profile_view">
+						<div class="col-sm-12">
+							<h4 class="brief">
+								<i>너굴맨 보육원</i>
+							</h4>
+							<div class="left col-md-7 col-sm-7">
+								<h2>neogulmaen123</h2>
+								<p>
+									<strong>사용처 소개 :</strong> 안녕하세요 너굴맨 보육원 입니다 리퍼브 상품 후원 감사합니다
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-email"></i> 기부 상품 사용처 이메일:</li>
+									<li><i class="fa fa-address"></i> 기부 상품 사용처 주소:</li>
+									<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #:</li>
+								</ul>
+							</div>
+							<div class="right col-md-5 col-sm-5 text-center">
+								<img src="#" alt="" class="img-circle img-fluid">
+							</div>
+						</div>
+						<div class=" col-sm-6 emphasis">
+							<button type="button" class="btn btn-success btn-sm">
+								<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm">
+								<i class="fa fa-user"> </i> 상세 정보
+							</button>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-4  profile_details">
-	      	<div class="well profile_view">
-	        	<div class="col-sm-12">
-        			<h4 class="brief"><i>빛나 보육원</i></h4>
-         			<div class="left col-md-7 col-sm-7">
-        			<h2>light999</h2>
-        			<p><strong>사용처 소개 :</strong> 안녕하세요 빛나 보육원 입니다 </p>
-						<ul class="list-unstyled">
-							<li><i class="fa fa-email"></i> 기부 상품 사용처  이메일: </li>
-	       					<li><i class="fa fa-address"></i> 기부 상품 사용처  주소: </li>
-	       					<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #: </li>
-        				</ul>
-	          		</div>
-           			<div class="right col-md-5 col-sm-5 text-center">
-            	 		<img src="#" alt="" class="img-circle img-fluid">
-	           		</div>
-		       	</div>
-				<div class=" col-sm-6 emphasis">
-					<button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-					  </i> <i class="fa fa-comments-o"></i> </button>
-					<button type="button" class="btn btn-primary btn-sm">
-					  <i class="fa fa-user"> </i> 상세 정보
-					</button>
+				<div class="col-md-4 col-sm-4  profile_details">
+					<div class="well profile_view">
+						<div class="col-sm-12">
+							<h4 class="brief">
+								<i>당근좋아 보육원</i>
+							</h4>
+							<div class="left col-md-7 col-sm-7">
+								<h2>carrot7721</h2>
+								<p>
+									<strong>사용처 소개 :</strong> 안녕하세요 당근좋아 보육원 입니다
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-email"></i> 기부 상품 사용처 이메일:</li>
+									<li><i class="fa fa-address"></i> 기부 상품 사용처 주소:</li>
+									<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #:</li>
+								</ul>
+							</div>
+							<div class="right col-md-5 col-sm-5 text-center">
+								<img src="#" alt="" class="img-circle img-fluid">
+							</div>
+						</div>
+						<div class=" col-sm-6 emphasis">
+							<button type="button" class="btn btn-success btn-sm">
+								<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm">
+								<i class="fa fa-user"> </i> 상세 정보
+							</button>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-4  profile_details">
-	      	<div class="well profile_view">
-	        	<div class="col-sm-12">
-        			<h4 class="brief"><i>미래 보육원</i></h4>
-         			<div class="left col-md-7 col-sm-7">
-        			<h2>future45554</h2>
-        			<p><strong>사용처 소개 :</strong> 안녕하세요 미래 보육원 입니다 </p>
-						<ul class="list-unstyled">
-							<li><i class="fa fa-email"></i> 기부 상품 사용처  이메일: </li>
-	       					<li><i class="fa fa-address"></i> 기부 상품 사용처  주소: </li>
-	       					<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #: </li>
-        				</ul>
-	          		</div>
-           			<div class="right col-md-5 col-sm-5 text-center">
-            	 		<img src="#" alt="" class="img-circle img-fluid">
-	           		</div>
-		       	</div>
-				<div class=" col-sm-6 emphasis">
-					<button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-					  </i> <i class="fa fa-comments-o"></i> </button>
-					<button type="button" class="btn btn-primary btn-sm">
-					  <i class="fa fa-user"> </i> 상세 정보
-					</button>
+				<div class="col-md-4 col-sm-4  profile_details">
+					<div class="well profile_view">
+						<div class="col-sm-12">
+							<h4 class="brief">
+								<i>온 세상 어린이 보육원</i>
+							</h4>
+							<div class="left col-md-7 col-sm-7">
+								<h2>child1143</h2>
+								<p>
+									<strong>사용처 소개 :</strong> 안녕하세요 온 세상 어린이 보육원 입니다
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-email"></i> 기부 상품 사용처 이메일:</li>
+									<li><i class="fa fa-address"></i> 기부 상품 사용처 주소:</li>
+									<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #:</li>
+								</ul>
+							</div>
+							<div class="right col-md-5 col-sm-5 text-center">
+								<img src="#" alt="" class="img-circle img-fluid">
+							</div>
+						</div>
+						<div class=" col-sm-6 emphasis">
+							<button type="button" class="btn btn-success btn-sm">
+								<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm">
+								<i class="fa fa-user"> </i> 상세 정보
+							</button>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-4  profile_details">
-	      	<div class="well profile_view">
-	        	<div class="col-sm-12">
-        			<h4 class="brief"><i>작은 동산 보육원</i></h4>
-         			<div class="left col-md-7 col-sm-7">
-        			<h2>movables2222</h2>
-        			<p><strong>사용처 소개 :</strong> 안녕하세요 작은 동산 보육원 입니다 </p>
-						<ul class="list-unstyled">
-							<li><i class="fa fa-email"></i> 기부 상품 사용처  이메일: </li>
-	       					<li><i class="fa fa-address"></i> 기부 상품 사용처  주소: </li>
-	       					<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #: </li>
-        				</ul>
-	          		</div>
-           			<div class="right col-md-5 col-sm-5 text-center">
-            	 		<img src="#" alt="" class="img-circle img-fluid">
-	           		</div>
-		       	</div>
-				<div class=" col-sm-6 emphasis">
-					<button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
-					  </i> <i class="fa fa-comments-o"></i> </button>
-					<button type="button" class="btn btn-primary btn-sm">
-					  <i class="fa fa-user"> </i> 상세 정보
-					</button>
+				<div class="col-md-4 col-sm-4  profile_details">
+					<div class="well profile_view">
+						<div class="col-sm-12">
+							<h4 class="brief">
+								<i>빛나 보육원</i>
+							</h4>
+							<div class="left col-md-7 col-sm-7">
+								<h2>light999</h2>
+								<p>
+									<strong>사용처 소개 :</strong> 안녕하세요 빛나 보육원 입니다
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-email"></i> 기부 상품 사용처 이메일:</li>
+									<li><i class="fa fa-address"></i> 기부 상품 사용처 주소:</li>
+									<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #:</li>
+								</ul>
+							</div>
+							<div class="right col-md-5 col-sm-5 text-center">
+								<img src="#" alt="" class="img-circle img-fluid">
+							</div>
+						</div>
+						<div class=" col-sm-6 emphasis">
+							<button type="button" class="btn btn-success btn-sm">
+								<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm">
+								<i class="fa fa-user"> </i> 상세 정보
+							</button>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+				<div class="col-md-4 col-sm-4  profile_details">
+					<div class="well profile_view">
+						<div class="col-sm-12">
+							<h4 class="brief">
+								<i>미래 보육원</i>
+							</h4>
+							<div class="left col-md-7 col-sm-7">
+								<h2>future45554</h2>
+								<p>
+									<strong>사용처 소개 :</strong> 안녕하세요 미래 보육원 입니다
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-email"></i> 기부 상품 사용처 이메일:</li>
+									<li><i class="fa fa-address"></i> 기부 상품 사용처 주소:</li>
+									<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #:</li>
+								</ul>
+							</div>
+							<div class="right col-md-5 col-sm-5 text-center">
+								<img src="#" alt="" class="img-circle img-fluid">
+							</div>
+						</div>
+						<div class=" col-sm-6 emphasis">
+							<button type="button" class="btn btn-success btn-sm">
+								<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm">
+								<i class="fa fa-user"> </i> 상세 정보
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4  profile_details">
+					<div class="well profile_view">
+						<div class="col-sm-12">
+							<h4 class="brief">
+								<i>작은 동산 보육원</i>
+							</h4>
+							<div class="left col-md-7 col-sm-7">
+								<h2>movables2222</h2>
+								<p>
+									<strong>사용처 소개 :</strong> 안녕하세요 작은 동산 보육원 입니다
+								</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-email"></i> 기부 상품 사용처 이메일:</li>
+									<li><i class="fa fa-address"></i> 기부 상품 사용처 주소:</li>
+									<li><i class="fa fa-phone"></i> 기부 상품 사용처 전화번호 #:</li>
+								</ul>
+							</div>
+							<div class="right col-md-5 col-sm-5 text-center">
+								<img src="#" alt="" class="img-circle img-fluid">
+							</div>
+						</div>
+						<div class=" col-sm-6 emphasis">
+							<button type="button" class="btn btn-success btn-sm">
+								<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+							</button>
+							<button type="button" class="btn btn-primary btn-sm">
+								<i class="fa fa-user"> </i> 상세 정보
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="list box-footer col-offset-3">
+					<div class="pull-right">
+						<a th:href="@{/}" class="btn btn-success btn-flat"
+							style="margin-top: 15px;"> 목록</a>
+					</div>
+					<div class="col-sm-7">
+						<div class="dataTables_paginate paging_simple_numbers"
+							id="datatable_paginate">
+							<ul class="pagination">
+								<li class="paginate_button previous disabled"
+									id="datatable_previous"><a href="#"
+									aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+								</li>
+								<li class="paginate_button active"><a href="#"
+									aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
+								<li class="paginate_button "><a href="#"
+									aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
+								<li class="paginate_button "><a href="#"
+									aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
+								<li class="paginate_button "><a href="#"
+									aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
+								<li class="paginate_button "><a href="#"
+									aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
+								<li class="paginate_button "><a href="#"
+									aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
+								<li class="paginate_button next" id="datatable_next"><a
+									href="#" aria-controls="datatable" data-dt-idx="7" tabindex="0">Next</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>	
 		</th:block>
 </html>

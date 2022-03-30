@@ -33,142 +33,160 @@
 		
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
-			 <div class="col-md-12 col-sm-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Bordered table <small>Bordered table subtitle</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                    
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="dataTables_length" id="datatable_length">
-                  	<label>한 줄에
-                  	<select name="datatable_length" aria-controls="datatable" class="form-control input-sm">
-	                  <option value="10">10</option>
-	                  <option value="25">25</option>
-	                  <option value="50">50</option>
-	                  <option value="100">100</option>
-                  	</select>보이기</label>
-                  </div>
-                  <div class="x_content">
-
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>기부 상품 수령 신청 번호</th>
-                          <th>기부 상품 사용처 </th>
-                          <th>기부 상품 수령 신청 상품명</th>
-                          <th>기부 상품 사용처</th>
-                          <th>기부 상품 수령 신청 일자</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr th:each="l : ${donorApplyList}">
-								<td th:text="${l.donationReceiptNum}"></td>
-								<td th:text="${l.donationCenterNum}"></td>
-								<td th:text="${l.donationReceiptContent}"></td>
-								<td th:text="${l.donationCenterNum}"></td>
-								<th th:text="${l.donationReceiptDate}"></th>
-							</tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>기부 상품 수령 신청 번호2</td>
-                          <td>기부 상품 사용처2</td>
-                          <td>기부 상품 수령 신청 상품명2</td>
-                          <td>기부 상품 수령 신청 일자2</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>기부 상품 수령 신청 번호3</td>
-                          <td>기부 상품 사용처3</td>
-                          <td>기부 상품 수령 신청 상품명3</td>
-                          <td>기부 상품 수령 신청 일자3</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">4</th>
-                          <td>기부 상품 수령 신청 번호4</td>
-                          <td>기부 상품 사용처4</td>
-                          <td>기부 상품 수령 신청 상품명4</td>
-                          <td>기부 상품 수령 신청 일자4</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">5</th>
-                          <td>기부 상품 수령 신청 번호5</td>
-                          <td>기부 상품 사용처5</td>
-                          <td>기부 상품 수령 신청 상품명5</td>
-                          <td>기부 상품 수령 신청 일자5</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">6</th>
-                          <td>기부 상품 수령 신청 번호6</td>
-                          <td>기부 상품 사용처6</td>
-                          <td>기부 상품 수령 신청 상품명6</td>
-                          <td>기부 상품 수령 신청 일자6</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">7</th>
-                          <td>기부 상품 수령 신청 번호7</td>
-                          <td>기부 상품 사용처7</td>
-                          <td>기부 상품 수령 신청 상품명7</td>
-                          <td>기부 상품 수령 신청 일자7</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">8</th>
-                          <td>기부 상품 수령 신청 번호8</td>
-                          <td>기부 상품 사용처8</td>
-                          <td>기부 상품 수령 신청 상품명8</td>
-                          <td>기부 상품 수령 신청 일자8</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">9</th>
-                          <td>기부 상품 수령 신청 번호9</td>
-                          <td>기부 상품 사용처9</td>
-                          <td>기부 상품 수령 신청 상품명9</td>
-                          <td>기부 상품 수령 신청 일자9</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">10</th>
-                          <td>기부 상품 수령 신청 번호10</td>
-                          <td>기부 상품 사용처10</td>
-                          <td>기부 상품 수령 신청 상품명10</td>
-                          <td>기부 상품 수령 신청 일자10</td>
-                        </tr>
-                      </tbody>
-                    </table>
-					<div class="col-sm-7">
-						<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-							<ul class="pagination">
-								<li class="paginate_button previous disabled" id="datatable_previous">
-									<a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-								</li>
-								<li class="paginate_button active">
-									<a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a>
-								</li>
-								<li class="paginate_button ">
-									<a href="#" aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a>
-								</li>
-								<li class="paginate_button ">
-									<a href="#" aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a>
-								</li>
-								<li class="paginate_button ">
-									<a href="#" aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a>
-								</li>
-								<li class="paginate_button ">
-									<a href="#" aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a>
-								</li>
-								<li class="paginate_button ">
-									<a href="#" aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a>
-								</li>
-								<li class="paginate_button next" id="datatable_next">
-									<a href="#" aria-controls="datatable" data-dt-idx="7" tabindex="0">Next</a>
-								</li>
-							</ul>
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<link rel="stylesheet" type="text/css" href="asset/css/list.css">
+			<div class="col-md-12 col-sm-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>
+							Bordered table <small>Bordered table subtitle</small>
+						</h2>
+						<ul class="nav navbar-right panel_toolbox">
+		
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="box-body" style="padding-top: 20px;">
+						<ul class="sub_depth">
+							<li><a href="/" data-catecnt="2">Home</a> <span
+								class="icon-arrow-right" data-cnt=""></span></li>
+							<li><a href="/shop" class=" ">상품평관리</a> <span
+								class="icon-arrow-right"></span></li>
+							<li><a href="/21" class="active ">상품평목록</a></li>
+						</ul>
+					</div>
+					<div class="table-responsive m-t-40">
+						<div class="dataTables_length" id="datatable_length">
+							<label>한 줄에 <select name="datatable_length"
+								aria-controls="datatable" class="form-control input-sm">
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option>
+							</select>줄씩 보이기
+							</label>
+						</div>
+						<div class="x_content">
+		
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>기부 상품 수령 신청 번호</th>
+										<th>기부 상품 사용처</th>
+										<th>기부 상품 수령 신청 상품명</th>
+										<th>기부 상품 사용처</th>
+										<th>기부 상품 수령 신청 일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="l : ${donorApplyList}">
+										<td th:text="${l.donationReceiptNum}"></td>
+										<td th:text="${l.donationCenterNum}"></td>
+										<td th:text="${l.donationReceiptContent}"></td>
+										<td th:text="${l.donationCenterNum}"></td>
+										<th th:text="${l.donationReceiptDate}"></th>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td>기부 상품 수령 신청 번호2</td>
+										<td>기부 상품 사용처2</td>
+										<td>기부 상품 수령 신청 상품명2</td>
+										<td>기부 상품 수령 신청 일자2</td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td>기부 상품 수령 신청 번호3</td>
+										<td>기부 상품 사용처3</td>
+										<td>기부 상품 수령 신청 상품명3</td>
+										<td>기부 상품 수령 신청 일자3</td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td>기부 상품 수령 신청 번호4</td>
+										<td>기부 상품 사용처4</td>
+										<td>기부 상품 수령 신청 상품명4</td>
+										<td>기부 상품 수령 신청 일자4</td>
+									</tr>
+									<tr>
+										<th scope="row">5</th>
+										<td>기부 상품 수령 신청 번호5</td>
+										<td>기부 상품 사용처5</td>
+										<td>기부 상품 수령 신청 상품명5</td>
+										<td>기부 상품 수령 신청 일자5</td>
+									</tr>
+									<tr>
+										<th scope="row">6</th>
+										<td>기부 상품 수령 신청 번호6</td>
+										<td>기부 상품 사용처6</td>
+										<td>기부 상품 수령 신청 상품명6</td>
+										<td>기부 상품 수령 신청 일자6</td>
+									</tr>
+									<tr>
+										<th scope="row">7</th>
+										<td>기부 상품 수령 신청 번호7</td>
+										<td>기부 상품 사용처7</td>
+										<td>기부 상품 수령 신청 상품명7</td>
+										<td>기부 상품 수령 신청 일자7</td>
+									</tr>
+									<tr>
+										<th scope="row">8</th>
+										<td>기부 상품 수령 신청 번호8</td>
+										<td>기부 상품 사용처8</td>
+										<td>기부 상품 수령 신청 상품명8</td>
+										<td>기부 상품 수령 신청 일자8</td>
+									</tr>
+									<tr>
+										<th scope="row">9</th>
+										<td>기부 상품 수령 신청 번호9</td>
+										<td>기부 상품 사용처9</td>
+										<td>기부 상품 수령 신청 상품명9</td>
+										<td>기부 상품 수령 신청 일자9</td>
+									</tr>
+									<tr>
+										<th scope="row">10</th>
+										<td>기부 상품 수령 신청 번호10</td>
+										<td>기부 상품 사용처10</td>
+										<td>기부 상품 수령 신청 상품명10</td>
+										<td>기부 상품 수령 신청 일자10</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="list box-footer col-offset-3">
+								<div class="pull-right">
+									<a th:href="@{/}" class="btn btn-success btn-flat"
+										style="margin-top: 15px;"> 목록</a>
+								</div>
+								<div class="col-sm-7">
+									<div class="dataTables_paginate paging_simple_numbers"
+										id="datatable_paginate">
+										<ul class="pagination">
+											<li class="paginate_button previous disabled"
+												id="datatable_previous"><a href="#"
+												aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+											</li>
+											<li class="paginate_button active"><a href="#"
+												aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
+											<li class="paginate_button next" id="datatable_next"><a
+												href="#" aria-controls="datatable" data-dt-idx="7"
+												tabindex="0">Next</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>		
+			</div>	
 		</th:block>
 </html>
