@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 Css -->
+	<th:block layout:fragment="customCss">
+	    <!-- addForm -->
+	    <link th:href="@{/vendors/delivery/addForm.css}" rel="stylesheet">
+	</th:block>
+	
+
+
+
+
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+			</th:block>
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<div class="ctext">
+			<strong>등록하고자 하는 목록을 선택해 주세요.</strong>
+		</div>
+		<div class="row">
+	  		<div class="col-sm-1 col-1"></div>
+	  		<a th:href="@{/delivery/addCompany}" class="cbtn col-sm-4 col-10">회사 등록</a>
+	  		<div class="col-sm-1 col-1"></div>
+	  		<div class="col-sm-1 col-1"></div>
+	  		<a th:href="@{/delivery/addEmployee}" class="cbtn col-sm-4 col-10">사원 등록</a>
+	  		<div class="col-sm-1 col-1"></div>
+		</div>
+	</th:block>
+</html>

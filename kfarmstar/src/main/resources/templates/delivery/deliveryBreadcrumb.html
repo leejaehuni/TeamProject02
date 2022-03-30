@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<div th:fragment="breadcrumbFragment">
+	
+		<!-- START : 배송 관리 페이지 경로
+		============================== -->
+		<div class="container">
+			<ul class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a th:href="@{/}">메인화면</a>
+				</li>
+				<li class="breadcrumb-item">배송 관리</li>
+				<li class="breadcrumb-item" th:text="${titleName}"></li>
+			</ul>
+		</div>
+		<!-- END : 배송 관리 페이지 경로
+		============================== -->
+		
+	</div>
+</html>

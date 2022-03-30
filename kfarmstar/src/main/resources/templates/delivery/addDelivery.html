@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 Css -->
+	<th:block layout:fragment="customCss">
+		<!-- Bootstrap -->
+	    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+	    <!-- Font Awesome -->
+	    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+	    <!-- NProgress -->
+	    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+	    <!-- iCheck -->
+		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+	    <!-- Custom Theme Style -->
+	    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+	    <!-- addForm -->
+	    <link th:href="@{/vendors/delivery/addForm.css}" rel="stylesheet">
+	</th:block>
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 Script -->
+	<th:block layout:fragment="customScript">
+		<!-- jQuery Smart Wizard -->
+   		<script th:src="@{/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js}"></script>
+		<!-- addForm -->
+   		<script th:src="@{/vendors/delivery/js/addForm.js}"></script>
+    </th:block>
+    
+    
+    
+    
+    
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+			</th:block>
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<div class="row">
+			<div class="col-sm-2"></div>
+				<div class="col-sm-8 col-12">
+					<div class="x_panel">
+						<div class="x_title">
+							
+							<!-- START : 화면 경로
+							============================== -->
+							<div th:replace="delivery/deliveryBreadcrumb :: breadcrumbFragment"></div>
+							<!-- END : 화면 경로
+							============================== -->
+
+						</div>
+						<div class="x_content">
+							<!-- Smart Wizard -->
+							<div id="wizard" class="form_wizard wizard_horizontal">
+								<ul class="wizard_steps tum col-12">
+									<li>
+										<a href="#step-1">
+											<span class="step_no">1</span>
+											<span class="step_descr">유저 확인</span>
+										</a>
+									</li>
+									<li>
+										<a href="#step-2">
+											<span class="step_no">2</span>
+											<span class="step_descr">택배사 선택</span>
+										</a>
+									</li>
+									<li>
+										<a href="#step-3">
+											<span class="step_no">3</span>
+											<span class="step_descr">정보 입력</span>
+										</a>
+									</li>
+									<li>
+										<a href="#step-4">
+											<span class="step_no">4</span>
+											<span class="step_descr">처리 완료</span>
+										</a>
+									</li>
+								</ul>
+								<div id="step-1" style="height: 500px;">
+								
+									<!-- START : 유저 권한 및 정보 확인
+									============================== -->
+									<div th:replace="delivery/checkUserId :: checkUserFragment"></div>
+									<!-- END : 유저 권한 및 정보 확인
+									============================== -->
+									
+								</div>
+								<div id="step-2" style="height: 500px;">
+									<form class="form-horizontal form-label-left tum">
+										<div class="form-group row">
+											<label class="control-label col-sm-3 col-12">택배 회사 선택</label>
+											<div class="col-md-9 col-sm-9">
+												<select class="form-control">
+													<option>== 자동 선택 ==</option>
+													<option>Option one</option>
+													<option>Option two</option>
+													<option>Option three</option>
+													<option>Option four</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">회사 이름</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">회사 전화번호</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">회사 주소</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div id="step-3" style="height: 500px;">
+									<form class="form-horizontal form-label-left tum">
+										<div class="form-group row">
+											<label class="control-label col-sm-3 col-12">배송 상품 선택</label>
+											<div class="col-sm-9 col-12">
+												<select class="form-control">
+													<option>== 상품 선택 ==</option>
+													<option>Option one</option>
+													<option>Option two</option>
+													<option>Option three</option>
+													<option>Option four</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">상품 이름</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">상품 수량</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">수령인 이름</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">수령인 전화번호</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">수령인 주소</label>
+											<div class="col-sm-6 col-8">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+											<div class="col-sm-3 col-4">
+												<input type="text" class="form-control" value="상세주소" readonly>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div id="step-4" style="height: 520px;">
+									<div class="ctext">
+										<strong>[ 등록이 완료 되었습니다. ]</strong>
+									</div>
+									<div class="form-group row ">
+										<label class="cen control-label col-sm-3 col-12">운송장 번호</label>
+										<div class="col-sm-7 col-12">
+											<input type="text" class="cen form-control" value="#" readonly>
+										</div>
+										<div class="col-sm-2"></div>
+									</div>
+									<div class="row">
+								  		<div class="col-sm-1 col-1"></div>
+								  		<a href="/" class="cbtn col-sm-4 col-10">메인 화면</a>
+								  		<div class="col-sm-1 col-1"></div>
+								  		<div class="col-sm-1 col-1"></div>
+								  		<a th:href="@{/delivery/getDelivery}" class="cbtn col-sm-4 col-10">배송 조회</a>
+								  		<div class="col-sm-1 col-1"></div>
+									</div>
+								</div>
+								<!--end Smart Wizard -->
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</th:block>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 Css -->
+	<th:block layout:fragment="customCss">
+		<!-- Bootstrap -->
+	    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+	    <!-- Font Awesome -->
+	    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+	    <!-- NProgress -->
+	    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+	    <!-- Custom Theme Style -->
+	    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+	    <!-- addForm -->
+	    <link th:href="@{/vendors/delivery/addForm.css}" rel="stylesheet">
+	</th:block>
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 Script -->
+	<th:block layout:fragment="customScript">
+		<!-- jQuery Smart Wizard -->
+   		<script th:src="@{/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js}"></script>
+    </th:block>
+    
+    
+    
+    
+    
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+			</th:block>
+	
+	
+	
+	
+	
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<div class="row">
+			<div class="col-sm-2"></div>
+				<div class="col-sm-8 col-12 ">
+					<div class="x_panel">
+						<div class="x_title">
+						
+							<!-- START : 화면 경로
+							============================== -->
+							<div th:replace="delivery/deliveryBreadcrumb :: breadcrumbFragment"></div>
+							<!-- END : 화면 경로
+							============================== -->
+							
+						</div>
+						<div class="x_content">
+							<!-- Smart Wizard -->
+							<div id="wizard" class="form_wizard wizard_horizontal">
+								<ul class="tum wizard_steps tum col-12">
+									<li>
+										<a href="#step-1">
+											<span class="step_no">1</span>
+											<span class="step_descr">회사 찾기</span>
+										</a>
+									</li>
+									<li>
+										<a href="#step-2">
+											<span class="step_no">2</span>
+											<span class="step_descr">정보 입력</span>
+										</a>
+									</li>
+									<li>
+										<a href="#step-3">
+											<span class="step_no">3</span>
+											<span class="step_descr">처리 완료</span>
+										</a>
+									</li>
+								</ul>
+								<div id="step-1" style="height: 500px;">
+									<form class="tum form-horizontal form-label-left">
+										<div class="row">
+											<div class="col-sm-2"></div>
+											<button type="button" class="btn btn-primary col-sm-8 col-12" data-toggle="modal" data-target=".bs-example-modal-lg">회사 검색</button>
+											<div class="col-sm-2"></div>
+											<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title" id="myModalLabel">회사 검색 <small>companySearch</small></h4>
+															<button type="button" class="close" data-dismiss="modal">
+																<span aria-hidden="true">×</span>
+															</button>
+														</div>
+														<div class="modal-body">
+														
+															<!-- START : 상단 검색바
+															============================== -->
+															<div th:replace="delivery/searchBar :: searchBarFragment"></div>
+															<!-- END : 상단 검색바
+															============================== -->
+															
+															<!-- START : 상단 검색 상세정보 
+															============================== -->
+															<div th:replace="delivery/searchDetail :: searchDetailFragment"></div>
+															<!-- END : 상단 검색 상세정보
+															============================== -->
+															
+														<div class="tum table-responsive">
+															<table class="table table-striped jambo_table bulk_action">
+																<thead>
+																	<tr class="headings">
+																		<th class="column-title">선택</th>
+																		<th class="column-title">회사 이름</th>
+																		<th class="column-title">대표자 명</th>
+																		<th class="column-title">회사 연락처</th>
+																		<th class="column-title">회사 주소</th>
+																	</tr>
+																</thead>
+										
+																<tbody>
+																	<tr class="even pointer">
+																		<td class="a-center ">
+																			<input type="radio" class="flat" name="table_records">
+																		</td>
+																		<td class=" ">의적 배송</td>
+																		<td class=" ">홍길동</td>
+																		<td class=" ">012-345-6789</td>
+																		<td class=" ">전주시 덕진구 기린대로 445 2층</td>
+																	</tr>
+																</tbody>
+															</table>
+															
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-primary">선택</button>
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tum row">
+											<div class="col-sm-2"></div>
+											<label class="control-label col-sm-10">회사 이름</label>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-8 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+											<div class="col-sm-2"></div>
+										</div>
+										<div class=" row">
+											<div class="col-sm-2"></div>
+											<label class="control-label col-sm-10">코드 입력</label>
+											<div class="col-sm-2"></div>
+											<div class="col-sm-8 col-12">
+												<input type="text" class="form-control" value="#">
+											</div>
+											<div class="col-sm-2"></div>
+										</div>
+										</div>
+									</form>
+								</div>
+								<div id="step-2" style="height: 500px;">
+									<form class="tum  form-label-left">
+										<div class="form-group row">
+											<label class="control-label col-sm-3 col-12">회사 소속</label>
+											<div class="col-sm-9 col-12">
+												<select class="form-control">
+													<option>== 선택 ==</option>
+													<option value="#">본사</option>
+													<option value="#">물류 센터</option>
+													<option value="#">물류 창고</option>
+													<option value="#">현장</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="control-label col-md-3 col-sm-3 ">직책</label>
+											<div class="col-md-9 col-sm-9 ">
+												<select class="select2_group form-control">
+													<option>== 선택 ==</option>
+													<optgroup label="본사">
+														<option value="#">공동 대표</option>
+														<option value="#">부장</option>
+														<option value="#">차장</option>
+														<option value="#">과장</option>
+														<option value="#">대리</option>
+														<option value="#">주임</option>
+														<option value="#">사원</option>
+													</optgroup>
+													<optgroup label="물류 센터">
+														<option value="#">센터장</option>
+														<option value="#">중간 관리자</option>
+														<option value="#">센터 직원</option>
+													</optgroup>
+													<optgroup label="물류 창고">
+														<option value="#">창고 장</option>
+														<option value="#">물품 관리자</option>
+														<option value="#">직원</option>
+													</optgroup>
+													<optgroup label="현장">
+														<option value="#">배송원</option>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">이름</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#">
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="control-label col-sm-3 col-12">전화번호</label>
+											<div class="col-sm-9 col-12">
+												<input type="text" class="form-control" value="#">
+											</div>
+										</div>
+									</form>
+								</div>
+								<div id="step-3" style="height: 500px;">
+									<div class="ctext">
+										<strong>[ 등록이 완료 되었습니다. ]</strong>
+									</div>
+									<div class="row">
+								  		<div class="col-sm-1 col-1"></div>
+								  		<a href="/" class="cbtn col-sm-4 col-10">메인 화면</a>
+								  		<div class="col-sm-1 col-1"></div>
+								  		<div class="col-sm-1 col-1"></div>
+								  		<a th:href="@{/delivery/addDelivery}" class="cbtn col-sm-4 col-10">배송 등록</a>
+								  		<div class="col-sm-1 col-1"></div>
+									</div>
+								</div>
+								<!--end Smart Wizard -->
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</th:block>
+</html>
