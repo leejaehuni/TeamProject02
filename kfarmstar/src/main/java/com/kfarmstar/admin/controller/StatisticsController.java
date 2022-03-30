@@ -151,4 +151,40 @@ public class StatisticsController {
 		return "statistics/removeVisitHistory";
 	}
 	
+	@GetMapping("/getAdStatistics")
+	public String getAdStatistics(Model model) {
+		
+		model.addAttribute("title", "FoodRefurb : 광고 통계 조회");
+		model.addAttribute("titleName", "광고 통계 조회");
+		
+		return "statistics/getAdStatistics";
+	}
+	
+	@GetMapping("/addAdStatistics")
+	public String addAdStatistics(Model model) {
+		
+		model.addAttribute("title", "FoodRefurb : 광고 통계 입력");
+		model.addAttribute("titleName", "광고 통계 입력");
+		
+		return "statistics/addAdStatistics";
+	}
+	
+	@GetMapping("/modifyAdStatistics")
+	public String modifyAdStatistics(Model model) {
+		
+		model.addAttribute("title", "FoodRefurb : 광고 통계 수정");
+		model.addAttribute("titleName", "광고 통계 수정");
+		
+		return "statistics/modifyAdStatistics";
+	}
+	
+	@GetMapping("/removeAdStatistics")
+	public String removeAdStatistics(Model model) {
+		
+		model.addAttribute("title", "FoodRefurb : 광고 통계 삭제");
+		model.addAttribute("titleName", "광고 통계 삭제");
+		
+		return "statistics/removeAdStatistics";
+	}
+	
 }

@@ -75,13 +75,15 @@
 						</ul>
 					</li>
 					<li><a><i class="fa fa-money"></i> #광고 관리(이지수) <span class="fa fa-chevron-down"></span></a>
-                  		<ul class="nav child_menu">
-		                     <li><a th:href="@{#}">광고 목록</a></li>
-		                     <li><a th:href="@{#}">광고 등록</a></li>
-		                     <li><a th:href="@{/advertisement/adPriceList}">광고 단가 목록</a></li>
-		                     <li><a th:href="@{/advertisement/adApplyList}">광고 신청 목록</a></li>
-		                     <li><a th:href="@{/advertisement/adRefundList}">광고 환불 목록</a></li>
-                  		</ul>
+						<ul class="nav child_menu">
+							<li><a th:href="@{/advertisement/advertisingList}">광고 목록</a></li>
+							<li><a th:href="@{/advertisement/addAdvertising}">광고 등록</a></li>
+							<li><a th:href="@{/advertisement/adApplyList}">광고 신청 목록</a></li>
+							<li><a th:href="@{/advertisement/addAdApply}">광고 신청 등록</a></li>
+							<li><a th:href="@{/advertisement/adPaymentList}">광고 결제 내역</a></li>
+							<li><a th:href="@{/advertisement/adRefundList}">광고 환불 신청 목록</a></li>
+							<li><a th:href="@{/advertisement/adPriceList}">광고 단가 목록</a></li>
+						</ul>
                		</li>
 					<li><a><i class="fa fa-heart leftmenuMr"></i> 기부 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
@@ -94,17 +96,21 @@
 					</li>
 					<li><a><i class="fa fa-bar-chart-o leftmenuMr"></i> 통계 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="chartjs.html">Chart JS</a></li>
-							<li><a href="chartjs2.html">Chart JS2</a></li>
-							<li><a href="morisjs.html">Moris JS</a></li>
-							<li><a href="echarts.html">ECharts</a></li>
-							<li><a href="other_charts.html">Other Charts</a></li>
+							<li><a th:href="@{/statistics/getLargeStatistics}">상품 대분류 통계</a></li>
+							<li><a th:href="@{/statistics/getSmallStatistics}">상품 소분류 통계</a></li>
+							<li><a th:href="@{/statistics/getNomalPrice}">정상가 시세 통계</a></li>
+							<li><a th:href="@{/statistics/getVisitHistory}">방문 내역 통계</a></li>
+							<li><a th:href="@{/statistics/getAdStatistics}">광고 통계</a></li>
+						</ul>
+					</li>
+					<li><a><i class="fa fa-file-text-o leftmenuMr"></i> 판매게시물 관리 <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a th:href="@{/salespoststatistics/getSalesPost}">판매게시물 통계 관리</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-bullhorn leftmenuMr"></i> 공지 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="tables.html">Tables</a></li>
-							<li><a href="tables_dynamic.html">Table Dynamic</a></li>
+							<li><a th:href="@{/noticeboard/getNoticeList}">공지게시판 관리</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-comments leftmenuMr"></i> 문의 관리 <span class="fa fa-chevron-down"></span></a>
