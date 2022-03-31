@@ -34,18 +34,6 @@ public class DonorPlaceController {
 	}
 	
 	/**
-	 * 기부 상품 사용처 등록 승인
-	 */
-	@GetMapping("/donorPlacePass")
-	public String donorPlacePass(Model model) {
-		
-		model.addAttribute("title", "FoodRefurb : 기부 사용처 등록 승인");
-		model.addAttribute("titleName", "기부 사용처 등록 승인");
-		
-		return "donations/donorPlacePass";
-	}
-	
-	/**
 	 * 기부 상품 사용처 등록 심사
 	 */
 	@GetMapping("/confirmDonorPlace")

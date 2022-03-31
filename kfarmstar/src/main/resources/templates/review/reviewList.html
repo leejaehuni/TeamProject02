@@ -49,6 +49,7 @@
 							           <th>리뷰내용</th>
 							           <th>평점</th>
 							           <th>리뷰작성자</th>                                                                                                                                                                                                                                                                                                                                                                                           
+							           <th>리뷰작성일자</th>                                                                                                                                                                                                                                                                                                                                                                                           
 							       </tr>
 								</thead>
 								<tbody>
@@ -57,14 +58,15 @@
 									    <td th:text="${l.reviewContent"></td>
 									    <td th:text="${l.reviewScore}"></td>
 									    <td th:text="${l.memberId}"></td>
+									    <td th:text="${l.reviewEntryDate}"></td>
 									</tr>
 								</tbody>
 							</table>
-		 					<div class="list box-footer col-offset-3">
+		 					<div class="list form-group">
 								<div class="pull-right">
-								  <a th:href="@{/}" class="btn btn-success btn-flat"  style="margin-top: 15px; "> 목록</a>
+								  <a th:href="@{/}" class="btn btn-success btn-flat"  style="margin-top: 15px; ">목록</a>
 								</div>
-								<div class="col-sm-7">
+								<div class="pagination col-sm-7">
 									<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
 										<ul class="pagination">
 											<li class="paginate_button previous disabled" id="datatable_previous">

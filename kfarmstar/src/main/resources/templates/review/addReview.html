@@ -8,9 +8,9 @@
 		<title th:text="${title}"></title>
 	</th:block>
 	<th:block layout:fragment="customContents">
-		<link href="/asset/css/review.css" rel="stylesheet"/>
+	 	<link href="/asset/css/review.css" rel="stylesheet"/>
 
-		 	<form class="reviewForm mb-3" name="reviewForm" id="reviewForm" method="post">
+	 	<form class="mb-3" name="addReviewForm" id="addReviewForm" method="post">
 			<fieldset>
 				<span class="text-bold">별점을 선택해주세요</span>
 				<input type="radio" name="reviewStar" value="5" id="rate1"><label
@@ -24,19 +24,18 @@
 				<input type="radio" name="reviewStar" value="1" id="rate5"><label
 					for="rate5">★</label>
 			</fieldset>
-			<div class="form-group row">
+			<div>
+				<textarea class="col-auto form-control" type="text" id="reviewContents"
+						  placeholder="리뷰를 입력해주세요"></textarea>
+			</div>
+			<div class="photoRevlew form-group row">
 			   	<div class="col-md-6 col-sm-6">
 			  	<input multiple="multiple" type="file" name="filename[]" accept=".gif, .jpg, .png" required="required" />
 			  	<span style="font-size:10px; color: gray;">※파일 확장자가 .gif / .jpg / .png 인 파일만 업로드 가능합니다.</span>
 			  	</div>
 			</div>
-			
-			<div>
-				<textarea class="col-auto form-control" type="text" id="reviewContents"
-						  placeholder="리뷰를 남겨주세요"></textarea>
-			</div>
 			<button type="button" class="btn btn-primary" id="btn-update">등록</button>
-               <button type="button" class="btn btn-secondary" id="btn-cancel">취소</button>
+             	<button type="button" class="btn btn-secondary" id="btn-cancel">취소</button>
 		</form>	
 	</th:block>
 </html>

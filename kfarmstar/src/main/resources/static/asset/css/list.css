@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 ul li {
-list-style-type: none;
-float: left;
+  list-style-type: none;
+  float: left;
 }
 
 .reviewList {
@@ -25,4 +25,12 @@ img {
   top: 10px;
   right: 12px;
   margin: 0;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pagination {
+	display: inline-block;
 }
