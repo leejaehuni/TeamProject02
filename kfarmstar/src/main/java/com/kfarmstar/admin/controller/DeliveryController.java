@@ -17,6 +17,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 배송 회사 목록");
 		model.addAttribute("titleName", "배송 회사 목록");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/getCompanyList";
 	}
@@ -29,6 +30,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 회사 정보 조회");
 		model.addAttribute("titleName", "회사 정보 조회");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/getCompany";
 	}
@@ -41,6 +43,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 사원 조회");
 		model.addAttribute("titleName", "사원 조회");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/getEmployee";
 	}
@@ -53,6 +56,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 운송장 조회");
 		model.addAttribute("titleName", "운송장 조회");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/getDelivery";
 	}
@@ -65,6 +69,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 집하 내역 목록 조회");
 		model.addAttribute("titleName", "배송 집하 내역 조회");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/getWarehouseList";
 	}
@@ -77,6 +82,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 회사 선택 목록");
 		model.addAttribute("titleName", "회사 선택 목록");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/addCompanyList";
 	}
@@ -89,6 +95,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 운송장 내역 이용자 체크");
 		model.addAttribute("titleName", "운송장 내역 이용자 체크");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/checkDelivery";
 	}
@@ -101,6 +108,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 집하 내역 이용자 체크");
 		model.addAttribute("titleName", "집하 내역 이용자 체크");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/checkWarehouseList";
 	}
@@ -113,6 +121,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 회사 등록");
 		model.addAttribute("titleName", "회사 등록");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/addCompany";
 	}
@@ -125,6 +134,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 사원 등록");
 		model.addAttribute("titleName", "사원 등록");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/addEmployee";
 	}
@@ -137,6 +147,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 배송 등록");
 		model.addAttribute("titleName", "배송 등록");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/addDelivery";
 	}
@@ -149,6 +160,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 집하 내역 등록");
 		model.addAttribute("titleName", "집하 내역 등록");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/addWarehouse";
 	}
@@ -161,6 +173,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 회사 정보 수정");
 		model.addAttribute("titleName", "회사 정보 수정");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/modifyCompany";
 	}
@@ -173,6 +186,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 사원 정보 수정");
 		model.addAttribute("titleName", "사원 정보 수정");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/modifyWarehouse";
 	}
@@ -185,6 +199,7 @@ public class DeliveryController {
 		
 		model.addAttribute("title", "FoodRefurb : 운송장 정보 수정");
 		model.addAttribute("titleName", "운송장 정보 수정");
+		model.addAttribute("titleMenu", "배송 관리");
 		
 		return "delivery/modifyDelivery";
 	}

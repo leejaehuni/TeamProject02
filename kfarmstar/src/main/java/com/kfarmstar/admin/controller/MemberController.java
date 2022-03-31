@@ -1,28 +1,75 @@
 package com.kfarmstar.admin.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kfarmstar.admin.mapper.MemberMapper;
+import com.kfarmstar.admin.service.MemberService;
+import com.kfarmstar.dto.Member;
+import com.kfarmstar.dto.sellerStore;
+
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 
+	
+	//DI 의존성 주입 생성자 메서드 주입 방식
+	private MemberService memberService;
+	private MemberMapper memberMapper;
+	
+	public MemberController(MemberService memberService, MemberMapper memberMapper) {
+		this.memberService = memberService;
+		this.memberMapper = memberMapper;
+	}
+	
 	@GetMapping("/addMember")
 	public String addMember(Model model) {
 		
-		model.addAttribute("title", "FoodRefurb : 회원 등록");
-		model.addAttribute("titleName", "회원 등록");
+		model.addAttribute("title", "FoodRefurb : 관리자 등록");
+		model.addAttribute("titleName", "관리자 등록");
 		
 		return "member/addMember";
 	}
 	
+	@PostMapping("/addMember")
+	public String addMember(Member member) {
+		
+		log.info("회원가입폼 시작");
+		
+		memberService.addMember(member);
+		
+		log.info("회원가입폼에서 입력받은 데이터:{}", member);
+		
+		return "redirect:/member/memberList";
+	}
+	
 	@GetMapping("/memberList")
-	public String memberList(Model model) {
+	public String memberList(Model model
+							,@RequestParam(value="searchKey", required = false) String searchKey
+							,@RequestParam(value="searchValue", required = false) String searchValue) {
+		
+		log.info("회원목록 요청");
+		log.info("searchValue:{}", searchValue);
+		
+		List<Member> memberList = memberService.getMemberList(searchKey, searchValue);
 		
 		model.addAttribute("title", "FoodRefurb : 회원 목록");
 		model.addAttribute("titleName", "회원 관리");
+		model.addAttribute("memberList", memberList);
+		
 		
 		return "member/memberList";
 	}
@@ -33,6 +80,7 @@ public class MemberController {
 		
 		model.addAttribute("title", "FoodRefurb : 회원 수정");
 		model.addAttribute("titleName", "회원 정보 수정");
+		
 		
 		return "member/modifyMember";
 	}
@@ -121,8 +169,16 @@ public class MemberController {
 	@GetMapping("/sellerStoreInfo")
 	public String sellerStoreInfo(Model model) {
 		
+		
+		List<sellerStore> sellerStoreList = memberService.sellerStoreInfo();
+		
+		//List<sellerStore> sellerStoreList = (List<sellerStore>) resultMap.get("sellerStoreList");
+		
+		log.info("사업장 목록: {}", sellerStoreList);
+		
 		model.addAttribute("title", "FoodRefurb : 사업장 관리");
 		model.addAttribute("titleName", "판매자 사업장 관리");
+		model.addAttribute("sellerStoreList", sellerStoreList);
 		
 		return "member/sellerStoreInfo";
 	}

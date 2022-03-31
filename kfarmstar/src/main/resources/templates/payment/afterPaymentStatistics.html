@@ -7,6 +7,8 @@
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		<!-- datepicker -->
+		<link th:href="@{/build/css/datepicker.css}" rel="stylesheet">
 	</th:block>
 	
 	<!-- 사용자 정의 JsScript 파일-->
@@ -18,6 +20,10 @@
     	<script th:src="@{/vendors/morris.js/morris.min.js}"></script>
     	<!-- Chart.js -->
 		<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+		<!-- 제이쿼리 ui js -->
+	   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+	   	<!-- searchDate -->
+		<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->

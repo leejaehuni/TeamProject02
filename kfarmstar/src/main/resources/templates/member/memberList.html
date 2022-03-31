@@ -10,13 +10,16 @@
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
-		<!-- bootstrap-daterangepicker -->
-		<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+		<!-- datepicker -->
+		<link th:href="@{/build/css/datepicker.css}" rel="stylesheet">
+ 
 	</th:block>
 
 	<th:block layout:fragment="customJsScript">
 		<!-- iCheck -->
 	   	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+	   	<!-- 제이쿼리 ui js -->
+	   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
 	   	<!-- searchDate -->
 		<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
 	</th:block>
@@ -39,16 +42,16 @@
 						<div th:include="member/searchDate :: searchDateFragment"></div>
 						<!-- END : 검색 바 -->
 						<div class="mb-2">
-							<label>권한별 조회</label>
-							<div class="btn-group" data-toggle="buttons">
+							<div class="checkbox">
+								<label>권한별 조회</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option1" class="checkBox"> 구매자
+									<input type="checkbox" name="options" id="option1" class="flat"> 구매자
 								</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option2" class="checkBox"> 판매자
+									<input type="checkbox" name="options" id="option2" class="flat"> 판매자
 								</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option3" class="checkBox"> 관리자
+									<input type="checkbox" name="options" id="option3" class="flat"> 관리자
 								</label>
 							</div>
 						</div>
@@ -68,8 +71,8 @@
 							</div>
 							
 							<div class="form-group col-md-2">
-								<button type="reset" class="btn btn-primary" id="btn_reset" style="float: right;"><i class="fa fa-minus-circle"></i> 초기화</button>
-								<button type="button" class="btn btn-primary" style="float: right;"><i class="fa fa-search"></i> 검색</button>
+								<button type="button" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+								<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
 							</div>
 						</div>
 					</form>
@@ -77,7 +80,7 @@
 				<div class="table-responsive">
 					<div class="clearfix">
                         <div class="float-left">
-                            Total : <span></span>
+                            <span>Total : </span>
                         </div>
                         <div class="float-right pr-2">
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">삭제</button>
@@ -102,50 +105,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="even pointer">
+								<tr class="even pointer" th:each="l : ${memberList}">
 									<td class="a-center">
 										<input type="checkbox" class="flat" name="table_records">
 									</td>
-									<td>
-										id001
-									</td>
-									<td>구매자</td>
-									<td>이재훈</td>
-									<td>010-9515-6785</td>
-									<td>971231</td>
-									<td>2021-11-15 16:38:39</td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.memberLevel}"></td>
+									<td th:text="${l.memberName}"></td>
+									<td th:text="${l.memberPhone}"></td>
+									<td th:text="${l.memberBirth}"></td>
+									<td th:text="${l.memberDate}"></td>
 									<td>
 										<a th:href="@{/member/detailMember}"><button type="button">상세조회</button> </a>
-									</td>
-								</tr>
-								<tr class="odd pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-								<td>
-									id002
-								</td>
-									<td>구매자</td>
-									<td>이까꿍</td>
-									<td>010-8574-6785</td>
-									<td>210414</td>
-									<td>2022-04-28</td>
-									<td>
-										<a th:href="@{member/detailMember}"><button type="button">상세조회</button> </a>
-									</td>
-								</tr>
-								<tr class="even pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>id003</td>
-									<td>판매자</td>
-									<td>홍길동</td>
-									<td>010-7777-7777</td>
-									<td>960428</td>
-									<td>2021-01-01 01:01:01</td>
-									<td>
-										<a th:href="@{member/detailMember}"><button type="button">상세조회</button> </a>
 									</td>
 								</tr>
 							</tbody>

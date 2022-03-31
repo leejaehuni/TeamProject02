@@ -11,13 +11,17 @@
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
-		<!-- bootstrap-daterangepicker -->
-		<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+		<!-- datepicker -->
+		<link th:href="@{/build/css/datepicker.css}" rel="stylesheet">
 	</th:block>
 	
 	<th:block layout:fragment="customJsScript">
 		<!-- iCheck -->
     	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+    	<!-- 제이쿼리 ui js -->
+	   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+	   	<!-- searchDate -->
+		<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
@@ -40,7 +44,7 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-2">
-							<select id=" " class="form-control">
+							<select id=" " class="form-control text-center">
 								<option selected> :: 선택 :: </option>
 								<option>아이디</option>
 								<option>이름</option>
@@ -48,16 +52,24 @@
 								<option>생년월일</option>
 							</select>
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<input type="text" class="form-control" name="searchValue" placeholder="Search"
 							aria-label="Text input with dropdown button">
 						</div>
-						<div class="form-group offset-md-4 col-md-2">
-							<button type="button" class="btn btn-primary" style="float: right;">초기화</button>
-							<button type="button" class="btn btn-primary" style="float: right;">검색</button>
+						<div class="form-group col-md-2">
+							<button type="button" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+							<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
 						</div>
 					</div>
 					<div class="table-responsive">
+						<div class="clearfix">
+							<div class="float-left">
+								<span>Total : </span>
+							</div>
+							<div class="float-right pr-2">
+								<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">삭제</button>
+							</div>
+						</div>	
 						<table class="table table-striped jambo_table bulk_action">
 							<thead>
 								<tr class="headings">
@@ -77,67 +89,23 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="even pointer">
+								<tr th:each="l : ${sellerStoreList}" class="even pointer">
 									<td class="a-center">
 										<input type="checkbox" class="flat" name="table_records">
 									</td>
-									<td>Seller_001</td>
-									<td>id002</td>
-									<td>보노보노 농장</td>
-									<td>전주시 덕진구 덕진동</td>
-									<td>070-1111-1111</td>
-									<td>2022-03-22</td>
-									<td>
-										<a th:href="@{/member/detailSellerStoreInfo}"><button type="button">상세 조회</button></a>
-									</td>
-								</tr>
-								<tr class="odd pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td><a href="#">Seller_001</a></td>
-									<td>id052</td>
-									<td>유리네 농장</td>
-									<td>전주시 덕진구 평화동</td>
-									<td>070-1111-1234</td>
-									<td>2022-03-22</td>
-									<td>
-										<a th:href="@{/member/detailSellerStoreInfo}"><button type="button">상세 조회</button></a>
-									</td>
-								</tr>
-								<tr class="even pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>Seller_003</td>
-									<td>id203</td>
-									<td>지수네 농장</td>
-									<td>전주시 덕진구 중화산동</td>
-									<td>070-9999-1111</td>
-									<td>2022-03-22</td>
-									<td>
-										<a th:href="@{/member/detailSellerStoreInfo}"><button type="button">상세 조회</button></a>
-									</td>
-								</tr>
-								<tr class="odd pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>Seller_004</td>
-									<td>id032</td>
-									<td>재훈이네 농장</td>
-									<td>전주시 덕진구 송천동</td>
-									<td>070-1111-2222</td>
-									<td>2022-03-22</td>
+									<td th:text="${l.sellerStoreNum}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.sellerStoreName}"></td>
+									<td th:text="${l.sellerStoreAddr}"></td>
+									<td th:text="${l.sellerStorePhone}"></td>
+									<td th:text="${l.sellerEntryDate}"></td>
 									<td>
 										<a th:href="@{/member/detailSellerStoreInfo}"><button type="button">상세 조회</button></a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="col-md-1 offset-md-11">
-							<button type="button" class="btn btn-danger">삭제</button>
-						</div>
+						
 					</div>
 					<div class="ln_solid"></div>
 					<nav aria-label="Page navigation example">

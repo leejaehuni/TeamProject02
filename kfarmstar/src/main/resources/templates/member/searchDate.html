@@ -5,31 +5,25 @@
 			<!-- start : 기간 검색 바 -->
 						
 			<div class="form-row mb-2">
-				<div class="col-md-5 col-sm-5 btngroup searchBtn">
+				<div class="col-md-5 col-sm-5 searchBtn">
 					<label>기간 조회</label>
-               		<button type="button" class="btn btn-light btn-xs ml-2 	btn-date" 		name="filterDate" 		value="1">오늘</button>
-               		<button type="button" class="btn btn-light btn-xs 		btn-date" 		name="filterDate" 		value="2">1주</button>
-               		<button type="button" class="btn btn-light btn-xs 		btn-date" 		name="filterDate" 		value="3">1개월</button>
-               		<button type="button" class="btn btn-light btn-xs 		btn-date" 		name="filterDate" 		value="4">3개월</button>
-               		<button type="button" class="btn btn-light btn-xs 		btn-date" 		name="filterDate" 		value="5">6개월</button>
-               		<button type="button" class="btn btn-light btn-xs 		btn-date" 		name="filterDate" 		value="6">1년</button>
+               		<button type="button" class="btn btn-light btn-sm ml-2 	btn-date" 		name="filterDate" 		value="1">오늘</button>
+               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="2">1주</button>
+               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="3">1개월</button>
+               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="4">3개월</button>
+               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="5">6개월</button>
+               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="6">1년</button>
                 </div>
-				<div class="offset-md-1 col-md-2 col-sm-2">
-					<input type="date" class="form-control">
-				</div>
-				<div class="align-self-center">
-					<i class="fa fa-minus"></i>
-				</div>
-				
-				<div class="col-md-2 col-sm-2">
-					<input class="datepicker form-control" placeholder="dd-mm-yyyy"
-						type="date" required="required" onfocus="this.type='date'"
-						onmouseover="this.type='date'" onclick="this.type='date'"
-						onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-				</div>
+					<div class="col-md-2 col-sm-2">
+						<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="startDate">
+					</div>
+					<div class="align-self-center">
+						<i class="fa fa-minus"></i>
+					</div>
+					<div class="col-md-2 col-sm-2">
+						<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="endDate">
+					</div>
 			</div>
-		
-		
 </div>
 			
 			<!-- END : 기간 검색 바 -->
