@@ -1,6 +1,6 @@
 package com.kfarmstar.dto;
 
-public class sellerStore {
+public class SellerStore {
 	private String sellerStoreNum;
 	private String memberId;
 	private String sellerStoreName;

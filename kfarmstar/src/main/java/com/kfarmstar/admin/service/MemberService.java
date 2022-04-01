@@ -1,8 +1,6 @@
 package com.kfarmstar.admin.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kfarmstar.admin.mapper.MemberMapper;
 import com.kfarmstar.dto.Member;
-import com.kfarmstar.dto.sellerStore;
+import com.kfarmstar.dto.SellerGrade;
+import com.kfarmstar.dto.SellerStore;
 
 
 @Service
@@ -25,9 +24,33 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 	
-	public List<sellerStore> sellerStoreInfo(){
+	public SellerGrade getSellerStandardByNum(String sellerGradeNum) {
 		
-		List<sellerStore> sellerStoreList = memberMapper.sellerStoreInfo();
+		return memberMapper.getSellerStandardByNum(sellerGradeNum);
+	}
+	
+	public int modifySellerGrade(SellerGrade sellerGrade) {
+		
+		return memberMapper.modifySellerGrade(sellerGrade);
+	}
+	
+	public List<SellerGrade> sellerStandard(){
+		
+		List<SellerGrade> sellerGradeList = memberMapper.sellerStandard();
+		
+		return sellerGradeList;
+	}
+	
+	public List<Member> searchDate(String searchKey, String searchValue){
+		
+		List<Member> searchDate = memberMapper.searchDate(searchKey, searchValue);
+		
+		return searchDate;
+	}
+	
+	public List<SellerStore> sellerStoreInfo(){
+		
+		List<SellerStore> sellerStoreList = memberMapper.sellerStoreInfo();
 		System.out.println(sellerStoreList.get(0).getSellerStoreNum()+"<- sellerStoreList.get(0).getSellerStoreNum() sellerStoreInfo MemberService.java");
 		//Map<String, Object> resultMap = new HashMap<String, Object>();
 		//Map<String, Object> resultMap = (List<sellerStore>)memberMapper.sellerStoreInfo();

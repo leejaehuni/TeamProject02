@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kfarmstar.admin.mapper.MemberMapper;
 import com.kfarmstar.admin.service.MemberService;
 import com.kfarmstar.dto.Member;
-import com.kfarmstar.dto.sellerStore;
+import com.kfarmstar.dto.SellerGrade;
+import com.kfarmstar.dto.SellerStore;
 
 
 @Controller
@@ -33,6 +35,19 @@ public class MemberController {
 	public MemberController(MemberService memberService, MemberMapper memberMapper) {
 		this.memberService = memberService;
 		this.memberMapper = memberMapper;
+	}
+	
+	@PostMapping("/idCheck")
+	@ResponseBody
+	public boolean isIdCheck(@RequestParam(value = "memberId") String memberId) {
+		boolean idCheck = false;
+		log.info("아이디중복체크 클릭시 요청받은 memberId의 값: {}", memberId);
+		
+		boolean result = memberMapper.isIdCheck(memberId);
+		if(result) idCheck = true;
+		
+		log.info("아이디중복체크 여부 : {}", result);
+		return idCheck;
 	}
 	
 	@GetMapping("/addMember")
@@ -74,6 +89,18 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
+	@PostMapping("/searchDate")
+	@ResponseBody
+	public List<Member> searchDate(@RequestParam(value="searchKey", required = false) String searchKey
+							,@RequestParam(value = "searchValue", required = false) String searchValue) {
+		
+		log.info("기간검색");
+		log.info("searchValue:{}", searchValue);
+		
+		List<Member> searchDate = memberService.searchDate(searchKey, searchValue);
+		
+		return searchDate;
+	}
 	
 	@GetMapping("/modifyMember")
 	public String modifyMember(Model model) {
@@ -95,10 +122,19 @@ public class MemberController {
 	}
 	
 	@GetMapping("/detailMember")
-	public String getDetailMemberInfo(Model model) {
+	public String getDetailMemberInfo(Model model
+									,@RequestParam(value="searchKey", required = false) String searchKey
+									,@RequestParam(value="searchValue", required = false) String searchValue) {
+		
+		
+		log.info("상세회원목록 요청");
+		log.info("searchValue:{}", searchValue);
+		
+		List<Member> detailMemberList = memberService.getMemberList(searchKey, searchValue);
 		
 		model.addAttribute("title", "FoodRefurb : 회원 정보");
 		model.addAttribute("titleName", "회원 상세정보");
+		model.addAttribute("detailMemberList", detailMemberList);
 		
 		return "member/detailMember";
 	}
@@ -124,28 +160,38 @@ public class MemberController {
 	@GetMapping("/sellerGrade")
 	public String sellerGrade(Model model) {
 		
+		List<SellerGrade> sellerGradeList = memberService.sellerStandard();
+		
+		log.info("회원등급목록:{}", sellerGradeList);
+		
 		model.addAttribute("title", "FoodRefurb : 회원 등급");
 		model.addAttribute("titleName", "회원 등급 혜택 및 기준");
+		model.addAttribute("sellerGradeList", sellerGradeList);
 		
 		return "member/sellerGrade";
 	}
 	
-	@GetMapping("/modifySellerGradeCriteria")
-	public String modifySellerGrade(Model model) {
+	@GetMapping("/modifySellerGrade")
+	public String modifySellerGrade(Model model
+									,@RequestParam(name="sellerGradeNum", required = false) String sellerGradeNum) {
+		
+		SellerGrade sellerGrade = memberService.getSellerStandardByNum(sellerGradeNum);
 		
 		model.addAttribute("title", "FoodRefurb : 등급 기준 수정");
 		model.addAttribute("titleName", "등급 기준 수정");
+		model.addAttribute("sellerGrade", sellerGrade);
 		
-		return "member/modifySellerGradeCriteria";
+		return "member/modifySellerGrade";
 	}
 	
-	@GetMapping("/modifySellerGradeBenefit")
-	public String modifySellerGradeBenefit(Model model) {
+	@PostMapping("/modifySellerGrade")
+	public String modifySellerGrade(SellerGrade sellerGrade) {
 		
-		model.addAttribute("title", "FoodRefurb : 등급 혜택 수정");
-		model.addAttribute("titleName", "등급 혜택 수정");
+		log.info("판매자 기준 정보:{}", sellerGrade);
 		
-		return "member/modifySellerGradeBenefit";
+		memberService.modifySellerGrade(sellerGrade);
+		
+		return "redirect:/member/sellerGrade";
 	}
 	
 	@GetMapping("/removeSellerGradeCriteria")
@@ -170,7 +216,7 @@ public class MemberController {
 	public String sellerStoreInfo(Model model) {
 		
 		
-		List<sellerStore> sellerStoreList = memberService.sellerStoreInfo();
+		List<SellerStore> sellerStoreList = memberService.sellerStoreInfo();
 		
 		//List<sellerStore> sellerStoreList = (List<sellerStore>) resultMap.get("sellerStoreList");
 		

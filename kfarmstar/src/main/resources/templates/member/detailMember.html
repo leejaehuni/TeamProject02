@@ -14,10 +14,13 @@
 	
 	<!-- 사용자 정의 JsScript 파일-->
 	<th:block layout:fragment="customJsScript">
+		<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
+		<script>
+		</script>
 	</th:block>
 
 	<th:block layout:fragment="customContents">
@@ -50,7 +53,7 @@
 										</div>
 									</td>
 								</tr>
-								<tr>
+								<tr th:each="l : ${detailMemberList}">
 									<th scope="row">회원 정보</th>
 									<td>
 										<div class="form-group row">
@@ -58,7 +61,7 @@
 												<label class="control-label">아이디</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" value="id001" readonly="readonly">
+												<input type="text" class="form-control" th:value="${l.memberId}" readonly="readonly">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -90,14 +93,8 @@
 											<div class="col-md-2 col-sm-2">
 												<label class="control-label">회원 주소</label>
 											</div>
-											<div class="col-md-2 col-sm-2">
-												<input type="text" class="form-control" readonly="readonly">
-											</div>
-											<div class="align-self-center">
-												<i class="fa fa-minus"></i>
-											</div>
-											<div class="col-md-2 col-sm-2">
-												<input type="text" class="form-control" readonly="readonly">
+											<div class="col-md-4 col-sm-4">
+												<input type="text" class="form-control" placeholder="우편번호">
 											</div>
 											<div class="col-md-3 col-sm-3">
 												<a href="#"><button type="button" class="btn btn-info">우편번호찾기</button></a>
@@ -105,12 +102,12 @@
 										</div>
 										<div class="form-group row">
 											<div class="col-md-6 offset-md-2">
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" placeholder="주소">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-6 offset-md-2">
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" placeholder="상세주소">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -147,7 +144,8 @@
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
 								삭제
 							</button>
-							<button type="submit" class="btn btn-success">수정</button>
+							<button type="button" class="btn btn-success">수정</button>
+							<button type="submit" class="btn btn-info">저장</button>
 						</div>
 					</div>
 					</form>

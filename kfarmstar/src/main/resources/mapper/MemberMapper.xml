@@ -4,8 +4,31 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.admin.mapper.MemberMapper">
 	
+	<resultMap type="SellerGrade" id="sellerStandardMap">
+		<result column="seller_grade_num" 				property="sellerGradeNum"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="grade_type" 					property="gradeType"/>
+		<result column="sell_count" 					property="sellCount"/>
+		<result column="sell_amount" 					property="sellAmount"/>
+		<result column="seller_starpoint_standard" 		property="sellerStarpointStandard"/>
+		<result column="seller_ad_discount" 			property="sellerAdDiscount"/>
+		<result column="delivery_price_discount" 		property="deliveryPriceDiscount"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 			property="memberId"/>
+			<result column="member_name" 		property="memberName"/>
+			<result column="member_level" 		property="memberLevel"/>
+			<result column="member_pw" 			property="memberPw"/>
+			<result column="member_nickname" 	property="memberNickname"/>
+			<result column="member_phone" 		property="memberPhone"/>
+			<result column="member_birth" 		property="memberBirth"/>
+			<result column="member_email" 		property="memberEmail"/>
+			<result column="member_point" 		property="memberPoint"/>
+			<result column="member_date" 		property="memberDate"/>
+		</association>
+	</resultMap>
+	
 	<resultMap type="Member" id="memberResultMap">
-		<result 	column="member_id" 			property="memberId"/>
+		<result column="member_id" 			property="memberId"/>
 		<result column="member_name" 		property="memberName"/>
 		<result column="member_level" 		property="memberLevel"/>
 		<result column="member_pw" 			property="memberPw"/>
@@ -40,6 +63,106 @@
 		</association>
 	</resultMap>
 	
+	<select id="getMemberInfoById" parameterType="String" resultMap="memberResultMap">
+		/* 회원별 회원 정보 조회*/
+		SELECT
+		     member_id
+		    ,m.member_name
+			,m.member_level
+			,m.member_pw
+			,m.member_nickname
+			,m.member_addr
+			,m.member_phone
+			,m.member_birth
+			,m.member_email
+			,m.member_point
+			,m.member_date   
+		FROM
+		   member AS m
+		WHERE
+		   m.m_id = #{memberId};
+	</select>
+	
+	<update id="modifySellerGrade" parameterType="SellerGrade">
+		/* 판매자 기준 수정 */
+		UPDATE seller_standard_benefit
+			SET
+				seller_grade_num = #{sellerGradeNum},
+				grade_type = #{gradeType},
+				sell_count = #{sellCount},
+				sell_amount = #{sellAmount},
+				seller_starpoint_standard = #{sellerStarpointStandard},
+				seller_ad_discount = #{sellerAdDiscount},
+				delivery_price_discount = #{deliveryPriceDiscount}
+			WHERE 
+				seller_grade_num = #{sellerGradeNum}
+	</update>
+	
+	<select id="getSellerStandardByNum" parameterType="String" resultMap="sellerStandardMap">
+		SELECT
+			 s.seller_grade_num
+			,s.member_id
+			,s.grade_type
+			,s.sell_count
+			,s.sell_amount
+			,s.seller_starpoint_standard
+			,s.seller_ad_discount
+			,s.delivery_price_discount
+		FROM
+			seller_standard_benefit AS s
+		WHERE
+			s.seller_grade_num = #{sellerGradeNum};
+	</select>
+	
+	<select id="sellerStandard" resultMap="sellerStandardMap">
+		/* 판매자 등급 기준 및 혜택 */
+		SELECT
+			 s.seller_grade_num
+			,s.member_id
+			,s.grade_type
+			,s.sell_count
+			,s.sell_amount
+			,s.seller_starpoint_standard
+			,s.seller_ad_discount
+			,s.delivery_price_discount
+		FROM
+			seller_standard_benefit AS s
+			INNER JOIN
+			member AS m
+			ON
+			s.member_id = m.member_id;
+	</select>
+	
+	<select id="searchDate" resultMap="memberResultMap">
+		/* 기간 조회 */
+		SELECT
+		    member_id,
+			member_name,
+			member_level,
+			member_pw,
+			member_nickname,
+			member_addr,
+			member_phone,
+			member_birth,
+			member_email,
+			member_point,
+			member_date 
+		FROM
+		   member
+		WHERE
+		   member_date >= #{memberDate};
+	</select>
+	
+	<select id="isIdCheck" parameterType="String" resultType="boolean">
+		/* 회원 아이디 중복 체크 */
+		SELECT
+			IF(COUNT(1) = 1, 0, 1)
+		FROM 
+		   member AS m
+		WHERE 
+		   m.member_id = #{memberId};
+	</select>
+	
 	<insert id="addMember" parameterType="Member">
 		/* 관리자 회원 가입 */
 		INSERT INTO member
@@ -72,17 +195,18 @@
 	
 	<select id="sellerStoreInfo" resultMap="sellerResultMap" fetchSize="1000">
 		/* 사업장 목록 조회 */
-		SELECT 
+		SELECT
 			 s.seller_store_num
 			,s.member_id
 			,s.seller_store_name
+			,s.seller_license_img
 			,s.seller_license_num
 			,s.seller_store_phone
 			,s.seller_entry_date
+			,s.seller_store_img
 			,s.seller_store_addr
 			,s.seller_tax_type
-		FROM
-			seller_store AS s
+		FROM seller_store AS s
 			INNER JOIN
 			member AS m
 			ON

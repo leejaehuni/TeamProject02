@@ -1,4 +1,10 @@
 $(document).ready(function(){
+	
+	let today = new Date();
+	let newDay = new Date(today);
+	
+	newDay.setDate(today.getDate() + 3);
+	
     //btn_reset 을 클릭했을때의 함수
     $( "#btn_reset").click(function () {
         $( "#reset_form" ).each( function () {
@@ -11,19 +17,21 @@ $(document).ready(function(){
         console.log('1-1 btn-light == '+ $(this).hasClass('btn-light'));
         console.log('1-2 btn-primary == '+ $(this).hasClass('btn-primary'));
         
-         if($(this).hasClass('btn-light') == true && $(this).hasClass('btn-primary') == false ){
-           $('.searchBtn').find('button').removeClass('btn-primary');
-           $(this).removeClass('btn-light').addClass('btn-primary');
-           
-         }else if($(this).hasClass('btn-light') == false && $(this).hasClass('btn-primary') == false ){
-           $('.searchBtn').find('button').removeClass('btn-primary');
-           $(this).removeClass('btn-light').addClass('btn-primary');
-         }else {
-            $('.searchBtn').find('button').removeClass('btn-light');
-           $(this).removeClass('btn-primary').addClass('btn-light');
-           
-         }
+        
+		if($(this).hasClass('btn-light') == true && $(this).hasClass('btn-primary') == false ){
+			$('.searchBtn').find('button').removeClass('btn-primary');
+			$(this).removeClass('btn-light').addClass('btn-primary');
+		   
+		}else if($(this).hasClass('btn-light') == false && $(this).hasClass('btn-primary') == false ){
+			$('.searchBtn').find('button').removeClass('btn-primary');
+			$(this).removeClass('btn-light').addClass('btn-primary');
+		}else {
+			$('.searchBtn').find('button').removeClass('btn-light');
+			$(this).removeClass('btn-primary').addClass('btn-light');
+		}
      });
+    
+    
     
     function timeFunctionLong(input) {
 		setTimeout(function() {
@@ -50,6 +58,8 @@ $(document).ready(function(){
                 $("#startDate").datepicker( "option", "maxDate", selectedDate );
             }                
         });
+        
+        
     });
     
     $.datepicker.setDefaults({
@@ -65,8 +75,6 @@ $(document).ready(function(){
         yearSuffix: '년'
     });
     
-    
-    
-    
-    
 });
+
+

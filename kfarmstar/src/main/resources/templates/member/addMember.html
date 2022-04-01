@@ -10,6 +10,9 @@
 
 	<!-- 사용자 정의 Css -->
 	<th:block layout:fragment="customCss">
+	<style>
+		.form-group{margin-top: 30px;}
+	</style>
 	</th:block>
 	
 	<!-- 사용자 정의 JsScript 파일-->
@@ -20,10 +23,69 @@
 	<th:block layout:fragment="customScript">
 		<script>
 			$(function(){
+				
+				function validationCheck(data){
+					if(typeof data == 'undefined' || data == '' || data == null){
+						return false;
+					}
+					return true;
+				}
+				
+				$('#idCheck').click(function(){
+					var memberId = $('input[name="memberId"]').val();
+					//console.log(validationCheck(memberId));
+					var vCheck = validationCheck(memberId);
+					if(vCheck){
+						$.ajax({
+							 url: '/member/idCheck'
+							,type: 'POST'
+							,data: {'memberId' : memberId}
+							,dataType: 'json'
+							,success: function(data){
+								console.log(data);
+								// 화면에서 맨처음 아이디를 제외한 모든 입력하는 요소는 비활성화 (HTML 속성 추가 disabled="disabled") 
+								// 아이디 중복이 발생 않은 경우(회원가입 O) 입력하는 요소는 활성화
+								if(data){
+									$('#idCheckResult').text('사용 가능한 아이디 입니다.');
+									$('#addMemberForm input').prop('disabled', false);
+									$('#addMemberForm select').prop('disabled', false);
+									$('#addMemberForm button').prop('disabled', false);
+								}else{									
+									// 아이디 중복이 발생하는 경우(회원가입 X) 입력하는 요소는 비활성화
+									$('#idCheckResult').text('중복된 아이디가 있습니다.');
+									$('#idCheckResult').attr('color','red');
+									$('#addMemberForm input').not('input[name="memberId"]').prop('disabled', true);
+									$('#addMemberForm button').not('#idCheck').prop('disabled', true);
+									$('#addMemberForm select').prop('disabled', true);
+								}
+							}
+						});
+					}
+					
+				});
+				
 				$('#addMemberBtn').click(function(){
-					$('#addMemberForm').submit();
-				})
-			})
+					var isSubmit = true;
+					var inputObj = $('#addMemberForm').find('input');
+					
+					$.each(inputObj, function(){
+						var inputData = $(this).val();
+						var result = validationCheck(inputData);
+						
+						// 사용자가 입력하지 않은 경우
+						if(!result){
+							alert('필수 항목입니다. 입력해주세요');
+							$(this).focus();
+							isSubmit = false;
+							return false;
+						}
+					});
+					
+					console.log('유효여부 폼전송할건지?' + isSubmit )
+					
+					if(isSubmit) $('#addMemberForm').submit();
+				});
+			});
 		</script>
 	</th:block>
 	 
@@ -46,6 +108,9 @@
 								</div>
 								<div class="col-md-3 col-sm-3">
 									<button type="button" class="btn-primary form-control" id="idCheck">중복체크</button>
+								</div>
+								<div class="offset-md-3">
+									<span id="idCheckResult"></span>
 								</div>
 							</div>
 							<div class="form-group row add-member">

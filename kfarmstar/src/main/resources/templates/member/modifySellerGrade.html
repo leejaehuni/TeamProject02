@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	
+	<th:block layout:fragment="customCss">
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+		<!-- iCheck -->
+    	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+	</th:block>
+	
+	<!-- 사용자 정의 Script-->
+	<th:block layout:fragment="customScript">
+	</th:block>	
+	 
+	<th:block layout:fragment="customContents">
+		<div class="container row">
+			<div class="offset-md-3 col-md-6 offset-md-3">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>등급 기준 수정<small>revision of rating standards</small></h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<form class="form-horizontal form-label-left" th:action="@{/member/modifySellerGrade}" method="post">
+							<div class="form-group row add-member" style="display: none;">
+								<label class="control-label col-md-2 col-sm-2 " for="sellerGradeNum">등급번호</label>
+								<div class="col-md-9 col-sm-9">
+									<input type="text" class="form-control" name="sellerGradeNum" th:value="${sellerGrade.sellerGradeNum}">
+								</div>
+							</div>
+							<div class="form-group row add-member">
+								<label class="control-label col-md-2 col-sm-2" for="gradeType">등급이름</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" name="gradeType" th:value="${sellerGrade.gradeType}">
+								</div>
+							</div>
+							<div class="form-group row add-member">
+								<label class="control-label col-md-2 col-sm-2" for="sellerAdDiscount">광고 할인율</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" name="sellerAdDiscount" th:value="${sellerGrade.sellerAdDiscount}">
+								</div>
+							</div>
+							<div class="form-group row add-member">
+								<label class="control-label col-md-2 col-sm-2" for="deliveryPriceDiscount">배송 단가 할인율</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" name="deliveryPriceDiscount" th:value="${sellerGrade.deliveryPriceDiscount}">
+								</div>
+							</div>
+							<div class="form-group row add-member">
+								<label class="control-label col-md-2 col-sm-2" for="sellCount">판매횟수</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" name="sellCount" th:value="${sellerGrade.sellCount}">
+								</div>
+							</div>
+							<div class="form-group row add-member">
+								<label class="control-label col-md-2 col-sm-2" for="sellAmount">판매금액</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" name="sellAmount" th:value="${sellerGrade.sellAmount}">
+								</div>
+							</div>
+							<div class="form-group row add-member">
+								<label class="control-label col-md-2 col-sm-2" for="sellerStarpointStandard">별점기준</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" name="sellerStarpointStandard" th:value="${sellerGrade.sellerStarpointStandard}">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 offset-md-3">
+									<button type="button" class="btn btn-primary">취소</button>
+									<button type="submit" class="btn btn-success">기준수정</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+</html>
