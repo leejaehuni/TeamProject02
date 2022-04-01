@@ -38,37 +38,38 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<h2>
-							Bordered table <small>Bordered table subtitle</small>
-						</h2>
 						<ul class="nav navbar-right panel_toolbox">
 		
 						</ul>
 						<div class="clearfix"></div>
 					</div>
-					<div class="box-body" style="padding-top: 20px;">
+					<div class="box-body row" style="padding-top: 20px;">
 						<ul class="sub_depth">
-							<li><a href="/" data-catecnt="2">Home</a> <span
+							<li><a href="/" data-catecnt="2"> | Home | </a><span
 								class="icon-arrow-right" data-cnt=""></span></li>
-							<li><a href="/shop" class=" ">기부 상품 관리</a> <span
+							<li><a href="/shop" class=" "> | 기부 상품 관리 | </a> <span
 								class="icon-arrow-right"></span></li>
-							<li><a href="/21" class="active ">기부 상품 관리</a></li>
+							<li><a href="/21" class="active "> | 기부 상품 목록 | </a></li>
 						</ul>
 					</div>
 					<div class="table-responsive m-t-40">
-						<div class="dataTables_length" id="datatable_length">
-							<label>한 줄에 <select name="datatable_length"
-								aria-controls="datatable" class="form-control input-sm">
-									<option value="10">10</option>
-									<option value="25">25</option>
-									<option value="50">50</option>
-									<option value="100">100</option>
-							</select>줄씩 보이기
-							</label>
-						</div>
-						<div class="donorGoodsList">
-						  <input type="text" placeholder="검색어 입력">
-						  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+						<div class="form-group row">
+							<div class="dataTables_length col-md-3" id="datatable_length">
+								<label>한 줄에 <select name="datatable_length"
+									aria-controls="datatable" class="form-control input-sm">
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select>줄씩 보이기
+								</label>
+							</div>
+							<div class="col-md-6">
+							</div>
+							<div class="donorSearch col-md-3">
+							  <input type="text" placeholder="검색어 입력">
+							  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+							</div>
 						</div>
 						<div class="x_content">
 		
@@ -96,9 +97,6 @@
 								</tbody>
 							</table>
 							<div class="list form-group">
-								<div class="pull-right">
-								  <a th:href="@{/}" class="btn btn-success btn-flat"  style="margin-top: 15px; ">목록</a>
-								</div>
 								<div class="pagination col-sm-7">
 									<div class="dataTables_paginate paging_simple_numbers"
 										id="datatable_paginate">

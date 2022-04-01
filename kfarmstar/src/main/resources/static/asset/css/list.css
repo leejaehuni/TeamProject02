@@ -11,6 +11,10 @@ ul li {
   float: right;
 }
 
+.donorSearch {
+  float: right;
+}
+
 input {
   width: 100%;
   border: 1px solid #bbb;
@@ -27,9 +31,6 @@ img {
   margin: 0;
 }
 
-.pull-right {
-  float: right;
-}
 
 .pagination {
 	display: inline-block;

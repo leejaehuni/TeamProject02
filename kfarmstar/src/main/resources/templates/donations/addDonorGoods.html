@@ -7,6 +7,17 @@
 		<title th:text="${title}"></title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+		<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+		<link rel="stylesheet" type="text/css" href="asset/css/list.css">
+		<div class="box-body row" style="padding-top: 20px;">
+			<ul class="sub_depth">
+				<li><a href="/" data-catecnt="2"> | Home | </a><span
+					class="icon-arrow-right" data-cnt=""></span></li>
+				<li><a href="/shop" class=" "> | 기부 상품 관리 | </a> <span
+					class="icon-arrow-right"></span></li>
+				<li><a href="/21" class="active "> | 기부 상품 목록 | </a></li>
+			</ul>
+		</div>
 		<div class="container">
 		    <form id="addDonorGoodsForm" th:action="@{donations/addDonorGoods}" method="post"  enctype="multipart/form-data">
 		    	<div class="field item form-group">
@@ -21,21 +32,21 @@
                          <input class="form-control" name="goodsDonationName" data-validate-length-range="5,15" type="text">
                      </div>
                  </div>
-                <div class="field item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 내용</strong><span class="required">*</span></label>
-                     <div class="col-md-6 col-sm-6">
-                         <input class="form-control" name="donationContent" data-validate-length-range="5,15" type="text">
-                     </div>
-                </div>
 		        <div class="field item form-group">
                      <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품갯수</strong><span class="required">*</span></label>
                      <div class="col-md-6 col-sm-6">
                          <input class="form-control" name="goodsDonationCount" data-validate-length-range="5,15" type="text">
                      </div>
                 </div>
+                <div class="field item form-group">
+                     <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 내용</strong><span class="required"></span></label>
+                     <div class="col-md-6 col-sm-6">
+                          <textarea type="text" required="required" name="introduction"></textarea>
+                     </div>
+                </div>
 		        <div class="form-group row">
 				  <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사진</strong></label>>
-				   	<div class="col-md-6 col-sm-6">
+				   	<div class="col-md-7 col-sm-6">
 				  	<input multiple="multiple" type="file" name="filename[]" accept=".gif, .jpg, .png" required="required" />
 				  	<span style="font-size:10px; color: gray;">※파일 확장자가 .gif / .jpg / .png 인 파일만 업로드 가능합니다.</span>
 				  	</div>

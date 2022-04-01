@@ -7,7 +7,18 @@
 		<title th:text="${title}"></title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+		<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+		<link rel="stylesheet" type="text/css" href="asset/css/list.css">
 		<div class="container">
+			<div class="box-body row" style="padding-top: 20px;">
+				<ul class="sub_depth">
+					<li><a href="/" data-catecnt="2"> | Home | </a><span
+						class="icon-arrow-right" data-cnt=""></span></li>
+					<li><a href="/shop" class=" "> | 기부 상품 관리 | </a> <span
+						class="icon-arrow-right"></span></li>
+					<li><a href="/21" class="active "> | 기부 상품 수정 | </a></li>
+				</ul>
+			</div>	
 		    <form id="modifyDonorGoodsForm" th:action="@{donations/modifyDonorGoodsForm}" method="post">
 		    	<div class="field item form-group">
                     <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자 아이디</strong><span class="required">*</span></label>
