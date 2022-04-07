@@ -34,92 +34,83 @@
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
 			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
-			<link rel="stylesheet" type="text/css" href="asset/css/list.css">
 			<div class="col-md-12 col-sm-12">
 				<div class="x_panel">
 					<div class="x_title">
-						<ul class="nav navbar-right panel_toolbox">
 		
-						</ul>
-						<div class="clearfix"></div>
+						<!-- START : 화면 경로
+				                 ============================== -->
+						<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+						<!-- END : 화면 경로
+				                 ============================== -->
+		
 					</div>
-					<div class="box-body row" style="padding-top: 20px;">
-						<ul class="sub_depth">
-							<li><a href="/" data-catecnt="2"> | Home | </a><span
-								class="icon-arrow-right" data-cnt=""></span></li>
-							<li><a href="/shop" class=" "> | 기부 상품 관리 | </a> <span
-								class="icon-arrow-right"></span></li>
-							<li><a href="/21" class="active "> | 기부 상품 목록 | </a></li>
-						</ul>
-					</div>
-					<div class="table-responsive m-t-40">
-						<div class="form-group">
-							<div class="donorSearch col-md-3 row">
-							  <input type="text" placeholder="검색어 입력">
-							  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-							</div>
-							<div class="dataTables_length col-md-3" id="datatable_length">
-								<label>한 줄에 <select name="datatable_length"
-									aria-controls="datatable" class="form-control input-sm">
-										<option value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-								</select>줄씩 보이기
-								</label>
-							</div>
+					<div class="form-group">
+						<div class="donorSearch col-md-3 row">
+							<input type="text" placeholder="검색어 입력"> <img
+								src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
 						</div>
-						<div class="x_content">
-		
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>기부 상품 번호</th>
-										<th>기부 상품 사진</th>
-										<th>기부 상품명</th>
-										<th>기증자 아이디</th>
-										<th>기부 상품 배송 방법</th>
-										<th>기부 신청 등록 일자</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="l : ${donorGoodsList}">
-										<td th:text="${l.donationBoardCode}"></td>
-										<td th:text="${l.goodsDonationImg}"></td>
-										<td th:text="${l.goodsDonationName}"></td>
-										<td th:text="${l.memberId}"></td>
-										<td th:text="${l.goodsDonationDeliveryWay}"></td>
-										<th th:text="${l.donationRequestEntryDate}"></th>
-									</tr>
-								</tbody>
-							</table>
-							<div class="list form-group">
-								<div class="pagination col-sm-7">
-									<div class="dataTables_paginate paging_simple_numbers"
-										id="datatable_paginate">
-										<ul class="pagination">
-											<li class="paginate_button previous disabled"
-												id="datatable_previous"><a href="#"
-												aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-											</li>
-											<li class="paginate_button active"><a href="#"
-												aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
-											<li class="paginate_button next" id="datatable_next"><a
-												href="#" aria-controls="datatable" data-dt-idx="7"
-												tabindex="0">Next</a></li>
-										</ul>
-									</div>
+						<div class="dataTables_length col-md-3" id="datatable_length">
+							<label>한 줄에 <select name="datatable_length"
+								aria-controls="datatable" class="form-control input-sm">
+									<option value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option>
+							</select>줄씩 보이기
+							</label>
+						</div>
+					</div>
+					<div class="x_content">
+	
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>기부 상품 번호</th>
+									<th>기부 상품 사진</th>
+									<th>기부 상품명</th>
+									<th>기증자 아이디</th>
+									<th>기부 상품 배송 방법</th>
+									<th>기부 신청 등록 일자</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="l : ${donorGoodsList}">
+									<td th:text="${l.donationBoardCode}"></td>
+									<td th:text="${l.goodsDonationImg}"></td>
+									<td th:text="${l.goodsDonationName}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.goodsDonationDeliveryWay}"></td>
+									<th th:text="${l.donationRequestEntryDate}"></th>
+								</tr>
+							</tbody>
+						</table>
+						<div class="list form-group" style=" text-align: center;">
+							<div class="pagination">
+								<div class="dataTables_paginate paging_simple_numbers"
+									id="datatable_paginate">
+									<ul class="pagination">
+										<li class="paginate_button previous disabled"
+											id="datatable_previous"><a href="#"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+										</li>
+										<li class="paginate_button active"><a href="#"
+											aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
+										<li class="paginate_button next" id="datatable_next"><a
+											href="#" aria-controls="datatable" data-dt-idx="7"
+											tabindex="0">Next</a></li>
+									</ul>
 								</div>
 							</div>
 						</div>

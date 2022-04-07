@@ -2,78 +2,114 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/default}">
-	<!-- 사용자 정의 title -->
-	<th:block layout:fragment="customTitle">
-		<title th:text="${title}"></title>
-	</th:block>
-	<th:block layout:fragment="customContents">
-		<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
-		<link rel="stylesheet" type="text/css" href="asset/css/list.css">
-		<div class="container">
-			<div class="box-body row" style="padding-top: 20px;">
-				<ul class="sub_depth">
-					<li><a href="/" data-catecnt="2"> | Home | </a><span
-						class="icon-arrow-right" data-cnt=""></span></li>
-					<li><a href="/shop" class=" "> | 기부 상품 관리 | </a> <span
-						class="icon-arrow-right"></span></li>
-					<li><a href="/21" class="active "> | 기부 상품 수정 | </a></li>
-				</ul>
-			</div>	
-		    <form id="modifyDonorGoodsForm" th:action="@{donations/modifyDonorGoodsForm}" method="post">
-		    	<div class="field item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자 아이디</strong><span class="required">*</span></label>
-                    <div class="col-md-6 col-sm-6">
-                        <input class="form-control" data-validate-length-range="6" data-validate-words="2" th:value="${session.SID}" name="memberId" required="required">
-                    </div>
-                </div>
-                <div class="field item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품명</strong><span class="required">*</span></label>
-                     <div class="col-md-6 col-sm-6">
-                         <input class="form-control" name="goodsDonationName" data-validate-length-range="5,15" type="text">
-                     </div>
-                 </div>
-                <div class="field item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 내용</strong><span class="required">*</span></label>
-                     <div class="col-md-6 col-sm-6">
-                         <input class="form-control" name="donationContent" data-validate-length-range="5,15" type="text">
-                     </div>
-                </div>
-		        <div class="field item form-group">
-                     <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품갯수</strong><span class="required">*</span></label>
-                     <div class="col-md-6 col-sm-6">
-                         <input class="form-control" name="goodsDonationCount" data-validate-length-range="5,15" type="text">
-                     </div>
-                </div>
-		        <div class="field item form-group">
-					<label for="heard" class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong></label>
-					<select id="heard" class="form-control col-md-6 col-sm-6" required>
-						<option value="k1">택배</option>
-						<option value="k2">직접배송</option>
-						<option value="k3">방문수령</option>
-					</select>
+		
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<div class="container">
+				<div class="x_title">
+		
+					<!-- START : 화면 경로
+				                 ============================== -->
+					<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+					<!-- END : 화면 경로
+				                 ============================== -->
+		
 				</div>
-		        <div class="field item form-group">
-				  <label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부 상품 사진</strong></label>>
-				  	<button id="btn-upload" type="button" style="border: 1px solid #ddd; outline: none;">파일 추가</button>
-				  	<input id="input_file col-md-6 col-sm-6" multiple="multiple" type="file" style="display:none;">
-				  	<span style="font-size:10px; color: gray;">※사진첨부는 최대 10개까지 등록이 가능합니다.</span>
-				  	<div class="data_file_txt" id="data_file_txt" style="margin:40px;">
-						<span>첨부 파일</span>
-						<br />
-						<div id="articlefileChange">
+				<form id="modifyDonorGoodsForm"
+					th:action="@{donations/modifyDonorGoodsForm}" method="post">
+					<div class="field item form-group">
+						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자
+								아이디</strong><span class="required">*</span></label>
+						<div class="col-md-6 col-sm-6">
+							<input class="form-control" data-validate-length-range="6"
+								data-validate-words="2" th:value="${session.SID}" name="memberId"
+								required="required">
 						</div>
 					</div>
-				  	<button type="submit" style="border: 1px solid #ddd; outline: none;">전송</button>
-				</div>
-		       	<div class="modifyDonorGoodsBtn">
-	            	<div class="form-group">
-		                <div class="col-md-6 offset-md-5">
-		                    <button type="button" class="btn btn-primary" id="btn-update">수정</button>
-		                    <button type="button" class="btn btn-secondary" id="btn-cancel">취소</button>
-		                </div>
-		            </div>
-		        </div>
-		    </form>
+					<div class="field item form-group">
+						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+								상품명</strong><span class="required">*</span></label>
+						<div class="col-md-6 col-sm-6">
+							<input class="form-control" name="goodsDonationName"
+								data-validate-length-range="5,15" type="text">
+						</div>
+					</div>
+					<div class="field item form-group">
+						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+								내용</strong><span class="required">*</span></label>
+						<div class="col-md-6 col-sm-6">
+							<input class="form-control" name="donationContent"
+								data-validate-length-range="5,15" type="text">
+						</div>
+					</div>
+					<div class="field item form-group">
+						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+								상품갯수</strong><span class="required">*</span></label>
+						<div class="col-md-6 col-sm-6">
+							<input class="form-control" name="goodsDonationCount"
+								data-validate-length-range="5,15" type="text">
+						</div>
+					</div>
+					<div class="field item form-group">
+						<label for="heard"
+							class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong></label>
+						<select id="heard" class="form-control col-md-6 col-sm-6" required>
+							<option value="k1">택배</option>
+							<option value="k2">직접배송</option>
+							<option value="k3">방문수령</option>
+						</select>
+					</div>
+					<div class="field item form-group">
+						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+								상품 사진</strong></label>>
+						<button id="btn-upload" type="button"
+							style="border: 1px solid #ddd; outline: none;">파일 추가</button>
+						<input id="input_file col-md-6 col-sm-6" multiple="multiple"
+							type="file" style="display: none;"> <span
+							style="font-size: 10px; color: gray;">※사진첨부는 최대 10개까지 등록이
+							가능합니다.</span>
+						<div class="data_file_txt" id="data_file_txt" style="margin: 40px;">
+							<span>첨부 파일</span> <br />
+							<div id="articlefileChange"></div>
+						</div>
+						<button type="submit" style="border: 1px solid #ddd; outline: none;">전송</button>
+					</div>
+					<div class="modifyDonorGoodsBtn" style=" text-align: center;">
+						<div class="form-group">
+							<button type="button" class="modifyBtn btn-primary" id="btn-update">수정</button>
+							<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+						</div>
+					</div>
+				</form>
 			</div>
-	</th:block>
+		</th:block>
 </html>

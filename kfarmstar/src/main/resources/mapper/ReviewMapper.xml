@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.kfarmstar.admin.mapper.ReviewMapper">
+	<resultMap type="Review" id="reviewResultMap">
+		<result column="review_num"				property="reviewNum"/>
+		<result column="member_id"				property="memberId"/>
+		<result	column="payment_complete_code"	property="paymentCompleteCode"/>
+		<result column="goods_refurb_code"		property="goodsRefurbCode"/>
+		<result column="review_title"			property="reviewTitle"/>
+		<result	column="review_content"			property="reviewContent"/>
+		<result column="review_img"				property="reviewImg"/>
+		<result	column="review_entry_date"		property="reviewEntryDate"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+			<result column="member_pw" 				property="memberPw"/>
+			<result column="member_nickname" 		property="memberNickname"/>
+			<result column="member_phone" 			property="memberPhone"/>
+			<result column="member_post_num" 		property="memberPostNum"/>
+			<result column="member_addr" 			property="memberAddr"/>
+			<result column="member_detail_addr" 	property="memberDetailAddr"/>
+			<result column="member_birth" 			property="memberBirth"/>
+			<result column="member_email" 			property="memberEmail"/>
+			<result column="member_point" 			property="memberPoint"/>
+			<result column="member_date" 			property="memberDate"/>
+		</association>
+		<association property="afterPayment" javaType="AfterPayment">
+			<result column="payment_complete_code" 		property="paymentCompleteCode"/>
+			<result column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
+			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<result column="member_id" 					property="memberId"/>
+			<result column="before_goods_count" 		property="beforeGoodsCount"/>
+			<result column="mid_sum_price" 				property="midSumPrice"/>
+			<result column="payment_option" 			property="paymentOption"/>
+			<result column="last_payment_price" 		property="lastPaymentPrice"/>
+			<result column="delivery_post_num" 			property="deliveryPostNum"/>
+			<result column="delivery_addr" 				property="deliveryAddr"/>
+			<result column="delivery_detail_addr" 		property="deliveryDetailAddr"/>
+			<result column="payment_date" 				property="paymentDate"/>
+		</association>
+		<association property="goods" javaType="Goods">
+			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<result column="seller_store_num" 			property="sellerStoreNum"/>
+			<result column="goods_large_code" 			property="goodsLargeCode"/>
+			<result column="goods_small_code" 			property="goodsSmallCode"/>
+			<result column="member_id" 					property="memberId"/>
+			<result column="goods_large_cate" 			property="goodsLargeCate"/>
+			<result column="goods_small_cate" 			property="goodsSmallCate"/>
+			<result column="goods_refurb_name" 			property="goodsRefurbName"/>
+			<result column="goods_normal_price" 		property="goodsNormalPrice"/>
+			<result column="goods_refurb_price" 		property="goodsRefurbPrice"/>
+			<result column="goods_refurb_count" 		property="goodsRefurbCount"/>
+			<result column="goods_refurb_harvest_date" 	property="goodsRefurbHarvestDate"/>
+			<result column="goods_refurb_organic" 		property="goodsRefurbOrganic"/>
+			<result column="goods_post_explain" 		property="goodsPostExplain"/>
+			<result column="goods_refurb_sell_state" 	property="goodsRefurbSellState"/>
+			<result column="entry_time" 				property="entryTime"/>
+		</association>
+		<association property="reviewScore" javaType="ReviewScore">
+			<result column="review_score_code"	property="reviewScoreCode"/>
+			<result	column="star_count"  		property="starCount"/>
+			<result	column="review_scores" 		property="reviewScores" />
+		</association>
+	</resultMap>
+	
+	
+ 	
+ </mapper>
+ 	

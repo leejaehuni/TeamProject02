@@ -5,13 +5,24 @@
 	
 		<!-- 사용자 정의 Css -->
 		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
 		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
 		</th:block>
 
 		<!-- 사용자 정의 Script -->
 		<th:block layout:fragment="customScript">
-			<!-- iCheck -->
-    		<script src="../vendors/iCheck/icheck.min.js"></script>
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
 			
    		</th:block>
 
@@ -23,75 +34,64 @@
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
 			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
-			<link rel="stylesheet" type="text/css" href="asset/css/list.css">
 			<div class="row">
 				<input type="hidden" id="SID" th:value="${session.SID}">
 				<div class="col-lg-12 ">
 					<div class="confirmDonorPlace confirmDonorPlace-outline-primary">
-						<div class="confirmDonorPlace-header">
-							<h4 class="m-b-0 text-white">기부 상품 사용처 등록 신청</h4>
-						</div>
 						<div class="confirmDonorPlace-body">
 							<a th:href="@{/donations/confirmDonorPlace}" class="btn btn-pink a">사용처
 								등록 신청 내역</a>
 							<div class="x_panel">
 								<div class="x_title">
-									<ul class="nav navbar-right panel_toolbox">
 		
-									</ul>
-									<div class="clearfix"></div>
+									<!-- START : 화면 경로
+							                 ============================== -->
+									<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+									<!-- END : 화면 경로
+							                 ============================== -->
+		
 								</div>
-								<div class="box-body row" style="padding-top: 20px;">
-									<ul class="sub_depth">
-										<li><a href="/" data-catecnt="2"> | Home | </a><span
-											class="icon-arrow-right" data-cnt=""></span></li>
-										<li><a href="/shop" class=" "> | 기부 상품 사용처 관리 | </a> <span
-											class="icon-arrow-right"></span></li>
-										<li><a href="/21" class="active "> | 사용처 등록 신청 목록  | </a></li>
-									</ul>
+								<div class="col-md-6"></div>
+								<div class="donorSearch col-md-3">
+									<input type="text" placeholder="검색어 입력"> <img
+										src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
 								</div>
-									<div class="col-md-6">
-									</div>
-									<div class="donorSearch col-md-3">
-									  <input type="text" placeholder="검색어 입력">
-									  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-									</div>
-								</div>
-								<div class="table-responsive m-t-40">
-									<table id="confirmDonorPlace"
-										class="table table-bordered table-striped">
-										<thead>
-											<tr>
-												<th>기부상품 사용처 신청 번호</th>
-												<th>아이디</th>
-												<th>사업자 번호</th>
-												<th>사회복지법인 허가증 유무</th>
-												<th>기부상품 사용처 명</th>
-												<th>기부상품 사용처 전화번호</th>
-												<th>승인 요청 일시</th>
-												<th data-orderable="false">승인</th>
-												<th>승인 상태</th>
-												<th>승인 완료 일시</th>
-											</tr>
-										</thead>
-										<tbody th:id="donorPlacePass">
-											<tr th:each="l : ${donorPlacePass}">
-												<td th:text="${l.donationApplyNum}"></td>
-												<td th:text="${l.memberId}"></td>
-												<td th:text="${l.donationLicenseNum}"></td>
-												<td th:text="${l.donationLicenseState}"></td>
-												<td th:text="${l.donationRecipientName}"></td>
-												<td th:text="${l.donationRecipientPhone}"></td>
-												<td th:text="${l.donationApplyDate}"></td>
-												<td class="btn btn-pink btn-sm Confirm">승인</td>
-												<td th:text="${l.donationApplyInfo}"></td>
-												<td th:text="${l.donationApplyCompletion}"></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="list form-group">
-								<div class="pagination col-sm-7">
+							</div>
+							<div class="table-responsive m-t-40">
+								<table id="confirmDonorPlace"
+									class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>기부상품 사용처 신청 번호</th>
+											<th>아이디</th>
+											<th>사업자 번호</th>
+											<th>사회복지법인 허가증 유무</th>
+											<th>기부상품 사용처 명</th>
+											<th>기부상품 사용처 전화번호</th>
+											<th>승인 요청 일시</th>
+											<th data-orderable="false">승인</th>
+											<th>승인 상태</th>
+											<th>승인 완료 일시</th>
+										</tr>
+									</thead>
+									<tbody th:id="donorPlacePass">
+										<tr th:each="l : ${donorPlacePass}">
+											<td th:text="${l.donationApplyNum}"></td>
+											<td th:text="${l.memberId}"></td>
+											<td th:text="${l.donationLicenseNum}"></td>
+											<td th:text="${l.donationLicenseState}"></td>
+											<td th:text="${l.donationRecipientName}"></td>
+											<td th:text="${l.donationRecipientPhone}"></td>
+											<td th:text="${l.donationApplyDate}"></td>
+											<td class="btn btn-pink btn-sm Confirm">승인</td>
+											<td th:text="${l.donationApplyInfo}"></td>
+											<td th:text="${l.donationApplyCompletion}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="list form-group" style=" text-align: center;">
+								<div class="pagination">
 									<div class="dataTables_paginate paging_simple_numbers"
 										id="datatable_paginate">
 										<ul class="pagination">
@@ -118,10 +118,10 @@
 									</div>
 								</div>
 							</div>
-							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 		</th:block>
 </html>
 

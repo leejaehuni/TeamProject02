@@ -23,7 +23,18 @@
 			
 		    <!-- iCheck -->
 		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-			
+			<Script type="text/javascript">
+		    //삭제버튼
+		     function removeReview(reviewNum){
+		        if(confirm("정말 삭제하시겠습니까?")){
+		          location.href = '/review/removeReview?reviewNum='+reviewNum;
+		          return true;
+		        }else{
+		          return false;
+		        }
+		        
+		      }
+  			</Script>  
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -34,7 +45,6 @@
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
 			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
-			<link rel="stylesheet" type="text/css" href="asset/css/list.css">
 			<div class="col-md-12 col-sm-12">
 				<div class="x_panel">
 					<div class="x_title">
@@ -44,13 +54,15 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="box-body" style="padding-top: 20px;">
-						<ul class="sub_depth">
-							<li><a href="/" data-catecnt="2"> | Home | </a><span
-								class="icon-arrow-right" data-cnt=""></span></li>
-							<li><a href="/shop" class=" "> | 상품평 관리 | </a> <span
-								class="icon-arrow-right"></span></li>
-							<li><a href="/21" class="active "> | 상품평 목록 | </a></li>
-						</ul>
+						<div class="x_title">
+		
+							<!-- START : 화면 경로
+				                 ============================== -->
+							<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+							<!-- END : 화면 경로
+				                 ============================== -->
+		
+						</div>
 					</div>
 					<div class="table-responsive m-t-40">
 						<div class="form-group row">
@@ -64,71 +76,70 @@
 								</select>줄씩 보이기
 								</label>
 							</div>
-							<div class="col-md-6">
-							</div>
+							<div class="col-md-6"></div>
 							<div class="donorSearch col-md-3">
-							  <input type="text" placeholder="검색어 입력">
-							  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+								<input type="text" placeholder="검색어 입력"> <img
+									src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
 							</div>
 						</div>
 						<div class="x_content">
 		
-           				<table id="reviewAdmin" class="table table-bordered table-striped">
-                   			<thead>
-                                <tr>
-                                    <th>리뷰번호</th>
-                                    <th>리뷰작성자</th>
-                                    <th>평점</th>                                                                                                                                                                                                                                                                                                                                                                                          
-                                    <th>리뷰 내용</th>
-                                    <th>리뷰작성완료일시</th>
-                                    <th>삭제</th>
-                                </tr>
-							</thead>
-                            <tbody>
-								 <tr th:each="l : ${reviewList}">
-								    <td th:text="${l.reviewNum}"></td>
-								    <td th:text="${l.memberId}"></td>
-								    <td th:text="${l.reviewScore}"></td>
-								    <td th:text="${l.reviewContent"></td>
-								    <td th:text="${l.reviewEntryDate}"></td>
-								    <td th:text></td>
-								</tr>
-							</tbody>
-                       	</table>
-						</div>  
-						<div class="pagination col-sm-7">
-							<div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-								<ul class="pagination">
-									<li class="paginate_button previous disabled" id="datatable_previous">
-										<a href="#" aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-									</li>
-									<li class="paginate_button active">
-										<a href="#" aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a>
-									</li>
-									<li class="paginate_button ">
-										<a href="#" aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a>
-									</li>
-									<li class="paginate_button ">
-										<a href="#" aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a>
-									</li>
-									<li class="paginate_button ">
-										<a href="#" aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a>
-									</li>
-									<li class="paginate_button ">
-										<a href="#" aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a>
-									</li>
-									<li class="paginate_button ">
-										<a href="#" aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a>
-									</li>
-									<li class="paginate_button next" id="datatable_next">
-										<a href="#" aria-controls="datatable" data-dt-idx="7" tabindex="0">Next</a>
-									</li>
-								</ul>
-							</div>   
+							<table id="reviewAdmin" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>리뷰번호</th>
+										<th>리뷰작성자</th>
+										<th>평점</th>
+										<th>리뷰 내용</th>
+										<th>리뷰작성완료일시</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="l : ${reviewList}">
+										<td th:text="${l.reviewNum}"></td>
+										<td th:text="${l.memberId}"></td>
+										<td th:text="${l.reviewScore}"></td>
+										<td th:text="${l.reviewContent"></td>
+										<td th:text="${l.reviewEntryDate}"></td>
+										<td><a href="#none;"
+											class="removeReviewBtn btn btn-danger btn-outline ti-trash text-white"
+											id="removeReviewBtn"
+											th:onclick="removeReview([[${l.reviewNum}]]);"></a></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-   					</div>
-   				</div>
-   			</div>
-		</div>
-	</th:block>
+						<div class="list form-group" style=" text-align: center;">
+							<div class="pagination">
+								<div class="dataTables_paginate paging_simple_numbers"
+									id="datatable_paginate">
+									<ul class="pagination">
+										<li class="paginate_button previous disabled"
+											id="datatable_previous"><a href="#"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+										</li>
+										<li class="paginate_button active"><a href="#"
+											aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
+										<li class="paginate_button "><a href="#"
+											aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
+										<li class="paginate_button next" id="datatable_next"><a
+											href="#" aria-controls="datatable" data-dt-idx="7"
+											tabindex="0">Next</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</th:block>
 </html>
