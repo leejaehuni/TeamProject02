@@ -11,11 +11,17 @@
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		<!-- datepicker -->
+		<link th:href="@{/build/css/datepicker.css}" rel="stylesheet">
 	</th:block>
 	
 	<th:block layout:fragment="customJsScript">
 		<!-- iCheck -->
     	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+    	<!-- 제이쿼리 ui js -->
+	   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+	   	<!-- searchDate -->
+		<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
@@ -68,6 +74,14 @@
 						</div>
 					</div>
 					<div class="table-responsive">
+						<div class="clearfix">
+	                        <div class="float-left">
+	                            <span>Total : </span>
+	                        </div>
+							<div class="float-right pr-2">
+	                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">삭제</button>
+	                        </div>
+						</div>
 						<table class="table table-striped jambo_table bulk_action">
 							<thead>
 								<tr class="headings">
@@ -79,50 +93,30 @@
 									<th class="column-title">아이디</th>
 									<th class="column-title">취소 수량</th>
 									<th class="column-title ">취소 금액</th>
-									<th class="column-title ">취소 포인트 금액</th>
 									<th class="column-title">취소 일자</th>
 									<th class="column-title">상세조회</th>
 									<th class="bulk-actions" colspan="7">
-										<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+										<a class="antoo" style="color:#fff; font-weight:500;">전체 선택 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
 									</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="even pointer">
+								<tr class="even pointer" th:if="${not #lists.isEmpty(orderCancelInfo)}" th:each="l : ${orderCancelInfo}">
 									<td class="a-center">
 										<input type="checkbox" class="flat" name="table_records">
 									</td>
-									<td>order_cancel_code_001</td>
-									<td>지수네 딸기</td>
-									<td>id003</td>
-									<td>3개</td>
-									<td>20,000원</td>
-									<td>0포인트</td>
-									<td>2022-03-16 16:44:44</td>
+									<td th:text="${l.orderCancelCode}"></td>
+									<td th:text="${l.goods.goodsRefurbName}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.cancelCount}"></td>
+									<td th:text="${l.cancelPrice}"></td>
+									<td th:text="${l.cancelRequestDate}"></td>
 										<td>
-									<a th:href="@{/payment/goodsOrderCancelDetail}"><button type="button">상세조회</button></a>
-									</td>
-								</tr>
-								<tr class="odd pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>order_cancel_code_001</td>
-									<td >태성이네 감귤</td>
-									<td >id004</td>
-									<td>4개</td>
-									<td >150,000원</td>
-									<td>5,000포인트</td>
-									<td>2022-03-16 12:22:22</td>
-									<td>
-									<a th:href="@{/payment/goodsOrderCancelDetail}"><button type="button">상세조회</button></a>
+									<a th:href="@{/payment/goodsOrderCancelDetail(orderCancelCode=${l.orderCancelCode})}"><button type="button">상세조회</button></a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="col-md-1 offset-md-11">
-							<button type="button" class="btn btn-danger">삭제</button>
-						</div>
 					</div>
 					<div class="ln_solid"></div>
 					<nav aria-label="Page navigation example">

@@ -24,29 +24,39 @@
 	
 	
 	<th:block layout:fragment="customContents">
-			<div class="col-md-12 col-sm-12">
-				<div class="x_panel">
-					<div class="x_title">
-						<h2>
-							Ad Apply List<small>Custom design</small>
-						</h2>
-						<div class="clearfix"></div>
-					</div>
-		
-					<div class="x_content">
+		<div class="col-md-12 col-sm-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>
+						상품 카테고리 목록<small>Goods cate list</small>
+					</h2>
+					<div class="clearfix"></div>
+				</div>
+	
+				<div class="x_content">
 
-				<p>
-					Add class
-					<code>bulk_action</code>
-					to table for bulk actions options on row select
-				</p>
-				
-				<!-- START : 검색 바  -->
-				<div th:include="goods/searchCate :: searchGoodsCateFragment"></div><br>
-				<!-- END : 검색 바  -->
-				
+			<p>
+				Add class
+				<code>bulk_action</code>
+				to table for bulk actions options on row select
+			</p>
+			
+			<!-- START : 검색 바  -->
+			<div th:include="goods/searchCate :: searchGoodsCateFragment"></div><br>
+			<!-- END : 검색 바  -->
+			
 
 				<div class="table-responsive">
+				
+					<div class="clearfix">
+						<div class="float-left">
+							Total : <span></span>
+						</div>
+						<div class="float-right pr-2">
+								<button class="btn btn-danger btn-sm">선택 삭제</button>
+						</div>
+					</div>
+					
 					<table class="table text-center jambo_table bulk_action">
 						<thead>
 							<tr class="headings">
@@ -55,10 +65,10 @@
 								</th>
 								<th class="column-title">대분류 번호</th>
 								<th class="column-title">소분류 번호</th>
-								<th class="column-title">대분류 - 소분류</th>
-								<th class="column-title">등록자 아이디</th>
-								<th class="column-title">등록 시각</th>
-								<th class="column-title">수정</th>
+								<th class="column-title">대분류</th>
+								<th class="column-title">소분류</th>
+								<th class="column-title">등록 날짜</th>
+                            	<th class="column-title">수정</th>
 								<th class="column-title">삭제</th>
 								<th class="bulk-actions" colspan="7"><a class="antoo"
 									style="color: #fff; font-weight: 500;">Bulk Actions ( <span
@@ -68,65 +78,26 @@
 						</thead>
 
 						<tbody>
-							<tr class="even pointer">
+							<tr class="even pointer" th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l : ${goodsCateList}">
 								<td class="a-center ">
 									<input type="checkbox" class="flat" name="table_records">
 								</td>
-								<td class=" ">121000040</td>
-								<td class=" ">1210040</td>
-								<td class=" ">대분류 - 소분류</td>
-								<td class=" ">id008</td>
-								<td class=" ">22/02/01</td>
-								<td class=" "><input type="button" value="수정"></td>
-								<td class=" "><input type="button" value="삭제"></td>
-							</tr>
-							<tr class="odd pointer">
-								<td class="a-center ">
-									<input type="checkbox" class="flat" name="table_records">
-								</td>
-								<td class=" ">121000041</td>
-								<td class=" ">1210041</td>
-								<td class=" ">대분류 - 소분류</td>
-								<td class=" ">id020</td>
-								<td class=" ">22/02/01</td>
-								<td class=" "><input type="button" value="수정"></td>
-								<td class=" "><input type="button" value="삭제"></td>
-							</tr>
-							<tr class="even pointer">
-								<td class="a-center ">
-									<input type="checkbox" class="flat" name="table_records">
-								</td>
-								<td class=" ">121000042</td>
-								<td class=" ">1210042</td>
-								<td class=" ">대분류 - 소분류</td>
-								<td class=" ">id032</td>
-								<td class=" ">22/02/01</td>
-								<td class=" "><input type="button" value="수정"></td>
-								<td class=" "><input type="button" value="삭제"></td>
-							</tr>
-							<tr class="odd pointer">
-								<td class="a-center ">
-									<input type="checkbox" class="flat" name="table_records">
-								</td>
-								<td class=" ">121000043</td>
-								<td class=" ">1210043</td>
-								<td class=" ">대분류 - 소분류</td>
-								<td class=" ">id032</td>
-								<td class=" ">22/02/01</td>
-								<td class=" "><input type="button" value="수정"></td>
-								<td class=" "><input type="button" value="삭제"></td>
-							</tr>
-							<tr class="even pointer">
-								<td class="a-center ">
-									<input type="checkbox" class="flat" name="table_records">
-								</td>
-								<td class=" ">121000043</td>
-								<td class=" ">1210043</td>
-								<td class=" ">대분류 - 소분류</td>
-								<td class=" ">id055</td>
-								<td class=" ">22/02/01</td>
-								<td class=" "><input type="button" value="수정"></td>
-								<td class=" "><input type="button" value="삭제"></td>
+								<td th:text="${l.goodsLargeCate}"></td>
+								<td th:text="${l.goodsSmallCate}"></td>
+								<td th:text="${l.goodsLarge.goodsLargeName}"></td>
+								<td th:text="${l.goodsSmallName}"></td>
+								<td th:text="${l.entryTime}"></td>
+								<td class=" ">
+	                         		<!-- /goods/modifyGoodsCate?goodsSmallCate=goods_small_cate_1 -->
+	                            	<a th:href="@{/goods/modifyGoodsCate(goodsSmallCate=${l.goodsSmallCate})}">
+	                            		<input type="button" value="수정">
+	                            	</a>
+	                            </td>
+	                            <td class=" ">
+	                            	<a th:href="@{/goods/removeGoodsCate}">
+	                            		<input type="button" value="삭제">
+	                            	</a>
+	                            </td>
 							</tr>
 						</tbody>
 					</table>

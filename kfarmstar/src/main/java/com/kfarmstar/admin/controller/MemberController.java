@@ -1,7 +1,6 @@
 package com.kfarmstar.admin.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +88,34 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
+	@GetMapping("/conditionSellerStoreList")
+	public String conditionSellerStoreList(Model model
+											,@RequestParam(value="searchKey", required = false) String searchKey
+											,@RequestParam(value="searchValue", required = false) String searchValue) {
+		
+		log.info("조건별 판매자 사업장 검색:{}", searchValue);
+		
+		List<SellerStore> conditionSellerStoreList = memberService.conditionSellerStoreList(searchKey, searchValue);
+		
+		model.addAttribute("sellerStoreList", conditionSellerStoreList);
+		
+		return "member/sellerStoreInfo";
+	}
+	
+	@GetMapping("/conditionMemberList")
+	public String conditionMemberList(Model model
+											,@RequestParam(value="searchKey", required = false) String searchKey
+											,@RequestParam(value="searchValue", required = false) String searchValue) {
+		
+		log.info("조건별 회원 검색:{}", searchValue);
+		
+		List<Member> conditionMemberList = memberService.conditionMemberList(searchKey, searchValue);
+		
+		model.addAttribute("memberList", conditionMemberList);
+		
+		return "member/memberList";
+	}
+	
 	@PostMapping("/searchDate")
 	@ResponseBody
 	public List<Member> searchDate(@RequestParam(value="searchKey", required = false) String searchKey
@@ -123,20 +150,27 @@ public class MemberController {
 	
 	@GetMapping("/detailMember")
 	public String getDetailMemberInfo(Model model
-									,@RequestParam(value="searchKey", required = false) String searchKey
-									,@RequestParam(value="searchValue", required = false) String searchValue) {
+									,@RequestParam(name="memberId",required = false) String memberId) {
 		
+		Member member = memberService.getMemberInfoById(memberId);
 		
-		log.info("상세회원목록 요청");
-		log.info("searchValue:{}", searchValue);
-		
-		List<Member> detailMemberList = memberService.getMemberList(searchKey, searchValue);
+		log.info("회원상세정보:{}", member);
 		
 		model.addAttribute("title", "FoodRefurb : 회원 정보");
 		model.addAttribute("titleName", "회원 상세정보");
-		model.addAttribute("detailMemberList", detailMemberList);
+		model.addAttribute("member", member);
 		
 		return "member/detailMember";
+	}
+	
+	@PostMapping("/detailMember")
+	public String modifyMember(Member member) {
+			
+		log.info("회원수정정보:{}", member);
+			
+		memberService.modifyMember(member);
+			
+			return "redirect:/member/memberList";
 	}
 	
 	@GetMapping("/loginList")
@@ -248,11 +282,28 @@ public class MemberController {
 	}
 	
 	@GetMapping("/detailSellerStoreInfo")
-	public String detailSellerStoreInfo(Model model) {
+	public String detailSellerStoreInfo(Model model
+										,@RequestParam(name = "sellerStoreNum" , required = false) String sellerStoreNum) {
+		
+		SellerStore sellerStore = memberService.getSellStoreInfo(sellerStoreNum);
+		
+		log.info("사업장 상세정보:{}", sellerStore);
 		
 		model.addAttribute("title", "FoodRefurb : 사업장 정보");
 		model.addAttribute("titleName", "사업장 상세정보");
+		model.addAttribute("sellerStore", sellerStore);
 		
 		return "member/detailSellerStoreInfo";
 	}
+	
+	@PostMapping("/detailSellerStoreInfo")
+	public String modifySellerStore(SellerStore sellerStore) {
+			
+		log.info("회원수정정보:{}", sellerStore);
+			
+		memberService.modifySellerStore(sellerStore);
+			
+			return "redirect:/member/sellerStoreInfo";
+	}
+	
 }

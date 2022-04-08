@@ -42,25 +42,27 @@
 						<div th:include="member/searchDate :: searchDateFragment"></div>
 						<!-- END : 검색 바 -->
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-2">
-							<select id=" " class="form-control text-center">
-								<option selected> :: 선택 :: </option>
-								<option>아이디</option>
-								<option>이름</option>
-								<option>휴대폰번호</option>
-								<option>생년월일</option>
-							</select>
+					<form th:action="@{/member/conditionSellerStoreList}" method="get">
+						<div class="form-row">
+							<div class="form-group col-md-2">
+								<select name="searchKey" class="form-control text-center">
+									<option value=""> :: 선택 :: </option>
+									<option value="member_id">아이디</option>
+									<option value="seller_store_name">사업장 이름</option>
+									<option value="seller_store_addr">사업장 주소</option>
+									<option value="seller_store_phone">사업장 연락처</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control" name="searchValue" placeholder="Search"
+								aria-label="Text input with dropdown button">
+							</div>
+							<div class="form-group col-md-2">
+								<button type="submit" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+								<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
+							</div>
 						</div>
-						<div class="form-group col-md-6">
-							<input type="text" class="form-control" name="searchValue" placeholder="Search"
-							aria-label="Text input with dropdown button">
-						</div>
-						<div class="form-group col-md-2">
-							<button type="button" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
-							<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
-						</div>
-					</div>
+					</form>
 					<div class="table-responsive">
 						<div class="clearfix">
 							<div class="float-left">
@@ -89,7 +91,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="l : ${sellerStoreList}" class="even pointer">
+								<tr th:if="${not #lists.isEmpty(sellerStoreList)}" th:each="l : ${sellerStoreList}" class="even pointer">
 									<td class="a-center">
 										<input type="checkbox" class="flat" name="table_records">
 									</td>
@@ -100,7 +102,7 @@
 									<td th:text="${l.sellerStorePhone}"></td>
 									<td th:text="${l.sellerEntryDate}"></td>
 									<td>
-										<a th:href="@{/member/detailSellerStoreInfo}"><button type="button">상세 조회</button></a>
+										<a th:href="@{/member/detailSellerStoreInfo(sellerStoreNum=${l.sellerStoreNum})}"><button type="button">상세 조회</button></a>
 									</td>
 								</tr>
 							</tbody>

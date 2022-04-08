@@ -15,8 +15,18 @@
 	<th:block layout:fragment="customJsScript"></th:block>
 
 	<!-- 사용자 정의 Script-->
-	<th:block layout:fragment="customScript"></th:block>
-
+	<th:block layout:fragment="customScript">
+		<script>
+		$(function(){
+			$('#modifyButton').click(function(){
+				$('input').attr("readonly",false);
+				$('#memberId').attr("readonly",true);
+				$('select').attr("disabled",false);
+				$('textarea').attr("readonly",false);
+			});
+		});
+		</script>
+	</th:block>
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12">
 			<div class="x_panel">
@@ -47,36 +57,10 @@
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label"> 상품 대분류 명</label>
+												<label class="control-label" for="goods.goodsRefurbName">상품명</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<select id=" " class="form-control text-center">
-													<option selected> :: 선택 :: </option>
-													<option>option</option>
-													<option>option</option>
-													<option>option</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label">상품 소분류 명</label>
-											</div>
-											<div class="col-md-6 col-sm-6 ">
-												<select id=" " class="form-control text-center">
-													<option selected> :: 선택 :: </option>
-													<option>option</option>
-													<option>option</option>
-													<option>option</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label">상품명</label>
-											</div>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" value="지수네 오렌지" readonly="readonly">
+												<input type="text" class="form-control" name="goods.goodsRefurbName" th:value="${goodsExchange.goods.goodsRefurbName}" readonly="readonly">
 											</div>
 										</div>
 									</td>
@@ -86,26 +70,34 @@
 									<td>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label">아이디</label>
+												<label class="control-label" for="goodsExchangeCode">상품교환코드</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" value="id001" readonly="readonly">
+												<input type="text" class="form-control" name="goodsExchangeCode" th:value="${goodsExchange.goodsExchangeCode}" readonly="readonly">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label">교환 사유</label>
+												<label class="control-label" for="memberId">아이디</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+												<input type="text" class="form-control" name="memberId" th:value="${goodsExchange.memberId}" readonly="readonly">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label">교환 수량</label>
+												<label class="control-label" for="exchangeReasonContent">교환 사유</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="number" class="form-control">
+												<textarea cols="30" class="form-control" name="exchangeReasonContent" id="exampleFormControlTextarea1" rows="3" readonly="readonly">[[${goodsExchange.exchangeReasonContent}]]</textarea>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="exchangeCount">교환 수량</label>
+											</div>
+											<div class="col-md-6 col-sm-6 ">
+												<input type="number" class="form-control" name="exchangeCount" th:value="${goodsExchange.exchangeCount}" readonly="readonly">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -113,21 +105,21 @@
 												<label class="control-label">교환 처리 상태</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<select id=" " class="form-control text-center">
+												<select class="form-control text-center" name="exchangeProcessState" th:value="${goodsExchange.exchangeProcessState}" disabled="disabled">
 													<option selected> :: 선택 :: </option>
-													<option>미승인</option>
-													<option>처리중</option>
-													<option>완료</option>
-													<option>거절</option>
+													<option th:selected="${goodsExchange.exchangeProcessState == '미승인'}">미승인</option>
+													<option th:selected="${goodsExchange.exchangeProcessState == '처리중'}">처리중</option>
+													<option th:selected="${goodsExchange.exchangeProcessState == '완료'}">완료</option>
+													<option th:selected="${goodsExchange.exchangeProcessState == '거절'}">거절</option>
 												</select>
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label">교환 신청 일자</label>
+												<label class="control-label" for="exchangeRequestDate">교환 신청 일자</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="date" class="form-control">
+												<input type="datetime" class="form-control" name="exchangeRequestDate" th:value="${goodsExchange.exchangeRequestDate}" readonly="readonly">
 											</div>
 										</div>
 									</td>
@@ -138,8 +130,9 @@
 						<div class="form-group">
 							<div class="col-md-8 col-sm-8  offset-md-4">
 								<button type="button" class="btn btn-primary">취소</button>
-								<button type="reset" class="btn btn-danger">삭제</button>
-								<button type="submit" class="btn btn-success">수정</button>
+								<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button>
+								<button type="button" class="btn btn-success" id="modifyButton">수정</button>
+								<button type="submit" class="btn btn-info">저장</button>
 							</div>
 						</div>
 					</form>

@@ -11,208 +11,131 @@
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		<!-- datepicker -->
+		<link th:href="@{/build/css/datepicker.css}" rel="stylesheet">
+		
 	</th:block>
 	<!-- 사용자 정의 JsScript 파일-->
 	<th:block layout:fragment="customJsScript">
 		<!-- iCheck -->
     	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+    	<!-- 제이쿼리 ui js -->
+	   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+	   	<!-- searchDate -->
+		<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
+		
+		
 	</th:block>
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
-	
+		<!-- datepicker 맨 앞으로 띄워주는 코드 (나중에 공통 스크립트 searchDate.js 에 넣어두기) -->
+		<script>
+			$('.datepicker').datepicker({
+			    beforeShow: function() {
+			        setTimeout(function(){
+			            $('.ui-datepicker').css('z-index', 99999999999999);
+			        }, 0);
+			    }
+			});
+		</script>
 	</th:block>	
 	
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Food Refurb List<small>Custom design</small></h2>
-                    <div class="clearfix"></div>
-                  </div>
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>리퍼브 상품 목록<small>Food refurb list</small></h2>
+					<div class="clearfix"></div>
+				</div>
 
-                  <div class="x_content">
-
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+				<div class="x_content">
+					
 					
 					<!-- START : 검색 바 -->
 					<div th:include="goods/searchGoods :: searchGoodsFragment"></div><br>
 					<!-- END : 검색 바 -->
-						
-                    <div class="table-responsive">
-                      <table class="table jambo_table bulk_action">
-                        <thead>
-                          <tr class="headings">
-                            <th>
-                              <input type="checkbox" id="check-all" class="flat">
-                            </th>
-                            <th class="column-title">상품 번호 </th>
-                            <th class="column-title">아이디</th>
-                            <th class="column-title">카테고리 </th>
-                            <th class="column-title">상품명 </th>
-                            <th class="column-title">가격 </th>
-                            <th class="column-title">등록시각 </th>
-                            <th class="column-title">수정 </th>
-                            <th class="column-title">삭제 </th>
-                            <th class="bulk-actions" colspan="7">
-                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                            </th>
-                          </tr>
-                        </thead>
 
-                        <tbody>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                             <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                             <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
+				<div class="table-responsive">
+					
+					<div class="clearfix">
+						<div class="float-left">
+							Total : <span></span>
+						</div>
+						<div class="float-right pr-2">
+							<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">선택 삭제</button>
+						</div>
+					</div>
 
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                             <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">구황작물-감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">id005</td>
-                            <td class=" ">감자-알감자</td>
-                            <td class=" ">해남 감자</td>
-                            <td class=" ">20,000</td>
-                            <td class=" ">2022/02/01</td>
-                       		<td class=" "><input type="button" value="수정"></td>
-							<td class=" "><input type="button" value="삭제"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      
-                      <nav aria-label="Page navigation example">
-						  <ul class="pagination justify-content-center">
-						    <li class="page-item disabled">
-						      <a class="page-link">Previous</a>
-						    </li>
-						    <li class="page-item"><a class="page-link" href="#">1</a></li>
-						    <li class="page-item"><a class="page-link" href="#">2</a></li>
-						    <li class="page-item"><a class="page-link" href="#">3</a></li>
-						    <li class="page-item">
-						      <a class="page-link" href="#">Next</a>
-						    </li>
-						  </ul>
+					<table class="table text-center jambo_table bulk_action">
+						<thead>
+							<tr class="headings">
+								<th><input type="checkbox" id="check-all" class="flat"></th>
+								<th class="column-title">상품 번호</th>
+								<th class="column-title">대분류</th>
+								<th class="column-title">소분류</th>
+								<th class="column-title">가격</th>
+								<th class="column-title">아이디</th>
+								<th class="column-title">등록 날짜</th>
+								<th class="column-title">상세 조회</th>
+								<th class="bulk-actions" colspan="7"><a class="antoo"
+									style="color: #fff; font-weight: 500;">선택된 개수 ( <span
+										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr class="even pointer" th:if="${not #lists.isEmpty(goodsList)}" th:each="l : ${goodsList}">
+								<td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
+								<td class=" " th:text="${l.goodsRefurbCode}"></td>
+								<td class=" " th:text="${l.goodsLarge.goodsLargeName}"></td>
+								<td class=" " th:text="${l.goodsSmall.goodsSmallName}"></td>
+								<td class=" " th:text="${l.goodsRefurbPrice}"></td>
+								<td class=" " th:text="${l.memberId}"></td>
+								<td class=" " th:text="${l.entryTime}"></td>
+								<td class=" "><a th:href="@{/goods/goodsDetail(goodsRefurbCode=${l.goodsRefurbCode})}"><input type="button" value="상세 조회"></a></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Page navigation -->
+					<nav aria-label="Page navigation">
+						<ul class="pagination justify-content-center">
+							<li class="page-item disabled"><a class="page-link">Previous</a>
+							</li>
+							<li class="page-item active"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">Next</a>
+							</li>
+						</ul>
 					</nav>
-                    </div>
-							
-						
-                  </div>
+				</div>
+
+
+			</div>
                 </div>
-              </div>
+		</div>
               
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">* 경고 *</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">정말 삭제하시겠습니까?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-primary" id="removeBtn">삭제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+			
 	</th:block>
 </html>

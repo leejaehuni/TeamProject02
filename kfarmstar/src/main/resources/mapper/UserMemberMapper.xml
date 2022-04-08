@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kfarmstar.user.mapper.UserMemberMapper">
+
+	<resultMap type="Member" id="memberResultMap">
+		<result column="member_id" 				property="memberId"/>
+		<result column="member_name" 			property="memberName"/>
+		<result column="member_level" 			property="memberLevel"/>
+		<result column="member_pw" 				property="memberPw"/>
+		<result column="member_nickname" 		property="memberNickname"/>
+		<result column="member_phone" 			property="memberPhone"/>
+		<result column="member_post_num" 		property="memberPostNum"/>
+		<result column="member_addr" 			property="memberAddr"/>
+		<result column="member_detail_addr" 	property="memberDetailAddr"/>
+		<result column="member_birth" 			property="memberBirth"/>
+		<result column="member_email" 			property="memberEmail"/>
+		<result column="member_point" 			property="memberPoint"/>
+		<result column="member_date" 			property="memberDate"/>
+	</resultMap>
+	
+	<insert id="addSellerStoreInfo" parameterType="SellerStore">
+		INSERT INTO
+			seller_store
+		(
+			 seller_store_num
+			,member_id
+			,seller_store_name
+			,seller_license_num
+			,seller_store_phone
+			,seller_entry_date
+			,seller_store_post_num
+			,seller_store_addr
+			,seller_store_detail_addr
+			,seller_tax_type
+		)VALUES (
+			 #{sellerStoreNum}
+			,#{memberId}
+			,#{sellerStoreName}
+			,#{sellerLicenseNum}
+			,#{sellerStorePhone}
+			,CURDATE()
+			,#{sellerStorePostNum}
+			,#{sellerStoreAddr}
+			,#{sellerStoreDetailAddr}
+			,#{sellerTaxType}
+		)
+	</insert>
+	
+	<select id="getMemberInfoById" parameterType="String" resultMap="memberResultMap">
+		/* 회원별 회원 정보 조회*/
+		SELECT
+		     m.member_id
+		    ,m.member_name
+			,m.member_level
+			,m.member_pw
+			,m.member_nickname
+			,m.member_post_num
+			,m.member_addr
+			,m.member_detail_addr
+			,m.member_phone
+			,m.member_birth
+			,m.member_email
+			,m.member_point
+			,m.member_date   
+		FROM
+		   member AS m
+		WHERE
+		   m.member_id = #{memberId};
+	</select>
+	
+	<select id="isIdCheck" parameterType="String" resultType="boolean">
+		/* 회원 아이디 중복 체크 */
+		SELECT
+			IF(COUNT(1) = 1, 0, 1)
+		FROM 
+		   member AS m
+		WHERE 
+		   m.member_id = #{memberId};
+	</select>
+	
+	<insert id="addMember" parameterType="Member">
+		/* 구매자 회원 가입 */
+		INSERT INTO member
+		(
+			 member_id
+			,member_name
+			,member_level
+			,member_pw
+			,member_nickname
+			,member_post_num
+			,member_addr
+			,member_detail_addr
+			,member_phone
+			,member_birth
+			,member_email
+			,member_point
+			,member_date
+		)VALUES (
+		     #{memberId}
+		   , #{memberName}
+		   , #{memberLevel}
+		   , #{memberPw}
+		   , #{memberNickname}
+		   , #{memberPostNum}
+		   , #{memberAddr}
+		   , #{memberDetailAddr}
+		   , #{memberPhone}
+		   , #{memberBirth}
+		   , #{memberEmail}
+		   , #{memberPoint}
+		   , CURDATE()
+		);
+	</insert>
+	
+</mapper>

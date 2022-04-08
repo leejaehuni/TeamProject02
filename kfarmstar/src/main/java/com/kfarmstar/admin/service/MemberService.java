@@ -24,6 +24,44 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 	
+	public List<SellerStore> conditionSellerStoreList(String searchKey, String searchValue){
+		
+		List<SellerStore> conditionSellerStoreList = memberMapper.conditionSellerStoreList(searchKey, searchValue);
+		
+		return conditionSellerStoreList;
+	}
+	
+	public List<Member> conditionMemberList(String searchKey, String searchValue){
+		
+		List<Member> conditionMemberList = memberMapper.conditionMemberList(searchKey, searchValue);
+		
+		return conditionMemberList;
+	}
+	
+	public int modifySellerStore(SellerStore sellerStore) {
+		
+		return memberMapper.modifySellerStore(sellerStore);
+	}
+	
+	public SellerStore getSellStoreInfo(String sellerStoreNum) {
+		
+		return memberMapper.getSellStoreInfo(sellerStoreNum);
+	}
+	
+	public int modifyMember(Member member) {
+		
+		System.out.println("회원수정 service" + member);
+		
+		return memberMapper.modifyMember(member);
+	}
+	
+	public Member getMemberInfoById(String memberId) {
+		
+		System.out.println("회원상세정보 service" + memberId);
+		
+		return memberMapper.getMemberInfoById(memberId);
+	}
+	
 	public SellerGrade getSellerStandardByNum(String sellerGradeNum) {
 		
 		return memberMapper.getSellerStandardByNum(sellerGradeNum);

@@ -50,31 +50,35 @@
 							</label>
 						</div>
 					</div>
-					<div class="form-row mt-2">
-						<div class="form-group col-md-2">
-							<select id=" " class="form-control">
-								<option selected> :: 선택 :: </option>
-								<option>결제완료코드</option>
-								<option>아이디</option>
-							</select>
+					<form th:action="@{/payment/conditionAfterPaymentList}" method="get">
+						<div class="form-row mt-2">
+							<div class="form-group col-md-2">
+								<select name="searchKey" class="form-control text-center">
+									<option value=""> :: 선택 :: </option>
+									<option value="payment_complete_code">결제완료코드</option>
+									<option value="goods_refurb_code">상품명</option>
+									<option value="member_id">아이디</option>
+									<option value="payment_option">결제수단</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control" name="searchValue" placeholder="Search"
+								aria-label="Text input with dropdown button">
+							</div>
+							<div class="form-group col-md-2">
+								<button type="submit" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+								<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
+							</div>
 						</div>
-						<div class="form-group col-md-6">
-							<input type="text" class="form-control" name="searchValue" placeholder="Search"
-							aria-label="Text input with dropdown button">
-						</div>
-						<div class="form-group col-md-2">
-							<button type="button" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
-							<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
-						</div>
-					</div>
+					</form>
 					<div class="table-responsive">
 						<div class="clearfix">
-                        <div class="float-left">
-                            <span>Total : </span>
-                        </div>
-                        <div class="float-right pr-2">
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">삭제</button>
-                        </div>
+	                        <div class="float-left">
+	                            <span>Total : </span>
+	                        </div>
+	                        <div class="float-right pr-2">
+	                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">삭제</button>
+	                        </div>
                     	</div>	
 						<table class="table table-striped jambo_table bulk_action">
 							<thead>
@@ -87,7 +91,6 @@
 									<th class="column-title">아이디</th>
 									<th class="column-title">결제 수량</th>
 									<th class="column-title">결제 금액</th>
-									<th class="column-title ">사용 포인트</th>
 									<th class="column-title ">결제 수단</th>
 									<th class="column-title">결제 시각</th>
 									<th class="column-title">상세조회</th>
@@ -97,68 +100,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="even pointer">
+								<tr class="even pointer" th:if="${not #lists.isEmpty(afterPaymentInfo)}" th:each="l : ${afterPaymentInfo}">
 									<td class="a-center">
 										<input type="checkbox" class="flat" name="table_records">
 									</td>
-									<td>payment_complete_001</td>
-									<td>길동이네 토마토</td>
-									<td>id003</td>
-									<td>10개</td>
-									<td>120,000</td>
-									<td>0</td>
-									<td>신용카드</td>
-									<td>2022-03-22 11:30:22</td>
+									<td th:text="${l.paymentCompleteCode}"></td>
+									<td th:text="${l.goods.goodsRefurbName}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.beforeGoodsCount}"></td>
+									<td th:text="${l.lastPaymentPrice}"></td>
+									<td th:text="${l.paymentOption}"></td>
+									<td th:text="${l.paymentDate}"></td>
 									<td>
-										<a th:href="@{/payment/afterPaymentDetail}"><button type="button">상세조회</button></a>
-									</td>
-								</tr>
-								<tr class="odd pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>payment_complete_002</td>
-									<td>재훈이네 바나나</td>
-									<td>id004</td>
-									<td>15개</td>
-									<td>150,000</td>
-									<td>0</td>
-									<td>신용카드</td>
-									<td>2022-03-22 11:30:22</td>
-									<td>
-										<a th:href="@{/payment/afterPaymentDetail}"><button type="button">상세조회</button></a>
-									</td>
-								</tr>
-								<tr class="even pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>payment_complete_003</td>
-									<td>지수네 딸기</td>
-									<td>id001</td>
-									<td>2개</td>
-									<td>15,000</td>
-									<td>0</td>
-									<td>신용카드</td>
-									<td>2022-03-22 11:30:22</td>
-									<td>
-										<a th:href="@{/payment/afterPaymentDetail}"><button type="button">상세조회</button></a>
-									</td>
-								</tr>
-								<tr class="odd pointer">
-									<td class="a-center">
-										<input type="checkbox" class="flat" name="table_records">
-									</td>
-									<td>payment_complete_004</td>
-									<td>유리네 곶감</td>
-									<td>id003</td>
-									<td>10개</td>
-									<td>120,000</td>
-									<td>0</td>
-									<td>무통장입금</td>
-									<td>2022-03-22 11:30:22</td>
-									<td>
-										<a th:href="@{/payment/afterPaymentDetail}"><button type="button">상세조회</button></a>
+										<a th:href="@{/payment/afterPaymentDetail(paymentCompleteCode=${l.paymentCompleteCode})}"><button type="button">상세조회</button></a>
 									</td>
 								</tr>
 							</tbody>

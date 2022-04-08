@@ -65,7 +65,7 @@
 
  .ui-state-highlight,
  .ui-widget-content .ui-state-highlight,
- .ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 100%; padding-top: 7px; padding-bottom: 7px; padding-left: 7px; padding-right: 7px;} 
+ .ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 100%; padding-top: 6px; padding-bottom: 6px; padding-left: 10px; padding-right: 10px;} 
 
  .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
 
@@ -75,7 +75,7 @@
     background-image: url(https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/calendar-512.png);
     background-size: 25px;
     background-repeat: no-repeat;
-    background-position-x: 150px;
+    background-position-x: 140px;
     background-position-y: center;
     border: 1px solid #ccc;
 
@@ -88,7 +88,7 @@
     background-image: url(https://cdn1.iconfinder.com/data/icons/heroicons-ui/24/calendar-512.png);
     background-size: 25px;
     background-repeat: no-repeat;
-    background-position-x: 150px;
+    background-position-x: 140px;
     background-position-y: center;
     border: 1px solid #ccc;
 

@@ -45,24 +45,26 @@
 							<div class="checkbox">
 								<label>권한별 조회</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option1" class="flat"> 구매자
+									<input type="checkbox" name="options" id="option1"> 구매자
 								</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option2" class="flat"> 판매자
+									<input type="checkbox" name="options" id="option2"> 판매자
 								</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option3" class="flat"> 관리자
+									<input type="checkbox" name="options" id="option3"> 관리자
 								</label>
 							</div>
 						</div>
+					</form>
+					<form th:action="@{/member/conditionMemberList}" method="get">
 						<div class="form-row md-2">
 							<div class="form-group col-md-2">
-								<select id=" " class="form-control text-center">
-									<option selected> :: 선택 :: </option>
-									<option>아이디</option>
-									<option>이름</option>
-									<option>휴대폰번호</option>
-									<option>생년월일</option>
+								<select name="searchKey" class="form-control text-center">
+									<option value=""> :: 선택 :: </option>
+									<option value="member_id">아이디</option>
+									<option value="member_name">이름</option>
+									<option value="member_phone">휴대폰번호</option>
+									<option value="member_birth">생년월일</option>
 								</select>
 							</div>
 							<div class="form-group col-md-6">
@@ -71,7 +73,7 @@
 							</div>
 							
 							<div class="form-group col-md-2">
-								<button type="button" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+								<button type="submit" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
 								<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
 							</div>
 						</div>
@@ -105,7 +107,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="even pointer" th:each="l : ${memberList}">
+								<tr class="even pointer" th:if="${not #lists.isEmpty(memberList)}" th:each="l : ${memberList}">
 									<td class="a-center">
 										<input type="checkbox" class="flat" name="table_records">
 									</td>
@@ -116,7 +118,7 @@
 									<td th:text="${l.memberBirth}"></td>
 									<td th:text="${l.memberDate}"></td>
 									<td>
-										<a th:href="@{/member/detailMember}"><button type="button">상세조회</button> </a>
+										<a th:href="@{/member/detailMember(memberId=${l.memberId})}"><button type="button">상세조회</button> </a>
 									</td>
 								</tr>
 							</tbody>
