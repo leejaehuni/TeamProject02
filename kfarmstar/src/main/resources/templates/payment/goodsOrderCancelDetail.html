@@ -19,7 +19,7 @@
 			$(function(){
 				$('#modifyButton').click(function(){
 					$('input').attr("readonly",false);
-					$('#memberId').attr("readonly",true);
+					$('.not-modify').attr("readonly",true);
 					$('select').attr("disabled",false);
 					$('textarea').attr("readonly",false);
 				});
@@ -37,7 +37,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<form class="form-horizontal form-label-left">
+					<form class="form-horizontal form-label-left" th:action="@{/payment/goodsOrderCancelDetail}" method="post">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -63,7 +63,7 @@
 												<label class="control-label" for="goods.goodsRefurbName">상품명</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" name="goods.goodsRefurbName" th:value="${orderCancel.goods.goodsRefurbName}" readonly="readonly">
+												<input type="text" class="form-control not-modify" name="goods.goodsRefurbName" th:value="${orderCancel.goods.goodsRefurbName}" readonly="readonly">
 											</div>
 										</div>
 									</td>
@@ -76,7 +76,7 @@
 												<label class="control-label" for="orderCancelCode">주문취소코드</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" name="orderCancelCode" th:value="${orderCancel.orderCancelCode}" readonly="readonly">
+												<input type="text" class="form-control not-modify" name="orderCancelCode" th:value="${orderCancel.orderCancelCode}" readonly="readonly">
 													
 											</div>
 										</div>
@@ -85,7 +85,7 @@
 												<label class="control-label" for="memberId">아이디</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" name="memberId" th:value="${orderCancel.memberId}" readonly="readonly">
+												<input type="text" class="form-control not-modify" name="memberId" th:value="${orderCancel.memberId}" readonly="readonly">
 													
 											</div>
 										</div>

@@ -25,6 +25,8 @@
 	   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
 	   	<!-- searchDate -->
 		<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
+		<!-- moment.js -->
+		<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js}"></script>
 	</th:block>
 
 	<!-- 사용자 정의 Script-->
@@ -66,26 +68,20 @@
 									<th class="column-title">아이디</th>
 									<th class="column-title">권한</th>
 									<th class="column-title">로그인 시각</th>
-									<th class="column-title">누적 로그인 횟수</th>
 									<th class="bulk-actions" colspan="7">
-										<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+										<a class="antoo" style="color:#fff; font-weight:500;">전체 선택 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
 									</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="even pointer">
-									<td>login_001</td>
-									<td>id001</td>
-									<td>구매자</td>
-									<td>2022-02-13 12:16:17</td>
-									<td>3회</td>
+								<tr class="even pointer" th:if="${not #lists.isEmpty(loginHistoryList)}" th:each="l : ${loginHistoryList}">
+									<td th:text="${l.loginNum}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.member.memberLevel}"></td>
+									<td th:text="${l.loginTime}"></td>
 								</tr>
-								<tr class="odd pointer">
-									<td>login_002</td>
-									<td>id002</td>
-									<td>판매자</td>
-									<td>2022-02-13 08:23:45</td>
-									<td>8회</td>
+								<tr th:unless="${not #lists.isEmpty(loginHistoryList)}">
+									<td colspan="7">로그인 이력이 없습니다.</td>
 								</tr>
 							</tbody>
 						</table>

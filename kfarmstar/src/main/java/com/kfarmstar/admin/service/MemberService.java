@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kfarmstar.admin.mapper.MemberMapper;
+import com.kfarmstar.dto.LoginHistory;
+import com.kfarmstar.dto.LogoutHistory;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
@@ -22,6 +24,21 @@ public class MemberService {
 	@Autowired
 	public MemberService(MemberMapper memberMapper) {
 		this.memberMapper = memberMapper;
+	}
+	
+	public List<LogoutHistory> getLogoutHistory(){
+		
+		List<LogoutHistory> getLogoutHistoryList = memberMapper.getLogoutHistory();
+		
+		return getLogoutHistoryList;
+	}
+	
+	public List<LoginHistory> getLoginHistory(){
+		
+		List<LoginHistory> getLoginHistoryList = memberMapper.getLoginHistory();
+		
+		return getLoginHistoryList;
+		
 	}
 	
 	public List<SellerStore> conditionSellerStoreList(String searchKey, String searchValue){

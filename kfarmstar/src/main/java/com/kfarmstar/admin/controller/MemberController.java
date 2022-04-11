@@ -1,6 +1,7 @@
 package com.kfarmstar.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kfarmstar.admin.mapper.MemberMapper;
 import com.kfarmstar.admin.service.MemberService;
+import com.kfarmstar.dto.LoginHistory;
+import com.kfarmstar.dto.LogoutHistory;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
+
 
 
 @Controller
@@ -173,20 +177,31 @@ public class MemberController {
 			return "redirect:/member/memberList";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/loginList")
-	public String loginMember(Model model) {
+	public String loginHistoryList(Model model) {
+		
+		List<LoginHistory> loginHistoryList = memberService.getLoginHistory();
+		
+		log.info("로그인내역:{}", loginHistoryList);
 		
 		model.addAttribute("title", "FoodRefurb : 회원 로그인");
 		model.addAttribute("titleName", "회원 로그인 내역");
+		model.addAttribute("loginHistoryList", loginHistoryList);
 		
 		return "member/loginList";
 	}
 	
 	@GetMapping("/logoutList")
-	public String logoutMember(Model model) {
+	public String logoutHistoryList(Model model) {
+		
+		List<LogoutHistory> logoutHistoryList = memberService.getLogoutHistory();
+		
+		log.info("로그아웃내역:{}", logoutHistoryList);
 		
 		model.addAttribute("title", "FoodRefurb : 회원 로그아웃");
 		model.addAttribute("titleName", "회원 로그아웃 내역");
+		model.addAttribute("logoutHistoryList", logoutHistoryList);
 		
 		return "member/logoutList";
 	}
