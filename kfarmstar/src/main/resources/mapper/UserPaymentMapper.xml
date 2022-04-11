@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kfarmstar.user.mapper.UserPaymentMapper">
+	<resultMap type="Basket" id="basketResultMap">
+		<result column="basket_code" 			property="basketCode"/>
+		<result column="goods_refurb_code" 		property="goodsRefurbCode"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="basket_count" 			property="basketCount"/>
+		<result column="basket_price" 			property="basketPrice"/>
+		<result column="before_mid_sum_code" 	property="beforeMidSumCode"/>
+		<association property="goods" javaType="Goods">
+			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<result column="seller_store_num" 			property="sellerStoreNum"/>
+			<result column="goods_large_code" 			property="goodsLargeCode"/>
+			<result column="goods_small_code" 			property="goodsSmallCode"/>
+			<result column="member_id" 					property="memberId"/>
+			<result column="goods_large_cate" 			property="goodsLargeCate"/>
+			<result column="goods_small_cate" 			property="goodsSmallCate"/>
+			<result column="goods_refurb_name" 			property="goodsRefurbName"/>
+			<result column="goods_normal_price" 		property="goodsNormalPrice"/>
+			<result column="goods_refurb_price" 		property="goodsRefurbPrice"/>
+			<result column="goods_refurb_count" 		property="goodsRefurbCount"/>
+			<result column="goods_refurb_harvest_date" 	property="goodsRefurbHarvestDate"/>
+			<result column="goods_refurb_organic" 		property="goodsRefurbOrganic"/>
+			<result column="goods_post_explain" 		property="goodsPostExplain"/>
+			<result column="goods_refurb_sell_state" 	property="goodsRefurbSellState"/>
+			<result column="entry_time" 				property="entryTime"/>
+		</association>
+		<association property="member" javaType="Member">
+			<result column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+			<result column="member_pw" 				property="memberPw"/>
+			<result column="member_nickname" 		property="memberNickname"/>
+			<result column="member_phone" 			property="memberPhone"/>
+			<result column="member_post_num" 		property="memberPostNum"/>
+			<result column="member_addr" 			property="memberAddr"/>
+			<result column="member_detail_addr" 	property="memberDetailAddr"/>
+			<result column="member_birth" 			property="memberBirth"/>
+			<result column="member_email" 			property="memberEmail"/>
+			<result column="member_point" 			property="memberPoint"/>
+			<result column="member_date" 			property="memberDate"/>
+		</association>
+	</resultMap>
+	
+	<select id="basketPurchaseInfoById" parameterType="String" resultMap="basketResultMap">
+		SELECT
+			 b.basket_code
+			,b.goods_refurb_code
+			,b.member_id
+			,b.basket_count
+			,b.basket_price
+			,b.before_mid_sum_code
+		FROM
+			basket_purchase AS b
+			INNER JOIN
+			member AS m
+			ON
+			b.member_id = m.member_id
+			INNER JOIN
+			goods_management AS g
+			ON
+			b.goods_refurb_code = g.goods_refurb_code
+		WHERE
+			b.member_id = #{memberId};
+	</select>
+	
+</mapper>

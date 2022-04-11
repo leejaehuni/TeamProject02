@@ -19,7 +19,7 @@
 		$(function(){
 			$('#modifyButton').click(function(){
 				$('input').attr("readonly",false);
-				$('#memberId').attr("readonly",true);
+				$('.not-modify').attr("readonly",true);
 				$('select').attr("disabled",false);
 				$('textarea').attr("readonly",false);
 			});
@@ -37,7 +37,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<form class="form-horizontal form-label-left">
+					<form class="form-horizontal form-label-left" th:action="@{/payment/goodsRefundDetail}" method="post">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -63,7 +63,7 @@
 												<label class="control-label" for="goods.goodsRefurbName">상품명</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" name="goods.goodsRefurbName" th:value="${goodsRefund.goods.goodsRefurbName}" readonly="readonly">
+												<input type="text" class="form-control not-modify" name="goods.goodsRefurbName" th:value="${goodsRefund.goods.goodsRefurbName}" readonly="readonly">
 											</div>
 										</div>
 									</td>
@@ -76,7 +76,7 @@
 												<label class="control-label" for="refundCode">상품환불코드</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" class="form-control" name="refundCode" th:value="${goodsRefund.refundCode}" readonly="readonly">
+												<input type="text" class="form-control not-modify" name="refundCode" th:value="${goodsRefund.refundCode}" readonly="readonly">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -84,7 +84,7 @@
 												<label class="control-label" for="memberId">아이디</label>
 											</div>
 											<div class="col-md-6 col-sm-6">
-												<input type="text" class="form-control" name="memberId" th:value="${goodsRefund.memberId}" readonly="readonly">
+												<input type="text" class="form-control not-modify" name="memberId" th:value="${goodsRefund.memberId}" readonly="readonly">
 													
 											</div>
 										</div>
@@ -93,7 +93,7 @@
 												<label class="control-label" for="refundReasonContent">환불 사유</label>
 											</div>
 											<div class="col-md-6 col-sm-6 ">
-												<textarea cols="30" class="form-control" name="refundReasonContent" id="exampleFormControlTextarea1" rows="3" disabled="disabled">[[${goodsRefund.refundReasonContent}]]</textarea>
+												<textarea cols="30" class="form-control" name="refundReasonContent" id="exampleFormControlTextarea1" rows="3" readonly="readonly">[[${goodsRefund.refundReasonContent}]]</textarea>
 											</div>
 										</div>
 										
@@ -112,6 +112,21 @@
 											</div>
 											<div class="col-md-6 col-sm-6 ">
 												<input type="number" class="form-control" name="refundPrice" th:value="${goodsRefund.refundPrice}" readonly="readonly">
+											</div>
+										</div>
+										
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="refundProcessState">처리 상태</label>
+											</div>
+											<div class="col-md-6 col-sm-6 ">
+												<select class="form-control text-center" name="refundProcessState" th:value="${goodsRefund.refundProcessState}" disabled="disabled">
+													<option selected> :: 선택 :: </option>
+													<option th:selected="${goodsRefund.refundProcessState == '미승인'}">미승인</option>
+													<option th:selected="${goodsRefund.refundProcessState == '처리중'}">처리중</option>
+													<option th:selected="${goodsRefund.refundProcessState == '완료'}">완료</option>
+													<option th:selected="${goodsRefund.refundProcessState == '거절'}">거절</option>
+												</select>
 											</div>
 										</div>
 										

@@ -37,7 +37,7 @@
 					
 					// 사용자가 입력하지 않은 경우
 					if(!result){
-						alert(inputLabel + '을 입력해주세요');
+						alert(inputLabel + '를 입력해주세요');
 						$(this).focus();
 						isSubmit = false;
 						return false;
@@ -62,7 +62,7 @@
                         <div class="offset-lg-3 col-lg-9 col-md-9">
                             <div class="row">
                             	<div class="col-md-2">
-                            		<label>아이디<span>*</span></label>
+                            		<label for="memberId">아이디<span></span></label>
                             	</div>
                                 <div class="col-md-6">
                                     <div class="checkout__input">
@@ -72,7 +72,7 @@
                             </div>
                             <div class="row">
 								<div class="col-md-2">
-									<label>비밀번호<span>*</span></label>
+									<label for="memberPw">비밀번호<span></span></label>
 								</div>
 								<div class="col-md-6">
 									<div class="checkout__input">

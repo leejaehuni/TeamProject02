@@ -37,7 +37,7 @@
 								<input type="checkbox" name="options" id="option2"> 미승인
 							</label>
 							<label class="btn btn-default active">
-								<input type="checkbox" name="options" id="option1" checked> 처리중
+								<input type="checkbox" name="options" id="option1"> 처리중
 							</label>
 							<label class="btn btn-default">
 								<input type="checkbox" name="options" id="option2"> 완료
@@ -47,25 +47,27 @@
 							</label>
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-2">
-							<select id=" " class="form-control">
-								<option selected> :: 선택 :: </option>
-								<option>상품교환코드</option>
-								<option>상품명</option>
-								<option>아이디</option>
-								<option>교환 사유</option>
-							</select>
+					<form th:action="@{/payment/conditionGoodsRefundList}" method="get">
+						<div class="form-row">
+							<div class="form-group col-md-2">
+								<select name="searchKey" class="form-control text-center">
+									<option value=""> :: 선택 :: </option>
+									<option value="refund_code">상품환불코드</option>
+									<option value="goods_refurb_name">상품명</option>
+									<option value="member_id">아이디</option>
+									<option value="refund_process_state">처리 상태</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control" name="searchValue" placeholder="Search"
+								aria-label="Text input with dropdown button">
+							</div>
+							<div class="form-group col-md-2">
+								<button type="submit" class="btn btn-success"><i class="fa fa-search"></i> 검색</button>
+								<button type="reset" class="btn btn-info"><i class="fa fa-minus-circle"></i> 초기화</button>
+							</div>
 						</div>
-						<div class="form-group col-md-4">
-							<input type="text" class="form-control" name="searchValue" placeholder="Search"
-							aria-label="Text input with dropdown button">
-						</div>
-						<div class="form-group offset-md-4 col-md-2">
-							<button type="button" class="btn btn-primary" style="float: right;">초기화</button>
-							<button type="button" class="btn btn-primary" style="float: right;">검색</button>
-						</div>
-					</div>
+					</form>
 					<div class="table-responsive">
 						<div class="clearfix">
 	                        <div class="float-left">

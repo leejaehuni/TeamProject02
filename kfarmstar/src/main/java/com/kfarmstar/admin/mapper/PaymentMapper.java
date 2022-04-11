@@ -12,6 +12,24 @@ import com.kfarmstar.dto.OrderCancel;
 @Mapper
 public interface PaymentMapper {
 	
+	//조건별 상품 환불 내역 조회
+	public List<GoodsRefund> conditionGoodsRefundList(String searchKey, String searchValue);
+	
+	//조건별 상품 교환 내역 조회
+	public List<GoodsExchange> conditionGoodsExchangeList(String searchKey, String searchValue);
+	
+	//조건별 주문 취소 내역 조회
+	public List<OrderCancel> conditionOrderCancelList(String searchKey, String searchValue);
+	
+	//상품 환불 내역 수정
+	public int modifyGoodsRefund(GoodsRefund goodsRefund);
+	
+	//상품 주문 취소 내역 수정
+	public int modifyOrderCancel(OrderCancel orderCancel);
+	
+	//상품교환 내역 수정
+	public int modifyGoodsExchange(GoodsExchange goodsExchange);
+	
 	//환불코드별 상품 환불 상세 정보 내역
 	public GoodsRefund goodsRefundInfoByCode(String refundCode);
 	
