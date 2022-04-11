@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	
     //btn_reset 을 클릭했을때의 함수
@@ -72,76 +73,52 @@ $(document).ready(function(){
     
     //오늘 버튼 클릭시 datePicker 오늘 검색
     $(function(){
-    	 var
-    	 todayDate = new Date(),
-    	 todayYear = todayDate.getFullYear(),
-    	 todayMonth = (todayDate.getMonth() + 1),
-    	 todayDay = todayDate.getDate();
-    	 /*setWeekDay = weekDate.setDate(todayDay - 7),
-    	 getWeekDay = setWeekDate.getDate();*/
-    	 
-    	 /*if(todayMonth < 10){
-    		 todayMonth = "0" + todayMonth;
-    		 todayDate = (todayYear + "-" + todayMonth);
-    		 if(todayDay < 10){
-    			 todayDay = "0" + todayDay;
-    			 todayDate += "-" + todayDay;
-    		 }
-    		 else if(todayDay >= 10){
-    			 todayDate += "-" + todayDay;
-    		 }
-    	 }
-    	 else if(todayMonth >= 10){
-    		 todayDate = (todayYear + "-" + todayMonth); 
-    		 if(todayDay < 10){
-    			 todayDay = "0" + todayDay;
-    			 todayDate += "-" + todayDay;
-    		 }else if(todayDay >= 10){
-    			 todayDate += "-" + todayDay;
-    		 }
-    	 }*/
-    	 
-		var startTodayDate = '';
-		startTodayDate += todayYear;
-		startTodayDate += '-'
-		startTodayDate += todayMonth < 10 ? '0' + todayMonth : todayMonth;
-		startTodayDate += '-'
-		startTodayDate += todayDay < 10 ? '0' + todayDay : todayDay;
-		
-		var endTodayDate = '';
-		endTodayDate += todayYear;
-		endTodayDate += '-'
-		endTodayDate += todayMonth < 10 ? '0' + todayMonth : todayMonth;
-		endTodayDate += '-'
-		endTodayDate += todayDay < 10 ? '0' + todayDay : todayDay;
-    			 
+    	const 
+    	 current = 			moment().startOf('day')
+    	,todayDate = 		moment(current).format('YYYY-MM-DD')
+    	,todayDate2 = 		moment(current).format('YYYY-MM-DD')
+    	,weekDate =  		moment(current, "YYYY-MM-DD").subtract(7, 'days').format('YYYY-MM-DD')
+    	,monthDate = 		moment(current, "YYYY-MM-DD").subtract(1, 'months').format('YYYY-MM-DD')
+    	,threeMonthDate = 	moment(current, "YYYY-MM-DD").subtract(3, 'months').format('YYYY-MM-DD')
+    	,sixMonthDate = 	moment(current, "YYYY-MM-DD").subtract(6, 'months').format('YYYY-MM-DD')
+    	,YearDate = 		moment(current, "YYYY-MM-DD").subtract(1, 'years').format('YYYY-MM-DD');
+    	
+    	
     	$('#btn-date1').click(function(){
-    		$('#startDate').val(startTodayDate);
-    		$('#endDate').val(endTodayDate);
+    		$('#startDate').val(todayDate);
+    		$('#endDate').val(todayDate2);
     		
     	});
     	
     	$('#btn-date2').click(function(){
-    		var 
-    		weekDate = new Date();
     		
+    		$('#startDate').val(weekDate);
+    		$('#endDate').val(todayDate);
+    	});
+    	
+    	$('#btn-date3').click(function(){
     		
-    		dayofMonth = weekDate.getDate();
+    		$('#startDate').val(monthDate);
+    		$('#endDate').val(todayDate);
     		
-    		weekDay = weekDate.setDate(dayofMonth - 7);
-    		weekDay = weekDate.getDate();
+    	});
+    	
+    	$('#btn-date4').click(function(){
     		
-    		console.log(weekDate);
+    		$('#startDate').val(threeMonthDate);
+    		$('#endDate').val(todayDate);
+    	});
+    	
+    	$('#btn-date5').click(function(){
     		
-    		var getWeekDate = '';
-    		getWeekDate += todayYear;
-    		getWeekDate += '-'
-    		getWeekDate += todayMonth < 10 ? '0' + todayMonth : todayMonth;
-    		getWeekDate += '-'
-    		getWeekDate += weekDay < 10 ? '0' + weekDay : weekDay;
+    		$('#startDate').val(sixMonthDate);
+    		$('#endDate').val(todayDate);
+    	});
+    	
+    	$('#btn-date6').click(function(){
     		
-    		console.log(getWeekDate);
-    		$('#endDate').val(endTodayDate);
+    		$('#startDate').val(YearDate);
+    		$('#endDate').val(todayDate);
     	});
     	
     });

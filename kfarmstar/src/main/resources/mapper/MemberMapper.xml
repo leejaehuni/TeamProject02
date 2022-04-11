@@ -74,6 +74,78 @@
 		</association>
 	</resultMap>
 	
+	<resultMap type="LoginHistory" id="loginResultMap">
+		<result column="login_num" 				property="loginNum"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="login_time" 			property="loginTime"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+			<result column="member_pw" 				property="memberPw"/>
+			<result column="member_nickname" 		property="memberNickname"/>
+			<result column="member_phone" 			property="memberPhone"/>
+			<result column="member_post_num" 		property="memberPostNum"/>
+			<result column="member_addr" 			property="memberAddr"/>
+			<result column="member_detail_addr" 	property="memberDetailAddr"/>
+			<result column="member_birth" 			property="memberBirth"/>
+			<result column="member_email" 			property="memberEmail"/>
+			<result column="member_point" 			property="memberPoint"/>
+			<result column="member_date" 			property="memberDate"/>
+			</association>
+	</resultMap>
+	
+	<resultMap type="LogoutHistory" id="logoutResultMap">
+		<result column="logout_num" 		property="logoutNum"/>
+		<result column="member_id" 			property="memberId"/>
+		<result column="logout_time" 		property="logoutTime"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+			<result column="member_pw" 				property="memberPw"/>
+			<result column="member_nickname" 		property="memberNickname"/>
+			<result column="member_phone" 			property="memberPhone"/>
+			<result column="member_post_num" 		property="memberPostNum"/>
+			<result column="member_addr" 			property="memberAddr"/>
+			<result column="member_detail_addr" 	property="memberDetailAddr"/>
+			<result column="member_birth" 			property="memberBirth"/>
+			<result column="member_email" 			property="memberEmail"/>
+			<result column="member_point" 			property="memberPoint"/>
+			<result column="member_date" 			property="memberDate"/>
+			</association>
+	</resultMap>
+	
+	<select id="getLogoutHistory" resultMap="logoutResultMap">
+		/* 회원 로그아웃 내역 조회 */
+		SELECT
+			 l.logout_num
+			,l.member_id
+			,m.member_level
+			,l.logout_time
+		FROM
+			logout_history AS l
+			INNER JOIN
+			member AS m
+			ON
+			l.member_id = m.member_id;
+	</select>
+	
+	<select id="getLoginHistory" resultMap="loginResultMap" fetchSize="1000">
+		/* 회원 로그인 내역 조회 */
+		SELECT
+			 l.login_num
+			,l.member_id
+			,m.member_level
+			,l.login_time
+		FROM
+			login_history AS l
+			INNER JOIN
+			member AS m
+			ON
+			l.member_id = m.member_id;
+	</select>
+	
 	<select id="todaySellerStoreList" parameterType="String" resultMap="sellerResultMap">
 		SELECT
 			 s.seller_store_num

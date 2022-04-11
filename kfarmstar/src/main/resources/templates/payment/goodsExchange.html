@@ -45,37 +45,34 @@
 							<label class="btn btn-default">
 								<input type="checkbox" name="options" id="option2"> 미승인
 							</label>
-							<label class="btn btn-default active">
-								<input type="checkbox" name="options" id="option1" checked> 처리중
-							</label>
 							<label class="btn btn-default">
-								<input type="checkbox" name="options" id="option2"> 완료
+								<input type="checkbox" name="options" id="option2"> 승인
 							</label>
 							<label class="btn btn-default">
 								<input type="checkbox" name="options" id="option3"> 거절
 							</label>
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-2">
-							<select id=" " class="form-control">
-								<option selected> :: 선택 :: </option>
-								<option>상품교환코드</option>
-								<option>상품명</option>
-								<option>아이디</option>
-								<option>교환 사유</option>
-							</select>
-						</div>
+					<form th:action="@{/payment/conditionGoodsExchangeList}" method="get">
+						<div class="form-row">
+							<div class="form-group col-md-2">
+								<select name="searchKey" class="form-control text-center">
+									<option value=""> :: 선택 :: </option>
+									<option value="goods_exchange_code">상품교환코드</option>
+									<option value="goods_refurb_name">상품명</option>
+									<option value="member_id">아이디</option>
+								</select>
+							</div>
 						<div class="form-group col-md-6">
 							<input type="text" class="form-control" name="searchValue" placeholder="Search"
 							aria-label="Text input with dropdown button">
 						</div>
 						<div class="form-group col-md-2">
-							<button type="button" class="btn btn-primary">초기화</button>
-							<button type="button" class="btn btn-primary">검색</button>
+							<button type="submit" class="btn btn-success"><i class="fa fa-search"></i> 검색</button>
+							<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
 						</div>
 					</div>
-				<div>
+				</form>
 				</div>
 					<div class="table-responsive">
 						<div class="clearfix">
@@ -100,7 +97,7 @@
 									<th class="column-title">교환 시각</th>
 									<th class="column-title">상세조회</th>
 									<th class="bulk-actions" colspan="7">
-										<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+										<a class="antoo" style="color:#fff; font-weight:500;">전체 선택 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
 									</th>
 								</tr>
 							</thead>

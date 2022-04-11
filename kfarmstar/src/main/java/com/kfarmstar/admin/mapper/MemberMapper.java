@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kfarmstar.dto.LoginHistory;
+import com.kfarmstar.dto.LogoutHistory;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
@@ -11,7 +13,11 @@ import com.kfarmstar.dto.SellerStore;
 @Mapper
 public interface MemberMapper {
 	
+	//회원 로그아웃 이력 조회
+	public List<LogoutHistory> getLogoutHistory();
 	
+	//회원 로그인 이력 조회
+	public List<LoginHistory> getLoginHistory();
 	
 	//조건별 판매자 사업장 조회
 	public List<SellerStore> conditionSellerStoreList(String searchKey, String searchValue);

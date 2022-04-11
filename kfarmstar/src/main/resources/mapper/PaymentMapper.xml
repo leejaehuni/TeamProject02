@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.admin.mapper.PaymentMapper">
 	<resultMap type="AfterPayment" id="afterPaymentMap">
-		<result column="payment_complete_code" 		property="paymentCompleteCode"/>
+		<id column="payment_complete_code" 		property="paymentCompleteCode"/>
 		<result column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
 		<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
 		<result column="member_id" 					property="memberId"/>
@@ -15,7 +15,7 @@
 		<result column="last_payment_price" 		property="lastPaymentPrice"/>
 		<result column="payment_date" 				property="paymentDate"/>
 		<association property="member" javaType="Member">
-			<result column="member_id" 				property="memberId"/>
+			<id column="member_id" 				property="memberId"/>
 			<result column="member_name" 			property="memberName"/>
 			<result column="member_level" 			property="memberLevel"/>
 			<result column="member_pw" 				property="memberPw"/>
@@ -30,7 +30,7 @@
 			<result column="member_date" 			property="memberDate"/>
 		</association>
 		<association property="goods" javaType="Goods">
-			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<id column="goods_refurb_code" 			property="goodsRefurbCode"/>
 			<result column="seller_store_num" 			property="sellerStoreNum"/>
 			<result column="goods_large_code" 			property="goodsLargeCode"/>
 			<result column="goods_small_code" 			property="goodsSmallCode"/>
@@ -48,7 +48,7 @@
 			<result column="entry_time" 				property="entryTime"/>
 		</association>
 		<association property="puchaserPayment" javaType="PuchaserPayment">
-			<result column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
+			<id column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
 			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
 			<result column="member_id" 					property="memberId"/>
 			<result column="before_mid_sum_code" 		property="beforeMidSumCode"/>
@@ -62,7 +62,7 @@
 			<result column="recipient_phone" 			property="recipientPhone"/>
 		</association>
 		<association property="paymentType" javaType="PaymentType">
-			<result column="payment_type_code" 			property="paymentTypeCode"/>
+			<id column="payment_type_code" 			property="paymentTypeCode"/>
 			<result column="member_id" 					property="memberId"/>
 			<result column="payment_complete_code" 		property="paymentCompleteCode"/>
 			<result column="payment_card_type" 			property="paymentCardType"/>
@@ -139,7 +139,7 @@
 		<result column="exchange_request_date" 		property="exchangeRequestDate"/>
 		<result column="exchange_process_state" 	property="exchangeProcessState"/>
 		<association property="afterPayment" javaType="AfterPayment">
-			<result column="payment_complete_code" 		property="paymentCompleteCode"/>
+			<id column="payment_complete_code" 		property="paymentCompleteCode"/>
 			<result column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
 			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
 			<result column="member_id" 					property="memberId"/>
@@ -151,7 +151,7 @@
 			<result column="payment_date" 				property="paymentDate"/>
 		</association>
 		<association property="member" javaType="Member">
-			<result column="member_id" 				property="memberId"/>
+			<id column="member_id" 				property="memberId"/>
 			<result column="member_name" 			property="memberName"/>
 			<result column="member_level" 			property="memberLevel"/>
 			<result column="member_pw" 				property="memberPw"/>
@@ -166,7 +166,7 @@
 			<result column="member_date" 			property="memberDate"/>
 		</association>
 		<association property="goods" javaType="Goods">
-			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<id column="goods_refurb_code" 			property="goodsRefurbCode"/>
 			<result column="seller_store_num" 			property="sellerStoreNum"/>
 			<result column="goods_large_code" 			property="goodsLargeCode"/>
 			<result column="goods_small_code" 			property="goodsSmallCode"/>
@@ -186,7 +186,7 @@
 	</resultMap>
 	
 	<resultMap type="GoodsRefund" id="goodsRefundMap">
-		<result column="refund_code" 				property="refundCode"/>
+		<id column="refund_code" 				property="refundCode"/>
 		<result column="payment_complete_code" 		property="paymentCompleteCode"/>
 		<result column="member_id" 					property="memberId"/>
 		<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
@@ -241,6 +241,149 @@
 			<result column="entry_time" 				property="entryTime"/>
 		</association>
 	</resultMap>
+	
+	<select id="conditionGoodsRefundList" parameterType="String" resultMap="goodsRefundMap">
+		/* 조건별 환불 내역 조회 */
+		SELECT
+			 r.refund_code
+			,r.payment_complete_code
+			,r.member_id
+			,r.goods_refurb_code
+			,r.refund_reason_content
+			,r.refund_process_state
+			,r.refund_count
+			,r.refund_price
+			,r.refund_receipt_date
+			,g.goods_refurb_name
+		FROM
+			goods_refund AS r
+			INNER JOIN
+			after_payment_info AS a
+			ON
+			r.payment_complete_code = a.payment_complete_code
+			INNER JOIN
+			member AS m
+			ON
+			r.member_id = m.member_id
+			INNER JOIN
+			goods_management AS g
+			ON
+			r.goods_refurb_code = g.goods_refurb_code
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="searchKey != null and searchKey != '' and searchValue != ''">
+					AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				</if>
+			</trim>
+			ORDER BY r.refund_code;
+	</select>
+	
+	<select id="conditionGoodsExchangeList" parameterType="String" resultMap="goodsExchangeMap">
+		/* 조건별 상품 교환 내역 조회 */
+		SELECT
+			 e.goods_exchange_code
+			,e.payment_complete_code
+			,g.goods_refurb_name
+			,e.member_id
+			,e.goods_refurb_code
+			,e.exchange_reason_content
+			,e.exchange_count
+			,e.exchange_request_date
+			,e.exchange_process_state
+		FROM 
+			goods_exchange AS e
+			INNER JOIN
+			after_payment_info AS a
+			ON
+			e.payment_complete_code = a.payment_complete_code
+			INNER JOIN
+			member AS m
+			ON
+			e.member_id = m.member_id
+			INNER JOIN
+			goods_management AS g
+			ON
+			e.goods_refurb_code = g.goods_refurb_code
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="searchKey != null and searchKey != '' and searchValue != ''">
+					AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				</if>
+			</trim>
+			ORDER BY e.goods_exchange_code;
+	</select>
+	
+	<select id="conditionOrderCancelList" parameterType="String" resultMap="orderCancelMap">
+		/* 조건별 주문 취소 내역 조회*/
+		SELECT
+			 o.order_cancel_code
+			,o.payment_complete_code
+			,o.member_id
+			,o.goods_refurb_code
+			,o.cancel_reason_content
+			,o.cancel_count
+			,o.cancel_price
+			,o.cancel_request_date
+			,g.goods_refurb_name
+		FROM
+			goods_order_cancel AS o
+			INNER JOIN
+			after_payment_info AS a
+			ON
+			o.payment_complete_code = a.payment_complete_code
+			INNER JOIN
+			member AS m
+			ON
+			o.member_id = m.member_id
+			INNER JOIN
+			goods_management AS g
+			ON
+			o.goods_refurb_code = g.goods_refurb_code
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="searchKey != null and searchKey != '' and searchValue != ''">
+					AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				</if>
+			</trim>
+			ORDER BY o.order_cancel_code;
+	</select>
+	
+	<update id="modifyGoodsRefund" parameterType="GoodsRefund">
+		/* 상품 환불 내역 수정 */
+		UPDATE
+			goods_refund
+		SET
+			 refund_reason_content=#{refundReasonContent}
+			,refund_process_state=#{refundProcessState}
+			,refund_count=#{refundCount}
+			,refund_price=#{refundPrice}
+			,refund_receipt_date=#{refundReceiptDate}
+		WHERE
+			refund_code=#{refundCode}
+	</update>
+	
+	<update id="modifyOrderCancel" parameterType="OrderCancel">
+		/* 상품 주문 취소 내역 수정 */
+		UPDATE
+			goods_order_cancel
+		SET
+			cancel_reason_content=#{cancelReasonContent}
+			,cancel_count=#{cancelCount}
+			,cancel_price=#{cancelPrice}
+			,cancel_request_date=#{cancelRequestDate}
+		WHERE
+			order_cancel_code=#{orderCancelCode};
+	</update>
+	
+	<update id="modifyGoodsExchange" parameterType="GoodsExchange">
+		/* 상품 교환 내역 수정 */
+		UPDATE
+			goods_exchange
+		SET
+			 exchange_reason_content=#{exchangeReasonContent}
+			,exchange_count=#{exchangeCount}
+			,exchange_request_date=#{exchangeRequestDate}
+			,exchange_process_state=#{exchangeProcessState}
+		WHERE
+			goods_exchange_code=#{goodsExchangeCode}
+	</update>
 	
 	<select id="goodsRefundInfoByCode" parameterType="String" resultMap="goodsRefundMap">
 		/* 상품 환불 코드별 상품 환불 상세 내역 조회 */
