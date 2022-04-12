@@ -116,6 +116,83 @@
 			</association>
 	</resultMap>
 	
+	<select id="searchDateSellerList" parameterType="String" resultMap="sellerResultMap">
+		/* 등록 날짜별 판매자 사업장 내역 조회 */
+		SELECT
+			 s.seller_store_num
+			,s.member_id
+			,s.seller_store_name
+			,s.seller_license_num
+			,s.seller_store_phone
+			,s.seller_store_post_num
+			,s.seller_store_addr
+			,s.seller_store_detail_addr
+			,s.seller_entry_date
+			,s.seller_tax_type
+			,m.member_phone
+		FROM 
+			seller_store AS s
+			INNER JOIN
+			member AS m
+		WHERE
+			s.seller_entry_date BETWEEN #{startDate} AND #{endDate};
+	</select>
+	
+	<select id="searchDateMemberList" parameterType="String" resultMap="memberResultMap">
+		/* 가입 날짜별 회원 내역 조회*/
+		SELECT 
+		      m.member_id
+		     ,m.member_name
+		     ,m.member_level
+		     ,m.member_nickname
+		     ,m.member_post_num
+		     ,m.member_addr
+		     ,m.member_detail_addr
+		     ,m.member_phone
+		     ,m.member_birth
+		     ,m.member_email
+		     ,m.member_date
+	    FROM
+	    	member AS m
+	    WHERE
+			m.member_date BETWEEN #{startDate} AND #{endDate};
+	</select>
+	
+	<select id="allSearchMemberList" parameterType="String" resultMap="memberResultMap">
+		/* 모든 조건별 회원 내역 조회 */
+		SELECT 
+		      m.member_id
+		     ,m.member_name
+		     ,m.member_level
+		     ,m.member_nickname
+		     ,m.member_post_num
+		     ,m.member_addr
+		     ,m.member_detail_addr
+		     ,m.member_phone
+		     ,m.member_birth
+		     ,m.member_email
+		     ,m.member_date
+	    FROM
+	    	member AS m
+	    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchKey != null and searchKey != '' and searchValue != ''">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDate != ''">
+				<choose>
+					<when test="endDate != ''">
+						AND m.member_date BETWEEN #{startDate} AND #{endDate}					
+					</when>
+					<otherwise>
+						AND m.member_date = #{startDate}
+					</otherwise>
+				</choose>
+			</if>
+
+		</trim>
+	        
+	</select>
+	
 	<select id="getLogoutHistory" resultMap="logoutResultMap">
 		/* 회원 로그아웃 내역 조회 */
 		SELECT
@@ -144,27 +221,6 @@
 			member AS m
 			ON
 			l.member_id = m.member_id;
-	</select>
-	
-	<select id="todaySellerStoreList" parameterType="String" resultMap="sellerResultMap">
-		SELECT
-			 s.seller_store_num
-			,s.member_id
-			,s.seller_store_name
-			,s.seller_license_num
-			,s.seller_store_phone
-			,s.seller_store_post_num
-			,s.seller_store_addr
-			,s.seller_store_detail_addr
-			,s.seller_entry_date
-			,s.seller_tax_type
-		FROM
-			seller_store AS s
-			<trim prefix="WHERE" prefixOverrides="AND |OR ">
-				<if test="searchKey != null and searchKey != '' and searchValue != ''">
-					AND ${searchKey} = CURDATE()
-				</if>
-			</trim> 
 	</select>
 	
 	<select id="conditionSellerStoreList" parameterType="String" resultMap="sellerResultMap">

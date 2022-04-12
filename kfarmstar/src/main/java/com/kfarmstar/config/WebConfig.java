@@ -22,10 +22,22 @@
   @Override public void addInterceptors(InterceptorRegistry registry) {
   
   registry.addInterceptor(commonInterceptor) 
-  .excludePathPatterns("/**");
+  .addPathPatterns("/**")
+  .excludePathPatterns("/asset/**")
+  .excludePathPatterns("/build/**")
+  .excludePathPatterns("/vendors/**");
+  
   
   registry.addInterceptor(loginInterceptor) 
-  .excludePathPatterns("/**");
+  .addPathPatterns("/**")
+  .excludePathPatterns("/asset/**")
+  .excludePathPatterns("/build/**")
+  .excludePathPatterns("/vendors/**")
+  .excludePathPatterns("/userMain")
+  .excludePathPatterns("/userMember/beforeAddMember")
+  .excludePathPatterns("/userMember/addMember")
+  .excludePathPatterns("/userMember/addSellerMember")
+  .excludePathPatterns("/userMember/login");
   
   
   WebMvcConfigurer.super.addInterceptors(registry);

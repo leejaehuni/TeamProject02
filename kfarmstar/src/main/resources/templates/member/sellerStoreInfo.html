@@ -28,6 +28,57 @@
 	
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				
+				$(document).on('click', '.dateBtnGroup', function(){
+					$('form').remove('#testForm')
+					
+					var startDate = $('input[name="startDate"]').val();
+					var endDate = $('input[name="endDate"]').val();
+					
+					var dateBtnForm = $('<form></form>');
+					
+					dateBtnForm.attr("id", "testForm");
+					dateBtnForm.attr("name", "dateBtnForm");
+					dateBtnForm.attr("method", "post");
+					dateBtnForm.attr("action", "/member/searchDateSellerList");
+					
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+					
+					dateBtnForm.appendTo('body');
+					
+					dateBtnForm.submit();
+					
+					console.log(dateBtnForm);
+				});
+				
+				$(document).on('change', '#startDate, #endDate', function(){
+					
+						$('form').remove('#testForm')
+						
+						
+						var startDate = $('input[name="startDate"]').val();
+						var endDate = $('input[name="endDate"]').val();
+						
+						var datepickerForm = $('<form></form>');
+						
+						datepickerForm.attr("id", "testForm");
+						datepickerForm.attr("name", "datepickerForm");
+						datepickerForm.attr("method", "post");
+						datepickerForm.attr("action", "/member/searchDateSellerList");
+						
+						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+						datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+						
+						datepickerForm.appendTo('body');
+						if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+							datepickerForm.submit();
+						}
+				});
+			});
+		</script>
 	</th:block>	
 	
 	<th:block layout:fragment="customContents">
@@ -44,7 +95,7 @@
 						<div th:include="member/searchDate :: searchDateFragment"></div>
 						<!-- END : 검색 바 -->
 					</div>
-					<form th:action="@{/member/conditionSellerStoreList}" method="get">
+					<form th:action="@{/member/conditionSellerStoreList}" method="post">
 						<div class="form-row">
 							<div class="form-group col-md-2">
 								<select name="searchKey" class="form-control text-center">
@@ -60,7 +111,7 @@
 								aria-label="Text input with dropdown button">
 							</div>
 							<div class="form-group col-md-2">
-								<button type="submit" class="btn btn-success" ><i class="fa fa-search"></i> 검색</button>
+								<button type="submit" class="btn btn-success" id="searchBtn"><i class="fa fa-search"></i> 검색</button>
 								<button type="reset" class="btn btn-info" id="btn_reset"><i class="fa fa-minus-circle"></i> 초기화</button>
 							</div>
 						</div>

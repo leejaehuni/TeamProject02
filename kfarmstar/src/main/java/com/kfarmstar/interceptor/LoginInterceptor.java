@@ -22,22 +22,27 @@ public class LoginInterceptor implements HandlerInterceptor{
 		String requestURI = request.getRequestURI();
 		
 		if(sessionId == null) {
-			response.sendRedirect("/userMain");
+			response.sendRedirect("/userMember/login");
 			return false;
 		}else {
 			if("판매자".equals(sessionLevel)) {
 
 				// 판매자인경우 회원관리 관련 주소요청 제어
-				if( requestURI.indexOf("member/memberList") > -1) {
-					
+				if( requestURI.indexOf("member/memberList") > -1 		|| 
+					requestURI.indexOf("member/addMember") > -1  		|| 
+					requestURI.indexOf("member/detailMember") > -1 		||
+					requestURI.indexOf("member/sellerStoreInfo") > -1	) {
 					response.sendRedirect("/");
 					
 					return false;
 				}
 			}else if ("구매자".equals(sessionLevel)) {
-				if( requestURI.indexOf("member/memberList") > -1) {
+				if( requestURI.indexOf("member/memberList") > -1 		|| 
+					requestURI.indexOf("member/addMember") > -1  		|| 
+					requestURI.indexOf("member/detailMember") > -1 		||
+					requestURI.indexOf("member/sellerStoreInfo") > -1) {
 						
-					response.sendRedirect("/");
+					response.sendRedirect("/userMain");
 						
 					return false;
 				}

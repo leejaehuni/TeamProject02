@@ -92,7 +92,7 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
-	@GetMapping("/conditionSellerStoreList")
+	@PostMapping("/conditionSellerStoreList")
 	public String conditionSellerStoreList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
 											,@RequestParam(value="searchValue", required = false) String searchValue) {
@@ -106,7 +106,7 @@ public class MemberController {
 		return "member/sellerStoreInfo";
 	}
 	
-	@GetMapping("/conditionMemberList")
+	@PostMapping("/conditionMemberList")
 	public String conditionMemberList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
 											,@RequestParam(value="searchValue", required = false) String searchValue) {
@@ -120,17 +120,41 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
-	@PostMapping("/searchDate")
-	@ResponseBody
-	public List<Member> searchDate(@RequestParam(value="searchKey", required = false) String searchKey
-							,@RequestParam(value = "searchValue", required = false) String searchValue) {
+	
+	
+	@PostMapping("/allSearchMemberList")
+	public String allSearchMemberList(Model model
+								  	,@RequestParam(value="startDate", required = false) String startDate
+									,@RequestParam(value="endDate", required = false) String endDate
+									,@RequestParam(value="searchKey", required = false, defaultValue = "") String searchKey
+									,@RequestParam(value="searchValue", required = false, defaultValue = "") String searchValue) {
+	  
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
+		log.info("가입기간별 회원 검색:{}", searchKey);
+		log.info("가입기간별 회원 검색:{}", searchValue);
+		 
+		List<Member> allSearchMemberList = memberService.allSearchMemberList(startDate, endDate, searchKey, searchValue);
+		 
 		
-		log.info("기간검색");
-		log.info("searchValue:{}", searchValue);
+		model.addAttribute("memberList", allSearchMemberList);
+		  
+		return "member/memberList";
+	}
+	 
+	@PostMapping("/searchDateMemberList")  
+	public String searchDateMemberList(Model model
+									,@RequestParam(value="startDate", required = false) String startDate
+									,@RequestParam(value="endDate", required = false) String endDate) {
 		
-		List<Member> searchDate = memberService.searchDate(searchKey, searchValue);
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
 		
-		return searchDate;
+		List<Member> searchDateMemberList = memberService.searchDateMemberList(startDate, endDate);
+		
+		model.addAttribute("memberList", searchDateMemberList);
+		
+		return "member/memberList";
 	}
 	
 	@GetMapping("/modifyMember")
@@ -319,6 +343,22 @@ public class MemberController {
 		memberService.modifySellerStore(sellerStore);
 			
 			return "redirect:/member/sellerStoreInfo";
+	}
+	
+	@PostMapping("/searchDateSellerList")
+	public String searchDateSellerList(Model model
+									,@RequestParam(value="startDate", required = false) String startDate
+									,@RequestParam(value="endDate", required = false) String endDate) {
+		
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
+		
+		List<SellerStore> searchDateSellerList = memberService.searchDateSellerList(startDate, endDate);
+		
+		model.addAttribute("sellerStoreList", searchDateSellerList);
+		
+		return "member/sellerStoreInfo";
+		
 	}
 	
 }

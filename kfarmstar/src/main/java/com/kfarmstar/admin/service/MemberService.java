@@ -26,6 +26,27 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 	
+	public List<SellerStore> searchDateSellerList(String startDate, String endDate){
+		
+		List<SellerStore> searchDateSellerList = memberMapper.searchDateSellerList(startDate, endDate);
+		
+		return searchDateSellerList;
+	}
+	
+	public List<Member> searchDateMemberList(String startDate, String endDate){
+		
+		List<Member> searchDateMemberList = memberMapper.searchDateMemberList(startDate, endDate);
+		
+		return searchDateMemberList;
+	}
+	
+	public List<Member> allSearchMemberList(String startDate, String endDate, String searchKey, String searchValue){
+		
+		 List<Member> allSearchMemberList = memberMapper.allSearchMemberList(startDate, endDate, searchKey, searchValue);
+		 
+		 return allSearchMemberList;
+	}
+	
 	public List<LogoutHistory> getLogoutHistory(){
 		
 		List<LogoutHistory> getLogoutHistoryList = memberMapper.getLogoutHistory();
