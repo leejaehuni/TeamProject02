@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kfarmstar.admin.mapper.FileMapper">
+	
+	<insert id="addFile" parameterType="FileDto">
+		/* 단일 파일 등록 */
+		INSERT INTO tb_file
+			(
+			  file_idx
+			, file_original_name
+			, file_new_name
+			, file_path
+			, file_size
+			)VALUES (
+			  #{fileIdx}
+			, #{fileNewName}
+			, #{fileOriginalName}
+			, #{filePath}
+			, #{fileSize});
+	</insert>
+
+	<insert id="addFiles" parameterType="java.util.List">
+		/* 다량 파일 등록 */
+		INSERT INTO tb_file
+			( 
+			  file_idx
+			, file_original_name
+			, file_new_name
+			, file_path
+			, file_size
+			)VALUES 
+			<foreach item="item" collection="list" separator=", " >
+				(
+				  #{item.fileIdx}
+				 ,#{item.fileNewName}
+				 ,#{item.fileOriginalName}
+				 ,#{item.filePath}
+				 ,#{item.fileSize}
+				)
+			</foreach>
+	</insert>
+	
+	<insert id="addFilesContol" parameterType="java.util.List">
+		/* 파일 관계 테이블 등록 */
+		INSERT INTO tb_file_control
+			(
+			  reference_code
+			, file_idx
+			)VALUES 
+			<foreach item="item" collection="list" separator=", " >
+				(
+					  #{item.referenceCode}
+					, #{item.fileIdx}
+				)
+			</foreach>
+	</insert>
+</mapper>
