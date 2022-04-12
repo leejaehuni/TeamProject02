@@ -76,13 +76,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="l : ${donorGoodsList}">
-									<td th:text="${l.donationBoardCode}"></td>
-									<td th:text="${l.goodsDonationImg}"></td>
-									<td th:text="${l.goodsDonationName}"></td>
-									<td th:text="${l.memberId}"></td>
-									<td th:text="${l.goodsDonationDeliveryWay}"></td>
-									<th th:text="${l.donationRequestEntryDate}"></th>
+								<tr th:each="d : ${donorGoodsList}">
+									<td th:text="${d.donationBoardCode}"></td>
+									<td th:text="${d.goodsDonationImg}"></td>
+									<td th:text="${d.goodsDonationName}"></td>
+									<td th:text="${d.memberId}"></td>
+									<td th:text="${d.goodsDonationDeliveryWay}"></td>
+									<th th:text="${d.donationRequestEntryDate}"></th>
 								</tr>
 							</tbody>
 						</table>
