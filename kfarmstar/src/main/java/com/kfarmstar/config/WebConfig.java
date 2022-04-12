@@ -33,12 +33,13 @@
   .excludePathPatterns("/asset/**")
   .excludePathPatterns("/build/**")
   .excludePathPatterns("/vendors/**")
+  .excludePathPatterns("/images/**")
   .excludePathPatterns("/userMain")
   .excludePathPatterns("/userMember/beforeAddMember")
   .excludePathPatterns("/userMember/addMember")
   .excludePathPatterns("/userMember/addSellerMember")
-  .excludePathPatterns("/userMember/login");
-  
+  .excludePathPatterns("/userMember/login")
+  .excludePathPatterns("/userGoods/**");
   
   WebMvcConfigurer.super.addInterceptors(registry);
   
