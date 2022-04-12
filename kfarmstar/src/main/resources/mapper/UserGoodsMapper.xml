@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.kfarmstar.user.mapper.UserGoodsMapper">
+
+	<resultMap type="Goods" id="goodsResultMap">
+		<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+		<result column="seller_store_num" 			property="sellerStoreNum"/>
+		<result column="goods_large_code" 			property="goodsLargeCode"/>
+		<result column="goods_small_code" 			property="goodsSmallCode"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="goods_large_cate" 			property="goodsLargeCate"/>
+		<result column="goods_small_cate" 			property="goodsSmallCate"/>
+		<result column="goods_refurb_sell_state" 	property="goodsRefurbSellState"/>
+		<result column="goods_refurb_name" 			property="goodsRefurbName"/>
+		<result column="goods_normal_price" 		property="goodsNormalPrice"/>
+		<result column="goods_refurb_price" 		property="goodsRefurbPrice"/>
+		<result column="goods_refurb_count" 		property="goodsRefurbCount"/>
+		<result column="goods_refurb_harvest_date" 	property="goodsRefurbHarvestDate"/>
+		<result column="goods_refurb_organic" 		property="goodsRefurbOrganic"/>
+		<result column="goods_post_summary" 		property="goodsPostSummary"/>
+		<result column="goods_post_explain" 		property="goodsPostExplain"/>
+		<result column="goods_delivery_charge" 		property="goodsDeliveryCharge"/>
+		<result column="goods_weight" 				property="goodsWeight"/>
+		<result column="entry_time" 				property="entryTime"/>
+		<association property="goodsLarge" 		javaType="GoodsLarge">
+			<id 	column="goods_large_cate" 	property="goodsLargeCate"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="update_manager_id" 	property="updateManagerId"/>
+			<result column="goods_large_name" 	property="goodsLargeName"/>
+			<result column="entry_time" 		property="entryTime"/>
+			<result column="last_update_time"	property="lastUpdateTime"/>
+		</association>
+		<association property="goodsSmall" 		javaType="GoodsSmall">
+			<id 	column="goods_small_cate" 	property="goodsSmallCate"/>
+			<result column="goods_small_name" 	property="goodsSmallName"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="update_manager_id" 	property="updateManagerId"/>
+			<result column="entry_time" 		property="entryTime"/>
+			<result column="last_update_time"	property="lastUpdateTime"/>
+		</association>
+		<collection property="fileList" javaType="java.util.List" ofType="FileDto">
+			<id 	column="file_idx" 			property="fileIdx"/>
+			<result column="file_original_name" property="fileOriginalName"/>
+			<result column="file_new_name" 		property="fileNewName"/>
+			<result column="file_path" 			property="filePath"/>
+			<result column="file_size" 			property="fileSize"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getUserGoodsList" resultType="Goods" resultMap="goodsResultMap">
+		/* 사용자 화면에서 상품 목록 조회 */
+		SELECT 
+			m.goods_refurb_code
+			, m.seller_store_num
+			, m.goods_large_code
+			, m.goods_small_code
+			, m.member_id
+			, m.goods_large_cate
+			, m.goods_small_cate
+			, m.goods_refurb_sell_state
+			, m.goods_refurb_name
+			, m.goods_normal_price
+			, m.goods_refurb_price
+			, m.goods_refurb_count
+			, m.goods_refurb_harvest_date
+			, m.goods_refurb_organic
+			, m.file_idx
+			, m.goods_post_summary
+			, m.goods_post_explain
+			, m.goods_delivery_charge
+			, m.goods_weight
+			, m.entry_time
+			, s.goods_small_name
+			, l.goods_large_name
+			, f.file_idx
+			, f.file_path
+		FROM 
+			goods_management AS m
+		INNER JOIN 
+			goods_small AS s
+		ON m.goods_small_cate = s.goods_small_cate
+		INNER JOIN
+			goods_large AS l
+		ON m.goods_large_cate = l.goods_large_cate
+		LEFT JOIN 
+			tb_file_control AS fc
+		ON m.goods_refurb_code = fc.reference_code
+		LEFT JOIN 
+			tb_file AS f
+		ON fc.file_idx = f.file_idx
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="memberId != null and memberId != ''">
+				m.member_id = #{memberId}
+			</if>
+			<if test="searchKey != null and searchKey != '' and searchValue != ''">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>
+		ORDER BY m.entry_time DESC
+				,cast(SUBSTRING_INDEX(m.goods_refurb_code,'_',-1) AS UNSIGNED) DESC;
+	</select>
+	
+	
+	<select id="getUserGoodsByCode" resultType="Goods" resultMap="goodsResultMap">
+		/* 상품 코드별 상세 정보 조회 */
+		SELECT 
+			g.goods_refurb_code
+			, g.seller_store_num
+			, g.goods_large_code
+			, g.goods_small_code
+			, g.member_id
+			, g.goods_large_cate
+			, g.goods_small_cate
+			, g.goods_refurb_sell_state
+			, g.goods_refurb_name
+			, g.goods_normal_price
+			, g.goods_refurb_price
+			, g.goods_refurb_count
+			, g.goods_refurb_harvest_date
+			, g.goods_refurb_organic
+			, g.goods_post_summary
+			, g.goods_post_explain
+			, g.goods_delivery_charge
+			, g.goods_weight
+			, g.entry_time
+			, f.file_idx
+			, f.file_path
+		FROM 
+			goods_management AS g
+			LEFT JOIN
+			tb_file_control AS fc
+			ON 
+			g.goods_refurb_code = fc.reference_code
+			LEFT JOIN 
+			tb_file AS f
+			ON 
+			fc.file_idx = f.file_idx
+		WHERE goods_refurb_code = #{goodsRefurbCode};
+	</select>
+	
+	<select id="getRandomGoods" resultType="Goods" resultMap="goodsResultMap">
+		/* 특정상품을 제외하고  네 가지 상품 랜덤 조회 */
+		SELECT 
+			m.goods_refurb_code
+			, m.seller_store_num
+			, m.goods_large_code
+			, m.goods_small_code
+			, m.member_id
+			, m.goods_large_cate
+			, m.goods_small_cate
+			, m.goods_refurb_sell_state
+			, m.goods_refurb_name
+			, m.goods_normal_price
+			, m.goods_refurb_price
+			, m.goods_refurb_count
+			, m.goods_refurb_harvest_date
+			, m.goods_refurb_organic
+			, m.file_idx
+			, m.goods_post_summary
+			, m.goods_post_explain
+			, m.goods_delivery_charge
+			, m.goods_weight
+			, m.entry_time
+			, s.goods_small_name
+			, l.goods_large_name
+			, f.file_idx
+			, f.file_path
+		FROM 
+			goods_management AS m
+		INNER JOIN 
+			goods_small AS s
+		ON m.goods_small_cate = s.goods_small_cate
+		INNER JOIN
+			goods_large AS l
+		ON m.goods_large_cate = l.goods_large_cate
+		LEFT JOIN 
+			tb_file_control AS fc
+		ON m.goods_refurb_code = fc.reference_code
+		LEFT JOIN 
+			tb_file AS f
+		ON fc.file_idx = f.file_idx
+		WHERE 
+			m.goods_refurb_code NOT IN(#{goodsRefurbCode})
+		ORDER BY RAND() LIMIT 4;
+	</select>
+
+</mapper>

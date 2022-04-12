@@ -5,7 +5,7 @@
 
 <mapper namespace="com.kfarmstar.admin.mapper.GoodsMapper">
 
-	<resultMap type="GoodsSmall" id="goodsCateResultMap">
+	<resultMap type="GoodsSmall" 			id="goodsCateResultMap">
 		<result column="goods_small_cate" 	property="goodsSmallCate"/>
 		<result column="goods_large_cate" 	property="goodsLargeCate"/>
 		<result column="member_id" 			property="memberId"/>
@@ -13,7 +13,7 @@
 		<result column="goods_small_name" 	property="goodsSmallName"/>
 		<result column="entry_time" 		property="entryTime"/>
 		<result column="last_update_time" 	property="lastUpdateTime"/>
-		<association property="goodsLarge" 	javaType="GoodsLarge">
+		<association property="goodsLarge" 		javaType="GoodsLarge">
 			<id 	column="goods_large_cate" 	property="goodsLargeCate"/>
 			<result column="member_id" 			property="memberId"/>
 			<result column="update_manager_id" 	property="updateManagerId"/>
@@ -37,17 +37,19 @@
 		<result column="member_id" 					property="memberId"/>
 		<result column="goods_large_cate" 			property="goodsLargeCate"/>
 		<result column="goods_small_cate" 			property="goodsSmallCate"/>
+		<result column="goods_refurb_sell_state" 	property="goodsRefurbSellState"/>
 		<result column="goods_refurb_name" 			property="goodsRefurbName"/>
-		<result column="goods_nomal_price" 			property="goodsNomalPrice"/>
+		<result column="goods_normal_price" 		property="goodsNormalPrice"/>
 		<result column="goods_refurb_price" 		property="goodsRefurbPrice"/>
 		<result column="goods_refurb_count" 		property="goodsRefurbCount"/>
 		<result column="goods_refurb_harvest_date" 	property="goodsRefurbHarvestDate"/>
 		<result column="goods_refurb_organic" 		property="goodsRefurbOrganic"/>
-		<result column="goods_refurb_img" 			property="goodsRefurbImg"/>
+		<result column="goods_post_summary" 		property="goodsPostSummary"/>
 		<result column="goods_post_explain" 		property="goodsPostExplain"/>
-		<result column="goods_refurb_sell_state" 	property="goodsRefurbSellState"/>
+		<result column="goods_delivery_charge" 		property="goodsDeliveryCharge"/>
+		<result column="goods_weight" 				property="goodsWeight"/>
 		<result column="entry_time" 				property="entryTime"/>
-		<association property="goodsLarge" 	javaType="GoodsLarge">
+		<association property="goodsLarge" 		javaType="GoodsLarge">
 			<id 	column="goods_large_cate" 	property="goodsLargeCate"/>
 			<result column="member_id" 			property="memberId"/>
 			<result column="update_manager_id" 	property="updateManagerId"/>
@@ -55,7 +57,82 @@
 			<result column="entry_time" 		property="entryTime"/>
 			<result column="last_update_time"	property="lastUpdateTime"/>
 		</association>
-		<association property="goodsSmall" 	javaType="GoodsSmall">
+		<association property="goodsSmall" 		javaType="GoodsSmall">
+			<id 	column="goods_small_cate" 	property="goodsSmallCate"/>
+			<result column="goods_small_name" 	property="goodsSmallName"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="update_manager_id" 	property="updateManagerId"/>
+			<result column="entry_time" 		property="entryTime"/>
+			<result column="last_update_time"	property="lastUpdateTime"/>
+		</association>
+		<collection property="fileList" javaType="java.util.List" ofType="FileDto">
+			<id 	column="file_idx" 			property="fileIdx"/>
+			<result column="file_original_name" property="fileOriginalName"/>
+			<result column="file_new_name" 		property="fileNewName"/>
+			<result column="file_path" 			property="filePath"/>
+			<result column="file_size" 			property="fileSize"/>
+		</collection>
+	</resultMap>
+	
+	
+	<resultMap type="StoreGoodsLarge" 		id="storeGoodsLargeResultMap">
+		<result column="goods_large_code" 	property="goodsLargeCode"/>
+		<result column="seller_store_num" 	property="sellerStoreNum"/>
+		<result column="member_id" 			property="memberId"/>
+		<result column="goods_large_cate" 	property="goodsLargeCate"/>
+		<association property="sellerStore" 	javaType="SellerStore">
+			<id 	column="seller_store_num" 	property="sellerStoreNum"/>
+			<result column="member_id" 			property="memberId"/>
+		</association>
+		<association property="member" 	javaType="Member">
+			<id 	column="m_id" 		property="memberId"/>
+			<result column="m_name" 	property="memberName"/>
+			<result column="m_level" 	property="memberLevel"/>
+			<result column="m_pw" 		property="memberPw"/>
+		</association>
+		<association property="goodsLarge" 		javaType="GoodsLarge">
+			<id 	column="goods_large_cate" 	property="goodsLargeCate"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="update_manager_id" 	property="updateManagerId"/>
+			<result column="goods_large_name" 	property="goodsLargeName"/>
+			<result column="entry_time" 		property="entryTime"/>
+			<result column="last_update_time"	property="lastUpdateTime"/>
+		</association>
+	</resultMap>
+
+
+	<resultMap type="StoreGoodsSmall" 		id="storeGoodsSmallResultMap">
+		<result column="goods_small_code" 	property="goodsSmallCode"/>
+		<result column="seller_store_num" 	property="sellerStoreNum"/>
+		<result column="goods_large_code" 	property="goodsLargeCode"/>
+		<result column="member_id" 			property="memberId"/>
+		<result column="goods_large_cate" 	property="goodsLargeCate"/>
+		<result column="goods_small_cate" 	property="goodsSmallCate"/>
+		<association property="sellerStore" 	javaType="SellerStore">
+			<id 	column="seller_store_num" 	property="sellerStoreNum"/>
+			<result column="member_id" 			property="memberId"/>
+		</association>
+		<association property="storeGoodsLarge" javaType="StoreGoodsLarge">
+			<id 	column="goods_large_code" 	property="goodsLargeCode"/>
+			<result column="seller_store_num" 	property="sellerStoreNum"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="goods_large_cate" 	property="goodsLargeCate"/>
+		</association>
+		<association property="member" 	javaType="Member">
+			<id 	column="m_id" 		property="memberId"/>
+			<result column="m_name" 	property="memberName"/>
+			<result column="m_level" 	property="memberLevel"/>
+			<result column="m_pw" 		property="memberPw"/>
+		</association>
+		<association property="goodsLarge" 		javaType="GoodsLarge">
+			<id 	column="goods_large_cate" 	property="goodsLargeCate"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="update_manager_id" 	property="updateManagerId"/>
+			<result column="goods_large_name" 	property="goodsLargeName"/>
+			<result column="entry_time" 		property="entryTime"/>
+			<result column="last_update_time"	property="lastUpdateTime"/>
+		</association>
+		<association property="goodsSmall" 		javaType="GoodsSmall">
 			<id 	column="goods_small_cate" 	property="goodsSmallCate"/>
 			<result column="goods_small_name" 	property="goodsSmallName"/>
 			<result column="member_id" 			property="memberId"/>
@@ -65,34 +142,84 @@
 		</association>
 	</resultMap>
 	
-	<insert id="addGoods" parameterType="Goods">
-		/* 상품 정보 등록 */
+	<resultMap type="SellerStore" id="sellerStoreResultMap">
+		<result column="seller_store_num" 			property="sellerStoreNum"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="seller_store_name" 			property="sellerStoreName"/>
+		<result column="seller_license_num" 		property="sellerLicenseNum"/>
+		<result column="seller_store_phone" 		property="sellerStorePhone"/>
+		<result column="seller_entry_date" 			property="sellerEntryDate"/>
+		<result column="seller_store_post_num" 		property="sellerStorePostNum"/>
+		<result column="seller_store_addr" 			property="sellerStoreAddr"/>
+		<result column="seller_store_detail_addr" 	property="sellerStoreDetailAddr"/>
+		<result column="seller_tax_type" 			property="sellerTaxType"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+		</association>
+	</resultMap>
 	
-	</insert>
 	
 	<select id="getGoodsByCode" resultType="Goods" resultMap="goodsResultMap">
 		/* 상품 코드별 정보 조회 */
 		SELECT 
-			goods_refurb_code
-			, seller_store_num
-			, goods_large_code
-			, goods_small_code
-			, member_id
-			, goods_large_cate
-			, goods_small_cate
-			, goods_refurb_name
-			, goods_nomal_price
-			, goods_refurb_price
-			, goods_refurb_count
-			, goods_refurb_harvest_date
-			, goods_refurb_organic
-			, goods_refurb_img
-			, goods_post_explain
-			, goods_refurb_sell_state
-			, entry_time
-		FROM goods_management
+			g.goods_refurb_code
+			, g.seller_store_num
+			, g.goods_large_code
+			, g.goods_small_code
+			, g.member_id
+			, g.goods_large_cate
+			, g.goods_small_cate
+			, g.goods_refurb_sell_state
+			, g.goods_refurb_name
+			, g.goods_normal_price
+			, g.goods_refurb_price
+			, g.goods_refurb_count
+			, g.goods_refurb_harvest_date
+			, g.goods_refurb_organic
+			, g.goods_post_summary
+			, g.goods_post_explain
+			, g.goods_delivery_charge
+			, g.goods_weight
+			, g.entry_time
+			, f.file_idx
+			, f.file_path
+		FROM 
+			goods_management AS g
+			LEFT JOIN
+			tb_file_control AS fc
+			ON 
+			g.goods_refurb_code = fc.reference_code
+			LEFT JOIN 
+			tb_file AS f
+			ON 
+			fc.file_idx = f.file_idx
 		WHERE goods_refurb_code = #{goodsRefurbCode};
 	</select>
+	
+	<update id="modifyGoods" parameterType="Goods">
+		/* 상품 상세정보 수정 */
+		UPDATE goods_management
+			SET
+				goods_large_cate = #{goodsLargeCate},
+				goods_small_cate = #{goodsSmallCate},
+				goods_refurb_sell_state = #{goodsRefurbSellState},
+				goods_refurb_name = #{goodsRefurbName},
+				goods_normal_price = #{goodsNormalPrice},
+				goods_refurb_price = #{goodsRefurbPrice},
+				goods_refurb_count = #{goodsRefurbCount},
+				goods_refurb_harvest_date=#{goodsRefurbHarvestDate},
+				goods_refurb_organic = #{goodsRefurbOrganic},
+				file_idx = #{fileIdx},
+				goods_post_summary = #{goodsPostSummary},
+				goods_post_explain = #{goodsPostExplain},
+				goods_delivery_charge = #{goodsDeliveryCharge},
+				goods_weight = #{goodsWeight}
+			WHERE goods_refurb_code = #{goodsRefurbCode};
+	
+	</update>
+	
 	
 	<select id="getGoodsList" resultType="Goods" resultMap="goodsResultMap">
 		/* 상품 목록 조회 */
@@ -104,18 +231,23 @@
 			, m.member_id
 			, m.goods_large_cate
 			, m.goods_small_cate
+			, m.goods_refurb_sell_state
 			, m.goods_refurb_name
-			, m.goods_nomal_price
+			, m.goods_normal_price
 			, m.goods_refurb_price
 			, m.goods_refurb_count
 			, m.goods_refurb_harvest_date
 			, m.goods_refurb_organic
-			, m.goods_refurb_img
+			, m.file_idx
+			, m.goods_post_summary
 			, m.goods_post_explain
-			, m.goods_refurb_sell_state
+			, m.goods_delivery_charge
+			, m.goods_weight
 			, m.entry_time
 			, s.goods_small_name
 			, l.goods_large_name
+			, f.file_idx
+			, f.file_path
 		FROM 
 			goods_management AS m
 		INNER JOIN 
@@ -124,25 +256,47 @@
 		INNER JOIN
 			goods_large AS l
 		ON m.goods_large_cate = l.goods_large_cate
+		LEFT JOIN 
+			tb_file_control AS fc
+		ON m.goods_refurb_code = fc.reference_code
+		LEFT JOIN 
+			tb_file AS f
+		ON fc.file_idx = f.file_idx
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="memberId != null and memberId != ''">
+				m.member_id = #{memberId}
+			</if>
+			<if test="searchKey != null and searchKey != '' and searchValue != ''">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>
+		ORDER BY cast(SUBSTRING_INDEX(m.goods_refurb_code,'_',-1) AS UNSIGNED) ASC;
 	</select>
 	
 	
 	
 	<select id="getGoodsCateList" resultMap="goodsCateResultMap">
 		/* 상품 카테고리 목록 조회 */
-		SELECT 
+		SELECT
 			l.goods_large_cate
 			, s.goods_small_cate
 			, l.goods_large_name
 			, s.goods_small_name
 			, s.last_update_time
 			, s.entry_time
-		FROM 
+		FROM
 			goods_large AS l
-			INNER JOIN 
+		INNER JOIN
 			goods_small AS s
-			ON 
-			l.goods_large_cate = s.goods_large_cate;
+		ON
+			l.goods_large_cate = s.goods_large_cate
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="searchKey != null and searchKey != '' and searchValue != ''">
+					${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+				</if>
+			</trim>
+		ORDER BY cast(SUBSTRING_INDEX(l.goods_large_cate,'_',-1) AS UNSIGNED) ASC
+				,cast(SUBSTRING_INDEX(s.goods_small_cate,'_',-1) AS UNSIGNED) ASC;
 	</select>
 	
 	
@@ -169,7 +323,7 @@
 			, goods_small_name
 			, entry_time
 			)VALUES (
-				#{goodsSmallCate}
+				  #{goodsSmallCate}
 				, #{goodsLargeCate}
 				, #{memberId}
 				, #{goodsSmallName}
@@ -202,7 +356,8 @@
 			l.goods_large_cate
 			, l.goods_large_name
 		FROM 
-			goods_large AS l;
+			goods_large AS l
+		ORDER BY cast(SUBSTRING_INDEX(l.goods_large_cate,'_',-1) AS UNSIGNED) ASC;
 	</select>
 	
 	
@@ -216,10 +371,114 @@
 			, goods_small_name
 			, entry_time
 			, last_update_time
-		FROM goods_small
-		WHERE goods_small_cate = #{goodsSmallCate};
+		FROM 
+			goods_small
+		WHERE 
+			goods_small_cate = #{goodsSmallCate};
 	</select>
 	
 	
+	<select id="getSmallCateList" parameterType="String" resultMap="goodsCateResultMap">
+		/* 대분류 카테고리 기준 소분류 카테고리 정보 조회 */
+		SELECT 
+			s.goods_small_cate
+			, s.goods_large_cate
+			, s.member_id
+			, s.update_manager_id
+			, s.goods_small_name
+			, s.entry_time
+			, s.last_update_time
+			
+		FROM 
+			goods_small AS s
+		WHERE 
+			s.goods_large_cate = #{goodsLargeCate};
+	</select>
+	
+	<insert id="addStoreGoodsLarge" parameterType="StoreGoodsLarge">
+		INSERT INTO store_goods_large
+			(goods_large_code
+			, seller_store_num
+			, member_id
+			, goods_large_cate
+			) VALUES (
+				  #{goodsLargeCode}
+				, #{sellerStoreNum}
+				, #{memberId}
+				, #{goodsLargeCate});
+	</insert>
+	
+	<insert id="addStoreGoodsSmall" parameterType="StoreGoodsSmall">
+		INSERT INTO store_goods_small
+			(goods_small_code
+			, seller_store_num
+			, goods_large_code
+			, member_id
+			, goods_large_cate
+			, goods_small_cate
+			) VALUES (
+				  #{goodsSmallCode}
+				, #{sellerStoreNum}
+				, #{goodsLargeCode}
+				, #{memberId}
+				, #{goodsLargeCate}
+				, #{goodsSmallCate});
+	</insert>
+	
+	<insert id="addGoods" parameterType="Goods">
+		/* 상품 정보 등록 */
+		INSERT INTO goods_management
+			(goods_refurb_code
+			, seller_store_num
+			, goods_large_code
+			, goods_small_code
+			, member_id
+			, goods_large_cate
+			, goods_small_cate
+			, goods_refurb_sell_state
+			, goods_refurb_name
+			, goods_normal_price
+			, goods_refurb_price
+			, goods_refurb_count
+			, goods_refurb_harvest_date
+			, goods_refurb_organic
+			, goods_post_summary
+			, goods_post_explain
+			, goods_delivery_charge
+			, goods_weight
+			, entry_time
+			) VALUES (
+					#{goodsRefurbCode}
+					, #{sellerStoreNum}
+					, #{goodsLargeCode}
+					, #{goodsSmallCode}
+					, #{memberId}
+					, #{goodsLargeCate}
+					, #{goodsSmallCate}
+					, '판매중'
+					, #{goodsRefurbName}
+					, #{goodsNormalPrice}
+					, #{goodsRefurbPrice}
+					, #{goodsRefurbCount}
+					, #{goodsRefurbHarvestDate}
+					, #{goodsRefurbOrganic}
+					, #{goodsPostSummary}
+					, #{goodsPostExplain}
+					, #{goodsDeliveryCharge}
+					, #{goodsWeight}
+					, CURDATE());
+	</insert>
+	
+	<select id="getSellerStoreNumById" parameterType="String" resultMap="sellerStoreResultMap">
+		/* 판매자 아이디 별 상점 번호 , 아이디, 상점명 조회 */
+		SELECT 
+			s.seller_store_num 		
+			, s.member_id			
+			, s.seller_store_name	
+		FROM 
+			seller_store AS s
+		WHERE 
+			s.member_id = #{memberId};
+	</select>
 	
 </mapper>

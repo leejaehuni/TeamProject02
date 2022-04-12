@@ -33,8 +33,9 @@
 				</div>
 
                   <div class="x_content">
+                  
+                  
 
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
 						<div>
 							<a th:href="@{/advertisement/addAdPrice}">
 							<button type="button" class="btn btn-outline-primary btn-sm float-right">단가 등록 버튼</button>
@@ -71,7 +72,7 @@
 								<td th:text="${l.memberId}"></td>
 								<td th:text="${l.entryTime}"></td>
 								<td class=" "><a th:href="@{/advertisement/modifyAdPrice(adPriceCode=${l.adPriceCode})}"><input type="button" value="수정"></a></td>
-								<td class=" "><a th:href="@{/advertisement/removeAdPrice}">삭제</a></td>
+								<td class=" "><a th:href="@{/advertisement/removeAdPrice}"><input type="button" value="삭제"></a></td>
 							</tr>
 						</th:block>
 						</tbody>

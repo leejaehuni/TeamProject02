@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kfarmstar.admin.mapper.NoticeBoardMapper">
+
+	<resultMap type="NoticeBoard" id="noticeResultMap">
+		<result 	column="notice_num" 		property="noticeNum"/>
+		<result 	column="notice_title" 		property="noticeTitle"/>
+		<result 	column="notice_content" 	property="noticeContent"/>
+		<result 	column="notice_img" 		property="noticeImg"/>
+		<result 	column="notice_date" 		property="noticeDate"/>
+		<association property="member" javaType="Member">
+			 <result column="member_id"          property="memberId"/>
+	         <result column="member_name"       property="memberName"/>
+	         <result column="member_level"       property="memberLevel"/>
+	         <result column="member_pw"          property="memberPw"/>
+	         <result column="member_nickname"    property="memberNickname"/>
+	         <result column="member_phone"       property="memberPhone"/>
+	         <result column="member_birth"       property="memberBirth"/>
+	         <result column="member_email"       property="memberEmail"/>
+	         <result column="member_point"       property="memberPoint"/>
+	         <result column="member_date"       property="memberDate"/>
+		</association>
+	</resultMap>
+	
+
+<select id="getNoticeList" resultMap="noticeResultMap">
+	SELECT 
+		  notice_num
+		, member_id
+		, notice_title
+		, notice_date
+	FROM 
+		notice_board;
+
+</select>
+
+<select id="getDetailNotice" parameterType="String" resultMap="noticeResultMap">
+	SELECT 
+		  notice_num
+		, member_id
+		, notice_title
+		, notice_date
+		, notice_content
+		, notice_img
+	FROM 
+		notice_board
+	WHERE
+		notice_board.notice_num=#{noticeNum};
+
+</select>
+
+
+<update id="modifyNotice" parameterType="NoticeBoard">
+ UPDATE notice_board
+	SET
+		notice_title=#{noticeTitle},
+		notice_content=#{noticeContent},
+		notice_img=NULL
+	WHERE notice_num=#{noticeNum};
+</update>
+
+<insert id="addNotice" parameterType="NoticeBoard">
+INSERT INTO notice_board
+	(notice_num
+	, member_id
+	, notice_title
+	, notice_content
+	, notice_img
+	, notice_date)
+	VALUES (
+	 #{noticeNum}
+	, #{memberId}
+	, #{noticeTitle}
+	, #{noticeContent}
+	, NULL
+	, CURDATE());
+</insert>
+
+<delete id="remove">
+DELETE FROM notice_board 
+WHERE
+notice_num='#{noticeNum}'
+</delete>
+
+</mapper>
+
