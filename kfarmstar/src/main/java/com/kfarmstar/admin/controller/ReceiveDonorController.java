@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
+@RequestMapping("/donations")
 public class ReceiveDonorController {
 	
+	/**
+	 * 기부 상품 수령 신청 삭제
+	 */
 	@GetMapping("/removeDonorApply")
 	public String removeDonorApply(Model model) {
 		
@@ -18,6 +21,9 @@ public class ReceiveDonorController {
 		return "donations/removeDonorApply";
 	}
 	
+	/**
+	 * 기부 상품 수령 신청 수정
+	 */
 	@GetMapping("/modifyDonorApply")
 	public String modifyDonorApply(Model model) {
 		
@@ -27,6 +33,9 @@ public class ReceiveDonorController {
 		return "donations/modifyDonorApply";
 	}
 	
+	/**
+	 * 기부 상품 수령 신청 등록
+	 */
 	@GetMapping("/donorGoodsApply")
 	public String donorGoodsApply(Model model) {
 		
@@ -36,7 +45,9 @@ public class ReceiveDonorController {
 		return "donations/donorGoodsApply";
 	}
 	
-	
+	/**
+	 * 기부 상품 수령 신청 목록
+	 */
 	@GetMapping("/donorApplyList")
 	public String getdonorApplyList(Model model) {
 		

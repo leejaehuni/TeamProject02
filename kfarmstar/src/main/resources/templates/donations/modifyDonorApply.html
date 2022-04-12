@@ -1,10 +1,92 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
 
-</body>
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<div class="x_title">
+		
+				<!-- START : 화면 경로
+		             ============================== -->
+				<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+				<!-- END : 화면 경로
+		             ============================== -->
+		
+			</div>
+			<form class="modifyDonorApplyForm"
+				action="@{donations/modifyDonorApply}" method="post" novalidate="">
+				<span class="section">등록화면</span>
+				<div class="field item form-group">
+					<label class="col-form-label col-md-3 col-sm-3  label-align">기부
+						상품 사용처<span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6">
+						<input class="form-control" data-validate-length-range="6"
+							data-validate-words="2" name="name" required="required">
+					</div>
+					<div class="alert">기부 상품 사용처 명을 입력해 주세요</div>
+				</div>
+				<div class="field item form-group">
+					<label class="col-form-label col-md-3 col-sm-3  label-align">수령
+						신청 상품명<span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6">
+						<input class="form-control" data-validate-length-range="6"
+							data-validate-words="2" name="name" required="required">
+					</div>
+					<div class="alert">수령 신청 상품명을 입력해 주세요</div>
+				</div>
+				<div class="field item form-group">
+					<label class="col-form-label col-md-3 col-sm-3  label-align">기부
+						상품 수령 신청자 연락처<span class="required">*</span>
+					</label>
+					<div class="col-md-6 col-sm-6">
+						<input class="form-control" type="tel" name="phone"
+							required="required" data-validate-length-range="8,20">
+					</div>
+				</div>
+		
+				<span style="position: absolute; right: 15px; top: 7px;"
+					onclick="hideshow()"> <i id="slash" class="fa fa-eye-slash"></i>
+					<i id="eye" class="fa fa-eye"></i>
+				</span>
+		
+				<div class="modifyDonorApplyBtn" style=" text-align: center;">
+					<div class="form-group">
+						<button type="button" class="modifyBtn btn-primary" id="btn-update">수정</button>
+						<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+					</div>
+				</div>
+			</form>
+		</th:block>
 </html>

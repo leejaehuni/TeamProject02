@@ -1,10 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
 
-</body>
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+		<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+		<div class="container-fluid">
+			<div class="x_panel">
+				<div class="x_title">
+			
+					<!-- START : 화면 경로
+				             ============================== -->
+					<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+					<!-- END : 화면 경로
+				             ============================== -->
+			
+				</div>
+				<div class="row justify-content-center">
+					<form id="addDonorPlace" action="@{donations/addDonorPlace}"
+						method="post">
+						<div class="field item form-group">
+							<label class="col-form-label col-md-4 label-align"><strong>
+									사용처 아이디</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" data-validate-length-range="6"
+									data-validate-words="2" name="memberId" required="required">
+							</div>
+						</div>
+						<div class="field item form-group">
+							<label class="col-form-label col-md-4  label-align"><strong>
+									사용처 명</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" name="donorName" type="text">
+							</div>
+						</div>
+						<div class="field item form-group">
+							<label class="col-form-label col-md-4  label-align"><strong>
+									사용처 전화번호</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" name="phone" type="text">
+							</div>
+						</div>
+						<div class="field item form-group">
+							<label class="col-form-label col-md-4  label-align"><strong>
+									사용처 주소</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" name="addr" type="text">
+							</div>
+						</div>
+						<div class="field item form-group">
+							<label class="col-form-label col-md-4  label-align"><strong>
+									사용처 이메일</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" name="email" required="required"
+									type="email">
+							</div>
+						</div>
+						<div class="field item form-group">
+							<label class="col-form-label col-md-4  label-align"><strong>
+									사용처 소개</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<textarea type="text" required="required" name="introduction"></textarea>
+							</div>
+						</div>
+						<div class="addDonorPlaceBtn" style=" text-align: center;">
+							<div class="form-group">
+									<button type="button" class="addBtn btn-primary" id="btn-update">등록</button>
+									<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>	
+	</th:block>
 </html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+		  <script type="text/javascript">
+		  $(function(){
+		        $('.addBtn').on('click',function(){
+		          
+		          var scoreCode = $('[name=scoreCode]')
+		          var reviewContents = $('[name=reviewContents]')
+		     
+		          if(scoreCode.val() == ''){
+		        alert('평점을 등록해주세요.')
+		        scoreCode.focus();
+		            return false;
+		          }else if(reviewContents.val() == ''){
+		        alert('리뷰를 작성해주세요.')
+		        reviewContents.focus();
+		          return false;
+		          } 
+		          $(function(){
+		          if (confirm("리뷰를 등록하시겠습니까?") == true){ 
+		        	   console.log("완료되었습니다.");
+		        	 }else{
+		        	   console.log("취소되었습니다");
+		        	 }
+		            //$('#addReviewForm').submit();
+		          });
+		        }); 
+		  });
+		  </script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<link href="/asset/css/review.css" rel="stylesheet" />
+			<div class="box-body row" style="padding-top: 20px;">
+				<div class="x_title">
+		
+					<!-- START : 화면 경로
+		                ============================== -->
+					<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+					<!-- END : 화면 경로
+		                ============================== -->
+		
+				</div>
+			</div>
+			<form class="mb-3" name="addReviewForm" id="addReviewForm"
+				method="post">
+				<fieldset>
+				 	<input type="hidden" name="paymentCompleteCode" th:value="${paymentCompleteCode}">
+					<span class="text-bold">별점을 선택해주세요</span> <input type="radio"
+						name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
+					<input type="radio" name="reviewStar" value="4" id="rate2"><label
+						for="rate2">★</label> <input type="radio" name="reviewStar"
+						value="3" id="rate3"><label for="rate3">★</label> <input
+						type="radio" name="reviewStar" value="2" id="rate4"><label
+						for="rate4">★</label> <input type="radio" name="reviewStar"
+						value="1" id="rate5"><label for="rate5">★</label>
+				</fieldset>
+				<div>
+					<textarea class="col-auto form-control" type="text"
+						id="reviewContents" placeholder="리뷰를 입력해주세요"></textarea>
+				</div>
+				<div class="photoRevlew form-group row">
+					<div class="col-md-12 col-sm-6">
+						<input multiple="multiple" type="file" name="filename[]"
+							accept=".gif, .jpg, .png" required="required" /> <span
+							style="font-size: 10px; color: gray;">※파일 확장자가 .gif / .jpg /
+							.png 인 파일만 업로드 가능합니다.</span>
+					</div>
+				</div>
+				<div class="btn" style=" text-align: center;">
+					<a th:href="@{/review/reviewList}"><button type="button" class="addBtn btn-primary" id="btn-update">등록</button></a>
+					<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+				</div>
+			</form>
+		</th:block>
+</html>
+
+
+
+
+	

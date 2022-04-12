@@ -2,91 +2,114 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/default}">
-	<!-- 사용자 정의 title -->
-	<th:block layout:fragment="customTitle">
-		<title th:text="${title}"></title>
-	</th:block>
-	<th:block layout:fragment="customContents">
-		<div class="container">
-		    <form id="addDonorGoodsForm" th:action="@{donations/addDonorGoods}" method="post">
-		        <div class="form-group row">
-		            <label for="DonorTitle" class="col-sm-2 col-form-label"><strong>기증자 아이디</strong></label>
-		            <div class="col-sm-10">
-		                <input type="text" name="memberId" class="memberId" th:value="${session.SID}" readonly="readonly">
-		            </div>
-		        </div>
-		        <div class="form-group row">
-		            <label for="DonorAuthor" class="col-sm-2 col-form-label"><strong>사업장 연락처</strong></label>
-		            <div class="col-sm-10">
-		                <input type="text" name="sellerStorePhone" class="sellerStorePhone" readonly="readonly">
-		            </div>
-		        </div>
-		        <div class="form-group row">
-		            <label for="DonorContent" class="col-sm-2 col-form-label"><strong>기부 상품명</strong></label>
-		            <div class="col-sm-10">
-		                <input type="text" name="goodsDonationName" class="goodsDonationName">
-		            </div>
-		            <div class='tooltip help'>
-						<span>?</span>
-						<div class='content'>
-							<b></b>
-							<p>상품명을 입력해주세요.</p>
-						</div>
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<div class="container-fluid">
+				<div class="x_panel">
+					<div class="x_title">
+				
+						<!-- START : 화면 경로
+				             ============================== -->
+						<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+						<!-- END : 화면 경로
+				             ============================== -->
+				
 					</div>
-		        </div>
-		        <div class="form-group row">
-		            <label for="DonorContent" class="col-sm-2 col-form-label"><strong>기부 내용</strong></label>
-		            <div class="col-sm-10">
-		                <textarea type="text" name="donationContent" class="donationContent"></textarea>
-		            </div>
-		        </div>
-		        <div class="form-group row">
-		            <label for="DonorContent" class="col-sm-2 col-form-label"><strong>기부 상품갯수</strong></label>
-		            <div class="col-sm-10">
-		                <input type="text" name="goodsDonationCount" class="goodsDonationCount">
-		            </div>
-		            <div class='tooltip help'>
-						<span>?</span>
-						<div class='content'>
-							<b></b>
-							<p>상품 수량을 입력해주세요.</p>
-						</div>
+					<div class="row justify-content-center">
+						<form id="addDonorGoodsForm" th:action="@{donations/addDonorGoods}"
+							method="post" enctype="multipart/form-data">
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자
+										아이디</strong><span class="required">*</span></label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" data-validate-length-range="6"
+										data-validate-words="2" th:value="${session.SID}" name="memberId"
+										required="required">
+								</div>
+							</div>
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+										상품명</strong><span class="required">*</span></label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" name="goodsDonationName"
+										data-validate-length-range="5,15" type="text">
+								</div>
+							</div>
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+										상품갯수</strong><span class="required">*</span></label>
+								<div class="col-md-6 col-sm-6">
+									<input class="form-control" name="goodsDonationCount"
+										data-validate-length-range="5,15" type="text">
+								</div>
+							</div>
+							<div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+										내용 </strong></label>
+								<div class="col-md-6">
+									<textarea class="col-auto form-control" type="text"
+										name="introduction"></textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+										상품 사진</strong></label>
+								<div class="col-md-6">
+									<input multiple="multiple" type="file" name="filename[]"
+										accept=".gif, .jpg, .png" required="required"> <span
+										style="font-size: 10px; color: gray;">※파일 확장자가 .gif / .jpg
+										/ .png 인 파일만 업로드 가능합니다.</span>
+								</div>
+				
+							</div>
+							<div class="form-group row">
+								<label for="heard"
+									class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong></label>
+								<select id="heard" class="form-control col-md-6 col-sm-6" required>
+									<option value="k1">택배</option>
+									<option value="k2">직접배송</option>
+									<option value="k3">방문수령</option>
+								</select>
+							</div>
+							<div class="addDonorGoodsBtn" style=" text-align: center;">
+								<div class="form-group">
+									<button type="button" class="addBtn btn-primary" id="btn-update">등록</button>
+									<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+								</div>
+							</div>
+						</form>
 					</div>
-		        </div>
-		        <div class="field">
-					<label>
-						<span>배송방법</span>
-						<select required name="dropdown">
-							<option value="">-- 배송 방법 선택 --</option>
-							<option value="o1">택배</option>
-							<option value="o2">직접 배송</option>
-							<option value="o3">방문 수령</option>
-						</select>
-					</label>
-					<div class='tooltip help'>
-						<span>?</span>
-						<div class='content'>
-							<b></b>
-							<p>배송 방법을 선택해 주세요.</p>
-						</div>
-					</div>
-				</div>
-	           
-		        <div class="form-group row">
-		            <label for="DonorFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
-		            <div class="col-sm-10">
-		                <div class="DonorGoods" id="DonorGoods">
-		                    <input name="DonorGoods" type="file" class="goodsDonationImg">
-		                    <label class="addDonorGoodsLabel" for="DonorGoods">파일을 선택해 주세요.</label>
-		                </div>
-		            </div>
-		        </div>
-		       	<fieldset>
-					<input name="addDonorGoodsBtn" class="addDonorGoodsBtn" required="required" type="text" style='display:none' />
-				</fieldset>
-				<button type="button" class="btn btn-primary" id="btn-update">수정</button>
-				<a href="/" role="button" class="btn btn-secondary">취소</a>
-		    </form>
-			</div>
-	</th:block>
+				</div>	
+			</div>	
+		</th:block>
 </html>

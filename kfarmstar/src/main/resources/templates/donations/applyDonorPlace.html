@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
 
-</body>
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<div class="card card-outline-primary">
+				<div class="container-fluid">
+					<div class="x_title">
+		
+						<!-- START : 화면 경로
+				                 ============================== -->
+						<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+						<!-- END : 화면 경로
+				                 ============================== -->
+		
+					</div>
+					<div class="row justify-content-center">
+						<div class="apply-content">
+							<div class="apply-form">
+								<form action="@{donations/applyDonorPlace}" method="post"
+									enctype="multipart/form-data">
+									<input type="hidden" name="bizCode" id="bizCode">
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
+											사용처 아이디<span>*</span></strong></label> 
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="donorGoodsApply form-control"
+												name="memberId" th:value="${session.SID}" readonly="readonly">
+										</div>	
+									</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
+											사용처 전화번호<span>*</span></strong></label> 
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="donorGoodsApply form-control"
+												id="donationLicenseNum" name="donationLicenseNum">
+										</div>	
+									</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
+											사업자 등록 번호<span>*</span></strong></label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="donorGoodsApply form-control"
+												id="donationLicenseNum" name="donationLicenseNum" placeholder="사업자 등록 번호">
+											<p>10자리의 숫자로 입력해주세요.</p>
+											<div id="Check"></div>
+										</div>	 
+									</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
+											사회복지법인 허가증 첨부<span>*</span></strong></label>
+										<div class="col-md-6 col-sm-6">
+											<input multiple="multiple" type="file" class="donorGoodsApply form-control file" 
+												name="filename[]" accept=".gif, .jpg, .png" required="required" />
+											<p>※파일 확장자가 .gif / .jpg / .png 인 파일만 업로드 가능합니다.</p>
+											<div id="preview"></div>
+										</div>	 
+									</div>
+									<div>
+										<input type="hidden" class="donorGoodsApply form-control"
+											id="donationRecipientName" name="donationRecipientName"
+											value="state_confirm_ing">
+									</div>
+									<div>
+										<input type="hidden" class="donorGoodsApply form-control" id=""
+											name="confirmId" value="id001" placeholder="사용처 아이디도 업데이트로">
+									</div>
+		
+									<div class="form-group" style=" text-align: center;">
+										<button type="button" class="addBtn btn-primary" id="btn-update">등록</button>
+										<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</th:block>
 </html>
+
+
+

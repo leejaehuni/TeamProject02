@@ -1,10 +1,129 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
 
-</body>
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+		    <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<div class="row">
+				<input type="hidden" id="SID" th:value="${session.SID}">
+				<div class="col-lg-12 ">
+					<div class="confirmDonorPlace confirmDonorPlace-outline-primary">
+						<div class="confirmDonorPlace-body">
+							<a th:href="@{/donations/confirmDonorPlace}" class="btn btn-pink a">사용처
+								등록 신청 내역</a>
+							<div class="x_panel">
+								<div class="x_title">
+		
+									<!-- START : 화면 경로
+							                 ============================== -->
+									<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+									<!-- END : 화면 경로
+							                 ============================== -->
+		
+								</div>
+								<div class="col-md-6"></div>
+								<div class="donorSearch col-md-3">
+									<input type="text" placeholder="검색어 입력"> <img
+										src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+								</div>
+							</div>
+							<div class="table-responsive m-t-40">
+								<table id="confirmDonorPlace"
+									class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>기부상품 사용처 신청 번호</th>
+											<th>아이디</th>
+											<th>사업자 번호</th>
+											<th>사회복지법인 허가증 유무</th>
+											<th>기부상품 사용처 명</th>
+											<th>기부상품 사용처 전화번호</th>
+											<th>승인 요청 일시</th>
+											<th data-orderable="false">승인</th>
+											<th>승인 상태</th>
+											<th>승인 완료 일시</th>
+										</tr>
+									</thead>
+									<tbody th:id="donorPlacePass">
+										<tr th:each="l : ${donorPlacePass}">
+											<td th:text="${l.donationApplyNum}"></td>
+											<td th:text="${l.memberId}"></td>
+											<td th:text="${l.donationLicenseNum}"></td>
+											<td th:text="${l.donationLicenseState}"></td>
+											<td th:text="${l.donationRecipientName}"></td>
+											<td th:text="${l.donationRecipientPhone}"></td>
+											<td th:text="${l.donationApplyDate}"></td>
+											<td class="btn btn-pink btn-sm Confirm">승인</td>
+											<td th:text="${l.donationApplyInfo}"></td>
+											<td th:text="${l.donationApplyCompletion}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="list form-group" style=" text-align: center;">
+								<div class="pagination">
+									<div class="dataTables_paginate paging_simple_numbers"
+										id="datatable_paginate">
+										<ul class="pagination">
+											<li class="paginate_button previous disabled"
+												id="datatable_previous"><a href="#"
+												aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
+											</li>
+											<li class="paginate_button active"><a href="#"
+												aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
+											<li class="paginate_button "><a href="#"
+												aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
+											<li class="paginate_button next" id="datatable_next"><a
+												href="#" aria-controls="datatable" data-dt-idx="7"
+												tabindex="0">Next</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</th:block>
 </html>
+
+
+

@@ -34,55 +34,37 @@
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
 			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
-			<div class="col-md-12 col-sm-12">
-				<div class="x_panel">
-					<div class="x_title">
-		
-						<!-- START : 화면 경로
-				                 ============================== -->
-						<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
-						<!-- END : 화면 경로
-				                 ============================== -->
-		
-					</div>
-					<div class="form-group">
-						<div class="donorSearch col-md-3 row">
-							<input type="text" placeholder="검색어 입력"> <img
-								src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+			<link href="/asset/css/review.css" rel="stylesheet" />
+			<div class="low">
+				<div class="card card-outline-primary">
+					<div class="col-lg-12">
+						<div class="card-header">
+							<h4><i class="fa fa-thumbs-up"> </i> 리뷰</h4>
 						</div>
-						<div class="dataTables_length col-md-3" id="datatable_length">
-							<label>한 줄에 <select name="datatable_length"
-								aria-controls="datatable" class="form-control input-sm">
-									<option value="10">10</option>
-									<option value="25">25</option>
-									<option value="50">50</option>
-									<option value="100">100</option>
-							</select>줄씩 보이기
-							</label>
-						</div>
-					</div>
-					<div class="x_content">
+						<div class="x_title">
 	
-						<table class="table table-bordered">
+							<!-- START : 화면 경로
+	                 		============================== -->
+							<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+							<!-- END : 화면 경로
+		                 	============================== -->
+	
+						</div>
+						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>#</th>
-									<th>기부 상품 번호</th>
-									<th>기부 상품 사진</th>
-									<th>기부 상품명</th>
-									<th>기증자 아이디</th>
-									<th>기부 상품 배송 방법</th>
-									<th>기부 신청 등록 일자</th>
+									<th>평점</th>
+									<th>리뷰내용</th>
+									<th>작성자</th>
+									<th>작성일자</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="d : ${donorGoodsList}">
-									<td th:text="${d.donationBoardCode}"></td>
-									<td th:text="${d.goodsDonationImg}"></td>
-									<td th:text="${d.goodsDonationName}"></td>
-									<td th:text="${d.memberId}"></td>
-									<td th:text="${d.goodsDonationDeliveryWay}"></td>
-									<th th:text="${d.donationRequestEntryDate}"></th>
+								<tr th:each="l : ${reviewList}">
+									<td th:text="${l.reviewScore}"></td>
+									<td th:text="${l.reviewContent"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.reviewEntryDate}"></td>
 								</tr>
 							</tbody>
 						</table>

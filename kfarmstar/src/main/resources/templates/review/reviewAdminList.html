@@ -23,7 +23,18 @@
 			
 		    <!-- iCheck -->
 		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-			
+			<Script type="text/javascript">
+		    //삭제버튼
+		     function removeReview(reviewNum){
+		        if(confirm("정말 삭제하시겠습니까?")){
+		          location.href = '/review/removeReview?reviewNum='+reviewNum;
+		          return true;
+		        }else{
+		          return false;
+		        }
+		        
+		      }
+  			</Script>  
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -37,55 +48,68 @@
 			<div class="col-md-12 col-sm-12">
 				<div class="x_panel">
 					<div class="x_title">
+						<ul class="nav navbar-right panel_toolbox">
 		
-						<!-- START : 화면 경로
-				                 ============================== -->
-						<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
-						<!-- END : 화면 경로
-				                 ============================== -->
-		
+						</ul>
+						<div class="clearfix"></div>
 					</div>
-					<div class="form-group">
-						<div class="donorSearch col-md-3 row">
-							<input type="text" placeholder="검색어 입력"> <img
-								src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
-						</div>
-						<div class="dataTables_length col-md-3" id="datatable_length">
-							<label>한 줄에 <select name="datatable_length"
-								aria-controls="datatable" class="form-control input-sm">
-									<option value="10">10</option>
-									<option value="25">25</option>
-									<option value="50">50</option>
-									<option value="100">100</option>
-							</select>줄씩 보이기
-							</label>
+					<div class="box-body" style="padding-top: 20px;">
+						<div class="x_title">
+		
+							<!-- START : 화면 경로
+				                 ============================== -->
+							<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+							<!-- END : 화면 경로
+				                 ============================== -->
+		
 						</div>
 					</div>
-					<div class="x_content">
-	
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>기부 상품 번호</th>
-									<th>기부 상품 사진</th>
-									<th>기부 상품명</th>
-									<th>기증자 아이디</th>
-									<th>기부 상품 배송 방법</th>
-									<th>기부 신청 등록 일자</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="d : ${donorGoodsList}">
-									<td th:text="${d.donationBoardCode}"></td>
-									<td th:text="${d.goodsDonationImg}"></td>
-									<td th:text="${d.goodsDonationName}"></td>
-									<td th:text="${d.memberId}"></td>
-									<td th:text="${d.goodsDonationDeliveryWay}"></td>
-									<th th:text="${d.donationRequestEntryDate}"></th>
-								</tr>
-							</tbody>
-						</table>
+					<div class="table-responsive m-t-40">
+						<div class="form-group row">
+							<div class="dataTables_length col-md-3" id="datatable_length">
+								<label>한 줄에 <select name="datatable_length"
+									aria-controls="datatable" class="form-control input-sm">
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select>줄씩 보이기
+								</label>
+							</div>
+							<div class="col-md-6"></div>
+							<div class="donorSearch col-md-3">
+								<input type="text" placeholder="검색어 입력"> <img
+									src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+							</div>
+						</div>
+						<div class="x_content">
+		
+							<table id="reviewAdmin" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>리뷰번호</th>
+										<th>리뷰작성자</th>
+										<th>평점</th>
+										<th>리뷰 내용</th>
+										<th>리뷰작성완료일시</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="r : ${reviewAdminList}">
+										<td th:text="${r.reviewNum}"></td>
+										<td th:text="${r.memberId}"></td>
+										<td th:text="${r.reviewScoreCode}"></td>
+										<td th:text="${r.reviewContent}"></td>
+										<td th:text="${r.reviewEntryDate}"></td>
+										<td><a href="#none;"
+											class="removeReviewBtn btn btn-danger btn-outline ti-trash text-white"
+											id="removeReviewBtn"
+											th:onclick="removeReview([[${r.reviewNum}]]);">삭제</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<div class="list form-group" style=" text-align: center;">
 							<div class="pagination">
 								<div class="dataTables_paginate paging_simple_numbers"

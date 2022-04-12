@@ -87,11 +87,14 @@
                		</li>
 					<li><a><i class="fa fa-heart leftmenuMr"></i> 기부 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="chartjs.html">Chart JS</a></li>
-							<li><a href="chartjs2.html">Chart JS2</a></li>
-							<li><a href="morisjs.html">Moris JS</a></li>
-							<li><a href="echarts.html">ECharts</a></li>
-							<li><a href="other_charts.html">Other Charts</a></li>
+							<li><a th:href="@{/donations/donorGoodsList}">기부 상품 목록</a></li>
+							<li><a th:href="@{/donations/addDonorGoods}">기부 상품 등록</a></li>
+							<li><a th:href="@{/donations/applyDonorPlace}">기부 상품 사용처 등록 신청서</a></li>
+							<li><a th:href="@{/donations/confirmDonorPlace}">기부 상품 사용처 등록 신청서 목록</a></li>
+							<li><a th:href="@{/donations/donorPlaceList}">기부 상품 사용처 목록</a></li>
+							<li><a th:href="@{/donations/addDonorPlace}">기부 상품 사용처 등록</a></li>
+							<li><a th:href="@{/donations/donorApplyList}">기부 상품 수령 신청 목록</a></li>
+							<li><a th:href="@{/donations/donorGoodsApply}">기부 상품 수령 신청 등록</a></li>
 						</ul>
 					</li>
 					<li><a><i class="fa fa-bar-chart-o leftmenuMr"></i> 통계 관리 <span class="fa fa-chevron-down"></span></a>
@@ -121,13 +124,13 @@
 							<li><a th:href="@{/inquiry/inquiryList}">문의 내역 조회</a></li>
 						</ul>
 					</li>
-					<li><a><i class="fa fa-exclamation-triangle leftmenuMr"></i> 신고 관리 <span class="fa fa-chevron-down"></span></a>
+					<li><a><i class="fa fa-pencil leftmenuMr"></i> 리뷰 관리 <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="tables.html">Tables</a></li>
-							<li><a href="tables_dynamic.html">Table Dynamic</a></li>
+							<li><a th:href="@{/review/reviewAdminList}">리뷰 관리자 목록</a></li>
+							<li><a th:href="@{/review/reviewList}">리뷰 목록</a></li>
+							<li><a th:href="@{/review/addReview}">리뷰 등록</a></li>
 						</ul>
 					</li>
-					
 				</ul>
 			</div>
 
