@@ -76,15 +76,15 @@
 					 <div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<br />
-					<form class="form-horizontal form-label-left">
+					<br>
+					<form class="form-horizontal form-label-left" th:action="@{/noticeboard/addNotice}" method="post">
 	
 						<div class="form-group row">
-							<div class="col-md-3 col-sm-3">
-								<label class="control-label">공지 제목</label>
+							<div class="col-md-1 col-sm-3 text-center">
+								<label class="control-label ">공지 제목</label>
 							</div>
-							<div class="col-md-9 col-sm-9 ">
-								<input type="text" class="form-control" placeholder="Goods Name">
+							<div class="col-md-11 col-sm-9 ">
+								<input type="text" class="form-control" placeholder="Notice title" name="noticeTitle">
 							</div>
 						</div>
 
@@ -160,10 +160,13 @@
 									</div>
 								</div>
 
-								<div id="editor-one" class="editor-wrapper"></div>
+								<div id="editor-one" class="editor-wrapper">
+									<textarea id="editor-one" class="editor-wrapper" name="noticeContent" style="width: 100%; height: 100px;"></textarea>
+									<!-- <input type="text" class="form-control" placeholder="noticeContent" name="noticeContent"> -->
+									
+									<!-- <textarea id="editor-one" class="editor-wrapper" name="noticeContent" style="width: 600px; height: 100px;"></textarea> -->
+								</div>
 
-								<textarea name="descr" id="descr" style="display:none;"></textarea>
-	
 						<div class="ln_solid"></div>
 						<div class="form-group">
 							<div class="col-md-7 col-sm-7  offset-md-5">
