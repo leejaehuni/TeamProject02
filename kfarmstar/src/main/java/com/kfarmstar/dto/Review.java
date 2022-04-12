@@ -6,7 +6,6 @@ public class Review {
 	private String paymentCompleteCode;
 	private String goodsRefurbCode;
 	private String reviewScoreCode;
-	private String reviewTitle;
 	private String reviewContent;
 	private String reviewImg;
 	private String reviewEntryDate;
@@ -40,12 +39,6 @@ public class Review {
 	public void setReviewScoreCode(String reviewScoreCode) {
 		this.reviewScoreCode = reviewScoreCode;
 	}
-	public String getReviewTitle() {
-		return reviewTitle;
-	}
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
-	}
 	public String getReviewContent() {
 		return reviewContent;
 	}
@@ -66,27 +59,10 @@ public class Review {
 	}
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Review [reviewNum=");
-		builder.append(reviewNum);
-		builder.append(", memberId=");
-		builder.append(memberId);
-		builder.append(", paymentCompleteCode=");
-		builder.append(paymentCompleteCode);
-		builder.append(", goodsRefurbCode=");
-		builder.append(goodsRefurbCode);
-		builder.append(", reviewScoreCode=");
-		builder.append(reviewScoreCode);
-		builder.append(", reviewTitle=");
-		builder.append(reviewTitle);
-		builder.append(", reviewContent=");
-		builder.append(reviewContent);
-		builder.append(", reviewImg=");
-		builder.append(reviewImg);
-		builder.append(", reviewEntryDate=");
-		builder.append(reviewEntryDate);
-		builder.append("]");
-		return builder.toString();
+		return "Review [reviewNum=" + reviewNum + ", memberId=" + memberId + ", paymentCompleteCode="
+				+ paymentCompleteCode + ", goodsRefurbCode=" + goodsRefurbCode + ", reviewScoreCode=" + reviewScoreCode
+				+ ", reviewContent=" + reviewContent + ", reviewImg=" + reviewImg + ", reviewEntryDate="
+				+ reviewEntryDate + "]";
 	}
 	
 	

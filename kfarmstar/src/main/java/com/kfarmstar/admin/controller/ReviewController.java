@@ -105,7 +105,7 @@ public class ReviewController {
 	 * 상품평 목록
 	 */
 	@GetMapping("/reviewList")
-	public String reviewList(Model model
+	public String getReviewList(Model model
 			 				,@RequestParam(name = "paymentCompleteCode" , required = false)String paymentCompleteCode
 			 				,@RequestParam(name = "reviewScoreCode" , required = false)String reviewScoreCode
 			 				,@RequestParam(name = "goodsRefurbCode" , required = false)String goodsRefurbCode
@@ -131,6 +131,12 @@ public class ReviewController {
 		log.info("reviewAdminList ReviewController.java : ", reviewAdminList);
 		System.out.println(reviewAdminList.get(0).getReviewNum() + "<- reviewAdminList.get(0).getReviewNum() ReviewController.java");
 		System.out.println(reviewAdminList.get(0).getGoodsRefurbCode() + "<- reviewAdminList.get(0).getGoodsRefurbCode() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getPaymentCompleteCode() + "<- reviewAdminList.get(0).getPaymentCompleteCode() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getReviewScoreCode() + "<- reviewAdminList.get(0).getReviewScoreCode() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getReviewContent() + "<- reviewAdminList.get(0).getReviewContent() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getReviewImg() + "<- reviewAdminList.get(0).getReviewImg() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getReviewEntryDate() + "<- reviewAdminList.get(0).getReviewEntryDate() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getMemberId() + "<- reviewAdminList.get(0).getMemberId() ReviewController.java");
 		
 		model.addAttribute("title", "FoodRefurb : 상품평 목록");
 		model.addAttribute("titleName", "상품평 목록");
