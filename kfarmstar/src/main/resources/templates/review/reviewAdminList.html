@@ -96,16 +96,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="l : ${reviewList}">
-										<td th:text="${l.reviewNum}"></td>
-										<td th:text="${l.memberId}"></td>
-										<td th:text="${l.reviewScore}"></td>
-										<td th:text="${l.reviewContent"></td>
-										<td th:text="${l.reviewEntryDate}"></td>
+									<tr th:each="r : ${reviewAdminList}">
+										<td th:text="${r.reviewNum}"></td>
+										<td th:text="${r.member.memberId}"></td>
+										<td th:text="${r.reviewScore.reviewScoreCode}"></td>
+										<td th:text="${r.reviewContent"></td>
+										<td th:text="${r.reviewEntryDate}"></td>
 										<td><a href="#none;"
 											class="removeReviewBtn btn btn-danger btn-outline ti-trash text-white"
 											id="removeReviewBtn"
-											th:onclick="removeReview([[${l.reviewNum}]]);"></a></td>
+											th:onclick="removeReview([[${r.reviewNum}]]);"></a></td>
 									</tr>
 								</tbody>
 							</table>

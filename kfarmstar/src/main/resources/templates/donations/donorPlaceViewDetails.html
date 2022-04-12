@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	
+		<!-- 사용자 정의 Css -->
+		<th:block layout:fragment="customCss">
+			 <!-- Bootstrap -->
+		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+		    <!-- Font Awesome -->
+		    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+		    <!-- NProgress -->
+		    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+		    <!-- iCheck -->
+		   <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+		
+		    <!-- Custom Theme Style -->
+		    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+		</th:block>
+
+		<!-- 사용자 정의 Script -->
+		<th:block layout:fragment="customScript">
+			
+			  <!-- iCheck -->
+		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+			
+   		</th:block>
+
+		<!-- 사용자 정의 title -->
+		<th:block layout:fragment="customTitle">
+			<title th:text="${title}"></title>
+		</th:block>
+		
+		<!-- 사용자 정의 contents -->
+		<th:block layout:fragment="customContents">
+			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
+			<div class="x_panel">
+				<div class="x_title">
+		
+					<!-- START : 화면 경로
+			                 ============================== -->
+					<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+					<!-- END : 화면 경로
+			                 ============================== -->
+		
+				</div>
+				<div class="donorSearch col-md-3">
+					<input type="text" placeholder="검색어 입력"> <img
+						src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+				</div>
+				<div class="x_content row">
+					<div class="col-md-4 col-sm-4  profile_details">
+						<div class="well profile_view">
+							<div class="col-sm-12">
+								<h4 class="brief">
+									<i>너굴맨 보육원</i>
+								</h4>
+								<table>
+									<thead>
+										<tr th:each="l : ${donorPlaceViewDetails}">
+											<th>#</th>
+											<th th:text="{donationRecipientName}">기부상품 사용처 명</th>
+											<th>기부 상품 사진</th>
+											<th>기부 상품명</th>
+											<th>기증자 아이디</th>
+											<th>기부 상품 배송 방법</th>
+											<th>기부 신청 등록 일자</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="l : ${donorPlaceViewDetails}">
+											<td th:text="${donationIntroduction}"></td>
+											<td th:text="${l.goodsDonationImg}"></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="left col-md-7 col-sm-7">
+									<h2>neogulmaen123</h2>
+									<div th:each="" ></div>
+									<p>
+										<strong>사용처 소개 :</strong> 안녕하세요 너굴맨 보육원 입니다 리퍼브 상품 후원 감사합니다
+									</p>
+									
+								</div>
+								<div class="right col-md-5 col-sm-5 text-center">
+									<img src="#" alt="" class="img-circle img-fluid">
+								</div>
+							</div>
+						</div>	
+					</div>		
+				</div>
+			</div>
+		</th:block>
+</html>

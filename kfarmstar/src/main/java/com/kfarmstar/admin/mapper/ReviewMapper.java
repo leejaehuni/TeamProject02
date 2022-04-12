@@ -1,6 +1,7 @@
 package com.kfarmstar.admin.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,9 +17,9 @@ public interface ReviewMapper {
 	public int addReview(Review review);
 	
 	//관리자 상품평 목록
-	public List<Review> getreviewAdminList();
+	public List<Review> getReviewAdminList();
 	
 	//구매자 상품평 목록
-	public List<Review> getreviewList();
+	public List<Review> getReviewList(Map<String, String> paramMap);
 
 }

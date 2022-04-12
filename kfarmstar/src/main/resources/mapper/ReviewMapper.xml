@@ -8,10 +8,13 @@
 		<result column="member_id"				property="memberId"/>
 		<result	column="payment_complete_code"	property="paymentCompleteCode"/>
 		<result column="goods_refurb_code"		property="goodsRefurbCode"/>
-		<result column="review_title"			property="reviewTitle"/>
+		<result column="review_score_code"		property="reviewScoreCode"/>
 		<result	column="review_content"			property="reviewContent"/>
 		<result column="review_img"				property="reviewImg"/>
 		<result	column="review_entry_date"		property="reviewEntryDate"/>
+
+<!-- 
+
 		<association property="member" javaType="Member">
 			<result column="member_id" 				property="memberId"/>
 			<result column="member_name" 			property="memberName"/>
@@ -64,8 +67,61 @@
 			<result	column="star_count"  		property="starCount"/>
 			<result	column="review_scores" 		property="reviewScores" />
 		</association>
+		
+		
+ -->		
 	</resultMap>
 	
+	<insert id="addReview" parameterType="Review">
+	INSERT INTO tb_review
+	(	 review_num
+		,member_id
+		,payment_complete_code
+		,goods_refurb_code
+		,review_score_code
+		,review_content
+		,review_img
+		,review_entry_date
+	) 
+		VALUES 
+	(	 #{reviewNum}
+		,#{memberId}
+		,#{paymentCompleteCode}
+		,#{goodsRefurbCode}
+		,#{reviewScoreCode}
+		,#{reviewContent}
+		,#{reviewImg}
+		,CURDATE()
+	);
+	</insert>
+	
+	<select id="getReviewAdminList" resultMap="reviewResultMap">
+	/*관리자 기부 상품 목록 조회*/
+	SELECT 
+		 r.review_num				
+		,m.member_id				
+		,a.payment_complete_code
+		,r.goods_refurb_code		
+		,s.review_score_code	
+		,r.review_content		
+		,r.review_img				
+		,r.review_entry_date	
+	FROM 
+		tb_review AS r
+		INNER JOIN
+		member AS m
+		ON 
+		r.member_id = m.member_id
+		INNER JOIN
+		tb_review_score AS s
+		ON 
+		r.review_score_code = s.review_score_code
+		INNER JOIN
+		after_payment_info AS a
+		ON 
+		r.payment_complete_code = a.payment_complete_code
+		ORDER BY cast(SUBSTRING_INDEX(r.review_num,'_',-1) AS UNSIGNED) ASC;
+	</select>
 	
  	
  </mapper>

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -75,10 +77,14 @@ public class ReviewController {
 	 * 상품평 등록
 	 */
 	@GetMapping("/addReview")
-	public String addReview(Model model) {
-		
-		model.addAttribute("title", "FoodRefurb : 상품평 등록");
-		model.addAttribute("titleName", "상품평 등록");
+	public String addReview(Review review
+			,HttpSession session
+			,@RequestParam(name = "reviewContents" , required = false) String reviewContents
+			,@RequestParam(name = "paymentCompleteCode" , required = false) String paymentCompleteCode) {
+		log.info("상품평 등록  review{}" , review);
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("paymentCompleteCode", paymentCompleteCode);
+		log.info("reviewAdminList ReviewController.java : ", paramMap);
 		
 		return "review/addReview";
 	}
@@ -87,11 +93,10 @@ public class ReviewController {
 	 */
 	@PostMapping("/addReview")
 	public String addReview(Review review) {
-		
-		log.info("상품평 등록  review{}" , review);
+		log.info("addReview ReviewController.java 실행");
 		
 		reviewService.addReview(review);
-		
+	
 		return "redirect:/review/reviewList";
 	}
 	
@@ -102,15 +107,17 @@ public class ReviewController {
 	@GetMapping("/reviewList")
 	public String reviewList(Model model
 			 				,@RequestParam(name = "paymentCompleteCode" , required = false)String paymentCompleteCode
+			 				,@RequestParam(name = "reviewScoreCode" , required = false)String reviewScoreCode
+			 				,@RequestParam(name = "goodsRefurbCode" , required = false)String goodsRefurbCode
 							,@RequestParam(name = "memberId" , required = false)String memberId) {
 		
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("paymentCompleteCode", paymentCompleteCode);
 		
-		List<Review> getreviewList = reviewService.getreviewAdminList();
+		List<Review> reviewList = reviewService.getReviewList(paramMap);
 		
 		model.addAttribute("title", "FoodRefurb : 상품평 조회");
-		model.addAttribute("getreviewList", getreviewList);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "review/reviewList";
 	}
@@ -118,9 +125,12 @@ public class ReviewController {
 	 * 관리자 상품평 목록
 	 */
 	@GetMapping("/reviewAdminList")
-	public String reviewAdminList(Model model) {
-		
-		List<Review> reviewAdminList = reviewService.getreviewAdminList();
+	public String getReviewAdminList(Model model) {
+		log.info("reviewAdminList ReviewController.java 실행");
+		List<Review> reviewAdminList = reviewService.getReviewAdminList();
+		log.info("reviewAdminList ReviewController.java : ", reviewAdminList);
+		System.out.println(reviewAdminList.get(0).getReviewNum() + "<- reviewAdminList.get(0).getReviewNum() ReviewController.java");
+		System.out.println(reviewAdminList.get(0).getGoodsRefurbCode() + "<- reviewAdminList.get(0).getGoodsRefurbCode() ReviewController.java");
 		
 		model.addAttribute("title", "FoodRefurb : 상품평 목록");
 		model.addAttribute("titleName", "상품평 목록");
