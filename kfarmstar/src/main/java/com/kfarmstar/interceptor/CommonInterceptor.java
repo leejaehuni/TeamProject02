@@ -25,10 +25,9 @@ public class CommonInterceptor implements HandlerInterceptor{
 	 * 
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-				
-		HandlerMethod method = (HandlerMethod) handler;
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		
+		
 		
 		//ex:) memberId memberPw memberLevel
 		// 모든 파라미터를 어딘가에 이용해야 하는 경우 컨트롤러 수정없이 다 이용할 수 있는 방법
@@ -48,8 +47,7 @@ public class CommonInterceptor implements HandlerInterceptor{
 		log.info("PORT 			::::::		{}", request.getLocalPort());
 		log.info("SERVER NAME 	::::::		{}", request.getServerName());
 		log.info("HTTP METHOD 	::::::		{}", request.getMethod());
-		log.info("URI 			::::::		{}", request.getRequestURI());
-		log.info("Controller 	::::::		{}", method.getBean().getClass().getSimpleName());
+		log.info("URI 			::::::		{}", request.getRequestURI());	
 		log.info("PARAMETER 	::::::		{}", param);
 		log.info("ACCESS INFO =====================================END");
 		log.info("CommonInterceptor =====================================END");

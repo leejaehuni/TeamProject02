@@ -94,6 +94,21 @@ public class PaymentController {
 		return "payment/afterPaymentDetail";
 	}
 	
+	@PostMapping("/searchDateAfterPayment")
+	public String searchDateAfterPayment(Model model
+										,@RequestParam(value="startDate", required = false) String startDate
+										,@RequestParam(value="endDate", required = false) String endDate) {
+		
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
+		
+		List<AfterPayment> searchDateAfterPayment = paymentService.searchDateAfterPayment(startDate, endDate);
+		
+		model.addAttribute("afterPaymentInfo", searchDateAfterPayment);
+		
+		return "payment/afterPaymentInfo";
+	}
+	
 	@GetMapping("/afterPaymentModify")
 	public String afterPaymentModify(Model model) {
 		
@@ -189,6 +204,20 @@ public class PaymentController {
 			return "payment/goodsOrderCancel";
 	}
 	
+	@PostMapping("/searchDateOrderCancel")
+	public String searchDateOrderCancel(Model model
+										,@RequestParam(value="startDate", required = false) String startDate
+										,@RequestParam(value="endDate", required = false) String endDate) {
+		
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
+		
+		List<OrderCancel> searchDateOrderCancel = paymentService.searchDateOrderCancel(startDate, endDate);
+		
+		model.addAttribute("orderCancelInfo", searchDateOrderCancel);
+		
+		return "payment/goodsOrderCancel";
+	}
 	
 	@GetMapping("/goodsOrderCancelModify")
 	public String goodsOrderCancelModify(Model model) {

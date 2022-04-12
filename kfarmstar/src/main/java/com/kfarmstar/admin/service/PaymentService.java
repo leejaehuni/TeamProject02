@@ -25,6 +25,20 @@ public class PaymentService {
 		this.paymentMapper = paymentMapper;
 	}
 	
+	public List<OrderCancel> searchDateOrderCancel(String startDate, String endDate){
+		
+		List<OrderCancel> searchDateOrderCancel = paymentMapper.searchDateOrderCancel(startDate, endDate);
+		
+		return searchDateOrderCancel;
+	}
+	
+	public List<AfterPayment> searchDateAfterPayment(String startDate, String endDate){
+		
+		List<AfterPayment> searchDateAfterPayment = paymentMapper.searchDateAfterPayment(startDate, endDate);
+		
+		return searchDateAfterPayment;
+	}
+	
 	public List<GoodsRefund> conditionGoodsRefundList(String searchKey, String searchValue){
 		
 		List<GoodsRefund> conditionGoodsRefundList = paymentMapper.conditionGoodsRefundList(searchKey, searchValue);
