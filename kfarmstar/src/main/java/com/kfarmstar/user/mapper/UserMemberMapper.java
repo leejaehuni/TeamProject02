@@ -8,6 +8,7 @@ import com.kfarmstar.dto.SellerStore;
 @Mapper
 public interface UserMemberMapper {
 	
+	// 판매자 회원가입
 	public int addSellerStoreInfo(SellerStore sellerStore);
 	
 	//아이디별 회원정보 조회
@@ -16,6 +17,6 @@ public interface UserMemberMapper {
 	//구매자 회원가입
 	public int addMember(Member member);
 	
-	//구매자 아이디 중복 체크
+	//아이디 중복 체크
 	public boolean isIdCheck(String memberId);
 }
