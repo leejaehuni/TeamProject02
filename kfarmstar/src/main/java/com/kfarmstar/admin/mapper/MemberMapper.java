@@ -13,6 +13,15 @@ import com.kfarmstar.dto.SellerStore;
 @Mapper
 public interface MemberMapper {
 	
+	//날짜별  판매자 사업장 내역 조회
+	public List<SellerStore> searchDateSellerList(String startDate, String endDate);
+	
+	//날짜별 회원 내역 조회
+	public List<Member> searchDateMemberList(String startDate, String endDate);
+	
+	//모든 조건별 회원 내역 조회
+	public List<Member> allSearchMemberList(String startDate, String endDate, String searchKey, String searchValue);
+	
 	//회원 로그아웃 이력 조회
 	public List<LogoutHistory> getLogoutHistory();
 	
