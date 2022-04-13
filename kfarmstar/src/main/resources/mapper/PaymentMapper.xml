@@ -242,6 +242,37 @@
 		</association>
 	</resultMap>
 	
+	<select id="searchTypeAfterPayment" parameterType="String" resultMap="afterPaymentMap">
+		/* 결제 수단별 결제 내역 조회 */
+		SELECT
+			 p.payment_complete_code
+			,p.purchaser_payment_code
+			,p.goods_refurb_code
+			,p.member_id
+			,g.goods_refurb_name
+			,p.before_goods_count
+			,p.mid_sum_price
+			,p.payment_option
+			,p.last_payment_price
+			,p.payment_date
+		FROM
+			after_payment_info AS p
+			INNER JOIN
+				member AS m
+			ON
+			p.member_id = m.member_id
+			INNER JOIN
+				goods_management AS g
+			ON
+			p.goods_refurb_code = g.goods_refurb_code
+			INNER JOIN
+				before_purchaser_info AS b
+			ON
+			p.purchaser_payment_code = b.purchaser_payment_code
+		WHERE
+			m.member_level = '구매자' AND p.payment_option = #{paymentOption};
+	</select>
+	
 	<select id="searchDateOrderCancel" parameterType="String" resultMap="orderCancelMap">
 		/* 주문 취소 날짜별 주문 취소 내역  조회 */
 		SELECT

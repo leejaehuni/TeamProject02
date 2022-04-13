@@ -74,6 +74,30 @@
 							datepickerForm.submit();
 						}
 				});
+				
+				$(document).on('click', '.checkType', function(){
+					
+					$('form').remove('#testForm');
+					
+					var checkPaymentType = $(this).val();
+					
+					console.log(checkPaymentType);
+					
+					var checkPaymentTypeForm = $('<form></form>');
+					
+					checkPaymentTypeForm.attr("id", "testForm");
+					checkPaymentTypeForm.attr("name", "checkPaymentTypeForm");
+					checkPaymentTypeForm.attr("method", "post");
+					checkPaymentTypeForm.attr("action", "/payment/searchTypeAfterPayment");
+					
+					checkPaymentTypeForm.append($('<input/>', {type: 'hidden', name: 'paymentOption', value: checkPaymentType}));
+					
+					checkPaymentTypeForm.appendTo('body');
+						
+					checkPaymentTypeForm.submit();
+
+				});
+				
 			});
 		</script>
 	</th:block>	
@@ -86,23 +110,25 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<!-- START : 검색 바 -->
-					<div th:include="member/searchDate :: searchDateFragment"></div>
-					<!-- END : 검색 바 -->
-					<div class="mt-2">
-						<label>결제수단</label>
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-default active">
-								<input type="checkbox" name="options" id="option1" checked> 신용카드
-							</label>
-							<label class="btn btn-default">
-								<input type="checkbox" name="options" id="option2"> 무통장입금
-							</label>
-							<label class="btn btn-default">
-								<input type="checkbox" name="options" id="option3"> 휴대폰
-							</label>
+					<form id="reset_form">
+						<!-- START : 검색 바 -->
+						<div th:include="member/searchDate :: searchDateFragment"></div>
+						<!-- END : 검색 바 -->
+						<div class="mt-2">
+							<div class="checkbox">
+							<label>결제수단</label>
+								<label class="btn btn-default">
+									<input type="checkbox" class="checkType" name="paymentOption" id="option1" value="신용카드"> 신용카드
+								</label>
+								<label class="btn btn-default">
+									<input type="checkbox" class="checkType" name="paymentOption" id="option2" value="무통장입금"> 무통장입금
+								</label>
+								<label class="btn btn-default">
+									<input type="checkbox" class="checkType" name="paymentOption" id="option3" value="휴대폰"> 휴대폰
+								</label>
+							</div>
 						</div>
-					</div>
+					</form>
 					<form th:action="@{/payment/conditionAfterPaymentList}" method="get">
 						<div class="form-row mt-2">
 							<div class="form-group col-md-2">

@@ -54,29 +54,53 @@
 				
 				$(document).on('change', '#startDate, #endDate', function(){
 					
-						$('form').remove('#testForm')
+					$('form').remove('#testForm')
+					
+					
+					var startDate = $('input[name="startDate"]').val();
+					var endDate = $('input[name="endDate"]').val();
+					
+					var datepickerForm = $('<form></form>');
+					
+					datepickerForm.attr("id", "testForm");
+					datepickerForm.attr("name", "datepickerForm");
+					datepickerForm.attr("method", "post");
+					datepickerForm.attr("action", "/member/searchDateMemberList");
+					
+					datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+					datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+					
+					datepickerForm.appendTo('body');
 						
+					if(startDate != null && endDate != null && startDate != '' && endDate != ''){
 						
-						var startDate = $('input[name="startDate"]').val();
-						var endDate = $('input[name="endDate"]').val();
-						
-						var datepickerForm = $('<form></form>');
-						
-						datepickerForm.attr("id", "testForm");
-						datepickerForm.attr("name", "datepickerForm");
-						datepickerForm.attr("method", "post");
-						datepickerForm.attr("action", "/member/searchDateMemberList");
-						
-						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
-						datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
-						
-						datepickerForm.appendTo('body');
-							
-						if(startDate != null && endDate != null && startDate != '' && endDate != ''){
-							
-							datepickerForm.submit();
-						}
+						datepickerForm.submit();
+					}
 				});
+				
+				$(document).on('click', '.checkLevel', function(){
+					
+					$('form').remove('#testForm');
+					
+					var checkMemberLevel = $(this).val();
+					
+					console.log(checkMemberLevel);
+					
+					var checkMemberForm = $('<form></form>');
+					
+					checkMemberForm.attr("id", "testForm");
+					checkMemberForm.attr("name", "checkMemberForm");
+					checkMemberForm.attr("method", "post");
+					checkMemberForm.attr("action", "/member/searchLevelMemberList");
+					
+					checkMemberForm.append($('<input/>', {type: 'hidden', name: 'memberLevel', value: checkMemberLevel}));
+					
+					checkMemberForm.appendTo('body');
+						
+					checkMemberForm.submit();
+						
+				});
+				
 			});
 		</script>
 	</th:block>	
@@ -98,13 +122,13 @@
 							<div class="checkbox">
 								<label>권한별 조회</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option1"> 구매자
+									<input type="checkbox" class="checkLevel" name="memberLevel" id="option1" value="구매자"> 구매자
 								</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option2"> 판매자
+									<input type="checkbox" class="checkLevel" name="memberLevel" id="option2" value="판매자"> 판매자
 								</label>
 								<label class="btn btn-default">
-									<input type="checkbox" name="options" id="option3"> 관리자
+									<input type="checkbox" class="checkLevel" name="memberLevel" id="option3" value="관리자"> 관리자
 								</label>
 							</div>
 						</div>

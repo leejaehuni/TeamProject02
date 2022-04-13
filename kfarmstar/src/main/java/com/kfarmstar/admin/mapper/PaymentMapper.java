@@ -12,6 +12,9 @@ import com.kfarmstar.dto.OrderCancel;
 @Mapper
 public interface PaymentMapper {
 	
+	//결제수단별 결제 내역 조회
+	public List<AfterPayment> searchTypeAfterPayment(String paymentOption);
+	
 	//주문취소날짜별 주문 취소 내역 조회
 	public List<OrderCancel> searchDateOrderCancel(String startDate, String endDate);
 	

@@ -27,7 +27,6 @@ public class UserGoodsController {
 		this.userGoodsService = userGoodsService;
 	}
 	
-	
 	@GetMapping("/userGoodsDetail")
 	public String getShopGoodsDetail(Model model
 									,@RequestParam(name="goodsRefurbCode", required = false) String goodsRefurbCode) {
