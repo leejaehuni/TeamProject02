@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{userLayout/default}">
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	
+	<th:block layout:fragment="customCss">
+		<style>
+			.goodsImg{height: 100px;}
+			.btn-success{background-color: #7fad39;}
+			.checkout__select{width: 100%;}
+			.row{margin-top: 12px;}
+		</style>
+	</th:block>
+	
+	<th:block layout:fragment="customJsScript">
+		<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+	</th:block>
+	
+	<!-- 사용자 정의 Script-->
+	<th:block layout:fragment="customScript">
+		<script>
+			
+		</script>
+	</th:block>	
+
+	<th:block layout:fragment="customContents">
+		 <!-- Breadcrumb Section Begin -->
+    <div th:include="userFragments/breadcrumb :: breadcrumbFragment"></div>
+    <!-- Breadcrumb Section End -->
+	
+	<!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <div class="shoping__cart__table">
+	                        <table>
+	                            <thead>
+	                                <tr>
+	                                    <th class="shoping__product">결제 상품명</th>
+	                                    <th>가격</th>
+	                                    <th>수량</th>
+	                                    <th>합계</th>
+	                                    <th></th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr>
+	                                    <td class="shoping__cart__item">
+	                                        <img class="goodsImg" th:src="@{/build/images/orange.jpg}">
+	                                        <h5>Vegetable’s Package</h5>
+	                                    </td>
+	                                    <td class="shoping__cart__price">
+	                                    	18000원
+	                                    </td>
+	                                    <td class="shoping__cart__price">
+	                                                1
+	                                    </td>
+	                                    <td class="shoping__cart__total">
+	                                        $110.00
+	                                    </td>
+	                                    <td class="shoping__cart__item__close">
+	                                        <span class="icon_close"></span>
+	                                    </td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+                <h4>주문/결제</h4>
+                <form action="#">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="checkout__input">
+                                        <p>수령인 이름</p>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                        <p>수령인 전화번호</p>
+                                    <div class="checkout__input">
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            		<div class="col-lg-12">
+                            		<p>주소 <span>*</span></p>
+                            		</div>
+                            	<div class="col-lg-3">
+                            		<div class="checkout__input">
+                                        <input type="text" placeholder="우편번호">
+                                    </div>
+                            	</div>
+                            	<div class="col-lg-6">
+                            		<div class="checkout__input">
+                                        <input type="text" placeholder="주소">
+                                    </div>
+                            	</div>
+                            	<div class="col-lg-3">
+                            		<button type="button" class="btn btn-success">우편번호</button>
+                            	</div>
+                            </div>
+                            <div class="row">
+	                            <div class="col-lg-9">
+	                            	<div class="checkout__input">
+	                                	<input type="text" placeholder="상세주소">
+	                                </div>
+	                            </div>
+	                        </div>
+                            <div class="row">
+                            	<div class="col-lg-9">
+                            		<p>결제방법 <span>*</span></p>
+                            		<select class="nice-select form-control">
+                            			<option>무통장입금</option>
+                            			<option>휴대폰</option>
+                            			<option>신용카드</option>
+                            		</select>
+                            	</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-lg-9">
+                            		<p>휴대폰 통신사 <span>*</span></p>
+                            		<select class="nice-select form-control">
+                            			<option>SKT</option>
+                            			<option>KT</option>
+                            			<option>UPLUS</option>
+                            		</select>
+                            	</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-lg-12">
+                            		<p>휴대폰번호 <span>*</span></p>
+                            	</div>
+                            	<div class="col-lg-9">
+                            		<div class="checkout__input">
+                            			<input type="number" placeholder="휴대폰번호">
+                            		</div>
+                            	</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-lg-12">
+                            		<p>무통장 결제 은행 <span>*</span></p>
+                            	</div>
+                            	<div class="col-lg-9">
+                            		<div class="checkout__input">
+                            			<input type="text" placeholder="결제 은행">
+                            		</div>
+                            	</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-lg-12">
+                            		<p>무통장 결제 계좌번호 <span>*</span></p>
+                            	</div>
+                            	<div class="col-lg-9">
+                            		<div class="checkout__input">
+                            			<input type="text" placeholder="결제 은행">
+                            		</div>
+                            	</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-lg-12">
+                            		<p>신용카드 결제 은행 <span>*</span></p>
+                            	</div>
+                            	<div class="col-lg-9">
+                            		<div class="checkout__input">
+                            			<input type="text" placeholder="결제 은행">
+                            		</div>
+                            	</div>
+                            </div>
+                            <div class="row">
+                            	<div class="col-lg-12">
+                            		<p>신용카드 번호 <span>*</span></p>
+                            	</div>
+                            	<div class="col-lg-9">
+                            		<div class="checkout__input">
+                            			<input type="number" placeholder="결제 은행">
+                            		</div>
+                            	</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4>결제 정보</h4>
+                                <div class="checkout__order__products">상품 <span>Total</span></div>
+                                <ul>
+                                    <li>Vegetable’s Package <span>$75.99</span></li>
+                                    <li>Fresh Vegetable <span>$151.99</span></li>
+                                    <li>Organic Bananas <span>$53.99</span></li>
+                                </ul>
+                                <div class="checkout__order__total">Total <span>$750.99</span></div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="payment">
+                                        Check Payment
+                                        <input type="checkbox" id="payment">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="paypal">
+                                        Paypal
+                                        <input type="checkbox" id="paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+	
+	</th:block>
+</html>

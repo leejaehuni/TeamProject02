@@ -366,7 +366,6 @@
 		/* 판매자 등급별 조회*/
 		SELECT
 			 s.seller_grade_num
-			,s.member_id
 			,s.grade_type
 			,s.sell_count
 			,s.sell_amount
@@ -383,7 +382,6 @@
 		/* 판매자 등급 기준 및 혜택 */
 		SELECT
 			 s.seller_grade_num
-			,s.member_id
 			,s.grade_type
 			,s.sell_count
 			,s.sell_amount
@@ -392,10 +390,6 @@
 			,s.delivery_price_discount
 		FROM
 			seller_standard_benefit AS s
-			INNER JOIN
-			member AS m
-			ON
-			s.member_id = m.member_id;
 	</select>
 	
 	<select id="searchDate" resultMap="memberResultMap">

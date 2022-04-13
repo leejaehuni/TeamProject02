@@ -31,6 +31,17 @@ public class UserPaymentController {
 		this.userPaymemtMapper = userPaymemtMapper;
 	}
 	
+	@GetMapping("/userBeforePayment")
+	public String userBeforePayment(Model model) {
+		
+		model.addAttribute("title", "Food Refurb : 결제화면");
+		model.addAttribute("breadTitle", "Checkout");
+		model.addAttribute("breadSubTitle", "Checkout");
+		
+		return "userPayment/userBeforePayment";
+	}
+	
+	
 	@GetMapping("/basketPurchase")
 	public String basketPurchase(Model model
 								,HttpSession session) {

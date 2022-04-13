@@ -123,8 +123,8 @@
 										</div>
 									</div>
 								</div>
-								<button type="button" class="btn primary-btn" id="purchase">구매</button>
-								<button type="button" class="btn primary-btn" id="basket">장바구니</button>
+								<a th:href="@{/userPayment/userBeforePayment}"><button type="button" class="btn primary-btn" id="purchase">구매</button></a>
+								<a th:href="@{/#}"><button type="button" class="btn primary-btn" id="basket">장바구니</button></a>
 								<a th:href="@{#}" class="heart-icon"><span class="icon_heart_alt"></span></a>
 								<ul>
 									<li><b>재고</b> <span th:text="${goods.goodsRefurbSellState}"></span></li>

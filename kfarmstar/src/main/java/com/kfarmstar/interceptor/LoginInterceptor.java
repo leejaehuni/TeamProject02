@@ -22,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		String requestURI = request.getRequestURI();
 		
 		if(sessionId == null) {
-			response.sendRedirect("/userMember/login");
+			response.sendRedirect("/userMain");
 			return false;
 		}else {
 			if("판매자".equals(sessionLevel)) {
