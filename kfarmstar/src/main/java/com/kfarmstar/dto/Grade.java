@@ -9,6 +9,7 @@ public class Grade {
 	
 	private Member member;
 	private SellerGrade sellerGrade;
+	
 	public String getSellerIdGrade() {
 		return sellerIdGrade;
 	}

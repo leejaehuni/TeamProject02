@@ -8,7 +8,6 @@ import com.kfarmstar.dto.Goods;
 
 @Mapper
 public interface UserGoodsMapper {
-
 	
 	// 사용자 화면 - 상품 전체 목록 조회
 	public List<Goods> getUserGoodsList();

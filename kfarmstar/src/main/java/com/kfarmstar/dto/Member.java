@@ -18,6 +18,7 @@ public class Member {
 	private String memberEmail;
 	private int memberPoint;
 	private String memberDate;
+	
 	public String getMemberId() {
 		return memberId;
 	}

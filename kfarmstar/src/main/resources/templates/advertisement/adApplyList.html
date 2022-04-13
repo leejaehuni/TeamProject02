@@ -93,7 +93,7 @@
 										</a>
 									</td>
 									<td class=" ">
-										<a href="#" class="btn-sm btn-danger" 
+										<a th:href="@{/advertisement/addAdPayment(adApplyCode=${l.adApplyCode})}" class="btn-sm btn-danger" 
 											th:if="${l.adPermitState=='결제전'}">결제</a>
 									</td>
 								</tr>

@@ -26,6 +26,13 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 	
+	public List<Member> searchLevelMemberList(String memberLevel){
+		
+		List<Member> searchLevelMemberList = memberMapper.searchLevelMemberList(memberLevel);
+		
+		return searchLevelMemberList;
+	}
+	
 	public List<SellerStore> searchDateSellerList(String startDate, String endDate){
 		
 		List<SellerStore> searchDateSellerList = memberMapper.searchDateSellerList(startDate, endDate);

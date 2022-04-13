@@ -57,28 +57,28 @@
 		<result column="seller_store_addr" 			property="sellerStoreAddr"/>
 		<result column="seller_store_detail_addr" 	property="sellerStoreDetailAddr"/>
 		<result column="seller_tax_type" 			property="sellerTaxType"/>
-		<association property="member" javaType="Member">
-			<result column="member_id" 				property="memberId"/>
-			<result column="member_name" 			property="memberName"/>
-			<result column="member_level" 			property="memberLevel"/>
-			<result column="member_pw" 				property="memberPw"/>
-			<result column="member_nickname" 		property="memberNickname"/>
-			<result column="member_phone" 			property="memberPhone"/>
-			<result column="member_post_num" 		property="memberPostNum"/>
-			<result column="member_addr" 			property="memberAddr"/>
-			<result column="member_detail_addr" 	property="memberDetailAddr"/>
-			<result column="member_birth" 			property="memberBirth"/>
-			<result column="member_email" 			property="memberEmail"/>
-			<result column="member_point" 			property="memberPoint"/>
-			<result column="member_date" 			property="memberDate"/>
-		</association>
+			<association property="member" javaType="Member">
+				<result column="member_id" 				property="memberId"/>
+				<result column="member_name" 			property="memberName"/>
+				<result column="member_level" 			property="memberLevel"/>
+				<result column="member_pw" 				property="memberPw"/>
+				<result column="member_nickname" 		property="memberNickname"/>
+				<result column="member_phone" 			property="memberPhone"/>
+				<result column="member_post_num" 		property="memberPostNum"/>
+				<result column="member_addr" 			property="memberAddr"/>
+				<result column="member_detail_addr" 	property="memberDetailAddr"/>
+				<result column="member_birth" 			property="memberBirth"/>
+				<result column="member_email" 			property="memberEmail"/>
+				<result column="member_point" 			property="memberPoint"/>
+				<result column="member_date" 			property="memberDate"/>
+			</association>
 	</resultMap>
 	
 	<resultMap type="LoginHistory" id="loginResultMap">
 		<result column="login_num" 				property="loginNum"/>
 		<result column="member_id" 				property="memberId"/>
 		<result column="login_time" 			property="loginTime"/>
-		<association property="member" javaType="Member">
+			<association property="member" javaType="Member">
 			<result column="member_id" 				property="memberId"/>
 			<result column="member_name" 			property="memberName"/>
 			<result column="member_level" 			property="memberLevel"/>
@@ -99,7 +99,7 @@
 		<result column="logout_num" 		property="logoutNum"/>
 		<result column="member_id" 			property="memberId"/>
 		<result column="logout_time" 		property="logoutTime"/>
-		<association property="member" javaType="Member">
+			<association property="member" javaType="Member">
 			<result column="member_id" 				property="memberId"/>
 			<result column="member_name" 			property="memberName"/>
 			<result column="member_level" 			property="memberLevel"/>
@@ -115,6 +115,26 @@
 			<result column="member_date" 			property="memberDate"/>
 			</association>
 	</resultMap>
+	
+	<select id="searchLevelMemberList" parameterType="String" resultMap="memberResultMap">
+		/* 권한별 회원 조회 */
+		SELECT 
+		      m.member_id
+		     ,m.member_name
+		     ,m.member_level
+		     ,m.member_nickname
+		     ,m.member_post_num
+		     ,m.member_addr
+		     ,m.member_detail_addr
+		     ,m.member_phone
+		     ,m.member_birth
+		     ,m.member_email
+		     ,m.member_date
+	    FROM
+	    	member AS m
+	    WHERE
+	    	m.member_level = #{memberLevel}
+	</select>
 	
 	<select id="searchDateSellerList" parameterType="String" resultMap="sellerResultMap">
 		/* 등록 날짜별 판매자 사업장 내역 조회 */
