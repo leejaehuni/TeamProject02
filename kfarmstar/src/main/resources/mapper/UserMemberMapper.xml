@@ -20,6 +20,22 @@
 		<result column="member_date" 			property="memberDate"/>
 	</resultMap>
 	
+	<insert id="addSellerGrade" parameterType="Grade">
+		INSERT INTO 
+			seller_grade
+			(
+				 seller_id_grade
+				,member_id
+				,seller_grade_num
+				,seller_grade_type
+			)VALUES (
+				 #{sellerIdGrade}
+				,#{memberId}
+				,#{sellerGradeNum}
+				,#{sellerGradeType}
+			)
+	</insert>
+	
 	<insert id="addSellerStoreInfo" parameterType="SellerStore">
 		INSERT INTO
 			seller_store

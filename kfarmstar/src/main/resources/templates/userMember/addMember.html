@@ -29,7 +29,7 @@
 				
 				$('#idCheck').click(function(){
 					var memberId = $('input[name="memberId"]').val();
-					//console.log(validationCheck(memberId));
+					console.log(validationCheck(memberId));
 					var vCheck = validationCheck(memberId);
 					if(vCheck){
 						$.ajax({
@@ -38,7 +38,7 @@
 							,data: {'memberId' : memberId}
 							,dataType: 'json'
 							,success: function(data){
-								console.log(data);
+								console.log(data + "여기까지 작동되나?");
 								// 화면에서 맨처음 아이디를 제외한 모든 입력하는 요소는 비활성화 (HTML 속성 추가 disabled="disabled") 
 								// 아이디 중복이 발생 않은 경우(회원가입 O) 입력하는 요소는 활성화
 								if(data){
@@ -81,31 +81,31 @@
 					
 					if(isSubmit) $('#addMemberForm').submit();
 				});
-			});
-		</script>
-		<script>
-		function searchPostNum() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	            	
-	            	var addr = '';
-	            	var extraAddr = ''; // 참고항목 변수
-
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-	                
-	                document.getElementById('memberPostNum').value = data.zonecode;
-	                document.getElementById('memberAddr').value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById('memberDetailAddr').focus();
-	                
-	            }
-	        }).open();
-	    }
+			
+		
+			function searchPostNum() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		            	
+		            	var addr = '';
+		            	var extraAddr = ''; // 참고항목 변수
+	
+		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		                    addr = data.roadAddress;
+		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		                    addr = data.jibunAddress;
+		                }
+		                
+		                document.getElementById('memberPostNum').value = data.zonecode;
+		                document.getElementById('memberAddr').value = addr;
+		                // 커서를 상세주소 필드로 이동한다.
+		                document.getElementById('memberDetailAddr').focus();
+		                
+		            }
+		        }).open();
+		    }
+		});
 		</script>
 	</th:block>	
 

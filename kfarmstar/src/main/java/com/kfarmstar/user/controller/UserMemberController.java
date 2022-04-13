@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kfarmstar.dto.Grade;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerStore;
 import com.kfarmstar.user.mapper.UserMemberMapper;
@@ -83,9 +84,9 @@ public class UserMemberController {
 	}
 	
 	@PostMapping("/addSellerMember")
-	public String addSellerMember(SellerStore sellerStore, Member member) {
+	public String addSellerMember(SellerStore sellerStore, Member member, Grade grade) {
 		
-		userMemberService.addSellerStoreInfo(sellerStore, member);
+		userMemberService.addSellerStoreInfo(sellerStore, member, grade);
 		
 		log.info("판매자 회원 가입:{}");
 		log.info("사업장 정보 기입:{}", sellerStore);
