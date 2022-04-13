@@ -27,28 +27,6 @@
 				$('select').attr("disabled",false);
 			});
 		});
-		function searchPostNum() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	            	
-	            	var addr = '';
-	            	var extraAddr = ''; // 참고항목 변수
-
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-	                
-	                document.getElementById('deliveryPostNum').value = data.zonecode;
-	                document.getElementById('deliveryAddr').value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById('deliveryDetailAddr').focus();
-	                
-	            }
-	        }).open();
-	    }
 		
 		$(function(){
 								    	  
@@ -101,7 +79,7 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>
-					결제 내역 상세 정보<small>Payment Details Info</small>
+					광고 결제 페이지<small>AD Payment Page</small>
 				</h2>
 				<div class="clearfix"></div>
 			</div>
@@ -123,30 +101,60 @@
 											<label class="control-label">광고 신청 번호</label>
 										</div>
 										<div class="col-md-8 col-sm-8 ">
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" th:value="${adApply.adApplyCode}" readonly="readonly">
 										</div>
 									</div>
-									<div class="form-group row">
-										<div class="col-md-2 col-sm-2">
-											<label class="control-label">광고 기간</label>
-										</div>
-										<div class="col-md-8 col-sm-8 ">
-											<input type="text" class="form-control">
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">결제 정보</th>
-								<td>
 									<div class="form-group row">
 										<div class="col-md-2 col-sm-2">
 											<label class="control-label" for="memberId">아이디</label>
 										</div>
 										<div class="col-md-8 col-sm-8">
-											<input type="text" class="form-control" name="memberId" readonly="readonly">
+											<input type="text" class="form-control"
+												 	name="memberId" th:value="${adApply.memberId}" readonly="readonly">
 										</div>
 									</div>
+								</td>
+							</tr>
+							
+							<tr>
+									<th scope="row">광고 게시 기간</th>
+									<td>
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
+												<label class="control-label">기간</label>
+											</div>
+											<div class="col-md-8 col-sm-8">
+												<!-- start : 기간 검색 바 -->
+							
+												<div class="form-row">
+													<div class="col-md-4 col-sm-5">
+														<input class="date-picker form-control" placeholder="dd-mm-yyyy"
+															type="date"  id="adStartDate" name="adStartDate" 
+															th:value="${adApply.adStartDate}" readonly="readonly">
+													</div>
+													<div class="align-self-center">
+														<i class="fa fa-minus"></i>
+													</div>
+													
+													<div class="col-md-4 col-sm-5">
+														<input class="date-picker form-control" placeholder="dd-mm-yyyy"
+															type="date" id="adEndDate" name="adEndDate" 
+															th:value="${adApply.adEndDate}" readonly="readonly">
+													</div>
+													<div class="col-md-3 col-sm-3">
+														<input type="text" class="form-control text-center" 
+																th:value="${adApply.adContractTerm} + ' 일'" readonly="readonly">
+													</div>
+												</div>
+												<!-- END : 기간 검색 바 -->
+											</div>
+										</div>
+									</td>
+								</tr>
+							<tr>
+								<th scope="row">결제 정보</th>
+								<td>
+									
 									<div class="form-group row">
 										<div class="col-md-2 col-sm-2">
 											<label class="control-label">결제 종류</label>

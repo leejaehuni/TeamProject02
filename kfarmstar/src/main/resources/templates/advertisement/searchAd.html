@@ -36,21 +36,23 @@
 		
 					<!-- start : 검색 바 -->
 					 <div class="form-row">
-					    <div class="form-group col-md-2">
-					      <select id=" " class="form-control text-center">
+					    <div class="form-group col-md-2" >
+					      <select id=" " class="form-control text-center" name="searchKey">
 					        <option selected> :: 선택 :: </option>
-					        <option>옵션 1</option>
-					        <option>옵션 2</option>
-					        <option>옵션 3</option>
+					        <option value="adApplyCode">광고 신청 번호</option>
+					        <option value="adApplyTitle">제목</option>
+					        <option value="adPermitState">진행상태</option>
+					        <option th:if="${session.SLEVEL == '관리자'}" value="memberId">아이디</option>
 					      </select>
 					    </div>
-					    <div class="form-group col-md-7">
-					      <input type="text" class="form-control" name="searchValue" placeholder="Search"
-							aria-label="Text input with dropdown button">
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control" name="searchValue"
+								placeholder="Search" aria-label="Text input with button">
 						</div>
-					    <div class="form-group col-md-2">
+						<div class="form-group col-md-4">
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="submit">검색</button>
+								<button type="submit" class="btn btn-success">검색</button>
+								<button type="reset" class="btn btn-info" id="btn_reset">초기화</button>
 							</div>
 						</div>
 					  </div>

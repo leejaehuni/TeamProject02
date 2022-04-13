@@ -6,10 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.Grade;
 
 @Mapper
 public interface AdMapper {
 
+	// 회원 아이디에 따른 등급별 혜택 조회
+	public Grade getAdBenefitByGrade(String memberId);
 
 	// 광고 신청 등록
 	public int addAdApply(AdApply adApply);
@@ -43,5 +46,6 @@ public interface AdMapper {
 
 	// 광고 승인 취소
 	public int adApproveCancle(AdApply adApply);
+	
 
 }
