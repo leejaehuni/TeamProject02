@@ -1,6 +1,7 @@
 package com.kfarmstar.admin.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,7 +22,7 @@ public interface AdMapper {
 	public List<AdApply> getAdvertisingList();
 	
 	// 광고 신청 목록
-	public List<AdApply> getAdApplyList();
+	public List<AdApply> getAdApplyList(Map<String, Object> paramMap);
 	
 	// 광고 신청 코드별 상세 정보 조회
 	public AdApply getAdApplyByCode(String adApplyCode);

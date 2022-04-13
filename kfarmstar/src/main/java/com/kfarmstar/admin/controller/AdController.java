@@ -1,6 +1,8 @@
 package com.kfarmstar.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -85,10 +87,41 @@ public class AdController {
 	 */
 	@GetMapping("/adApplyList")
 	public String getAdApplyList(Model model
-								, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
-		log.info("광고 신청 목록 화면");
+								, HttpSession session
+								, @RequestParam(name="adApplyCode", required = false) String adApplyCode
+								, @RequestParam(value="searchKey", required = false) String searchKey
+								, @RequestParam(value="searchValue", required = false) String searchValue) {
 		
-		List<AdApply> adApplyList = adService.getAdApplyList();
+		log.info("광고 신청 목록 요청");
+		
+		log.info("searchValue:{}", searchValue);
+		log.info("searchKey:{}", searchKey);
+		String sessionId = (String) session.getAttribute("SID");
+		String sessionLevel = (String) session.getAttribute("SLEVEL");
+		
+		Map<String, Object> paramMap = new HashMap<String , Object>();
+		
+		if(sessionId != null && sessionLevel.equals("판매자")) {
+			paramMap.put("memberId", sessionId);
+		}
+		
+		if(searchKey != null) {
+			if("memberId".equals(searchKey)) {
+				searchKey = "a.member_id";						
+			}else if("adApplyCode".equals(searchKey)) {
+				searchKey = "ad_apply_code";
+			}else if("adApplyTitle".equals(searchKey)) {
+				searchKey = "ad_apply_title";
+			}else if("adPermitState".equals(searchKey)) {
+				searchKey = "ad_permit_state";
+			}
+		}
+		
+		paramMap.put("searchKey", searchKey);
+		paramMap.put("searchValue", searchValue);
+		
+		
+		List<AdApply> adApplyList = adService.getAdApplyList(paramMap);
 		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 신청 목록");
 		model.addAttribute("titleName", "광고 신청 목록");

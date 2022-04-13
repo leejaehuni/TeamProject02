@@ -5,6 +5,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,10 +82,11 @@ public class AdService {
 	
 	/**
 	 * 광고 신청 목록 조회 
+	 * @param paramMap 
 	 */
-	public List<AdApply> getAdApplyList() {
+	public List<AdApply> getAdApplyList(Map<String, Object> paramMap) {
 		
-		List<AdApply> adApplyList = adMapper.getAdApplyList();
+		List<AdApply> adApplyList = adMapper.getAdApplyList(paramMap);
 		
 		return adApplyList;
 	}
