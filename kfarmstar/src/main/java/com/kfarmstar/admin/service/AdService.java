@@ -16,6 +16,7 @@ import com.kfarmstar.admin.mapper.AdMapper;
 import com.kfarmstar.admin.mapper.CommonMapper;
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.Grade;
 
 @Service
 @Transactional
@@ -32,6 +33,16 @@ public class AdService {
 		this.commonMapper = commonMapper;
 	}
 	
+	
+	// 회원 아이디에 따른 등급별 혜택 조회
+	public Grade getAdBenefitByGrade(String sessionId) {
+		// 컨트롤러에서 sessionId 받아와야하는데 엄,,
+		Grade grade = adMapper.getAdBenefitByGrade(sessionId);
+		
+		log.info("서비스 sellerGrade {}" + grade);
+		log.info("서비스 sessionId {}" + sessionId);
+		return grade;
+	}
 	
 	/**
 	 * 광고 신청 등록 처리 (수정필요!!!!!!!!!!!!!!!!!!!!!!!!!! 일단 보류,,, 넘어려워)

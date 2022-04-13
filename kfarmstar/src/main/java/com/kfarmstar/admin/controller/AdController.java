@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kfarmstar.admin.service.AdService;
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.Grade;
 
 
 @Controller
@@ -30,6 +32,15 @@ public class AdController {
 	public AdController(AdService adService) {
 		this.adService = adService;
 	}
+	
+	
+	@PostMapping("/getAdPriceInfoByCode")
+    @ResponseBody
+    public AdPrice getAdPriceInfoByCode(@RequestParam(value = "adPriceCode") String adPriceCode) {
+		log.info("adPriceCode 광고번호 {}" + adPriceCode);
+        return adService.getAdPriceInfoByCode(adPriceCode);
+    }
+	
 	
 	/**
 	 * 광고 신청 후 상세 화면
@@ -94,12 +105,15 @@ public class AdController {
 	 * @return
 	 */
 	@GetMapping("/addAdApply")
-	public String addAdApply(Model model) {
-		
+	public String addAdApply(Model model, HttpSession session) {
+		String sessionId = (String) session.getAttribute("SID");
+		Grade grade = adService.getAdBenefitByGrade(sessionId);	// 로그인한 아이디에 해당하는 혜택 검색
 		List<AdPrice> adPriceList = adService.getAdPriceList();
+		log.info("컨트롤러 sellerGrade" + grade);
 		
 		model.addAttribute("title", "FoodRefurb : 광고 신청");
 		model.addAttribute("titleName", "광고 신청");
+		model.addAttribute("grade", grade);
 		model.addAttribute("adPriceList", adPriceList);
 		
 		return "advertisement/addAdApply";
@@ -171,11 +185,18 @@ public class AdController {
 	}
 	
 	
-	
+	/**
+	 * 광고 결제 페이지
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/addAdPayment")
-	public String addAdPayment(Model model) {
+	public String addAdPayment(Model model 
+								, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
+		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 결제");
 		model.addAttribute("titleName", "광고 결제");
+		model.addAttribute("adApply", adApply);
 		
 		return "advertisement/addAdPayment";
 	}
