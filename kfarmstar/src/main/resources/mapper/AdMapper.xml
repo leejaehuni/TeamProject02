@@ -146,7 +146,7 @@
 	</insert>
 	
 	<select id="getAdvertisingList" resultType="AdApply"  resultMap="adApplyResultMap">
-		/* 광고 진행중 or 완료 목록 조회 */
+		/* 광고 진행중 or 완료  조회 */
 		SELECT 
 			  a.ad_apply_code
 			, a.ad_price_code
@@ -191,7 +191,16 @@
 			, a.ad_permit_state
 			, a.manager_id
 			, a.ad_permit_date
-		FROM ad_apply_permit AS a
+		FROM 
+			ad_apply_permit AS a
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="memberId != null and memberId != ''">
+				a.member_id = #{memberId}
+			</if>
+			<if test="searchKey != null and searchKey != '' and searchValue != ''">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</trim>
 		ORDER BY cast(SUBSTRING_INDEX(a.ad_apply_code,'_',-1) AS UNSIGNED) ASC;
 	</select>
 	
