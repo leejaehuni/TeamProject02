@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kfarmstar.admin.mapper.CommonMapper;
+import com.kfarmstar.dto.Grade;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerStore;
 import com.kfarmstar.user.mapper.UserMemberMapper;
@@ -23,16 +24,24 @@ public class UserMemberService {
 		this.commonMapper = commonMapper;
 	}
 	
-	public int addSellerStoreInfo(SellerStore sellerStore, Member member) {
+	public int addSellerStoreInfo(SellerStore sellerStore, Member member, Grade grade) {
 		
 		String newCode = commonMapper.getNewCode("seller_store_num", "seller_store");
+		String newCode2 = commonMapper.getNewCode("seller_id_grade", "seller_grade");
+		
 		sellerStore.setSellerStoreNum(newCode);
+		grade.setSellerIdGrade(newCode2);
 		
 		member.setMemberLevel("판매자");
+		grade.setSellerGradeNum("seller_grade_num_1");
+		grade.setSellerGradeType("씨앗");
 		
 		int result = userMemberMapper.addMember(member);
 		sellerStore.setMemberId(member.getMemberId());
-		 result += userMemberMapper.addSellerStoreInfo(sellerStore);
+		grade.setMemberId(member.getMemberId());
+		
+		result += userMemberMapper.addSellerStoreInfo(sellerStore);
+		result += userMemberMapper.addSellerGrade(grade);
 		
 		return result;
 	}
