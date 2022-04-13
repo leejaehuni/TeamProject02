@@ -25,6 +25,13 @@ public class PaymentService {
 		this.paymentMapper = paymentMapper;
 	}
 	
+	public List<AfterPayment> searchTypeAfterPayment(String paymentOption){
+		
+		List<AfterPayment> searchTypeAfterPayment = paymentMapper.searchTypeAfterPayment(paymentOption);
+		
+		return searchTypeAfterPayment;
+	}
+	
 	public List<OrderCancel> searchDateOrderCancel(String startDate, String endDate){
 		
 		List<OrderCancel> searchDateOrderCancel = paymentMapper.searchDateOrderCancel(startDate, endDate);

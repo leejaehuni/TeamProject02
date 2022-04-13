@@ -157,6 +157,19 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
+	@PostMapping("/searchLevelMemberList")
+	public String searchLevelMemberList(Model model
+			,@RequestParam(value="memberLevel", required = false) String memberLevel) {
+		
+		log.info("권한별 회원 조회:{}", memberLevel);
+		
+		List<Member> searchLevelMemberList = memberService.searchLevelMemberList(memberLevel);
+		
+		model.addAttribute("memberList", searchLevelMemberList);
+		
+		return "member/memberList";
+	}
+	
 	@GetMapping("/modifyMember")
 	public String modifyMember(Model model) {
 		

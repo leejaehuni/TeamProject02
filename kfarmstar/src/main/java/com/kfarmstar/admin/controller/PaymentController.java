@@ -41,6 +41,19 @@ public class PaymentController {
 		return "payment/beforePurchaserInfo";
 	}
 	
+	@PostMapping("/searchTypeAfterPayment")
+	public String searchTypeAfterPayment(Model model
+										,@RequestParam(value="paymentOption", required = false) String paymentOption) {
+		
+		log.info("결제 타입별 결제 내역 조회:{}", paymentOption);
+		
+		List<AfterPayment> searchTypeAfterPayment = paymentService.searchTypeAfterPayment(paymentOption);
+		
+		model.addAttribute("afterPaymentInfo", searchTypeAfterPayment);
+		
+		return "payment/afterPaymentInfo";
+	}
+	
 	@GetMapping("/conditionAfterPaymentList")
 	public String conditionAfterPaymentList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
