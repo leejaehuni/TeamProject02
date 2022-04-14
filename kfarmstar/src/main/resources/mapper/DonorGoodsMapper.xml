@@ -11,13 +11,12 @@
 		<result column="member_id" 						property="memberId"/>
 		<result column="goods_donation_img"				property="goodsDonationImg"/>
 		<result column="donation_content" 				property="donationContent"/>
-		<result column="entry_time" 					property="goodsDonationCount"/>
+		<result column="goods_donation_count" 			property="goodsDonationCount"/>
 		<result column="goods_donation_name" 			property="goodsDonationName"/>
 		<result column="goods_donation_delivery_way" 	property="goodsDonationDeliveryWay"/>
 		<result column="donation_request_entry_date" 	property="donationRequestEntryDate"/>
 	</resultMap>
 	
-	<insert id="addDonorGoods" r></insert>
 	
 	<select id="getDonorGoodsList" resultType="DonorGoods" resultMap="donorGoodsResultMap">
 		/*기부 상품 조회*/
