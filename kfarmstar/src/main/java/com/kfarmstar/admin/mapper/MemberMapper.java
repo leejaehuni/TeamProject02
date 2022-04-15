@@ -9,7 +9,7 @@ import com.kfarmstar.dto.LogoutHistory;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
-/*깃허브수정*/
+
 @Mapper
 public interface MemberMapper {
 	

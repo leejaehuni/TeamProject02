@@ -1,4 +1,4 @@
-/*깃허브수정*/
+
 $(document).ready(function(){
 	
     //btn_reset 을 클릭했을때의 함수

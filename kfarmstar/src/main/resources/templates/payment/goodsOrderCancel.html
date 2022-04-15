@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
-/*깃허브수정*/	
+	
 	<!-- 사용자 정의 title -->
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
@@ -41,7 +41,7 @@
 					
 					dateBtnForm.attr("id", "testForm");
 					dateBtnForm.attr("name", "dateBtnForm");
-					dateBtnForm.attr("method", "get");
+					dateBtnForm.attr("method", "post");
 					dateBtnForm.attr("action", "/payment/searchDateOrderCancel");
 					
 					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
@@ -64,7 +64,7 @@
 						
 						datepickerForm.attr("id", "testForm");
 						datepickerForm.attr("name", "datepickerForm");
-						datepickerForm.attr("method", "get");
+						datepickerForm.attr("method", "post");
 						datepickerForm.attr("action", "/payment/searchDateOrderCancel");
 						
 						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
@@ -94,6 +94,20 @@
 					<!-- START : 검색 바 -->
 					<div th:include="member/searchDate :: searchDateFragment"></div>
 					<!-- END : 검색 바 -->
+					<div class="mb-2">
+						<label>결제수단</label>
+						<div class="btn-group" data-toggle="buttons">
+							<label class="btn btn-default active">
+								<input type="checkbox" name="options" id="option1"> 신용카드
+							</label>
+							<label class="btn btn-default">
+								<input type="checkbox" name="options" id="option2"> 무통장입금
+							</label>
+							<label class="btn btn-default">
+								<input type="checkbox" name="options" id="option3"> 휴대폰
+							</label>
+						</div>
+					</div>
 					<form th:action="@{/payment/conditionOrderCancelList}" method="get">
 						<div class="form-row mb-2">
 							<div class="form-group col-md-2">

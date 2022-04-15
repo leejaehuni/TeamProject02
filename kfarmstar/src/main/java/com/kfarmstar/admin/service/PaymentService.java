@@ -12,7 +12,7 @@ import com.kfarmstar.dto.AfterPayment;
 import com.kfarmstar.dto.GoodsExchange;
 import com.kfarmstar.dto.GoodsRefund;
 import com.kfarmstar.dto.OrderCancel;
-/*깃허브수정*/
+
 @Service
 @Transactional
 public class PaymentService {
@@ -23,20 +23,6 @@ public class PaymentService {
 	@Autowired
 	public PaymentService(PaymentMapper paymentMapper) {
 		this.paymentMapper = paymentMapper;
-	}
-	
-	public List<GoodsExchange> searchStateExchange(String exchangeProcessState){
-		
-		List<GoodsExchange> searchStateExchange = paymentMapper.searchStateExchange(exchangeProcessState);
-		
-		return searchStateExchange;
-	} 
-	
-	public List<GoodsExchange> searchDateGoodsExchange(String startDate, String endDate){
-		
-		List<GoodsExchange> searchDateGoodsExchange = paymentMapper.searchDateGoodsExchange(startDate, endDate);
-		
-		return searchDateGoodsExchange;
 	}
 	
 	public List<AfterPayment> searchTypeAfterPayment(String paymentOption){

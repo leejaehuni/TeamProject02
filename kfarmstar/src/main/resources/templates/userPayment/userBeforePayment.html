@@ -6,7 +6,7 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
-/*깃허브수정*/	
+	
 	<th:block layout:fragment="customCss">
 		<style>
 			.goodsImg{height: 100px;}
@@ -23,95 +23,7 @@
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
 		<script>
-		$(document).ready(function(){
-	    	  
-			/* var 
-			paymentTypeBank = $('.paymentTypeBank'),
-			paymentTypeMobile = $('.paymentTypeMobile'),
-			paymentTypeCard = $('.paymentTypeCard'),
-			paymentValue = $('select[name="paymentOption"]').val();
 			
-			if(paymentValue == '휴대폰'){
-				paymentTypeBank.css('display', 'none');
-				paymentTypeMobile.css('display', 'block');
-				paymentTypeCard.css('display', 'none');
-			}else if(paymentValue == '무통장입금'){
-				paymentTypeBank.css('display', 'block');
-				paymentTypeMobile.css('display', 'none');
-				paymentTypeCard.css('display', 'none');
-			}else if(paymentValue == '신용카드'){
-				paymentTypeBank.css('display', 'none');
-				paymentTypeMobile.css('display', 'none');
-				paymentTypeCard.css('display', 'block');
-			}
-			
-			$('select[name="paymentOption"]').change(function(){
-				
-				var val = $(this).val();
-				if(val == '휴대폰'){
-					paymentTypeBank.css('display', 'none');
-					paymentTypeMobile.css('display', 'block');
-					paymentTypeCard.css('display', 'none');
-				}else if(val == '무통장입금'){
-					paymentTypeBank.css('display', 'block');
-					paymentTypeMobile.css('display', 'none');
-					paymentTypeCard.css('display', 'none');
-				}else if(val == '신용카드'){
-					paymentTypeBank.css('display', 'none');
-					paymentTypeMobile.css('display', 'none');
-					paymentTypeCard.css('display', 'block');
-				}
-			}) */
-			
-			$('#paymentType').change(function(){
-				
-				 var 
-				 typeVal = $(this).val()
-				,paymentTypeBank = $('.paymentTypeBank')
-				,paymentTypePhone = $('.paymentTypePhone')
-				,paymentTypeCard = $('.paymentTypeCard');
-				 
-				if(typeVal == '무통장입금'){
-					paymentTypeBank.css('display', 'block');
-					paymentTypePhone.css('display', 'none');
-					paymentTypeCard.css('display', 'none');
-				}else if(typeVal == '신용카드'){
-					paymentTypeBank.css('display', 'none');
-					paymentTypePhone.css('display', 'none');
-					paymentTypeCard.css('display', 'block');
-				}else if(typeVal == '휴대폰'){
-					paymentTypeBank.css('display', 'none');
-					paymentTypePhone.css('display', 'block');
-					paymentTypeCard.css('display', 'none');
-				}
-				
-			});
-			
-		});
-		
-		function searchPostNum() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	            	
-	            	var addr = '';
-	            	var extraAddr = ''; // 참고항목 변수
-
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-	                
-	                document.getElementById('deliveryPostnumAddr').value = data.zonecode;
-	                document.getElementById('deliveryAddr').value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById('deliveryDetailAddr').focus();
-	                
-	            }
-	        }).open();
-	    }
-		
 		</script>
 	</th:block>	
 
@@ -134,23 +46,23 @@
 	                                    <th>가격</th>
 	                                    <th>수량</th>
 	                                    <th>합계</th>
-	                                    <th> </th>
+	                                    <th></th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
 	                                <tr>
 	                                    <td class="shoping__cart__item">
 	                                        <img class="goodsImg" th:src="@{/build/images/orange.jpg}">
-	                                        <h5>[[${goods.goodsRefurbName}]]</h5>
+	                                        <h5>Vegetable’s Package</h5>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                    	<p>[[${refurbResult}]]</p>
+	                                    	18000원
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                          <p>[[${goodsCount}]]</p>
+	                                                1
 	                                    </td>
 	                                    <td class="shoping__cart__total">
-	                                        <p>[[${totalPriceResult}]]</p>
+	                                        $110.00
 	                                    </td>
 	                                    <td class="shoping__cart__item__close">
 	                                        <span class="icon_close"></span>
@@ -162,15 +74,14 @@
 	                </div>
 	            </div>
                 <h4>주문/결제</h4>
-                <form id="addBeforePaymentForm" th:action="@{/userPayment/userBeforePayment}" method="post">
-                    <input type="hidden" name="goodsRefurbCode" th:value="${goods.goodsRefurbCode}">
+                <form action="#">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
                                 <div class="col-lg-9">
                                     <div class="checkout__input">
                                         <p>수령인 이름</p>
-                                        <input type="text" name="recipientName">
+                                        <input type="text">
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +89,7 @@
                                 <div class="col-lg-9">
                                         <p>수령인 전화번호</p>
                                     <div class="checkout__input">
-                                        <input type="text" name="recipientPhone">
+                                        <input type="text">
                                     </div>
                                 </div>
                             </div>
@@ -188,93 +99,92 @@
                             		</div>
                             	<div class="col-lg-3">
                             		<div class="checkout__input">
-                                        <input type="text" name="deliveryPostnumAddr" id="deliveryPostnumAddr" placeholder="우편번호" readonly="readonly">
+                                        <input type="text" placeholder="우편번호">
                                     </div>
                             	</div>
                             	<div class="col-lg-6">
                             		<div class="checkout__input">
-                                        <input type="text" name="deliveryAddr" id="deliveryAddr" placeholder="주소" readonly="readonly">
+                                        <input type="text" placeholder="주소">
                                     </div>
                             	</div>
                             	<div class="col-lg-3">
-                            		<button type="button" class="btn btn-success" id="postNum" onclick="searchPostNum()">우편번호</button>
+                            		<button type="button" class="btn btn-success">우편번호</button>
                             	</div>
                             </div>
                             <div class="row">
 	                            <div class="col-lg-9">
 	                            	<div class="checkout__input">
-	                                	<input type="text" name="deliveryDetailAddr" id="deliveryDetailAddr" placeholder="상세주소">
+	                                	<input type="text" placeholder="상세주소">
 	                                </div>
 	                            </div>
 	                        </div>
                             <div class="row">
                             	<div class="col-lg-9">
                             		<p>결제방법 <span>*</span></p>
-                            		<select class="nice-select form-control" name="paymentOptionType" id="paymentType">
-                            			<option value=""> :: 선택 :: </option>
-                            			<option class="paymentTypeOption" value="무통장입금">무통장입금</option>
-                            			<option class="paymentTypeOption" value="휴대폰">휴대폰</option>
-                            			<option class="paymentTypeOption" value="신용카드">신용카드</option>
+                            		<select class="nice-select form-control">
+                            			<option>무통장입금</option>
+                            			<option>휴대폰</option>
+                            			<option>신용카드</option>
                             		</select>
                             	</div>
                             </div>
-                            <div class="row paymentTypePhone">
+                            <div class="row">
                             	<div class="col-lg-9">
                             		<p>휴대폰 통신사 <span>*</span></p>
-                            		<select class="nice-select form-control" name="paymentCarrier">
-                            			<option value=""> :: 통신사 선택 :: </option>
-                            			<option value="SKT">SKT</option>
-                            			<option value="KT">KT</option>
-                            			<option value="UPLUS">UPLUS</option>
+                            		<select class="nice-select form-control">
+                            			<option>SKT</option>
+                            			<option>KT</option>
+                            			<option>UPLUS</option>
                             		</select>
                             	</div>
                             </div>
-                            <div class="row paymentTypePhone">
+                            <div class="row">
                             	<div class="col-lg-12">
+                            		<p>휴대폰번호 <span>*</span></p>
                             	</div>
                             	<div class="col-lg-9">
                             		<div class="checkout__input">
-                            			<input type="text" name="paymentPhoneNum" placeholder="휴대폰번호">
+                            			<input type="number" placeholder="휴대폰번호">
                             		</div>
                             	</div>
                             </div>
-                            <div class="row paymentTypeBank">
+                            <div class="row">
                             	<div class="col-lg-12">
                             		<p>무통장 결제 은행 <span>*</span></p>
                             	</div>
                             	<div class="col-lg-9">
                             		<div class="checkout__input">
-                            			<input type="text" name="paymentAccountInfo" placeholder="결제 은행">
+                            			<input type="text" placeholder="결제 은행">
                             		</div>
                             	</div>
                             </div>
-                            <div class="row paymentTypeBank">
+                            <div class="row">
                             	<div class="col-lg-12">
                             		<p>무통장 결제 계좌번호 <span>*</span></p>
                             	</div>
                             	<div class="col-lg-9">
                             		<div class="checkout__input">
-                            			<input type="text" name="paymentAccountNumber" placeholder="계좌 번호">
+                            			<input type="text" placeholder="결제 은행">
                             		</div>
                             	</div>
                             </div>
-                            <div class="row paymentTypeCard">
+                            <div class="row">
                             	<div class="col-lg-12">
                             		<p>신용카드 결제 은행 <span>*</span></p>
                             	</div>
                             	<div class="col-lg-9">
                             		<div class="checkout__input">
-                            			<input type="text" name="paymentCardType" placeholder="결제 은행">
+                            			<input type="text" placeholder="결제 은행">
                             		</div>
                             	</div>
                             </div>
-                            <div class="row paymentTypeCard">
+                            <div class="row">
                             	<div class="col-lg-12">
                             		<p>신용카드 번호 <span>*</span></p>
                             	</div>
                             	<div class="col-lg-9">
                             		<div class="checkout__input">
-                            			<input type="number" name="paymentCardNum" placeholder="카드번호">
+                            			<input type="number" placeholder="결제 은행">
                             		</div>
                             	</div>
                             </div>
@@ -284,11 +194,26 @@
                                 <h4>결제 정보</h4>
                                 <div class="checkout__order__products">상품 <span>Total</span></div>
                                 <ul>
-                                    <li>[[${goods.goodsRefurbName}]] <span>[[${refurbResult}]]</span></li>
+                                    <li>Vegetable’s Package <span>$75.99</span></li>
+                                    <li>Fresh Vegetable <span>$151.99</span></li>
+                                    <li>Organic Bananas <span>$53.99</span></li>
                                 </ul>
-                                <div class="checkout__order__total">Total <span>[[${totalPriceResult}]]</span></div>
-                                <a th:href="@{/userPayment/userAfterPayment(goodsRefurbCode=${goods.goodsRefurbCode})}" id="movePayment">
-                                <button type="submit" class="site-btn" id="paymentButton">결제하기</button></a>
+                                <div class="checkout__order__total">Total <span>$750.99</span></div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="payment">
+                                        Check Payment
+                                        <input type="checkbox" id="payment">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="paypal">
+                                        Paypal
+                                        <input type="checkbox" id="paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>

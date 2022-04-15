@@ -8,15 +8,9 @@ import com.kfarmstar.dto.AfterPayment;
 import com.kfarmstar.dto.GoodsExchange;
 import com.kfarmstar.dto.GoodsRefund;
 import com.kfarmstar.dto.OrderCancel;
-/*깃허브수정*/
+
 @Mapper
 public interface PaymentMapper {
-	
-	//처리 상태별 상품 교환 내역 조회
-	public List<GoodsExchange> searchStateExchange(String exchangeProcessState);
-	
-	//상품교환날짜별 상품 교환 내역 조회
-	public List<GoodsExchange> searchDateGoodsExchange(String startDate, String endDate);
 	
 	//결제수단별 결제 내역 조회
 	public List<AfterPayment> searchTypeAfterPayment(String paymentOption);

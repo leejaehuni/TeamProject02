@@ -1,5 +1,5 @@
 package com.kfarmstar.dto;
-/*깃허브수정*/
+
 
 public class Member {
 	//member_id, member_name, member_level, member_pw, member_nickname
