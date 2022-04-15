@@ -17,6 +17,7 @@ import com.kfarmstar.admin.mapper.AdMapper;
 import com.kfarmstar.admin.mapper.CommonMapper;
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
 @Service
@@ -37,7 +38,7 @@ public class AdService {
 	
 	// 회원 아이디에 따른 등급별 혜택 조회
 	public Grade getAdBenefitByGrade(String sessionId) {
-		// 컨트롤러에서 sessionId 받아와야하는데 엄,,
+		
 		Grade grade = adMapper.getAdBenefitByGrade(sessionId);
 		
 		log.info("서비스 sellerGrade {}" + grade);
@@ -46,7 +47,7 @@ public class AdService {
 	}
 	
 	/**
-	 * 광고 신청 등록 처리 (수정필요!!!!!!!!!!!!!!!!!!!!!!!!!! 일단 보류,,, 넘어려워)
+	 * 광고 신청 등록 처리
 	 */
 	public int addAdApply(AdApply adApply, String sessionId) {
 		
@@ -55,18 +56,7 @@ public class AdService {
 		adApply.setAdApplyCode(adApplyCode);
 		adApply.setMemberId(sessionId);	// 로그인한 세션아이디로 광고 신청 아이디값 넣어주기
 		
-		adApply.setAdContractPrice("123"); // 임의로 넣어준 광고 계약 가격 
-		adApply.setAdPriceCode("ad_price_code_1"); // 임의로 넣어준 광고 가격 코드 -> 선택한 광고 종류에 따른 광고 가격 코드 넣어줘야하는데... 어케하지 if문써서 넣어야할것같아
-
-		
-		
-		
-		
-		
-		adMapper.addAdApply(adApply);
-		
-		
-		return 0;
+		return adMapper.addAdApply(adApply);
 	}
 	
 	
@@ -164,11 +154,34 @@ public class AdService {
 		  return result; 
 	}
 	
-	//광고 승인
-	public int adApproveUpdate(AdApply adApply, String sessionId) {
+	/**
+	 * 광고 승인 처리(신청 테이블 update & 결제전 테이블에 insert)
+	 * @param adOriginPrice 
+	 * @param adDiscount 
+	 */
+	public int adApproveUpdate(AdApply adApply, BeforeAdPay beforeAdPay, String sessionId, AdApply adApplyByCode, String adOriginPrice, String adDiscount) {
 		log.info("sessionId {}" , sessionId);
+		
+		String adPaymentCode = commonMapper.getNewCode("ad_payment_code", "before_ad_payment");
 		adApply.setManagerId(sessionId);
-		return adMapper.adApproveUpdate(adApply);
+		beforeAdPay.setAdPaymentCode(adPaymentCode);
+		beforeAdPay.setAdApplyCode(adApplyByCode.getAdApplyCode());
+		beforeAdPay.setAdPriceCode(adApplyByCode.getAdPriceCode());
+		beforeAdPay.setMemberId(adApplyByCode.getMemberId());
+		beforeAdPay.setSellerGradeNum(adApplyByCode.getSellerGradeNum());
+		/* 계산못하겠어서 ㅇ일단 null값허용으로 변경해둠
+		 * 
+		 * 
+		 */
+		beforeAdPay.setAdDiscount(adDiscount);
+		beforeAdPay.setAdPaymentPrice(adOriginPrice); 
+		beforeAdPay.setAdContractPrice(adApplyByCode.getAdContractPrice());
+		beforeAdPay.setManagerId(sessionId);
+		
+		log.info("beforeAdPay : {}" + beforeAdPay);
+		adMapper.adApproveUpdate(adApply);
+		adMapper.addBeforeAdPay(beforeAdPay);
+		return 0;
 		
 	}
 

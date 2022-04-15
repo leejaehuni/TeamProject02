@@ -25,6 +25,7 @@
 		<result column="ad_apply_code" 		property="adApplyCode"/>
 		<result column="ad_price_code" 		property="adPriceCode"/>
 		<result column="member_id" 			property="memberId"/>
+		<result column="seller_grade_num" 	property="sellerGradeNum"/>
 		<result column="ad_apply_title" 	property="adApplyTitle"/>
 		<result column="ad_cate" 			property="adCate"/>
 		<result column="ad_contract_price"	property="adContractPrice"/>
@@ -70,6 +71,31 @@
 		</association>
 	</resultMap>
 
+	<resultMap type="BeforeAdPay" id="beforeAdPayResultMap">
+			<result column="ad_payment_code" 		property="adPaymentCode"/>
+			<result column="ad_price_code" 			property="adPriceCode"/>
+			<result column="ad_apply_code" 			property="adApplyCode"/>
+			<result column="member_id" 				property="memberId"/>
+			<result column="seller_grade_num"		property="sellerGradeNum"/>
+			<result column="ad_payment_price" 		property="adPaymentPrice"/>
+			<result column="ad_discount" 			property="adDiscount"/>
+			<result column="ad_contract_price" 		property="adContractPrice"/>
+			<result column="manager_id" 			property="managerId"/>
+			<result column="permit_date" 			property="permitDate"/>
+			<association property="adApply" 	javaType="AdApply">
+				<id 	column="ad_apply_code" 		property="adApplyCode"/>
+				<result column="ad_cate" 			property="adCate"/>
+				<result column="seller_grade_num" 	property="sellerGradeNum"/>
+			</association>
+			<association property="member" 	javaType="Member">
+				<id 	column="m_id" 			property="memberId"/>
+				<result column="m_name" 		property="memberName"/>
+				<result column="m_level" 		property="memberLevel"/>
+				<result column="m_pw" 			property="memberPw"/>
+			</association>
+		</resultMap>
+
+
 
 
 	<select id="getAdBenefitByGrade" parameterType="String" resultMap="gradeMap">
@@ -88,6 +114,32 @@
 			WHERE g.member_id = #{memberId};
 	</select>
 	
+	
+	<insert id="addBeforeAdPay" parameterType="BeforeAdPay">
+		INSERT INTO 
+			/* 광고 승인버튼 클릭시 결제전 테이블에 정보 등록 */
+			before_ad_payment
+			(ad_payment_code
+			, ad_price_code
+			, ad_apply_code
+			, member_id
+			, seller_grade_num
+			, ad_payment_price
+			, ad_discount
+			, ad_contract_price
+			, manager_id
+			, permit_date
+			) VALUES (#{adPaymentCode}
+					, #{adPriceCode}
+					, #{adApplyCode}
+					, #{memberId}
+					, #{sellerGradeNum}
+					, #{adPaymentPrice}
+					, #{adDiscount}
+					, #{adContractPrice}
+					, #{managerId}
+					, CURDATE());
+	</insert>
 	
 	
 	
@@ -117,6 +169,7 @@
 			(ad_apply_code
 			, ad_price_code
 			, member_id
+			, seller_grade_num
 			, ad_apply_title
 			, ad_cate
 			, ad_contract_price
@@ -132,6 +185,7 @@
 					  #{adApplyCode}
 					, #{adPriceCode}
 					, #{memberId}
+					, #{sellerGradeNum}
 					, #{adApplyTitle}
 					, #{adCate}
 					, #{adContractPrice}
@@ -211,6 +265,8 @@
 			a.ad_apply_code
 			, a.ad_price_code
 			, a.member_id
+			, a.seller_grade_num
+			, a.ad_img
 			, a.ad_apply_title
 			, a.ad_cate
 			, a.ad_contract_price
@@ -220,7 +276,6 @@
 			, a.ad_contract_term
 			, a.ad_goods_url
 			, a.ad_content
-			, a.ad_img
 			, a.ad_permit_state
 			, a.manager_id
 			, a.ad_permit_date

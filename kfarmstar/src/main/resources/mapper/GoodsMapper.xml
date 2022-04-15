@@ -211,7 +211,6 @@
 				goods_refurb_count = #{goodsRefurbCount},
 				goods_refurb_harvest_date=#{goodsRefurbHarvestDate},
 				goods_refurb_organic = #{goodsRefurbOrganic},
-				file_idx = #{fileIdx},
 				goods_post_summary = #{goodsPostSummary},
 				goods_post_explain = #{goodsPostExplain},
 				goods_delivery_charge = #{goodsDeliveryCharge},

@@ -33,18 +33,7 @@ public class NoticeBoardController {
 		this.noticeBoardMapper = noticeBoardMapper;
 	}
 	
-	
-	
-	// 게시글 자세히보기
-		@RequestMapping(value="/getNoticeList")
-		public ModelAndView detail(@RequestParam("reNum") String reNum) throws Exception {
-			
-			// 기존의 게시글 자세히 보기에서 추가된 부분
-			noticeBoardService.updatenoticecnt(reNum);
-			
-			return new ModelAndView("detail","detail1",noticeBoardService.detail(reNum));
-		}
-	
+	//공지 목록 조회
 	@GetMapping("/getNoticeList")
 	public String getNoticeList(Model model) {
 
@@ -58,7 +47,7 @@ public class NoticeBoardController {
 		
 		return "noticeboard/getNoticeList";
 	}
-	
+	//공지 게시글 조회
 	@GetMapping("/detailNotice")
 	public String detailNotice(Model model
 							,@RequestParam(name="noticeNum", required = false) String noticeNum) {
@@ -90,6 +79,7 @@ public class NoticeBoardController {
 		return "redirect:/noticeboard/getNoticeList";
 	}
 	
+	//공지 수정 화면
 	@GetMapping("/modifyNotice")
 	public String modifyNotice(Model model, 
 								@RequestParam(name="noticeNum", required = false) String noticeNum) {
@@ -103,7 +93,7 @@ public class NoticeBoardController {
 		return "noticeboard/modifyNotice";
 	}
 	
-	
+	//공지 수정 처리
 	@PostMapping("/modifyNotice")
 	public String modifyNotice(NoticeBoard noticeBoard) {
 		
@@ -113,14 +103,14 @@ public class NoticeBoardController {
 		
 	}
 	
+	//공지 삭제
 	@GetMapping("/removeNotice")
-	public String removeNotice(Model model) {
+	public String removeNotice(String noticeBoard,String noticeNum) {
 		
-		model.addAttribute("title", "FoodRefurb : 공지게시판 삭제");
-		model.addAttribute("titleName", "공지게시판 삭제");
-		
+		noticeBoardService.removeNotice(noticeBoard,noticeNum);
 		return "noticeboard/removeNotice";
 	}
+	
 	
 	
 }
