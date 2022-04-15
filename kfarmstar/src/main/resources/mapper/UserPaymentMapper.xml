@@ -3,6 +3,105 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.user.mapper.UserPaymentMapper">
+/*깃허브수정*/
+	<resultMap type="AfterPayment" id="afterPaymentMap">
+		<id column="payment_complete_code" 		property="paymentCompleteCode"/>
+		<result column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
+		<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="payment_type_code" 			property="paymentTypeCode"/>
+		<result column="before_goods_count" 		property="beforeGoodsCount"/>
+		<result column="mid_sum_price" 				property="midSumPrice"/>
+		<result column="payment_option" 			property="paymentOption"/>
+		<result column="last_payment_price" 		property="lastPaymentPrice"/>
+		<result column="payment_date" 				property="paymentDate"/>
+		<association property="member" javaType="Member">
+			<id column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+			<result column="member_pw" 				property="memberPw"/>
+			<result column="member_nickname" 		property="memberNickname"/>
+			<result column="member_phone" 			property="memberPhone"/>
+			<result column="member_post_num" 		property="memberPostNum"/>
+			<result column="member_addr" 			property="memberAddr"/>
+			<result column="member_detail_addr" 	property="memberDetailAddr"/>
+			<result column="member_birth" 			property="memberBirth"/>
+			<result column="member_email" 			property="memberEmail"/>
+			<result column="member_point" 			property="memberPoint"/>
+			<result column="member_date" 			property="memberDate"/>
+		</association>
+		<association property="goods" javaType="Goods">
+			<id column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<result column="seller_store_num" 			property="sellerStoreNum"/>
+			<result column="goods_large_code" 			property="goodsLargeCode"/>
+			<result column="goods_small_code" 			property="goodsSmallCode"/>
+			<result column="member_id" 					property="memberId"/>
+			<result column="goods_large_cate" 			property="goodsLargeCate"/>
+			<result column="goods_small_cate" 			property="goodsSmallCate"/>
+			<result column="goods_refurb_name" 			property="goodsRefurbName"/>
+			<result column="goods_normal_price" 		property="goodsNormalPrice"/>
+			<result column="goods_refurb_price" 		property="goodsRefurbPrice"/>
+			<result column="goods_refurb_count" 		property="goodsRefurbCount"/>
+			<result column="goods_refurb_harvest_date" 	property="goodsRefurbHarvestDate"/>
+			<result column="goods_refurb_organic" 		property="goodsRefurbOrganic"/>
+			<result column="goods_post_explain" 		property="goodsPostExplain"/>
+			<result column="goods_refurb_sell_state" 	property="goodsRefurbSellState"/>
+			<result column="entry_time" 				property="entryTime"/>
+		</association>
+		<association property="puchaserPayment" javaType="PuchaserPayment">
+			<id column="purchaser_payment_code" 		property="purchaserPaymentCode"/>
+			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
+			<result column="member_id" 					property="memberId"/>
+			<result column="before_mid_sum_code" 		property="beforeMidSumCode"/>
+			<result column="before_goods_count" 		property="beforeGoodsCount"/>
+			<result column="mid_sum_price" 				property="midSumPrice"/>
+			<result column="payment_option" 			property="paymentOption"/>
+			<result column="delivery_postnum_addr" 		property="deliveryPostnumAddr"/>
+			<result column="delivery_addr" 				property="deliveryAddr"/>
+			<result column="delivery_detail_addr" 		property="deliveryDetailAddr"/>
+			<result column="recipient_name" 			property="recipientName"/>
+			<result column="recipient_phone" 			property="recipientPhone"/>
+		</association>
+		<association property="paymentType" javaType="PaymentType">
+			<id column="payment_type_code" 				property="paymentTypeCode"/>
+			<result column="member_id" 					property="memberId"/>
+			<result column="payment_option_type" 				property="paymentOptionType"/>
+			<result column="payment_card_type" 			property="paymentCardType"/>
+			<result column="payment_card_num" 			property="paymentCardNum"/>
+			<result column="payment_account_info" 		property="paymentAccountInfo"/>
+			<result column="payment_account_number" 	property="paymentAccountNumber"/>
+			<result column="payment_carrier" 			property="paymentCarrier"/>
+			<result column="payment_phone_num" 			property="paymentPhoneNum"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="PaymentType" id="paymentTypeResultMap">
+		<id column="payment_type_code" 					property="paymentTypeCode"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="payment_option_type" 				property="paymentOptionType"/>
+		<result column="payment_card_type" 			property="paymentCardType"/>
+		<result column="payment_card_num" 			property="paymentCardNum"/>
+		<result column="payment_account_info" 		property="paymentAccountInfo"/>
+		<result column="payment_account_number" 	property="paymentAccountNumber"/>
+		<result column="payment_carrier" 			property="paymentCarrier"/>
+		<result column="payment_phone_num" 			property="paymentPhoneNum"/>
+		<association property="member" javaType="Member">
+			<id column="member_id" 				property="memberId"/>
+			<result column="member_name" 			property="memberName"/>
+			<result column="member_level" 			property="memberLevel"/>
+			<result column="member_pw" 				property="memberPw"/>
+			<result column="member_nickname" 		property="memberNickname"/>
+			<result column="member_phone" 			property="memberPhone"/>
+			<result column="member_post_num" 		property="memberPostNum"/>
+			<result column="member_addr" 			property="memberAddr"/>
+			<result column="member_detail_addr" 	property="memberDetailAddr"/>
+			<result column="member_birth" 			property="memberBirth"/>
+			<result column="member_email" 			property="memberEmail"/>
+			<result column="member_point" 			property="memberPoint"/>
+			<result column="member_date" 			property="memberDate"/>
+	</association>
+	</resultMap>
+	
 	<resultMap type="Basket" id="basketResultMap">
 		<result column="basket_code" 			property="basketCode"/>
 		<result column="goods_refurb_code" 		property="goodsRefurbCode"/>
@@ -126,7 +225,89 @@
 		</association>
 	</resultMap>
 	
+	<select id="afterPaymentInfoByCode" parameterType="String" resultMap="beforePaymentMap">
+		/* 결제 상품 정보 검색 */
+		SELECT
+			 b.goods_refurb_code		
+			,b.before_goods_count
+			,b.mid_sum_price
+			,g.goods_refurb_price
+			,g.goods_refurb_name
+		FROM
+			before_purchaser_info AS b
+			INNER JOIN
+			goods_management AS g
+			ON
+			b.goods_refurb_code = g.goods_refurb_code
+			INNER JOIN
+			member AS m
+			ON
+			b.member_id = m.member_id
+		WHERE
+			b.member_id = #{memberId} AND b.goods_refurb_code = #{goodsRefurbCode}
+	
+	</select>
+	
+	<insert id="addPaymentType" parameterType="PaymentType">
+		/* 결제 종류 입력 */
+		INSERT INTO
+			type_payment_info
+			(
+			 payment_type_code
+			,member_id
+			,payment_option_type
+			,payment_card_type
+			,payment_card_num
+			,payment_account_info
+			,payment_account_number
+			,payment_carrier
+			,payment_phone_num
+			)VALUES (
+				 #{paymentTypeCode}
+				,#{memberId}
+				,#{paymentOptionType}
+				,#{paymentCardType}
+				,#{paymentCardNum}
+				,#{paymentAccountInfo}
+				,#{paymentAccountNumber}
+				,#{paymentCarrier}
+				,#{paymentPhoneNum}
+				)
+	</insert>
+	
+	<insert id="addBeforePayment" parameterType="BeforePayment">
+		/* 결제전 사용자 정보 입력 */
+		INSERT INTO 
+			before_purchaser_info
+			(
+				 purchaser_payment_code
+				,goods_refurb_code
+				,member_id
+				,before_mid_sum_code
+				,before_goods_count
+				,mid_sum_price
+				,delivery_postnum_addr
+				,delivery_addr
+				,delivery_detail_addr
+				,recipient_name
+				,recipient_phone
+				)VALUES (
+					 #{purchaserPaymentCode}
+					,#{goodsRefurbCode}
+					,#{memberId}
+					,#{beforeMidSumCode}
+					,#{beforeGoodsCount}
+					,#{midSumPrice}
+					,#{deliveryPostnumAddr}
+					,#{deliveryAddr}
+					,#{deliveryDetailAddr}
+					,#{recipientName}
+					,#{recipientPhone}
+					)
+	</insert>
+	
 	<select id="beforePaymentInfoByCode" parameterType="String" resultMap="GoodsResultMap">
+		/* 상품코드별 결제 전 상품정보 조회 */
 		SELECT
 			 g.goods_refurb_code
 			,g.member_id
@@ -146,6 +327,7 @@
 	</select>
 	
 	<select id="basketPurchaseInfoById" parameterType="String" resultMap="basketResultMap">
+		/* 아이디별 장바구니 내역 정보 */
 		SELECT
 			 b.basket_code
 			,b.goods_refurb_code

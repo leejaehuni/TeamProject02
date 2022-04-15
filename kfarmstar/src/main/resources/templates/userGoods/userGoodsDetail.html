@@ -6,7 +6,7 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
-	
+/*깃허브수정*/	
 	<th:block layout:fragment="customCss">
 	</th:block>
 	
@@ -42,11 +42,11 @@
 			    $('#goodsCount').val(newVal);
 			});
 			 
-			 $('#purchase').on("click", function() {
+			/*  $('#purchase').on("click", function() {
 				
 				$('#goodsForm').submit();
 			});
-
+ */
 			$('#basket').on("click", function() {
 				
 				$('#goodsForm').submit();
@@ -94,13 +94,13 @@
 					</div>
 	                
 	                <div class="col-lg-6 col-md-6">
-						<form id="goodsForm" action="#">
+						<form id="goodsForm" th:action="@{/userPayment/userBeforePayment}" method="get">
 							<div class="product__details__text">
 							
 								<input type="hidden" name="goodsRefurbCode" th:value="${goods.goodsRefurbCode}">
 								<input type="hidden" name="goodsRefurbName" th:value="${goods.goodsRefurbName}">
 								<input type="hidden" name="goodsRefurbPrice" th:value="${goods.goodsRefurbPrice}">
-								<input type="hidden" id="goodsCount" name="goodsCount" value="">
+								<input type="hidden" id="goodsCount" name="goodsCount" value="1">
 							
 								<h3 th:text="${goods.goodsRefurbName}"></h3>
 								<div class="product__details__rating">
@@ -112,18 +112,18 @@
 									<span>(18 reviews)</span>
 								</div>
 								<div class="product__details__price">
-									<span th:text="${goods.goodsRefurbPrice}"></span>
-									<small style="font-size: 15px" th:text="'(일반 상품가격 : ' + ${goods.goodsNormalPrice} + ' )'"></small>
+									<span th:text="${refurbResult}"></span>
+									<small style="font-size: 15px" th:text="'(일반 상품가격 : ' + ${nomalResult} + ' )'"></small>
 								</div>
 								<p th:text="${goods.goodsPostSummary}"></p>
 								<div class="product__details__quantity">
 									<div class="quantity">
 										<div class="pro-qty">
-											<input type="text" class="quantity-input" value="1">
+											<input type="text" class="quantity-input" th:value="1">
 										</div>
 									</div>
 								</div>
-								<a th:href="@{/userPayment/userBeforePayment}"><button type="button" class="btn primary-btn" id="purchase">구매</button></a>
+								<a th:href="@{/userPayment/userBeforePayment}"><button type="submit" class="btn primary-btn" id="purchase">구매</button></a>
 								<a th:href="@{/#}"><button type="button" class="btn primary-btn" id="basket">장바구니</button></a>
 								<a th:href="@{#}" class="heart-icon"><span class="icon_heart_alt"></span></a>
 								<ul>
