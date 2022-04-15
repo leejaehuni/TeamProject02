@@ -11,6 +11,7 @@ public class NoticeBoard {
 
 	private String memberId;
 	private Member member;
+	
 	public String getNoticeNum() {
 		return noticeNum;
 	}
@@ -53,17 +54,10 @@ public class NoticeBoard {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	public String getNoticeHit() {
-		return noticeHit;
-	}
-	public void setNoticeHit(String noticeHit) {
-		this.noticeHit = noticeHit;
-	}
 	@Override
 	public String toString() {
 		return "NoticeBoard [noticeNum=" + noticeNum + ", noticeTitle=" + noticeTitle + ", noticeContent="
-				+ noticeContent + ", noticeImg=" + noticeImg + ", noticeDate=" + noticeDate + ", noticeHit=" + noticeHit
-				+ ", memberId=" + memberId + ", member=" + member + "]";
+				+ noticeContent + ", noticeImg=" + noticeImg + ", noticeDate=" + noticeDate + ", memberId=" + memberId + ", member=" + member + "]";
 	}
 	
 }

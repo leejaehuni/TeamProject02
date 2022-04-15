@@ -23,4 +23,7 @@ public interface NoticeBoardMapper {
 	
 	//공지 수정
 	public int modifyNotice(NoticeBoard notice);
+	
+	//공지 삭제
+	public int removeNotice(String noticeBoard,String noticeNum);
 }

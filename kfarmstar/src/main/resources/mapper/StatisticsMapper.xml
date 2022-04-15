@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kfarmstar.admin.mapper.StatisticsMapper">
+
+	<resultMap type="Statistics" id="StatisticsResultMap">
+		<result column="goods_statistics_code"			property="goodsStatisticsCode"/>	
+		<result column="goods_sales_amount"			property="goodsSalesAmount"/>	
+		<result column="goods_sales_price"			property="goodsSalesPrice"/>	
+		<result column="search_year"			property="searchYear"/>	
+		<result column="search_month"			property="searchMonth"/>	
+		<result column="search_week"			property="searchWeek"/>	
+		<result column="search_day"			property="searchDay"/>	
+		
+		<association property="goods_large" javaType="GoodsLarge">
+			<result column="goods_large_cate" property="goodsLargeCate"/>
+		</association> 
+		
+		<association property="goodsSmall" javaType="GoodsSmall">
+			<result column="goods_small_cate" property="goodsSmallCate"/>
+		</association>
+		
+		<association property="afterPayment" javaType="AfterPayment">
+			<result column="payment_complete_code" property="paymentCompleteCode"/>
+		</association>
+		
+		<association property="member" javaType="Member">
+			<result column="member_id" property="memberId"/>
+		</association>
+	</resultMap>
+<select id="getGoodsStatisticsList" parameterType="String" resultMap="StatisticsResultMap">
+	SELECT 
+		goods_statistics_code
+		, goods_large_code
+		, goods_small_code
+		, payment_complete_code
+		, member_id
+		, goods_sales_amount
+		, goods_sales_price
+		, search_year
+		, search_month
+		, search_week
+		, search_day
+	FROM 
+		goods_statistics
+</select>
+</mapper>

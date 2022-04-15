@@ -11,14 +11,6 @@
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
-		<!-- bootstrap-wysiwyg -->
-		<link th:href="@{/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
-		<!-- Select2 -->
-		<link th:href="@{/vendors/select2/dist/css/select2.min.css}" rel="stylesheet">
-		<!-- Switchery -->
-		<link th:href="@{/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
-		<!-- starrr -->
-		<link th:href="@{/vendors/starrr/dist/starrr.css}" rel="stylesheet">
 		<!-- bootstrap-daterangepicker -->
 		<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 	</th:block>
@@ -32,20 +24,6 @@
 		<!-- bootstrap-daterangepicker -->
 		<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 		<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
-		<!-- jQuery Tags Input -->
-		<script th:src="@{/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
-		<!-- Switchery -->
-		<script th:src="@{/vendors/switchery/dist/switchery.min.js}"></script>
-		<!-- Select2 -->
-		<script th:src="@{/vendors/select2/dist/js/select2.full.min.js}"></script>
-		<!-- Parsley -->
-		<script th:src="@{/vendors/parsleyjs/dist/parsley.min.js}"></script>
-		<!-- Autosize -->
-		<script th:src="@{/vendors/autosize/dist/autosize.min.js}"></script>
-		<!-- jQuery autocomplete -->
-		<script th:src="@{/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js}"></script>
-		<!-- starrr -->
-		<script th:src="@{/vendors/starrr/dist/starrr.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
@@ -57,10 +35,66 @@
 					$('input').attr("readonly",false);
 					$('select').attr("disabled",false);
 					$('textarea').attr("readonly",false);
+					$('#memberId').attr("readonly",true);
+					$('#gradeType').attr("readonly",true);
+					$('#adFinalPrice').attr("readonly",true);
+					$('#sellerAdDiscount').attr("readonly",true);
 					$('#saveButton').removeAttr( "hidden" );
 					$(this).attr("hidden",true);
 				});
+			
+			
+			
+				// 광고 가격 계산 (광고기간 * 카테고리별 가격)
+				$('#adSelect, #adStartDate, #adEndDate').on('change', function(e) {
+					var adSelect = $('#adSelect').val();
+					var adStartDate = $('#adStartDate').val();
+					var adEndDate = $('#adEndDate').val();
+					var sellerAdDiscount = $('#sellerAdDiscount').val();		//판매자 등급별 할인율
+					var adFinalPrice = $('#adFinalPrice');						//할인 후 최종 금액
+					var adContractTerm = $('#adContractTerm');					//광고계약기간
+					var adCategory = $('#adCategory');							//광고 카테고리
+					var adOriginPrice = $('#adOriginPrice');					//광고 원가격
+					var adDiscount = $('#adDiscount');							//광고 할인가격
+						console.log(adSelect);
+						console.log(adStartDate);
+						console.log(adEndDate);
+						console.log(sellerAdDiscount);
+	                  
+					if(adSelect != null && adStartDate != null && adEndDate != null){
+						
+						$.ajax({
+							url : '/advertisement/getAdPriceInfoByCode',
+							type : 'post',
+							data : {
+									'adPriceCode' : adSelect
+									},
+									dataType : 'json',
+									success : function(data) {
+									console.log(data);
+									console.log(data.adPricePerDay);
+								var adCate = data.adCate;
+								var dateTerm = Date.parse(adEndDate) - Date.parse(adStartDate);
+									dateTerm = dateTerm / (1000 * 3600 * 24) + 1;
+								var price = (dateTerm*data.adPricePerDay),
+									discountedPrice = price - (price*sellerAdDiscount);
+									
+									
+									adFinalPrice.val(discountedPrice);	// 등급별 할인된 가격 띄워주기
+									
+									adContractTerm.val(dateTerm);	// 계산한 광고 기간 값 넣어주기
+									adCategory.val(adCate);			// 카테고리 이름 찾아서 넣어주기
+									
+								/* 	adOriginPrice.val(price);
+									adDiscount.val(price*sellerAdDiscount); */
+								}
+						}); 
+					}
+				});
+			
+			
 			});
+			
 		</script>
 	</th:block>
 
@@ -85,7 +119,7 @@
 								</tr>
 							</thead>
 							<tbody>
-		<!-- 						<tr style="display: none;">
+								<tr style="display: none;">
 									<th scope="row">번호</th>
 									<td>
 										<div class="form-group row">
@@ -98,7 +132,7 @@
 											</div>
 										</div>
 									</td>
-								</tr>						 -->
+								</tr>						
 								<tr>
 									<th scope="row">제목</th>
 									<td>
@@ -170,10 +204,46 @@
 									
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="memberId">신청자 아이디</label>
+											</div>
+											<div class="col-md-8 col-sm-8">
+												<input type="text" class="form-control" id="memberId" name="memberId" th:value="${adApply.memberId}" readonly="readonly">
+												
+												<input type="hidden" name="sellerGradeNum" th:value="${adApply.sellerGradeNum}">
+										 		<input type="hidden" id="adContractTerm" name="adContractTerm" th:value="${adApply.adContractTerm}">
+										 		<input type="hidden" id="adCategory" name="adCate" th:value="${adApply.adCate}">
+										 		<input type="hidden" id="adOriginPrice" name="adOriginPrice">
+										 		<input type="hidden" id="adDiscount" name="adDiscount">
+											</div>
+										</div>
+										
+										<div class="form-group row" >
+											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="gradeType">판매자 등급</label>
+											</div>
+											<div class="col-md-3 col-sm-3">
+												<input type="text" class="form-control" id="gradeType" name="gradeType" th:value="${grade.sellerGrade.gradeType}" readonly="readonly">
+											</div>
+											<div class="col-md-2 col-sm-2  text-right">
+												<label class="control-label" for="sellerAdDiscount">할인율</label>
+											</div>
+											<div class="col-md-3 col-sm-3">
+												<input type="text" class="form-control" name="sellerAdDiscount" id="sellerAdDiscount"
+														th:value="${grade.sellerGrade.sellerAdDiscount}"  readonly="readonly">
+											</div>
+										</div>
+									
+									
+									
+									
+									
+									
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
 												<label class="control-label" for="adCate">광고 종류</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<select class="form-control text-center" name="adCate" id="adCate" th:value="${adApply.adCate}" disabled="disabled">
+												<select class="form-control text-center" id="adSelect" name="adPriceCode" disabled="disabled">
 													<option value="">  : : 광 고 종 류 선 택  : :  </option>
 													<option th:if="${not #lists.isEmpty(adPriceList)}" th:each="l : ${adPriceList}" 
 															th:text="${l.adCate}" th:value="${l.adPriceCode}" th:selected="${adApply.adCate==l.adCate}"></option>
@@ -189,18 +259,17 @@
 											</div>
 											<div class="col-md-8 col-sm-8">
 												<input type="number" class="form-control" readonly="readonly"
-												id="adContractPrice" name="adContractPrice" th:value="${adApply.adContractPrice}">
+														id="adFinalPrice" name="adContractPrice" th:value="${adApply.adContractPrice}">
 											</div>
 										</div>
 										
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
 												<label class="control-label" for="adGoodsUrl">광고 상품 주소</label>
-												<span class="required">*</span>
 											</div>
 											<div class="col-md-8 col-sm-8">
 												<input type="text" class="form-control" readonly="readonly"
-												id="adGoodsUrl" name="adGoodsUrl" th:value="${adApply.adGoodsUrl}">
+														id="adGoodsUrl" name="adGoodsUrl" th:value="${adApply.adGoodsUrl}">
 											</div>
 										</div>
 	
@@ -210,7 +279,7 @@
 											</div>
 											<div class="col-md-8 col-sm-8">
 												<textarea class="form-control" rows="3" readonly="readonly" id="adContent"
-												name="adContent" th:value="${adApply.adContent}">[[${adApply.adContent}]]</textarea>
+														name="adContent" th:value="${adApply.adContent}">[[${adApply.adContent}]]</textarea>
 											</div>
 										</div>
 	
@@ -237,10 +306,10 @@
 						</table>
 						<div class="ln_solid"></div>
 						<div class="form-group">
-							<div class="col-md-6 col-sm-6 offset-md-4">
-								<a th:href="@{/advertisement/adApplyList}"><button type="button" class="btn btn-primary">취소</button></a>
-								<button type="button" class="btn btn-danger">삭제</button>
-								<button type="button" class="btn btn-info" id="modifyButton">수정</button>
+							<div class="col text-center">
+								<button type="button" class="btn btn-primary" onclick="history.back(-1)">취소</button>
+								<button th:if="${adApply.adPermitState}=='신청중'" type="button" class="btn btn-danger">삭제</button>
+								<button th:if="${adApply.adPermitState}=='신청중'" type="button" class="btn btn-info" id="modifyButton">수정</button>
 								<button type="submit" class="btn btn-info" id="saveButton" hidden="hidden">저장</button>
 								<a th:href="@{/advertisement/adApproveUpdate(adApplyCode=${adApply.adApplyCode})}" 
 									th:if="${adApply.adPermitState}=='신청중' and ${sessionLevel}=='관리자'" role="button" 

@@ -20,21 +20,21 @@
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
 		<script>
-		$(function(){
+		/* $(function(){
 			$('#modifyButton').click(function(){
 				$('input').attr("readonly",false);
 				$('#memberId').attr("readonly",true);
 				$('select').attr("disabled",false);
 			});
 		});
-		
+		 */
 		$(function(){
 								    	  
 			var 
 			paymentTypeBank = $('.paymentTypeBank'),
 			paymentTypeMobile = $('.paymentTypeMobile'),
 			paymentTypeCard = $('.paymentTypeCard'),
-			paymentValue = $('select[name="paymentOption"]').val();
+			paymentValue = $('select[name="adPayOption"]').val();
 			
 			if(paymentValue == '휴대폰'){
 				paymentTypeBank.css('display', 'none');
@@ -50,7 +50,7 @@
 				paymentTypeCard.css('display', 'block');
 			}
 			
-			$('select[name="paymentOption"]').change(function(){
+			$('select[name="adPayOption"]').change(function(){
 				
 				var val = $(this).val();
 				if(val == '휴대폰'){
@@ -121,10 +121,17 @@
 									<td>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="adCate">광고 카테고리</label>
+											</div>
+											<div class="col-md-8 col-sm-8">
+												<input type="text" class="form-control" name="adCate" th:value="${adApply.adCate}" readonly="readonly">
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
 												<label class="control-label">기간</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<!-- start : 기간 검색 바 -->
 							
 												<div class="form-row">
 													<div class="col-md-4 col-sm-5">
@@ -142,11 +149,10 @@
 															th:value="${adApply.adEndDate}" readonly="readonly">
 													</div>
 													<div class="col-md-3 col-sm-3">
-														<input type="text" class="form-control text-center" 
+														<input type="text" class="form-control text-center" name="adContractTerm"
 																th:value="${adApply.adContractTerm} + ' 일'" readonly="readonly">
 													</div>
 												</div>
-												<!-- END : 기간 검색 바 -->
 											</div>
 										</div>
 									</td>
@@ -157,25 +163,25 @@
 									
 									<div class="form-group row">
 										<div class="col-md-2 col-sm-2">
-											<label class="control-label">결제 종류</label>
+											<label class="control-label" for="adPayOption">결제 종류</label>
 										</div>
 										<div class="col-md-8 col-sm-8">
-											<select class="form-control text-center" name="paymentOption" >
-										        <option >무통장입금</option>
+											<select class="form-control text-center" id="adPayOption" name="adPayOption" >
 										        <option>휴대폰</option>
 										        <option>신용카드</option>
+										        <option>무통장입금</option>
 									      </select>
 										</div>
 									</div>
 									<div class="paymentTypeMobile">
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label">결제 휴대폰 통신사</label>
+												<label class="control-label" for="adPayPhoneCarrier">결제 휴대폰 통신사</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<select class="form-control text-center" name="paymentType.paymentCarrier">
+												<select class="form-control text-center" name="adPayPhoneCarrier">
 											        <option value=""> :: 선택 :: </option>
-											        <option >SKT</option>
+											        <option>SKT</option>
 											        <option>KT</option>
 											        <option>UPLUS</option>
 										      </select>
@@ -183,46 +189,46 @@
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="paymentType.paymentPhoneNum">결제 휴대폰 번호</label>
+												<label class="control-label" for="adPayPhoneNum">결제 휴대폰 번호</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="number" class="form-control" name="paymentType.paymentPhoneNum">
+												<input type="number" class="form-control" name="adPayPhoneNum">
 											</div>
 										</div>
 									</div>
 									<div class="paymentTypeBank">
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="paymentType.paymentAccountInfo">무통장 결제 은행</label>
+												<label class="control-label" for="adPayAccountType">무통장 결제 은행</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="paymentType.paymentAccountInfo">
+												<input type="text" class="form-control" name="adPayAccountType">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="paymentType.paymentAccountNumber">무통장 결제 계좌번호</label>
+												<label class="control-label" for="adPayAccountNum">무통장 결제 계좌번호</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="paymentType.paymentAccountNumber">
+												<input type="text" class="form-control" name="adPayAccountNum">
 											</div>
 										</div>
 									</div>
 									<div class="paymentTypeCard">
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="paymentType.paymentCardType">신용카드 결제 은행</label>
+												<label class="control-label" for="adPayCardType">신용카드 결제 은행</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="paymentType.paymentCardType">
+												<input type="text" class="form-control" name="adPayCardType">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="paymentType.paymentCardNum">신용카드 번호</label>
+												<label class="control-label" for="adPayCardNum">신용카드 번호</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="number" class="form-control" readonly="readonly" name="paymentType.paymentCardNum">
+												<input type="number" class="form-control" name="adPayCardNum">
 											</div>
 										</div>
 									</div>
@@ -231,12 +237,13 @@
 							<tr>
 								<th scope="row">상품 결제 정보</th>
 								<td>
+									
 									<div class="form-group row">
 										<div class="col-md-2 col-sm-2">
-											<label class="control-label" for="lastPaymentPrice">총 결제 금액</label>
+											<label class="control-label" for="adContractPrice">총 결제 금액</label>
 										</div>
 										<div class="col-md-8 col-sm-8">
-											<input type="text" class="form-control">
+											<input type="text" class="form-control" th:value="${adApply.adContractPrice}" readonly="readonly">
 										</div>
 									</div>
 								</td>
@@ -245,11 +252,10 @@
 					</table>
 					<div class="ln_solid"></div>
 					<div class="form-group">
-						<div class="col-md-8 col-sm-8  offset-md-4">
-							<button type="button" class="btn btn-primary">취소</button>
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">삭제</button>
+						<div class="col text-center">
+							<button type="button" class="btn btn-primary" onclick="history.back(-1)">취소</button>
 							<button type="button" class="btn btn-success" id="modifyButton">수정</button>
-							<button type="submit" class="btn btn-info">저장</button>
+							<button type="submit" class="btn btn-info">결제</button>
 						</div>
 					</div>
 				</form>
