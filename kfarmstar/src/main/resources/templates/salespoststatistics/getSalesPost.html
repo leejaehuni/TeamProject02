@@ -331,7 +331,7 @@
 							</li>
 						</ul>
 					</nav>
-                   <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-primary btn-sm float-right">글쓰기</button>
+                   <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-primary btn-sm float-right">삭제</button>
                    <!-- Modal -->
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog" role="document">
@@ -346,12 +346,13 @@
 					        게시물을 정말 삭제하시겠습니까?
 					      </div>
 					      <div class="modal-footer">
-					      	<a th:href="@{/noticeboard/removeNotice}"><button type="button" class="btn btn-primary">삭제하기</button></a>
 					       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+					      	<a th:href="@{/salespoststatistics/removeSalesPost}"><button type="button" class="btn btn-primary">삭제하기</button></a>
 					      </div>
 					    </div>
 					  </div>
 					</div>
+					 <!-- Modal -->
                    <a th:href="@{/noticeboard/modifyNotice}"><button type="button" class="btn btn-outline-primary btn-sm float-right">수정</button></a>
                    <a th:href="@{/noticeboard/addNotice}"><button type="button" class="btn btn-outline-primary btn-sm float-right">글쓰기</button></a>
                    </div>
