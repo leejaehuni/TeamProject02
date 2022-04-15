@@ -4,43 +4,40 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kfarmstar.admin.mapper.DonorGoodsMapper">
-<!-- 
-	<resultMap type="DonorGoods" id="donorGoodsResultMap">
-		<result column="donation_board_code" 			property="donationBoardCode"/>
-		<result column="seller_store_num" 				property="sellerStoreNum"/>
-		<result column="member_id" 						property="memberId"/>
-		<result column="goods_donation_img"				property="goodsDonationImg"/>
-		<result column="donation_content" 				property="donationContent"/>
-		<result column="entry_time" 					property="goodsDonationCount"/>
-		<result column="goods_donation_name" 			property="goodsDonationName"/>
-		<result column="goods_donation_delivery_way" 	property="goodsDonationDeliveryWay"/>
-		<result column="donation_request_entry_date" 	property="donationRequestEntryDate"/>
-	</resultMap>
-	
-	<insert id="addDonorGoods"></insert>
-	
-	<select id="getDonorGoodsList" resultType="DonorGoods" resultMap="donorGoodsResultMap">
-		/*기부 상품 조회*/
-		SELECT 
-		 d.donation_board_code
-		,s.seller_store_num
-		,m.member_id
-		,d.goods_donation_img
-		,d.donation_content
-		,d.donation_request_entry_date
-		,d.goods_donation_count
-		,d.goods_donation_name
-		,d.goods_donation_delivery_way
-		FROM tb_goods_donation_entry AS d
-		INNER JOIN
-		seller_store AS s
-		ON
-		d.seller_store_num = s.seller_store_num
-		INNER JOIN 
-		member AS m
-		ON 
-		d.member_id = m.member_id
-		ORDER BY cast(SUBSTRING_INDEX(donation_board_code ,'_',-1) AS UNSIGNED) ASC;
-	</select>
-	 -->
-</mapper>	
+
+   <resultMap type="DonorGoods" id="donorGoodsResultMap">
+      <result column="donation_board_code"          property="donationBoardCode"/>
+      <result column="seller_store_num"             property="sellerStoreNum"/>
+      <result column="member_id"                   property="memberId"/>
+      <result column="goods_donation_img"            property="goodsDonationImg"/>
+      <result column="donation_content"             property="donationContent"/>
+      <result column="entry_time"                property="goodsDonationCount"/>
+      <result column="goods_donation_name"          property="goodsDonationName"/>
+      <result column="goods_donation_delivery_way"    property="goodsDonationDeliveryWay"/>
+      <result column="donation_request_entry_date"    property="donationRequestEntryDate"/>
+   </resultMap>
+   
+   <select id="getDonorGoodsList" resultType="DonorGoods" resultMap="donorGoodsResultMap">
+      /*기부 상품 조회*/
+      SELECT 
+       d.donation_board_code
+      ,s.seller_store_num
+      ,m.member_id
+      ,d.goods_donation_img
+      ,d.donation_content
+      ,d.donation_request_entry_date
+      ,d.goods_donation_count
+      ,d.goods_donation_name
+      ,d.goods_donation_delivery_way
+      FROM tb_goods_donation_entry AS d
+      INNER JOIN
+      seller_store AS s
+      ON
+      d.seller_store_num = s.seller_store_num
+      INNER JOIN 
+      member AS m
+      ON 
+      d.member_id = m.member_id
+      ORDER BY cast(SUBSTRING_INDEX(donation_board_code ,'_',-1) AS UNSIGNED) ASC;
+   </select>
+</mapper>   
