@@ -95,33 +95,49 @@
 								</div>
 								<div id="step-2" style="height: 500px;">
 									<form class="form-horizontal form-label-left tum">
-										<div class="form-group row">
-											<label class="control-label col-sm-3 col-12">현재 일자</label>
-											<div class="col-sm-9 col-12">
-												<input type="date" class="form-control" value="#" readonly>
-											</div>
-										</div>
 										<div class="form-group row ">
-											<label class="control-label col-sm-3 col-12">회사 소속</label>
-											<div class="col-sm-9 col-12">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">회사 이름</label>
+											<div class="col-sm-8 col-12">
 												<input type="text" class="form-control" value="#" readonly>
 											</div>
+											<div class="col-sm-1"></div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">회사 소속</label>
+											<div class="col-sm-8 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+											<div class="col-sm-1"></div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">직책</label>
+											<div class="col-sm-8 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+											<div class="col-sm-1"></div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">운송장 번호 <span class="required">*</span></label>
+											<div class="col-sm-8 col-12">
+												<input type="text" class="form-control" value="">
+											</div>
+											<div class="col-sm-1"></div>
 										</div>
 										<div class="form-group row">
-											<label class="control-label col-sm-3 col-12">집하 종류</label>
-											<div class="col-sm-9 col-12">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">집하 종류 <span class="required">*</span></label>
+											<div class="col-sm-8 col-12">
 												<select class="form-control">
 													<option>== 선택 ==</option>
 													<option value="#">간선 하차</option>
 													<option value="#">간선 상차</option>
 												</select>
 											</div>
-										</div>
-										<div class="form-group row ">
-											<label class="control-label col-sm-3 col-12">운송장 번호 입력</label>
-											<div class="col-sm-9 col-12">
-												<input type="text" class="form-control" value="">
-											</div>
+											<div class="col-sm-1"></div>
 										</div>
 									</form>
 								</div>
@@ -134,7 +150,7 @@
 								  		<a href="/" class="cbtn col-sm-4 col-10">메인 화면</a>
 								  		<div class="col-sm-1 col-1"></div>
 								  		<div class="col-sm-1 col-1"></div>
-								  		<a th:href="@{/delivery/getWarehouseList}" class="cbtn col-sm-4 col-10">내역 조회</a>
+								  		<a th:href="@{/delivery/getPickupList}" class="cbtn col-sm-4 col-10">내역 조회</a>
 								  		<div class="col-sm-1 col-1"></div>
 									</div>
 								</div>

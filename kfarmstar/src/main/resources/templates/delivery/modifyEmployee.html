@@ -52,18 +52,10 @@
 								
 							</div>
 							<div class="x_content">
-								<form class="form-horizontal form-label-left getTum tum">
+								<form class="form-horizontal form-label-left tum">
 									<div class="form-group row ">
 										<div class="col-sm-1"></div>
-										<label class="control-label col-sm-2 col-12">상품 이름</label>
-										<div class="col-sm-8 col-12">
-											<input type="text" class="form-control" value="#" readonly>
-										</div>
-										<div class="col-sm-1"></div>
-									</div>
-									<div class="form-group row ">
-										<div class="col-sm-1"></div>
-										<label class="control-label col-sm-2 col-12">수령자 이름</label>
+										<label class="control-label col-sm-2 col-12">회사 소속</label>
 										<div class="col-sm-8 col-12">
 											<input type="text" class="form-control" value="#">
 										</div>
@@ -71,7 +63,7 @@
 									</div>
 									<div class="form-group row ">
 										<div class="col-sm-1"></div>
-										<label class="control-label col-sm-2 col-12">수령자 연락처</label>
+										<label class="control-label col-sm-2 col-12">회사 직책</label>
 										<div class="col-sm-8 col-12">
 											<input type="text" class="form-control" value="#">
 										</div>
@@ -79,17 +71,7 @@
 									</div>
 									<div class="form-group row ">
 										<div class="col-sm-1"></div>
-										<label class="control-label col-sm-2 col-12">수령자 주소</label>
-										<div class="col-sm-5 col-8">
-											<input type="text" class="form-control" value="#">
-										</div>
-										<div class="col-sm-3 col-4">
-											<input type="text" class="form-control" value="상세주소">
-										</div>
-									</div>
-									<div class="form-group row ">
-										<div class="col-sm-1"></div>
-										<label class="control-label col-sm-2 col-12">담당자 이름</label>
+										<label class="control-label col-sm-2 col-12">직원 이름</label>
 										<div class="col-sm-8 col-12">
 											<input type="text" class="form-control" value="#">
 										</div>
@@ -97,7 +79,7 @@
 									</div>
 									<div class="form-group row ">
 										<div class="col-sm-1"></div>
-										<label class="control-label col-sm-2 col-12">담당자 연락처</label>
+										<label class="control-label col-sm-2 col-12">직원 연락처</label>
 										<div class="col-sm-8 col-12">
 											<input type="text" class="form-control" value="#">
 										</div>
@@ -106,8 +88,8 @@
 								</form>
 								<div class="tum row">
 									<div class="col-sm-2 col-1"></div>
-									<a type="button" th:href="@{/delivery/getDelivery}" class="btn btn-primary col-sm-4 col-5">수정</a>
-									<a type="button" th:href="@{/delivery/getDelivery}" class="btn btn-secondary col-sm-4 col-5">취소</a>
+									<a type="button" th:href="@{/delivery/getEmployeeList}" class="btn btn-primary col-sm-4 col-5">수정</a>
+									<a type="button" th:href="@{/delivery/getEmployeeList}" class="btn btn-secondary col-sm-4 col-5">취소</a>
 									<div class="col-sm-2 col-1"></div>
 								</div>
 							</div>
