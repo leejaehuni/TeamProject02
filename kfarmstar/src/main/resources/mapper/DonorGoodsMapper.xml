@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kfarmstar.admin.mapper.DonorGoodsMapper">
-
+<!-- 
 	<resultMap type="DonorGoods" id="donorGoodsResultMap">
 		<result column="donation_board_code" 			property="donationBoardCode"/>
 		<result column="seller_store_num" 				property="sellerStoreNum"/>
@@ -17,7 +17,7 @@
 		<result column="donation_request_entry_date" 	property="donationRequestEntryDate"/>
 	</resultMap>
 	
-	<insert id="addDonorGoods" r></insert>
+	<insert id="addDonorGoods"></insert>
 	
 	<select id="getDonorGoodsList" resultType="DonorGoods" resultMap="donorGoodsResultMap">
 		/*기부 상품 조회*/
@@ -42,4 +42,5 @@
 		d.member_id = m.member_id
 		ORDER BY cast(SUBSTRING_INDEX(donation_board_code ,'_',-1) AS UNSIGNED) ASC;
 	</select>
+	 -->
 </mapper>	
