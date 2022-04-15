@@ -31,6 +31,9 @@ public interface GoodsMapper {
 
 	
 	
+	// 등록 날짜별 상품 목록 조회
+	public List<Goods> getGoodsCateListByDate(String startDate, String endDate);
+	
 	// 상품 목록 조회
 	public List<Goods> getGoodsList(Map<String, Object> paramMap);
 	
