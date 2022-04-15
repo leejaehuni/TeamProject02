@@ -63,17 +63,13 @@ public class NoticeBoardService {
 	public int modifyNotice(NoticeBoard noticeBoard) {
 		
 		return noticeBoardMapper.modifyNotice(noticeBoard);
-	}
-	
-	
-	// 조회수 올리기
-		public int updatenoticecnt(String reNum) throws Exception {
-			return noticeBoardMapper.updatenoticecnt(reNum);
-		}
-
-		public Object detail(String reNum) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	} 
+   
+	//공지 삭제
+	public int removeNotice(String noticeBoard,String noticeNum) {
+      
+	   int result = noticeBoardMapper.removeNotice(noticeBoard,noticeNum);
+      return result;
+   }
 
 }
