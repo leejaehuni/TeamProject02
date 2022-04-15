@@ -17,8 +17,6 @@
 		<result column="donation_request_entry_date" 	property="donationRequestEntryDate"/>
 	</resultMap>
 	
-	<insert id="addDonorGoods" r></insert>
-	
 	<select id="getDonorGoodsList" resultType="DonorGoods" resultMap="donorGoodsResultMap">
 		/*기부 상품 조회*/
 		SELECT 

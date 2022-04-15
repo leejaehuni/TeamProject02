@@ -21,6 +21,7 @@
 	</resultMap>
 	
 	<insert id="addSellerGrade" parameterType="Grade">
+		/* 회원 가입시 판매자 등급 부여 */
 		INSERT INTO 
 			seller_grade
 			(
@@ -37,6 +38,7 @@
 	</insert>
 	
 	<insert id="addSellerStoreInfo" parameterType="SellerStore">
+		/* 판매자 사업장 등록 */
 		INSERT INTO
 			seller_store
 		(

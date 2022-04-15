@@ -84,7 +84,9 @@ public class UserMemberController {
 	}
 	
 	@PostMapping("/addSellerMember")
-	public String addSellerMember(SellerStore sellerStore, Member member, Grade grade) {
+	public String addSellerMember(SellerStore sellerStore
+								,Member member
+								,Grade grade) {
 		
 		userMemberService.addSellerStoreInfo(sellerStore, member, grade);
 		
