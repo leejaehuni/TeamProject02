@@ -171,6 +171,26 @@ public class GoodsController {
 		return "goods/goodsCateList";
 	}
 	
+	
+	
+	/**
+	 * 카테고리 등록 날짜별 검색
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@GetMapping("/goodsCateListByDate")
+	public String getGoodsCateListByDate(Model model
+										, @RequestParam(value="startDate", required = false) String startDate
+										, @RequestParam(value="endDate", required = false) String endDate) {
+		List<Goods> goodsCateListByDate = goodsService.getGoodsCateListByDate(startDate, endDate);
+		model.addAttribute("goodsCateList", goodsCateListByDate);
+		return "goods/goodsCateList";
+	}
+	
+	
+	
+	
 	/**
 	 * 상품 상세 화면 
 	 */

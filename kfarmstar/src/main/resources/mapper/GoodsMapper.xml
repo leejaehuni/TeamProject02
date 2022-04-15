@@ -298,6 +298,27 @@
 				,cast(SUBSTRING_INDEX(s.goods_small_cate,'_',-1) AS UNSIGNED) ASC;
 	</select>
 	
+	<select id="getGoodsCateListByDate" resultMap="goodsCateResultMap">
+		/* 상품 카테고리 등록 날짜별 조회 */
+		SELECT
+			l.goods_large_cate
+			, s.goods_small_cate
+			, l.goods_large_name
+			, s.goods_small_name
+			, s.last_update_time
+			, s.entry_time
+		FROM
+			goods_large AS l
+		INNER JOIN
+			goods_small AS s
+		ON
+			l.goods_large_cate = s.goods_large_cate
+		WHERE
+			s.entry_time BETWEEN #{startDate} AND #{endDate}
+		ORDER BY cast(SUBSTRING_INDEX(l.goods_large_cate,'_',-1) AS UNSIGNED) ASC
+				,cast(SUBSTRING_INDEX(s.goods_small_cate,'_',-1) AS UNSIGNED) ASC;
+	</select>
+	
 	
 	<insert id="addLargeCate" parameterType="GoodsLarge">
 		/* 상품 대분류 카테고리 등록 */
