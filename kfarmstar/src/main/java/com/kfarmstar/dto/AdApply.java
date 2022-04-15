@@ -5,6 +5,7 @@ public class AdApply {
 	private String adApplyCode;
 	private String adPriceCode;
 	private String memberId;
+	private String sellerGradeNum;
 	private String adApplyTitle;
 	private String adCate;
 	private String adContractPrice;
@@ -22,6 +23,9 @@ public class AdApply {
 	
 	private AdPrice adPrice;
 	private Member member;
+	private SellerGrade sellerGrade;
+	
+	
 	public String getAdApplyCode() {
 		return adApplyCode;
 	}
@@ -39,6 +43,12 @@ public class AdApply {
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	public String getSellerGradeNum() {
+		return sellerGradeNum;
+	}
+	public void setSellerGradeNum(String sellerGradeNum) {
+		this.sellerGradeNum = sellerGradeNum;
 	}
 	public String getAdApplyTitle() {
 		return adApplyTitle;
@@ -130,6 +140,12 @@ public class AdApply {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	public SellerGrade getSellerGrade() {
+		return sellerGrade;
+	}
+	public void setSellerGrade(SellerGrade sellerGrade) {
+		this.sellerGrade = sellerGrade;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -139,6 +155,8 @@ public class AdApply {
 		builder.append(adPriceCode);
 		builder.append(", memberId=");
 		builder.append(memberId);
+		builder.append(", sellerGradeNum=");
+		builder.append(sellerGradeNum);
 		builder.append(", adApplyTitle=");
 		builder.append(adApplyTitle);
 		builder.append(", adCate=");
@@ -169,9 +187,13 @@ public class AdApply {
 		builder.append(adPrice);
 		builder.append(", member=");
 		builder.append(member);
+		builder.append(", sellerGrade=");
+		builder.append(sellerGrade);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }

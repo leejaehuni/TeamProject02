@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
 @Mapper
@@ -41,6 +42,9 @@ public interface AdMapper {
 	
 	// 광고 단가 등록
 	public int addAdPrice(AdPrice adPrice);
+	
+	// 광고 단가 등록
+	public int addBeforeAdPay(BeforeAdPay beforeAdPay);
 	
 	// 광고 승인 
 	public int adApproveUpdate(AdApply adApply);
