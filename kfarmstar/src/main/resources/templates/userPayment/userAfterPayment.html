@@ -6,7 +6,7 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
-/*깃허브수정*/	
+	
 	<th:block layout:fragment="customCss">
 		<style>
 			.goodsImg{height: 100px;}
@@ -40,7 +40,7 @@
             		</div>
             	</div>
             	<div class="row">
-            		<input type="text" name="goodsRefurbCode">
+            		<input type="text" name="goodsRefurbCode" th:value="${goodsRefurbCode}">
             		<div class="offset-lg-2 col-lg-8 offset-lg-2">
             			<div class="shoping__cart__table">
 	                        <table>

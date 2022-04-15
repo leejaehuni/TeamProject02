@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kfarmstar.admin.service.AdService;
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
 /*깃허브수정*/
@@ -35,7 +36,11 @@ public class AdController {
 		this.adService = adService;
 	}
 	
-	
+	/**
+	 * 광고 가격 계산 Ajax
+	 * @param adPriceCode
+	 * @return
+	 */
 	@PostMapping("/getAdPriceInfoByCode")
     @ResponseBody
     public AdPrice getAdPriceInfoByCode(@RequestParam(value = "adPriceCode") String adPriceCode) {
@@ -53,25 +58,27 @@ public class AdController {
 	public String getDetailAdApplyInfo(Model model
 									, HttpSession session
 									, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
-		
 		String sessionLevel = (String) session.getAttribute("SLEVEL");
 		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
+		Grade grade = adService.getAdBenefitByGrade(adApply.getMemberId());	// 신청자 아이디에 해당하는 혜택 검색
 		List<AdPrice> adPriceList = adService.getAdPriceList();
 		log.info("광고별 상세정보");
+		log.info("광고 신청자 아이디 : {}" + adApply.getMemberId());
 		log.info("광고 폼 쿼리스트링 adApplyCode : {}", adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 상세 정보");
 		model.addAttribute("titleName", "광고 상세 정보");
+		model.addAttribute("sessionLevel", sessionLevel);
 		model.addAttribute("adApply", adApply);
 		model.addAttribute("adPriceList", adPriceList);
-		model.addAttribute("sessionLevel", sessionLevel);
+		model.addAttribute("grade", grade);
 		
 		return "advertisement/adApplyDetail";
 	}
 
 	
 	/**
-	 * 광고신청 상세화면(adApplyDetail)에서  수정처리 (수정 -> 저장 버튼 클릭시)
-	 * 
+	 * 광고신청 상세화면(adApplyDetail)에서  
+	 * 수정처리 (수정 -> 저장 버튼 클릭시)
 	 */
 	@PostMapping("/modifyAdApply")
 	public String modifyAdApply(AdApply adApply) {
@@ -134,7 +141,6 @@ public class AdController {
 	
 	/**
 	 * 광고 신청 화면
-	 * @param model
 	 * @return
 	 */
 	@GetMapping("/addAdApply")
@@ -154,15 +160,41 @@ public class AdController {
 	
 	
 	/**
-	 * 광고 승인 처리
+	 * 광고 신청 처리
+	 * @param adApply
+	 * @param adApplyCode
+	 * @return
+	 */
+	@PostMapping("/addAdApply")
+	public String addAdApply(AdApply adApply
+							, HttpSession session) {
+		
+		log.info("광고 단가 등록 폼 입력값: {}", adApply);
+		String sessionId = (String) session.getAttribute("SID");
+		adService.addAdApply(adApply, sessionId);
+		
+		return "redirect:/advertisement/adApplyList";
+		
+	}
+	
+	
+	
+	/**
+	 * 광고 승인 처리(신청 테이블 update & 결제전 테이블에 insert)
 	 * (관리자 : 신청 상세 화면을 보고 승인 버튼을 누르면 진행 상태가 결제전 으로 바뀐다)
 	 * @param adApplyCode
 	 */
 	@GetMapping("/adApproveUpdate")
-	public String adApproveUpdate(AdApply adApply, HttpSession session) {
+	public String adApproveUpdate(AdApply adApply, BeforeAdPay beforeAdPay, HttpSession session
+								, @RequestParam(name="adApplyCode", required = false) String adApplyCode
+								, @RequestParam(name="adOriginPrice", required = false) String adOriginPrice
+								, @RequestParam(name="adDiscount", required = false) String adDiscount) {
 		log.info("광고 승인 처리");
+		log.info("광고 원가 : {}" + adOriginPrice);
+		log.info("광고 할인율 : {}" + adDiscount);
+		AdApply adApplyByCode = adService.getAdApplyByCode(adApplyCode);
 		String sessionId = (String) session.getAttribute("SID");
-		adService.adApproveUpdate(adApply, sessionId);
+		adService.adApproveUpdate(adApply, beforeAdPay, sessionId, adApplyByCode, adOriginPrice, adDiscount);
 		return "redirect:/advertisement/adApplyList";
 	}
 	
@@ -203,7 +235,7 @@ public class AdController {
 	public String addAdPrice(AdPrice adPrice) {
 		
 		adService.addAdPrice(adPrice);
-		log.info("광고 단가 등록 폼 입력값: {}", adPrice); //받은 내용이 여기{}에 담긴다.
+		log.info("광고 단가 등록 폼 입력값: {}", adPrice); 
 		
 		return "redirect:/advertisement/adPriceList";
 	}

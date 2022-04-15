@@ -2,25 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 	<div th:fragment="checkUserFragment">
-	
-		<div class="field item form-group tum">
-			<label class="col-form-label col-sm-3 col-12  label-align">ID<span class="required">*</span></label>
-			<div class="col-sm-6 col-11">
-				<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" required="required" readonly/>
+		<form class="form-horizontal form-label-left checkTum tum">
+			<div class="field item form-group">
+				<label class="col-form-label col-sm-3 col-12  label-align" for="id">ID</label>
+				<div class="col-sm-6 col-12">
+					<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="id" th:value="${session.SID}" required="required" readonly/>
+				</div>
+				<div class="col-sm-3"></div>
 			</div>
-		</div>
-		<div class="field item form-group">
-			<label class="col-form-label col-sm-3 col-12  label-align">PASS<span class="required">*</span></label>
-			<div class="col-sm-6 col-11">
-				<input class="form-control" type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" required />
-					
-				<span style="position: absolute;right:15px;top:7px;" onclick="hideshow()" >
-					<i id="slash" class="fa fa-eye-slash"></i>
-					<i id="eye" class="fa fa-eye"></i>
-				</span>
+			<div class="field item form-group">
+				<label class="col-form-label col-sm-3 col-12  label-align">PASS<span class="required">*</span></label>
+				<div class="col-sm-6 col-12">
+					<input class="form-control" type="password" id="password1" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" required />
+						
+					<span style="position: absolute;right:15px;top:7px;" onclick="hideshow()" >
+						<i id="slash" class="fa fa-eye-slash"></i>
+						<i id="eye" class="fa fa-eye"></i>
+					</span>
+				</div>
+				<div class="col-sm-3"></div>
 			</div>
-		</div>
-		
+		</form>
 	</div>
 	
 </html>

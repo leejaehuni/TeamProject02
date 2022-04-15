@@ -27,6 +27,24 @@ public class UserGoodsService {
 	}
 	
 	// 사용자 화면 - 상품 전체 목록 조회
+	public List<Goods> getUserMainGoodsList() {
+		List<Goods> userMainGoodsList = userGoodsMapper.getUserMainGoodsList();
+		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'
+		NumberFormat numberFormat = NumberFormat.getInstance();
+		for(int i=0; i<userMainGoodsList.size(); i++) {
+			int refurbPrice = Integer.parseInt(userMainGoodsList.get(i).getGoodsRefurbPrice());
+			int normalPrice = Integer.parseInt(userMainGoodsList.get(i).getGoodsNormalPrice());
+			
+			String refurbResult = numberFormat.format(refurbPrice);
+			String nomalResult = numberFormat.format(normalPrice);
+			
+			userMainGoodsList.get(i).setGoodsRefurbPrice(refurbResult);
+			userMainGoodsList.get(i).setGoodsNormalPrice(nomalResult);
+		}
+		
+		return userMainGoodsList;
+	}
+	// 사용자 화면 - 상품 전체 목록 조회
 	public List<Goods> getUserGoodsList() {
 		List<Goods> userGoodsList = userGoodsMapper.getUserGoodsList();
 		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'

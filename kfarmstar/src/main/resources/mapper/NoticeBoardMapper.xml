@@ -23,7 +23,6 @@
 	         <result column="member_date"       property="memberDate"/>
 		</association>
 	</resultMap>
-	
 
 <select id="getNoticeList" resultMap="noticeResultMap">
 	SELECT 
@@ -33,7 +32,6 @@
 		, notice_date
 	FROM 
 		notice_board;
-
 </select>
 
 <select id="getDetailNotice" parameterType="String" resultMap="noticeResultMap">
@@ -48,7 +46,6 @@
 		notice_board
 	WHERE
 		notice_board.notice_num=#{noticeNum};
-
 </select>
 
 
@@ -78,10 +75,10 @@ INSERT INTO notice_board
 	, CURDATE());
 </insert>
 
-<delete id="remove">
+<delete id="removeNotice" parameterType="String">
 DELETE FROM notice_board 
 WHERE
-notice_num='#{noticeNum}'
+notice_num= #{noticeNum};
 </delete>
 
 </mapper>
