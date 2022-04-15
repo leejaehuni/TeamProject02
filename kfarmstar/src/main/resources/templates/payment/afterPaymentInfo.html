@@ -6,7 +6,7 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
-	
+/*깃허브수정*/	
 	<th:block layout:fragment="customCss">
 		<!-- iCheck -->
 		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
@@ -38,7 +38,7 @@
 					
 					dateBtnForm.attr("id", "testForm");
 					dateBtnForm.attr("name", "dateBtnForm");
-					dateBtnForm.attr("method", "post");
+					dateBtnForm.attr("method", "get");
 					dateBtnForm.attr("action", "/payment/searchDateAfterPayment");
 					
 					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
@@ -61,7 +61,7 @@
 						
 						datepickerForm.attr("id", "testForm");
 						datepickerForm.attr("name", "datepickerForm");
-						datepickerForm.attr("method", "post");
+						datepickerForm.attr("method", "get");
 						datepickerForm.attr("action", "/payment/searchDateAfterPayment");
 						
 						datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
@@ -87,7 +87,7 @@
 					
 					checkPaymentTypeForm.attr("id", "testForm");
 					checkPaymentTypeForm.attr("name", "checkPaymentTypeForm");
-					checkPaymentTypeForm.attr("method", "post");
+					checkPaymentTypeForm.attr("method", "get");
 					checkPaymentTypeForm.attr("action", "/payment/searchTypeAfterPayment");
 					
 					checkPaymentTypeForm.append($('<input/>', {type: 'hidden', name: 'paymentOption', value: checkPaymentType}));
