@@ -12,7 +12,7 @@ import com.kfarmstar.dto.BeforePayment;
 import com.kfarmstar.dto.Goods;
 import com.kfarmstar.dto.PaymentType;
 import com.kfarmstar.user.mapper.UserPaymentMapper;
-
+/*깃허브수정*/
 @Service
 @Transactional
 public class UserPaymentService {

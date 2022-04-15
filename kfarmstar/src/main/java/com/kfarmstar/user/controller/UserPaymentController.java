@@ -20,7 +20,7 @@ import com.kfarmstar.dto.Goods;
 import com.kfarmstar.dto.PaymentType;
 import com.kfarmstar.user.mapper.UserPaymentMapper;
 import com.kfarmstar.user.service.UserPaymentService;
-
+/*깃허브수정*/
 @Controller
 @RequestMapping("/userPayment")
 public class UserPaymentController {

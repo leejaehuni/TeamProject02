@@ -8,7 +8,7 @@ import com.kfarmstar.dto.AfterPayment;
 import com.kfarmstar.dto.GoodsExchange;
 import com.kfarmstar.dto.GoodsRefund;
 import com.kfarmstar.dto.OrderCancel;
-
+/*깃허브수정*/
 @Mapper
 public interface PaymentMapper {
 	

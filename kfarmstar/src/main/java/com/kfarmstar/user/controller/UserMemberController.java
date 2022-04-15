@@ -18,7 +18,7 @@ import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerStore;
 import com.kfarmstar.user.mapper.UserMemberMapper;
 import com.kfarmstar.user.service.UserMemberService;
-
+/*깃허브수정*/
 @Controller
 @RequestMapping("/userMember")
 public class UserMemberController {

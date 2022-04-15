@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kfarmstar.dto.Grade;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerStore;
-
+/*깃허브수정*/
 @Mapper
 public interface UserMemberMapper {
 	
