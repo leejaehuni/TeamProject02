@@ -1,6 +1,5 @@
 package com.kfarmstar.user.controller;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,23 +33,9 @@ public class UserGoodsController {
 		log.info("상품별 상세정보");
 		Goods goods = userGoodsService.getUserGoodsByCode(goodsRefurbCode);	//각 상품별 정보
 		List<Goods> randomGoods = userGoodsService.getRandomGoods(goodsRefurbCode); // 특정 상품 제외 후 네 가지 상품 정보 랜덤 조회
-		
-		
-		  NumberFormat numberFormat = NumberFormat.getInstance(); 
-		  int refurbPrice = Integer.parseInt(goods.getGoodsRefurbPrice()); 
-		  int normalPrice = Integer.parseInt(goods.getGoodsNormalPrice());
-		  
-		  String refurbResult = numberFormat.format(refurbPrice); 
-		  String nomalResult = numberFormat.format(normalPrice);
-		  
-
-		 
-		
 		model.addAttribute("title", "Food Refurb : 개인 상품");	
 		model.addAttribute("breadTitle", "Refurb Goods");
 		model.addAttribute("breadSubTitle", "Goods Info");
-		model.addAttribute("refurbResult", refurbResult + " 원");
-		model.addAttribute("nomalResult", nomalResult + " 원");
 		
 		/*
 		 * FileDto file = goods.getFileList().get(0);

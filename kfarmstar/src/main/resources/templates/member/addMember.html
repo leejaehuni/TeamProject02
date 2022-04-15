@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
-/*깃허브수정*/	
+	
 	<!-- 사용자 정의 title -->
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
@@ -17,8 +17,6 @@
 	
 	<!-- 사용자 정의 JsScript 파일-->
 	<th:block layout:fragment="customJsScript">
-		<!-- 주소검색 API -->
-		<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
@@ -88,31 +86,6 @@
 					if(isSubmit) $('#addMemberForm').submit();
 				});
 			});
-			</script>
-			
-			<script>
-			function searchAddForm() {
-		        new daum.Postcode({
-		            oncomplete: function(data) {
-		            	
-		            	var addr = '';
-		            	var extraAddr = ''; // 참고항목 변수
-
-		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-		                    addr = data.roadAddress;
-		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-		                    addr = data.jibunAddress;
-		                }
-		                
-		                document.getElementById('memberPostNum').value = data.zonecode;
-		                document.getElementById('memberAddr').value = addr;
-		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById('memberDetailAddr').focus();
-		                
-		            }
-		        }).open();
-		    }
 		</script>
 	</th:block>
 	 
@@ -127,7 +100,7 @@
 					<div class="x_content">
 						<form class="form-horizontal form-label-left" id="addMemberForm" th:action="@{/member/addMember}" method="post">
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberId">아이디
+								<label class="control-label col-md-3 col-sm-3">아이디
 									<span class="required">*</span>
 								</label>
 								<div class="col-md-6 col-sm-6">
@@ -141,7 +114,7 @@
 								</div>
 							</div>
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberPw">비밀번호
+								<label class="control-label col-md-3 col-sm-3">비밀번호
 									<span class="required">*</span>
 								</label>
 								<div class="col-md-9 col-sm-9 ">
@@ -149,15 +122,23 @@
 								</div>
 							</div>
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberName">이름
+								<label class="control-label col-md-3 col-sm-3">이름
 									<span class="required">*</span>
 								</label>
 								<div class="col-md-9 col-sm-9 ">
 									<input type="text" class="form-control" name="memberName" placeholder="이름 입력">
 								</div>
 							</div>
+							<!-- <div class="form-group row add-member">
+								<label class="control-label col-md-3 col-sm-3">비밀번호 확인
+									<span class="required">*</span>
+								</label>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="password" class="form-control" name="memberPw" placeholder="비밀번호 입력">
+								</div>
+							</div> -->
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberNickname">닉네임
+								<label class="control-label col-md-3 col-sm-3">닉네임
 									<span class="required">*</span>
 								</label>
 								<div class="col-md-9 col-sm-9 ">
@@ -165,7 +146,7 @@
 								</div>
 							</div>
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberBirth">생년월일
+								<label class="control-label col-md-3 col-sm-3">생년월일
 									<span class="required">*</span>
 								</label>
 								<div class="col-md-9 col-sm-9 ">
@@ -173,28 +154,15 @@
 								</div>
 							</div>
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberPostNum">회원 주소
+								<label class="control-label col-md-3 col-sm-3 ">주소
 									<span class="required">*</span>
 								</label>
-								<div class="col-md-5 col-sm-5">
-									<input type="text" class="form-control" name="memberPostNum" id="memberPostNum" placeholder="우편번호">
-								</div>
-								<div class="col-md-3 col-sm-3">
-									<button type="button" class="btn btn-info" id="postNum" onclick="searchAddForm()">우편번호찾기</button>
+								<div class="col-md-9 col-sm-9 ">
+									<input type="text" class="form-control" placeholder="주소 입력" name="memberAddr">
 								</div>
 							</div>
 							<div class="form-group row add-member">
-								<div class="offset-md-3 col-md-9">
-									<input type="text" class="form-control" id="memberAddr" name="memberAddr" placeholder="주소" readonly="readonly">
-								</div>
-							</div>
-							<div class="form-group row">
-								<div class="offset-md-3 col-md-9">
-									<input type="text" class="form-control" name="memberDetailAddr" id="memberDetailAddr" placeholder="상세주소">
-								</div>
-							</div>
-							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberPhone">휴대전화
+								<label class="control-label col-md-3 col-sm-3 ">휴대전화
 									<span class="required">*</span>
 								</label>
 								<div class="col-md-9 col-sm-9">
@@ -202,11 +170,16 @@
 								</div>
 							</div>
 							<div class="form-group row add-member">
-								<label class="control-label col-md-3 col-sm-3" for="memberEmail">이메일
+								<label class="control-label col-md-3 col-sm-3 ">이메일
 									<span class="required">*</span>
 								</label>
-								<div class="col-md-9 col-sm-9">
+								<div class="col-md-6 col-sm-6 ">
 									<input type="text" class="form-control" name="memberEmail" placeholder="이메일 입력">
+								</div>
+								<div class="col-md-3 col-sm-3">
+										<button type="button" class="btn btn-primary form-control sendMail">
+											<span>인증</span>
+										</button>
 								</div>
 							</div>
 							<!-- <div class="form-group row add-member">

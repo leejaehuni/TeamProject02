@@ -22,7 +22,7 @@ import com.kfarmstar.dto.AdPrice;
 import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
-/*깃허브수정*/
+
 @Controller
 @RequestMapping("/advertisement")
 public class AdController {

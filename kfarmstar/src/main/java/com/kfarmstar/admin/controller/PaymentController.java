@@ -18,7 +18,7 @@ import com.kfarmstar.dto.AfterPayment;
 import com.kfarmstar.dto.GoodsExchange;
 import com.kfarmstar.dto.GoodsRefund;
 import com.kfarmstar.dto.OrderCancel;
-/*깃허브수정*/
+
 
 @Controller
 @RequestMapping("/payment")
@@ -41,37 +41,7 @@ public class PaymentController {
 		return "payment/beforePurchaserInfo";
 	}
 	
-	@GetMapping("/searchStateExchange")
-	public String searchStateExchange(Model model
-									,@RequestParam(value="exchangeProcessState", required = false) String exchangeProcessState) {
-		
-		log.info("처리 상태별 상품 교환 내역 조회");
-		
-		List<GoodsExchange> searchStateExchange = paymentService.searchStateExchange(exchangeProcessState);
-		
-		model.addAttribute("goodsExchangeInfo", searchStateExchange);
-		
-		return "payment/goodsExchange";
-	}
-	
-	@GetMapping("/searchDateGoodsExchange")
-	public String searchDateGoodsExchange(Model model
-										,@RequestParam(value="startDate", required = false) String startDate
-										,@RequestParam(value="endDate", required = false) String endDate) {
-		
-		log.info("시작날짜 검색:{}", startDate);
-		log.info("종료날짜 검색:{}", endDate);
-		
-		List<GoodsExchange> searchDateGoodsExchange = paymentService.searchDateGoodsExchange(startDate, endDate);
-		
-		model.addAttribute("title", "FoodRefurb : 상품교환관리");
-		model.addAttribute("titleName", "상품 교환 내역 관리");
-		model.addAttribute("goodsExchangeInfo", searchDateGoodsExchange);
-		
-		return "payment/goodsExchange";
-	}
-	
-	@GetMapping("/searchTypeAfterPayment")
+	@PostMapping("/searchTypeAfterPayment")
 	public String searchTypeAfterPayment(Model model
 										,@RequestParam(value="paymentOption", required = false) String paymentOption) {
 		
@@ -103,8 +73,6 @@ public class PaymentController {
 		log.info("조건별 결제 내역 검색:{}", searchKey);
 		List<AfterPayment> conditionAfterPaymentList = paymentService.conditionAfterPaymentList(searchKey, searchValue);
 		
-		model.addAttribute("title", "FoodRefurb : 결제관리");
-		model.addAttribute("titleName", "결제 내역 관리");
 		model.addAttribute("afterPaymentInfo", conditionAfterPaymentList);
 		
 		return "payment/afterPaymentInfo";
@@ -139,7 +107,7 @@ public class PaymentController {
 		return "payment/afterPaymentDetail";
 	}
 	
-	@GetMapping("/searchDateAfterPayment")
+	@PostMapping("/searchDateAfterPayment")
 	public String searchDateAfterPayment(Model model
 										,@RequestParam(value="startDate", required = false) String startDate
 										,@RequestParam(value="endDate", required = false) String endDate) {
@@ -149,8 +117,6 @@ public class PaymentController {
 		
 		List<AfterPayment> searchDateAfterPayment = paymentService.searchDateAfterPayment(startDate, endDate);
 		
-		model.addAttribute("title", "FoodRefurb : 결제관리");
-		model.addAttribute("titleName", "결제 내역 관리");
 		model.addAttribute("afterPaymentInfo", searchDateAfterPayment);
 		
 		return "payment/afterPaymentInfo";
@@ -246,14 +212,12 @@ public class PaymentController {
 			log.info("조건별 주문 취소 내역 검색:{}", searchKey);
 			List<OrderCancel> conditionOrderCancelList = paymentService.conditionOrderCancelList(searchKey, searchValue);
 			
-			model.addAttribute("title", "FoodRefurb : 주문취소관리");
-			model.addAttribute("titleName", "주문 취소 내역 관리");
 			model.addAttribute("orderCancelInfo", conditionOrderCancelList);
 			
 			return "payment/goodsOrderCancel";
 	}
 	
-	@GetMapping("/searchDateOrderCancel")
+	@PostMapping("/searchDateOrderCancel")
 	public String searchDateOrderCancel(Model model
 										,@RequestParam(value="startDate", required = false) String startDate
 										,@RequestParam(value="endDate", required = false) String endDate) {
@@ -263,8 +227,6 @@ public class PaymentController {
 		
 		List<OrderCancel> searchDateOrderCancel = paymentService.searchDateOrderCancel(startDate, endDate);
 		
-		model.addAttribute("title", "FoodRefurb : 주문취소관리");
-		model.addAttribute("titleName", "주문 취소 내역 관리");
 		model.addAttribute("orderCancelInfo", searchDateOrderCancel);
 		
 		return "payment/goodsOrderCancel";
@@ -463,8 +425,6 @@ public class PaymentController {
 		
 		List<GoodsRefund> conditionGoodsRefundList = paymentService.conditionGoodsRefundList(searchKey, searchValue);
 		
-		model.addAttribute("title", "FoodRefurb : 환불관리");
-		model.addAttribute("titleName", "상품 환불 내역 관리");
 		model.addAttribute("goodsRefundInfo", conditionGoodsRefundList);
 		
 		return "payment/goodsRefund";

@@ -9,7 +9,7 @@ import com.kfarmstar.dto.Grade;
 import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerStore;
 import com.kfarmstar.user.mapper.UserMemberMapper;
-/*깃허브수정*/
+
 @Service
 @Transactional
 public class UserMemberService {

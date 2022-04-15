@@ -22,7 +22,7 @@ import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
 
 
-/*깃허브수정*/
+
 @Controller
 @RequestMapping("/member")
 public class MemberController {
