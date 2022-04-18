@@ -451,7 +451,9 @@
 			,member_level
 			,member_pw
 			,member_nickname
+			,member_post_num
 			,member_addr
+			,member_detail_addr
 			,member_phone
 			,member_birth
 			,member_email
@@ -463,7 +465,9 @@
 		   , #{memberLevel}
 		   , #{memberPw}
 		   , #{memberNickname}
+		   , #{memberPostNum}
 		   , #{memberAddr}
+		   , #{memberDetailAddr}
 		   , #{memberPhone}
 		   , #{memberBirth}
 		   , #{memberEmail}
