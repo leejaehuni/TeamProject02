@@ -36,6 +36,36 @@
 					input.type = 'text';
 				}, 60000);
 			}
+	
+	$(function(){
+
+		// 대분류와 소분류 연결
+		$("#goodsLargeCate").on('change', function(e) {
+            var goodsLargeCate = $('select[name="goodsLargeCate"]').val();
+            console.log(goodsLargeCate);
+                $.ajax({
+                    url : '/statistics/getSmallCateList',
+                    type : 'post',
+                    data : {
+                        'goodsLargeCate' : goodsLargeCate
+                    },
+                    dataType : 'json',
+                    success : function(data) {
+                        console.log(data);
+                        console.log(data.length);
+                        var txt1='<option value=""> 상품 소분류 </option>';
+                            for(var i =0;i<data.length;i++)
+                            {
+                                txt1 +='<option value="'+data[i].goodsSmallCate+'"'    +'>' + data[i].goodsSmallName  +'</option>';
+                            }
+                            console.log(txt1);
+                            $('#goodsSmallCate').empty();
+                            $('#goodsSmallCate').append(txt1);
+                        }
+                });
+			 });
+		});
+	
 		</script>
 	</th:block>
 	
@@ -49,28 +79,22 @@
  		<div class="card-body">
  			<form>
  				<div class="row form-horizontal mb-3">
-					<label class="col-sm-2 col-form-label" style="font-size: 20px;  font-weight: bold;">상품명</label>
+					<label class="col-sm-2 col-form-label" style="font-size: 20px;  font-weight: bold;" for="goodsLargeCate">상품명</label>
  					<div class="col-sm-10 form-inline">
  						<!-- 상품선택 -->
  						<div class="form-group">
-	 						 <select class="custom-select mr-2"> 
-							     <option>상품 대분류</option>
-							     <option>버섯류</option>
-							     <option>채소류</option>
-							     <option>과일류</option>
+	 						 <select class="custom-select mr-2" id="goodsLargeCate" name="goodsLargeCate"> 
+							    <option>상품 대분류</option>
+							    <th:block th:if="${not #lists.isEmpty(largeCateList)}" th:each="l : ${largeCateList}">
+								<option th:value="${l.goodsLargeCate}">[[${l.goodsLarge.goodsLargeName}]]</option>
+								</th:block>
 						     </select>
  						</div>
  						<div class="form-group">
-	 						<select class="custom-select mr-2">
+	 						<select class="custom-select mr-2"  id="goodsSmallCate" name="goodsSmallCate">
 							     <option>상품 소분류</option>
-							     <option>당근</option>
-							     <option>고구마</option>
-							     <option>감자</option>
 						     </select>
  						</div>
-					    <div class="form-group">					    
-							<input type="text" class="form-control" placeholder = "상품명">
-					    </div>					     
  					</div>
  				</div>
  				<!-- 분석방법 -->

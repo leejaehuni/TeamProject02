@@ -18,7 +18,7 @@
 		</association> 
 		
 		<association property="goodsSmall" javaType="GoodsSmall">
-			<result column="goods_small_cate" property="goodsSmallCate"/>
+			<result column="goods_small_catse" property="goodsSmallCate"/>
 		</association>
 		
 		<association property="afterPayment" javaType="AfterPayment">
@@ -29,20 +29,37 @@
 			<result column="member_id" property="memberId"/>
 		</association>
 	</resultMap>
-<select id="getGoodsStatisticsList" parameterType="String" resultMap="StatisticsResultMap">
-	SELECT 
-		goods_statistics_code
-		, goods_large_code
-		, goods_small_code
-		, payment_complete_code
-		, member_id
-		, goods_sales_amount
-		, goods_sales_price
-		, search_year
-		, search_month
-		, search_week
-		, search_day
-	FROM 
-		goods_statistics
-</select>
+	<select id="getGoodsStatisticsList" resultMap="StatisticsResultMap">
+		SELECT 
+			  s.goods_statistics_code
+			, s.goods_large_code
+			, s.goods_small_code
+			, s.payment_complete_code
+			, s.member_id
+			, s.goods_sales_amount
+			, s.goods_sales_price
+			, s.search_year
+			, s.search_month
+			, s.search_week
+			, s.search_day
+		FROM 
+			goods_statistics AS s
+			INNER JOIN
+			goods_large AS l
+			ON
+			s.goods_large_code = l.goods_large_cate
+			INNER JOIN
+			goods_small AS g
+			ON
+			s.goods_small_code = g.goods_small_cate
+			INNER JOIN
+			after_payment_info AS p
+			ON
+			s.payment_complete_code = p.payment_complete_code
+			INNER JOIN
+			member AS m
+			ON
+			s.member_id = m.member_id
+			
+	</select>
 </mapper>

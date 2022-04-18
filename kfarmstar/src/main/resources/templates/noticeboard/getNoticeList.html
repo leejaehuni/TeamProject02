@@ -58,7 +58,6 @@
                             <th class="column-title no-link last"><span class="nobr">공지 제목</span></th>
                             <th class="column-title">작성자 </th>
                             <th class="column-title">작성날짜 </th>
-                            <th class="column-title">조회수 </th>
                             <th class="column-title">수정 </th>
                             <th class="column-title">삭제 </th>
                             <th class="bulk-actions" colspan="7">
@@ -68,19 +67,7 @@
                         </thead>
 
                         <tbody>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" last"><a href="#">푸드리퍼브 상품 구매 공지 사항 입니다</a></td>
-                            <td class=" ">관리자</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td><a th:href="@{/noticeboard/modifyNotice}"><button type="button" class="btn btn-outline-primary btn-sm">수정</button></a></td>    
-							<td><button type="submit" data-toggle="modal" data-target="#exampleModal" 
-										class="btn btn-outline-primary btn-sm">삭제</button></td>
-                          </tr>
+                         
                           <tr th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
                           <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
@@ -90,7 +77,6 @@
 								   th:text="${l.noticeTitle}"></a></td>
 							<td th:text="${l.member.memberId}"></td>
 							<td th:text="${l.noticeDate}"></td>
-							<td th:text="${l.noticeHit}"></td>
 							<td><a th:href="@{/noticeboard/modifyNotice(noticeNum=${l.noticeNum})}" class="btn btn-outline-primary btn-sm">수정</a></td>    
 							<td><a th:href="@{/noticeboard/removeNotice(noticeNum=${l.noticeNum})}" type="button"  class="btn btn-outline-primary btn-sm">삭제</a></td>
 						</tr>

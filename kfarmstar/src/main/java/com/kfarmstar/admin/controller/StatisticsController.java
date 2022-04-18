@@ -7,13 +7,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kfarmstar.admin.mapper.NoticeBoardMapper;
+import com.kfarmstar.admin.mapper.GoodsMapper;
 import com.kfarmstar.admin.mapper.StatisticsMapper;
-import com.kfarmstar.admin.service.NoticeBoardService;
+import com.kfarmstar.admin.service.GoodsService;
 import com.kfarmstar.admin.service.StatisticsService;
-import com.kfarmstar.dto.NoticeBoard;
+import com.kfarmstar.dto.GoodsLarge;
+import com.kfarmstar.dto.GoodsSmall;
 import com.kfarmstar.dto.Statistics;
 
 @Controller
@@ -24,10 +28,14 @@ public class StatisticsController {
 		
 	private StatisticsService statisticsService;
 	private StatisticsMapper statisticsMapper;
+	private GoodsService goodsService;
+	private GoodsMapper goodsMapper;
 	
-	public StatisticsController(StatisticsService statisticsService, StatisticsMapper statisticsMapper) {
+	public StatisticsController(StatisticsService statisticsService, StatisticsMapper statisticsMapper, GoodsService goodsService, GoodsMapper goodsMapper) {
 		this.statisticsService = statisticsService;
 		this.statisticsMapper = statisticsMapper;
+		this.goodsService = goodsService;
+		this.goodsMapper = goodsMapper;
 	}
 
 	
@@ -36,16 +44,27 @@ public class StatisticsController {
 		
 		System.out.println("getGoodsStatistics StatisticsController.java");
 		List<Statistics> goodsStatisticsList = statisticsService.getGoodsStatisticsList();
-
-		
+		List<GoodsLarge> largeCateList = goodsService.getLargeCateList();	// 대분류 카테고리 리스트
 		
 		model.addAttribute("title", "FoodRefurb : 상품 통계 조회");
 		model.addAttribute("titleName", "상품 통계 조회");
 		model.addAttribute("goodsStatisticsList", goodsStatisticsList);
+		model.addAttribute("largeCateList", largeCateList);
 		
 		
 		return "statistics/getGoodsStatistics";
 	}
+	/**
+	 * 대분류 코드에 해당하는 소분류 카테고리 목록 불러오기
+	 * 카테고리 ajax
+	 */
+	@PostMapping("/getSmallCateList")
+	@ResponseBody
+	public List<GoodsSmall> getSmallCateList(@RequestParam(value = "goodsLargeCate") String goodsLargeCate) {
+		
+		return goodsMapper.getSmallCateList(goodsLargeCate);
+	}
+	
 	
 	@GetMapping("/addGoodsStatistics")
 	public String addGoodsStatistics(Model model) {

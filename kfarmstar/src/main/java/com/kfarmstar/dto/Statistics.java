@@ -9,20 +9,15 @@ public class Statistics {
 	private String searchMonth;
 	private String searchWeek;
 	private String searchDay;
-	
-	private String goodsLargeCate;
-	private GoodsLarge goodsLarge;
-	
-	private String goodsSmallCate;
-	private GoodsSmall goodsSmall;
-	
+	private String goodsLargeCode;
+	private String goodsSmallCode;
 	private String paymentCompleteCode;
-	private AfterPayment afterPayment;
-	
 	private String memberId;
+	
+	private GoodsLarge goodsLarge;
+	private GoodsSmall goodsSmall;
+	private AfterPayment afterPayment;
 	private Member member;
-	
-	
 	public String getGoodsStatisticsCode() {
 		return goodsStatisticsCode;
 	}
@@ -65,29 +60,17 @@ public class Statistics {
 	public void setSearchDay(String searchDay) {
 		this.searchDay = searchDay;
 	}
-	public String getGoodsLargeCate() {
-		return goodsLargeCate;
+	public String getGoodsLargeCode() {
+		return goodsLargeCode;
 	}
-	public void setGoodsLargeCate(String goodsLargeCate) {
-		this.goodsLargeCate = goodsLargeCate;
+	public void setGoodsLargeCode(String goodsLargeCode) {
+		this.goodsLargeCode = goodsLargeCode;
 	}
-	public GoodsLarge getGoodsLarge() {
-		return goodsLarge;
+	public String getGoodsSmallCode() {
+		return goodsSmallCode;
 	}
-	public void setGoodsLarge(GoodsLarge goodsLarge) {
-		this.goodsLarge = goodsLarge;
-	}
-	public String getGoodsSmallCate() {
-		return goodsSmallCate;
-	}
-	public void setGoodsSmallCate(String goodsSmallCate) {
-		this.goodsSmallCate = goodsSmallCate;
-	}
-	public GoodsSmall getGoodsSmall() {
-		return goodsSmall;
-	}
-	public void setGoodsSmall(GoodsSmall goodsSmall) {
-		this.goodsSmall = goodsSmall;
+	public void setGoodsSmallCode(String goodsSmallCode) {
+		this.goodsSmallCode = goodsSmallCode;
 	}
 	public String getPaymentCompleteCode() {
 		return paymentCompleteCode;
@@ -95,17 +78,29 @@ public class Statistics {
 	public void setPaymentCompleteCode(String paymentCompleteCode) {
 		this.paymentCompleteCode = paymentCompleteCode;
 	}
-	public AfterPayment getAfterPayment() {
-		return afterPayment;
-	}
-	public void setAfterPayment(AfterPayment afterPayment) {
-		this.afterPayment = afterPayment;
-	}
 	public String getMemberId() {
 		return memberId;
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	public GoodsLarge getGoodsLarge() {
+		return goodsLarge;
+	}
+	public void setGoodsLarge(GoodsLarge goodsLarge) {
+		this.goodsLarge = goodsLarge;
+	}
+	public GoodsSmall getGoodsSmall() {
+		return goodsSmall;
+	}
+	public void setGoodsSmall(GoodsSmall goodsSmall) {
+		this.goodsSmall = goodsSmall;
+	}
+	public AfterPayment getAfterPayment() {
+		return afterPayment;
+	}
+	public void setAfterPayment(AfterPayment afterPayment) {
+		this.afterPayment = afterPayment;
 	}
 	public Member getMember() {
 		return member;
@@ -117,12 +112,11 @@ public class Statistics {
 	public String toString() {
 		return "Statistics [goodsStatisticsCode=" + goodsStatisticsCode + ", goodsSalesAmount=" + goodsSalesAmount
 				+ ", goodsSalesPrice=" + goodsSalesPrice + ", searchYear=" + searchYear + ", searchMonth=" + searchMonth
-				+ ", searchWeek=" + searchWeek + ", searchDay=" + searchDay + ", goodsLargeCate=" + goodsLargeCate
-				+ ", goodsLarge=" + goodsLarge + ", goodsSmallCate=" + goodsSmallCate + ", goodsSmall=" + goodsSmall
-				+ ", paymentCompleteCode=" + paymentCompleteCode + ", afterPayment=" + afterPayment + ", memberId="
-				+ memberId + ", member=" + member + "]";
+				+ ", searchWeek=" + searchWeek + ", searchDay=" + searchDay + ", goodsLargeCode=" + goodsLargeCode
+				+ ", goodsSmallCode=" + goodsSmallCode + ", paymentCompleteCode=" + paymentCompleteCode + ", memberId="
+				+ memberId + ", goodsLarge=" + goodsLarge + ", goodsSmall=" + goodsSmall + ", afterPayment="
+				+ afterPayment + ", member=" + member + "]";
 	}
-	
 	
 
 }
