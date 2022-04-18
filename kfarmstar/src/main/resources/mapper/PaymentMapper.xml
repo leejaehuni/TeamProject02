@@ -3,7 +3,6 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.admin.mapper.PaymentMapper">
-/*깃허브수정*/
 	<resultMap type="AfterPayment" id="afterPaymentMap">
 		<id column="payment_complete_code" 		property="paymentCompleteCode"/>
 		<result column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
