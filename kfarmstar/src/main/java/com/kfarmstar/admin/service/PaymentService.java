@@ -25,6 +25,20 @@ public class PaymentService {
 		this.paymentMapper = paymentMapper;
 	}
 	
+	public List<GoodsExchange> searchStateExchange(String exchangeProcessState){
+		
+		List<GoodsExchange> searchStateExchange = paymentMapper.searchStateExchange(exchangeProcessState);
+		
+		return searchStateExchange;
+	} 
+	
+	public List<GoodsExchange> searchDateGoodsExchange(String startDate, String endDate){
+		
+		List<GoodsExchange> searchDateGoodsExchange = paymentMapper.searchDateGoodsExchange(startDate, endDate);
+		
+		return searchDateGoodsExchange;
+	}
+	
 	public List<AfterPayment> searchTypeAfterPayment(String paymentOption){
 		
 		List<AfterPayment> searchTypeAfterPayment = paymentMapper.searchTypeAfterPayment(paymentOption);

@@ -1,5 +1,5 @@
 package com.kfarmstar.dto;
-/*깃허브수정*/
+
 public class SellerStore {
 	private String sellerStoreNum;
 	private String memberId;
