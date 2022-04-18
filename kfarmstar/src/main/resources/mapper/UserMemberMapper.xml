@@ -3,7 +3,6 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.user.mapper.UserMemberMapper">
-
 	<resultMap type="Member" id="memberResultMap">
 		<result column="member_id" 				property="memberId"/>
 		<result column="member_name" 			property="memberName"/>

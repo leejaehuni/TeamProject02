@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<!-- START : 검색 바
-	============================== -->
 	<div th:fragment="searchBarFragment">
 	
 		<div class="tum cen row">
@@ -19,37 +17,4 @@
 		</div>
 		
 	</div>
-	<!-- END : 검색 바
-	============================== -->
-	
-	<!-- START : 검색 상세 내역
-	============================== -->
-	<div class="col-12" th:fragment="searchDetailFragment">
-	
-		<a id="headingThree" data-toggle="collapse" href="#collapseThree">
-			<small> 상세 검색 </small>
-			<i class="glyphicon glyphicon-filter"></i>
-		</a>
-		<div id="collapseThree" class="panel-collapse collapse">
-			<div class="panel-body row">
-				
-					<div class="col-sm-2"></div>
-					<div class="col-sm-4 col-5">
-						<input class="date-picker form-control" placeholder="dd-mm-yyyy" type="date" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-					</div>
-					<div class="align-self-center">
-						<i class="fa fa-minus"></i>
-					</div>
-					<div class="col-sm-4 col-5">
-						<input class="date-picker form-control" placeholder="dd-mm-yyyy" type="date" required="required" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
-					</div>
-					<div class="col-sm-2"></div>
-				
-			</div>
-		</div>
-		
-	</div>
-	<!-- END : 검색 상세 내역
-	============================== -->
-	
 </html>
