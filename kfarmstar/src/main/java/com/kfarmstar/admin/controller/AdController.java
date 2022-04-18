@@ -22,7 +22,7 @@ import com.kfarmstar.dto.AdPrice;
 import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
-
+/*깃허브수정*/
 @Controller
 @RequestMapping("/advertisement")
 public class AdController {
@@ -256,12 +256,14 @@ public class AdController {
 	 * @return
 	 */
 	@GetMapping("/addAdPayment")
-	public String addAdPayment(Model model 
+	public String addAdPayment(Model model, HttpSession session
 								, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
+		String sessionLevel = (String) session.getAttribute("SLEVEL");
 		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 결제");
 		model.addAttribute("titleName", "광고 결제");
 		model.addAttribute("adApply", adApply);
+		model.addAttribute("sessionLevel", sessionLevel);
 		
 		return "advertisement/addAdPayment";
 	}

@@ -123,6 +123,15 @@ public class GoodsService {
 	
 	
 	/**
+	 * 상품 목록 조회
+	 */
+	public List<Goods> getGoodsCateListByDate(String startDate, String endDate) {
+		
+		return goodsMapper.getGoodsCateListByDate(startDate, endDate);
+	}
+	
+	
+	/**
 	 * 전체 상품 카테고리 목록 조회
 	 * @param searchValue 
 	 * @param searchKey 

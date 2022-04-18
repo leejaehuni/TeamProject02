@@ -48,7 +48,7 @@
 			<result column="entry_time" 				property="entryTime"/>
 		</association>
 		<association property="puchaserPayment" javaType="PuchaserPayment">
-			<id column="purchaser_payment_code" 	property="purchaserPaymentCode"/>
+			<id column="purchaser_payment_code" 		property="purchaserPaymentCode"/>
 			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
 			<result column="member_id" 					property="memberId"/>
 			<result column="before_mid_sum_code" 		property="beforeMidSumCode"/>
@@ -62,9 +62,9 @@
 			<result column="recipient_phone" 			property="recipientPhone"/>
 		</association>
 		<association property="paymentType" javaType="PaymentType">
-			<id column="payment_type_code" 			property="paymentTypeCode"/>
+			<id column="payment_type_code" 				property="paymentTypeCode"/>
 			<result column="member_id" 					property="memberId"/>
-			<result column="payment_complete_code" 		property="paymentCompleteCode"/>
+			<result column="payment_option_type" 				property="paymentOptionType"/>
 			<result column="payment_card_type" 			property="paymentCardType"/>
 			<result column="payment_card_num" 			property="paymentCardNum"/>
 			<result column="payment_account_info" 		property="paymentAccountInfo"/>
@@ -242,6 +242,37 @@
 		</association>
 	</resultMap>
 	
+	
+	<select id="searchStateExchange" parameterType="String" resultMap="goodsExchangeMap">
+		/* 처리 상태별 상품 교환 내역 조회 */
+		SELECT
+			 e.goods_exchange_code
+			,e.payment_complete_code
+			,g.goods_refurb_name
+			,e.member_id
+			,e.goods_refurb_code
+			,e.exchange_reason_content
+			,e.exchange_count
+			,e.exchange_request_date
+			,e.exchange_process_state
+		FROM 
+			goods_exchange AS e
+			INNER JOIN
+			after_payment_info AS a
+			ON
+			e.payment_complete_code = a.payment_complete_code
+			INNER JOIN
+			member AS m
+			ON
+			e.member_id = m.member_id
+			INNER JOIN
+			goods_management AS g
+			ON
+			e.goods_refurb_code = g.goods_refurb_code
+		WHERE
+			m.member_level = '구매자' AND e.exchange_process_state = #{exchangeProcessState};
+	</select>
+	
 	<select id="searchTypeAfterPayment" parameterType="String" resultMap="afterPaymentMap">
 		/* 결제 수단별 결제 내역 조회 */
 		SELECT
@@ -271,6 +302,36 @@
 			p.purchaser_payment_code = b.purchaser_payment_code
 		WHERE
 			m.member_level = '구매자' AND p.payment_option = #{paymentOption};
+	</select>
+	
+	<select id="searchDateGoodsExchange" parameterType="String" resultMap="goodsExchangeMap">
+		/* 상품 교환 날짜별 상품 교환 내역 조회 */
+		SELECT
+			 e.goods_exchange_code
+			,e.payment_complete_code
+			,g.goods_refurb_name
+			,e.member_id
+			,e.goods_refurb_code
+			,e.exchange_reason_content
+			,e.exchange_count
+			,e.exchange_request_date
+			,e.exchange_process_state
+		FROM 
+			goods_exchange AS e
+			INNER JOIN
+			after_payment_info AS a
+			ON
+			e.payment_complete_code = a.payment_complete_code
+			INNER JOIN
+			member AS m
+			ON
+			e.member_id = m.member_id
+			INNER JOIN
+			goods_management AS g
+			ON
+			e.goods_refurb_code = g.goods_refurb_code
+		WHERE
+			e.exchange_request_date BETWEEN #{startDate} AND #{endDate}
 	</select>
 	
 	<select id="searchDateOrderCancel" parameterType="String" resultMap="orderCancelMap">

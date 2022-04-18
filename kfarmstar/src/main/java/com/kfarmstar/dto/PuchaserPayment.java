@@ -1,5 +1,5 @@
 package com.kfarmstar.dto;
-
+/*깃허브수정*/
 public class PuchaserPayment {
 
 	private String purchaserPaymentCode;

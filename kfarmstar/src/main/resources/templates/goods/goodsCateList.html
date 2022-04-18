@@ -30,15 +30,57 @@
 	
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
-		<!-- datepicker 맨 앞으로 띄워주는 코드 (나중에 공통 스크립트 searchDate.js 에 넣어두기) -->
 		<script>
-			$('.datepicker').datepicker({
-			    beforeShow: function() {
-			        setTimeout(function(){
-			            $('.ui-datepicker').css('z-index', 99999999999999);
-			        }, 0);
-			    }
+		$(function(){
+			
+			$(document).on('click', '.dateBtnGroup', function(){
+				$('form').remove('#testForm')
+				
+				var startDate = $('input[name="startDate"]').val();
+				var endDate = $('input[name="endDate"]').val();
+				
+				var dateBtnForm = $('<form></form>');
+				
+				dateBtnForm.attr("id", "testForm");
+				dateBtnForm.attr("name", "dateBtnForm");
+				dateBtnForm.attr("method", "get");
+				dateBtnForm.attr("action", "/goods/goodsCateListByDate");
+				
+				dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+				dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+				
+				dateBtnForm.appendTo('body');
+				
+				dateBtnForm.submit();
 			});
+			
+			$(document).on('change', '#startDate, #endDate', function(){
+				
+				$('form').remove('#testForm')
+				
+				
+				var startDate = $('input[name="startDate"]').val();
+				var endDate = $('input[name="endDate"]').val();
+				
+				var datepickerForm = $('<form></form>');
+				
+				datepickerForm.attr("id", "testForm");
+				datepickerForm.attr("name", "datepickerForm");
+				datepickerForm.attr("method", "get");
+				datepickerForm.attr("action", "/goods/goodsCateListByDate");
+				
+				datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+				datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+				
+				datepickerForm.appendTo('body');
+					
+				if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+					
+					datepickerForm.submit();
+				}
+			});
+			
+		});
 		</script>
 	</th:block>	
 	

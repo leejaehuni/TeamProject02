@@ -3,7 +3,6 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.user.mapper.UserMemberMapper">
-
 	<resultMap type="Member" id="memberResultMap">
 		<result column="member_id" 				property="memberId"/>
 		<result column="member_name" 			property="memberName"/>
@@ -21,6 +20,7 @@
 	</resultMap>
 	
 	<insert id="addSellerGrade" parameterType="Grade">
+		/* 회원 가입시 판매자 등급 부여 */
 		INSERT INTO 
 			seller_grade
 			(
@@ -37,6 +37,7 @@
 	</insert>
 	
 	<insert id="addSellerStoreInfo" parameterType="SellerStore">
+		/* 판매자 사업장 등록 */
 		INSERT INTO
 			seller_store
 		(
