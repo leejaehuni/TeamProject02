@@ -224,26 +224,27 @@
 		</association>
 	</resultMap>
 	
-	<select id="afterPaymentInfoByCode" parameterType="String" resultMap="beforePaymentMap">
+	<select id="afterPaymentInfoByCode" parameterType="String" resultMap="afterPaymentMap">
 		/* 결제 상품 정보 검색 */
 		SELECT
-			 b.goods_refurb_code		
-			,b.before_goods_count
-			,b.mid_sum_price
-			,g.goods_refurb_price
-			,g.goods_refurb_name
+			  a.payment_complete_code
+			 ,a.goods_refurb_code
+			 ,g.goods_refurb_name
+			 ,a.before_goods_count
+			 ,g.goods_refurb_price
+			 ,a.last_payment_price
 		FROM
-			before_purchaser_info AS b
+			after_payment_info AS a
 			INNER JOIN
 			goods_management AS g
 			ON
-			b.goods_refurb_code = g.goods_refurb_code
+			a.goods_refurb_code = g.goods_refurb_code
 			INNER JOIN
 			member AS m
 			ON
-			b.member_id = m.member_id
+			a.member_id = m.member_id
 		WHERE
-			b.member_id = #{memberId} AND b.goods_refurb_code = #{goodsRefurbCode}
+			a.member_id = #{memberId} AND a.payment_complete_code=#{paymentCompleteCode}
 	
 	</select>
 	
@@ -347,5 +348,34 @@
 		WHERE
 			b.member_id = #{memberId};
 	</select>
+	<insert id="addAfterPayment" parameterType="AfterPayment">
+		/* 결제전 사용자 정보 입력 */
+		INSERT INTO 
+			after_payment_info
+			(
+				   payment_complete_code
+				 , purchaser_payment_code
+				 , goods_refurb_code
+				 , member_id
+				 , payment_type_code
+				 , before_goods_count
+				 , mid_sum_price
+				 , payment_option
+				 , last_payment_price
+				 , payment_date
+			)VALUES (
+			
+					 #{paymentCompleteCode}
+					,#{purchaserPaymentCode}
+					,#{goodsRefurbCode}
+					,#{memberId}
+					,#{paymentTypeCode}
+					,#{beforeGoodsCount}
+					,#{midSumPrice}
+					,#{paymentOption}
+					,#{lastPaymentPrice}
+					,NOW()
+			)
+	</insert>
 	
 </mapper>

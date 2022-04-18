@@ -2,6 +2,7 @@ package com.kfarmstar.user.controller;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kfarmstar.dto.AfterPayment;
 import com.kfarmstar.dto.Basket;
 import com.kfarmstar.dto.BeforePayment;
 import com.kfarmstar.dto.Goods;
@@ -39,17 +42,20 @@ public class UserPaymentController {
 	@GetMapping("/userAfterPayment")
 	public String userAfterPayment(Model model
 									,HttpSession session
-									,@RequestParam(value="goodsRefurbCode", required = false) String goodsRefurbCode) {
+									,@RequestParam(value="goodsRefurbCode", required = false) String goodsRefurbCode
+									,@RequestParam(value="paymentCompleteCode", required = false) String paymentCompleteCode
+									,BeforePayment beforePayment) {
 		
 		String sessionId = (String) session.getAttribute("SID");
 		log.info("상품코드:{}", goodsRefurbCode);
-		List<BeforePayment> userAfterPayment = userPaymentService.afterPaymentInfoByCode(sessionId, goodsRefurbCode);
+		List<AfterPayment> userAfterPayment = userPaymentService.afterPaymentInfoByCode(sessionId, paymentCompleteCode);
 		
 		
 		model.addAttribute("title", "Food Refurb : 결제정보");
 		model.addAttribute("breadTitle", "Payment Info");
 		model.addAttribute("breadSubTitle", "Payment Info");
-		model.addAttribute("userAfterPayment", userAfterPayment);
+		model.addAttribute("userAfterPayment", userAfterPayment.get(0));
+		model.addAttribute("beforePayment", beforePayment);
 		
 		return "userPayment/userAfterPayment";
 	}
@@ -59,15 +65,19 @@ public class UserPaymentController {
 	public String userBeforePayment(HttpSession session
 									,BeforePayment beforePayment
 									,@RequestParam(value="goodsRefurbCode", required = false) String goodsRefurbCode
-									,PaymentType paymentType) {
+									,PaymentType paymentType
+									,RedirectAttributes reAttr) {
 		
 		String sessionId = (String) session.getAttribute("SID");
 		
-		 userPaymentService.addBeforePayment(beforePayment, sessionId, paymentType, goodsRefurbCode);
+		 Map<String, Object> resultMap = userPaymentService.addBeforePayment(beforePayment, sessionId, paymentType, goodsRefurbCode);
+		
 		 
 		 log.info("결제전 정보 기입:{}", beforePayment);
 		 log.info("결제전 아이디 값 가져오기:{}", sessionId);
 		 log.info("상품코드가져오나요:{}", goodsRefurbCode);
+		 reAttr.addAttribute("goodsRefurbCode", goodsRefurbCode);
+		 reAttr.addAttribute("paymentCompleteCode", (String) resultMap.get("paymentCompleteCode"));
 		 
 		 return "redirect:/userPayment/userAfterPayment";
 	}
@@ -97,8 +107,8 @@ public class UserPaymentController {
 		model.addAttribute("title", "Food Refurb : 개인 상품");	
 		model.addAttribute("breadTitle", "Refurb Goods");
 		model.addAttribute("breadSubTitle", "Goods Info");
-		model.addAttribute("refurbResult", refurbResult + " 원");
-		model.addAttribute("totalPriceResult", totalPriceResult + " 원");
+		model.addAttribute("refurbResult", refurbPrice);
+		model.addAttribute("totalPriceResult", totalPrice);
 		
 		
 		model.addAttribute("title", "Food Refurb : 결제화면");

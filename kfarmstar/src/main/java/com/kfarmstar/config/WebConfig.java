@@ -30,6 +30,7 @@
   
   registry.addInterceptor(loginInterceptor) 
   .addPathPatterns("/**")
+  .excludePathPatterns("/")
   .excludePathPatterns("/asset/**")
   .excludePathPatterns("/build/**")
   .excludePathPatterns("/vendors/**")

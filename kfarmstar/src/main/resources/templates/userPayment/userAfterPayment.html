@@ -35,13 +35,12 @@
         <div class="container">
             <div class="checkout__form">
             	<div class="row">
-            		<div class="offset-lg-2 col-lg-8 offset-lg-2 text-center">
+            		<div class="offset-lg-2 col-lg-8 text-center">
             			<h2>주문이 완료되었습니다.</h2>
             		</div>
             	</div>
             	<div class="row">
-            		<input type="text" name="goodsRefurbCode">
-            		<div class="offset-lg-2 col-lg-8 offset-lg-2">
+            		<div class="offset-lg-2 col-lg-8">
             			<div class="shoping__cart__table">
 	                        <table>
 	                            <thead>
@@ -53,18 +52,21 @@
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <tr th:if="${not #lists.isEmpty(userAfterPayment)" th:each="l : ${userAfterPayment}">
+	                                <tr>
 	                                    <td class="shoping__cart__item">
-	                                        <h5 th:text="${l.goods.goodsRefurbName}"></h5>
+	                                        <h5>[[${userAfterPayment.goods.goodsRefurbName}]]</h5>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                    	<p th:text="${l.good.goodsRefurbPrice}"></p>
+	                                    	<p></p>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                      	<p th:text="${l.beforeGoodsCount}"></p>
+	                                    	<p></p>
+	                                    </td>
+	                                    <td class="shoping__cart__price">
+	                                      	<p></p>
 	                                    </td>
 	                                    <td class="shoping__cart__total">
-	                                        <p th:text="${l.beforeMidSumCode}"></p>
+	                                        <p></p>
 	                                    </td>
 	                                    <td class="shoping__cart__item__close">
 	                                        <span class="icon_close"></span>
@@ -76,7 +78,7 @@
             		</div>
             	</div>
             	<div class="row">
-				    <div class="offset-lg-2 col-lg-8 offset-lg-2">
+				    <div class="offset-lg-2 col-lg-8">
 				        <div class="checkout__input">
 				            <p>입금계좌</p>
 				            <input type="text" class="myAccountInfo" value="국민은행/949002-00-038982  (예금주:이재훈)" disabled="disabled">
