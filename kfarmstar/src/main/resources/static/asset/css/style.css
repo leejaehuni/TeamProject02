@@ -26,15 +26,31 @@
 10.  Footer Style
 -------------------------------------------------------------------*/
 
+/* 메인페이지 폰트 변경 LJS */
 	@font-face {
-	    font-family: 'Eoe_Zno_M';
-	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_M.woff') format('woff');
+	    font-family: 'ONE-Mobile-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Regular.woff') format('woff');
 	    font-weight: normal;
 	    font-style: normal;
 	}
 
-	*{font-family:'Eoe_Zno_M';}
-
+	 *{font-family:'ONE-Mobile-Regular';} 
+	
+/* headermenu hover 적용 LJS */
+	.hero__categories ul li:hover>a {
+		color: #7fad39;
+	}
+	
+	.hero__categories ul li a{
+		color: #252525;
+		text-transform: uppercase;
+		-webkit-transition: all, 0.3s;
+		-moz-transition: all, 0.3s;
+		-ms-transition: all, 0.3s;
+		-o-transition: all, 0.3s;
+		transition: all, 0.3s;
+		display: block;
+	}
 
 /*----------------------------------------*/
 /* Template default CSS

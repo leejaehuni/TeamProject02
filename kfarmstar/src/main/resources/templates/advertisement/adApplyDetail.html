@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
+	
 	<!-- 사용자 정의 title -->
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
@@ -9,18 +10,12 @@
 	
 	<!-- 사용자 정의 Css -->
 	<th:block layout:fragment="customCss">
-		<!-- iCheck -->
-		<link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
 		<!-- bootstrap-daterangepicker -->
 		<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 	</th:block>
 	
 	<!-- 사용자 정의 JsScript 파일-->
 	<th:block layout:fragment="customJsScript">
-		<!-- bootstrap-progressbar -->
-		<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
-		<!-- iCheck -->
-		<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
 		<!-- bootstrap-daterangepicker -->
 		<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 		<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
@@ -42,7 +37,6 @@
 					$('#saveButton').removeAttr( "hidden" );
 					$(this).attr("hidden",true);
 				});
-			
 			
 			
 				// 광고 가격 계산 (광고기간 * 카테고리별 가격)
@@ -104,9 +98,7 @@
 		<div class="col-md-8 col-sm-8 offset-md-2">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>
-						광고 신청 상세 페이지<small>Ad Apply Detail</small>
-					</h2>
+					<h2>광고 신청 상세 페이지<small>Ad Apply Detail</small></h2>
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
@@ -232,12 +224,7 @@
 														th:value="${grade.sellerGrade.sellerAdDiscount}"  readonly="readonly">
 											</div>
 										</div>
-									
-									
-									
-									
-									
-									
+
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
 												<label class="control-label" for="adCate">광고 종류</label>
@@ -292,13 +279,22 @@
 											<div class="col-md-2 col-sm-2">
 												<label class="control-label" for="adImg">광고 사진</label>
 											</div>
-											<div class="col-md-3 col-sm-3">
+											<div class="col-lg-8 col-md-8" th:if="${not #lists.isEmpty(adApply.fileList)}" th:each="l : ${adApply.fileList}">
+												<img th:src="@{${ '/' + #strings.replace(l.filePath, '\', '/')}}" class="img-fluid"/> 
+											</div>
+											
+											<div class="col-lg-8 col-md-8" th:unless="${not #lists.isEmpty(adApply.fileList)}">
+												<img th:src="@{/asset/img/noImage.jpg}" class="img-fluid"/> 
+											</div>
+											
+											
+											<!-- <div class="col-md-3 col-sm-3">
 												<img th:src="@{/img/exOrange.jpg}" class="img-fluid"
 													alt="Responsive image" name="adImg" th:value="${adApply.adImg}">
 											</div>
 											<div class="col-md-5 col-sm-5">
 												<input type="file">
-											</div>
+											</div> -->
 										</div>
 									</td>
 								</tr>

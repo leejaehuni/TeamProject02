@@ -6,7 +6,6 @@
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
 	</th:block>
-/*깃허브수정*/	
 	<th:block layout:fragment="customCss">
 	</th:block>
 	
@@ -73,7 +72,7 @@
 	        <div class="container">
 	        
 	            <div class="row">
-					<div class="col-lg-6 col-md-6" th:if="${not #strings.isEmpty(goods.fileList)}">
+					<div class="col-lg-6 col-md-6" th:if="${not #lists.isEmpty(goods.fileList)}">
 						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="carousel-item active" th:if="${index.index==0}" th:each="l,index: ${goods.fileList}" >
@@ -92,6 +91,9 @@
 							</a>
 						</div>
 					</div>
+	                <div class="col-lg-6 col-md-6" th:unless="${not #lists.isEmpty(goods.fileList)}">
+						<img class="d-block w-100" th:src="@{/asset/img/noImage.jpg}">
+	                </div>
 	                
 	                <div class="col-lg-6 col-md-6">
 						<form id="goodsForm" th:action="@{/userPayment/userBeforePayment}" method="get">
@@ -162,7 +164,7 @@
 	                        </ul>
 	                        <div class="tab-content">
 	                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-	                                <div class="product__details__tab__desc">
+	                                <div class="product__details__tab__desc" style="white-space:pre-line;">
 	                                    <h6>상세 설명</h6>
 	                                    <p th:text="${goods.goodsPostExplain}"></p>
 	                                </div>
