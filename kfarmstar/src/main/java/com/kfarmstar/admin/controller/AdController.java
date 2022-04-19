@@ -20,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kfarmstar.admin.service.AdService;
 import com.kfarmstar.dto.AdApply;
+import com.kfarmstar.dto.AdPayType;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.AfterAdPay;
 import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
@@ -273,15 +275,46 @@ public class AdController {
 								, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
 		String sessionLevel = (String) session.getAttribute("SLEVEL");
 		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
+		String adPaymentCode = adService.getPayCodeByApplyCode(adApplyCode);
+		
 		model.addAttribute("title", "FoodRefurb : 광고 결제");
 		model.addAttribute("titleName", "광고 결제");
 		model.addAttribute("adApply", adApply);
 		model.addAttribute("sessionLevel", sessionLevel);
+		model.addAttribute("adPaymentCode", adPaymentCode);
 		
 		return "advertisement/addAdPayment";
 	}
 	
 	
+	/****************************************** 작업중 *********************************************/
+	
+	/**
+	 * 광고 결제 처리
+	 */
+	@PostMapping("/addAdPayment")
+	public String addAdPayment(HttpSession session
+							 , AfterAdPay afterAdPay
+							 , AdPayType adPayType) {
+		log.info("광고 결제 처리");
+		log.info("확인코드 : {}" + afterAdPay);
+		String sessionId = (String) session.getAttribute("SID");
+		adService.addAdPayment(sessionId, afterAdPay, adPayType);
+		
+		
+		return "redirect:/advertisement/adApplyList";
+		
+	}
+	
+	
+	
+	
+	/**
+	 * 광고 결제후상세 페이지
+	 * @param model
+	 * @param adApplyCode
+	 * @return
+	 */
 	@GetMapping("/adPaymentDetail")
 	public String adPaymentDetail(Model model
 			, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {

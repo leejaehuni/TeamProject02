@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.kfarmstar.dto.AdApply;
+import com.kfarmstar.dto.AdPayType;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.AfterAdPay;
 import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
@@ -43,14 +45,28 @@ public interface AdMapper {
 	// 광고 단가 등록
 	public int addAdPrice(AdPrice adPrice);
 	
-	// 광고 단가 등록
-	public int addBeforeAdPay(BeforeAdPay beforeAdPay);
 	
-	// 광고 승인 
+	// 진행상태 : (광고승인) 광고 결제전 처리
 	public int adApproveUpdate(AdApply adApply);
 
-	// 광고 승인 취소
+	// 진행상태 : 광고 승인 취소
 	public int adApproveCancle(AdApply adApply);
+	
+	// 진행상태 : 광고 결제완료 처리
+	public int adPayComplete(AdApply adApply);
+	
+	// 광고 승인 후 결제 전 테이블에 정보 등록
+	public int addBeforeAdPay(BeforeAdPay beforeAdPay);
+
+	// 광고 결제 처리
+	public int addAfterAdPay(AfterAdPay afterAdPay);
+	
+	// 광고 결제 타입 등록 처리
+	public int addAdPayType(AdPayType adPayType);
+	
+	
+	// 광고 신청번호에 따른 ad_payment_code 조회
+	public String getPayCodeByApplyCode(String adApplyCode);
 	
 
 }

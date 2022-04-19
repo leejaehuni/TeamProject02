@@ -79,7 +79,42 @@
 	</resultMap>
 
 	<resultMap type="BeforeAdPay" id="beforeAdPayResultMap">
-			<result column="ad_payment_code" 		property="adPaymentCode"/>
+		<result column="ad_payment_code" 		property="adPaymentCode"/>
+		<result column="ad_price_code" 			property="adPriceCode"/>
+		<result column="ad_apply_code" 			property="adApplyCode"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="seller_grade_num"		property="sellerGradeNum"/>
+		<result column="ad_payment_price" 		property="adPaymentPrice"/>
+		<result column="ad_discount" 			property="adDiscount"/>
+		<result column="ad_contract_price" 		property="adContractPrice"/>
+		<result column="manager_id" 			property="managerId"/>
+		<result column="permit_date" 			property="permitDate"/>
+		<association property="adApply" 	javaType="AdApply">
+			<id 	column="ad_apply_code" 		property="adApplyCode"/>
+			<result column="ad_cate" 			property="adCate"/>
+			<result column="seller_grade_num" 	property="sellerGradeNum"/>
+		</association>
+		<association property="member" 	javaType="Member">
+			<id 	column="m_id" 			property="memberId"/>
+			<result column="m_name" 		property="memberName"/>
+			<result column="m_level" 		property="memberLevel"/>
+			<result column="m_pw" 			property="memberPw"/>
+		</association>
+	</resultMap>
+
+	<resultMap type="AfterAdPay" id="afterAdPayResultMap">
+		<result column="ad_pay_complete_code" 	property="adPayCompleteCode"/>
+		<result column="ad_payment_code" 		property="adPaymentCode"/>
+		<result column="ad_apply_code" 			property="adApplyCode"/>
+		<result column="ad_pay_type_code" 		property="adPayTypeCode"/>
+		<result column="ad_cate" 				property="adCate"/>
+		<result column="ad_contract_term" 		property="adContractTerm"/>
+		<result column="ad_start_date" 			property="adStartDate"/>
+		<result column="ad_end_date" 			property="adEndDate"/>
+		<result column="ad_contract_price" 		property="adContractPrice"/>
+		<result column="ad_pay_time" 			property="adPayTime"/>
+		<association property="beforeAdPay" 	javaType="BeforeAdPay">
+			<id column="ad_payment_code" 			property="adPaymentCode"/>
 			<result column="ad_price_code" 			property="adPriceCode"/>
 			<result column="ad_apply_code" 			property="adApplyCode"/>
 			<result column="member_id" 				property="memberId"/>
@@ -89,21 +124,56 @@
 			<result column="ad_contract_price" 		property="adContractPrice"/>
 			<result column="manager_id" 			property="managerId"/>
 			<result column="permit_date" 			property="permitDate"/>
-			<association property="adApply" 	javaType="AdApply">
-				<id 	column="ad_apply_code" 		property="adApplyCode"/>
-				<result column="ad_cate" 			property="adCate"/>
-				<result column="seller_grade_num" 	property="sellerGradeNum"/>
-			</association>
-			<association property="member" 	javaType="Member">
-				<id 	column="m_id" 			property="memberId"/>
-				<result column="m_name" 		property="memberName"/>
-				<result column="m_level" 		property="memberLevel"/>
-				<result column="m_pw" 			property="memberPw"/>
-			</association>
-		</resultMap>
+		</association>
+		<association property="adApply" 	javaType="AdApply">
+			<id 	column="ad_apply_code" 		property="adApplyCode"/>
+			<result column="ad_price_code" 		property="adPriceCode"/>
+			<result column="member_id" 			property="memberId"/>
+			<result column="seller_grade_num" 	property="sellerGradeNum"/>
+			<result column="ad_apply_title" 	property="adApplyTitle"/>
+			<result column="ad_cate" 			property="adCate"/>
+			<result column="ad_contract_price"	property="adContractPrice"/>
+			<result column="ad_apply_date" 		property="adApplyDate"/>
+			<result column="ad_start_date"	 	property="adStartDate"/>
+			<result column="ad_end_date" 		property="adEndDate"/>
+			<result column="ad_contract_term" 	property="adContractTerm"/>
+			<result column="ad_goods_url" 		property="adGoodsUrl"/>
+			<result column="ad_content" 		property="adContent"/>
+			<result column="ad_img" 			property="adImg"/>
+			<result column="ad_permit_state" 	property="adPermitState"/>
+			<result column="manager_id" 		property="managerId"/>
+			<result column="ad_permit_date" 	property="adPermitDate"/>
+		</association>
+		<association property="adPayType" 	javaType="AdPayType">
+			<id 	column="ad_pay_type_code" 		property="adPayTypeCode"/>
+			<result column="member_id" 				property="memberId"/>
+			<result column="ad_pay_option" 			property="adPayOption"/>
+			<result column="ad_pay_card_type" 		property="adPayCardType"/>
+			<result column="ad_pay_card_num" 		property="adPayCardNum"/>
+			<result column="ad_pay_account_type" 	property="adPayAccountType"/>
+			<result column="ad_pay_account_num" 	property="adPayAccountNum"/>
+			<result column="ad_pay_phone_carrier" 	property="adPayPhoneCarrier"/>
+			<result column="ad_pay_phone_num" 		property="adPayPhoneNum"/>
+		</association>
+	</resultMap>
 
-
-
+	<resultMap type="AdPayType" id="adPayTypeResultMap">
+		<result	column="ad_pay_type_code" 		property="adPayTypeCode"/>
+		<result column="member_id" 				property="memberId"/>
+		<result column="ad_pay_option" 			property="adPayOption"/>
+		<result column="ad_pay_card_type" 		property="adPayCardType"/>
+		<result column="ad_pay_card_num" 		property="adPayCardNum"/>
+		<result column="ad_pay_account_type" 	property="adPayAccountType"/>
+		<result column="ad_pay_account_num" 	property="adPayAccountNum"/>
+		<result column="ad_pay_phone_carrier" 	property="adPayPhoneCarrier"/>
+		<result column="ad_pay_phone_num" 		property="adPayPhoneNum"/>
+		<association property="member" 	javaType="Member">
+			<id 	column="m_id" 			property="memberId"/>
+			<result column="m_name" 		property="memberName"/>
+			<result column="m_level" 		property="memberLevel"/>
+			<result column="m_pw" 			property="memberPw"/>
+		</association>
+	</resultMap>
 
 	<select id="getAdBenefitByGrade" parameterType="String" resultMap="gradeMap">
 		/* 회원 아이디에 따른 등급별 혜택 조회 */
@@ -122,9 +192,70 @@
 	</select>
 	
 	
+	<insert id="addAfterAdPay" parameterType="AfterAdPay">
+		/* 광고 결제시 결제후 테이블에 정보 등록 */
+		INSERT INTO after_ad_payment
+			(ad_pay_complete_code
+			, ad_payment_code
+			, ad_apply_code
+			, ad_pay_type_code
+			, ad_cate
+			, ad_contract_term
+			, ad_start_date
+			, ad_end_date
+			, ad_contract_price
+			, ad_pay_time
+			) VALUES ( #{adPayCompleteCode}
+						, #{adPaymentCode}
+						, #{adApplyCode}
+						, #{adPayTypeCode}
+						, #{adCate}
+						, #{adContractTerm}
+						, #{adStartDate}
+						, #{adEndDate}
+						, #{adContractPrice}
+						, CURDATE());
+	</insert>
+	
+	
+	<insert id="addAdPayType" parameterType="AdPayType">
+		/* 광고 결제시 결제 정보 테이블에 정보 등록 */
+		INSERT INTO ad_pay_type
+			(ad_pay_type_code
+			, member_id
+			, ad_pay_option
+			, ad_pay_card_type
+			, ad_pay_card_num
+			, ad_pay_account_type
+			, ad_pay_account_num
+			, ad_pay_phone_carrier
+			, ad_pay_phone_num
+				) VALUES ( #{adPayTypeCode}
+							, #{memberId}
+							, #{adPayOption}
+							, #{adPayCardType}
+							, #{adPayCardNum}
+							, #{adPayAccountType}
+							, #{adPayAccountNum}
+							, #{adPayPhoneCarrier}
+							, #{adPayPhoneNum});
+		
+	</insert>
+	
+	<select id="getPayCodeByApplyCode" resultType="String" parameterType="String">
+		/* 광고 신청 번호에따른 before_ad_payment 코드 조회 */
+		SELECT 
+		  b.ad_payment_code
+	
+		FROM before_ad_payment AS b
+		WHERE 
+			b.ad_apply_code = #{adApplyCode}; 
+	</select>
+	
+	
 	<insert id="addBeforeAdPay" parameterType="BeforeAdPay">
-		INSERT INTO 
 			/* 광고 승인버튼 클릭시 결제전 테이블에 정보 등록 */
+		INSERT INTO 
 			before_ad_payment
 			(ad_payment_code
 			, ad_price_code
@@ -145,10 +276,8 @@
 					, #{adDiscount}
 					, #{adContractPrice}
 					, #{managerId}
-					, CURDATE());
+					, NOW());
 	</insert>
-	
-	
 	
 	<update id="adApproveUpdate" parameterType="AdApply">
 		/* 광고 승인버튼 클릭시 진행 상태가 결제전 으로 변경 */
@@ -167,6 +296,15 @@
 			ad_permit_state= '광고불가'
 			, manager_id = #{managerId}
 			, ad_permit_date = CURDATE()
+		WHERE ad_apply_code= #{adApplyCode};
+	</update>
+	
+	<update id="adPayComplete" parameterType="AdApply">
+		/* 광고 결제시 진행 상태가 결제완료 로 변경 */
+		UPDATE ad_apply_permit
+		SET
+			ad_permit_state= '결제완료'
+			, manager_id = #{managerId}
 		WHERE ad_apply_code= #{adApplyCode};
 	</update>
 	

@@ -11,10 +11,13 @@ public class AfterAdPay {
 	private String adStartDate;
 	private String adEndDate;
 	private String adContractPrice;
+	private String adPayTime;
 	
 	private BeforeAdPay beforeAdPay;
 	private AdApply adApply;
 	private AdPayType adPayType;
+	
+	
 	public String getAdPayCompleteCode() {
 		return adPayCompleteCode;
 	}
@@ -69,6 +72,12 @@ public class AfterAdPay {
 	public void setAdContractPrice(String adContractPrice) {
 		this.adContractPrice = adContractPrice;
 	}
+	public String getAdPayTime() {
+		return adPayTime;
+	}
+	public void setAdPayTime(String adPayTime) {
+		this.adPayTime = adPayTime;
+	}
 	public BeforeAdPay getBeforeAdPay() {
 		return beforeAdPay;
 	}
@@ -89,11 +98,35 @@ public class AfterAdPay {
 	}
 	@Override
 	public String toString() {
-		return "AfterAdPay [adPayCompleteCode=" + adPayCompleteCode + ", adPaymentCode=" + adPaymentCode
-				+ ", adApplyCode=" + adApplyCode + ", adPayTypeCode=" + adPayTypeCode + ", adCate=" + adCate
-				+ ", adContractTerm=" + adContractTerm + ", adStartDate=" + adStartDate + ", adEndDate=" + adEndDate
-				+ ", adContractPrice=" + adContractPrice + ", beforeAdPay=" + beforeAdPay + ", adApply=" + adApply
-				+ ", adPayType=" + adPayType + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("AfterAdPay [adPayCompleteCode=");
+		builder.append(adPayCompleteCode);
+		builder.append(", adPaymentCode=");
+		builder.append(adPaymentCode);
+		builder.append(", adApplyCode=");
+		builder.append(adApplyCode);
+		builder.append(", adPayTypeCode=");
+		builder.append(adPayTypeCode);
+		builder.append(", adCate=");
+		builder.append(adCate);
+		builder.append(", adContractTerm=");
+		builder.append(adContractTerm);
+		builder.append(", adStartDate=");
+		builder.append(adStartDate);
+		builder.append(", adEndDate=");
+		builder.append(adEndDate);
+		builder.append(", adContractPrice=");
+		builder.append(adContractPrice);
+		builder.append(", adPayTime=");
+		builder.append(adPayTime);
+		builder.append(", beforeAdPay=");
+		builder.append(beforeAdPay);
+		builder.append(", adApply=");
+		builder.append(adApply);
+		builder.append(", adPayType=");
+		builder.append(adPayType);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 	
