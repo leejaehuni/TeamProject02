@@ -2,6 +2,7 @@ package com.kfarmstar.user.service;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,8 @@ public class UserGoodsService {
 		return userMainGoodsList;
 	}
 	// 사용자 화면 - 상품 전체 목록 조회
-	public List<Goods> getUserGoodsList() {
-		List<Goods> userGoodsList = userGoodsMapper.getUserGoodsList();
+	public List<Goods> getUserGoodsList(Map<String, Object> paramMap) {
+		List<Goods> userGoodsList = userGoodsMapper.getUserGoodsList(paramMap);
 		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		for(int i=0; i<userGoodsList.size(); i++) {
@@ -68,17 +69,15 @@ public class UserGoodsService {
 	public Goods getUserGoodsByCode(String goodsRefurbCode) {
 		Goods goods = userGoodsMapper.getUserGoodsByCode(goodsRefurbCode);
 		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'
-		/*
-		 * NumberFormat numberFormat = NumberFormat.getInstance(); int refurbPrice =
-		 * Integer.parseInt(goods.getGoodsRefurbPrice()); int normalPrice =
-		 * Integer.parseInt(goods.getGoodsNormalPrice());
-		 * 
-		 * String refurbResult = numberFormat.format(refurbPrice); String nomalResult =
-		 * numberFormat.format(normalPrice);
-		 * 
-		 * goods.setGoodsRefurbPrice(refurbResult + " 원");
-		 * goods.setGoodsNormalPrice(nomalResult + " 원");
-		 */
+		NumberFormat numberFormat = NumberFormat.getInstance();
+		int refurbPrice = Integer.parseInt(goods.getGoodsRefurbPrice());
+        int normalPrice = Integer.parseInt(goods.getGoodsNormalPrice());
+        	
+        String refurbResult = numberFormat.format(refurbPrice);
+        String nomalResult = numberFormat.format(normalPrice);
+        
+        goods.setGoodsRefurbPrice(refurbResult + " 원");
+        goods.setGoodsNormalPrice(nomalResult + " 원");
 		
         //배송비 표시 : 세자리 마다 쉼표 찍어주고 + '원'+ 0원이면 무료배송
         String goodsDeliveryCharge = goods.getGoodsDeliveryCharge();
@@ -86,12 +85,10 @@ public class UserGoodsService {
         	goodsDeliveryCharge = "무료배송";
         	goods.setGoodsDeliveryCharge(goodsDeliveryCharge);
 		}else {
-			/*
-			 * int goodsDeliveryFee = Integer.parseInt(goodsDeliveryCharge); String
-			 * deliveryChargeResult = numberFormat.format(goodsDeliveryFee);
-			 * deliveryChargeResult = deliveryChargeResult + " 원";
-			 * goods.setGoodsDeliveryCharge(deliveryChargeResult);
-			 */
+			int goodsDeliveryFee = Integer.parseInt(goodsDeliveryCharge);
+			String deliveryChargeResult = numberFormat.format(goodsDeliveryFee);
+			deliveryChargeResult = deliveryChargeResult + " 원";
+			goods.setGoodsDeliveryCharge(deliveryChargeResult);
 		}
         
         log.info("goods {}", goods);

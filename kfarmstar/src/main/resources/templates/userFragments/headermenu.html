@@ -15,29 +15,30 @@
                             <span>상품 카테고리</span>
                         </div>
                         <ul>
-                            <li><a th:href="@{#}">Fresh Meat</a></li>
-                            <li><a th:href="@{#}">Vegetables</a></li>
-                            <li><a th:href="@{#}">Fruit & Nut Gifts</a></li>
-                            <li><a th:href="@{#}">Fresh Berries</a></li>
-                            <li><a th:href="@{#}">Ocean Foods</a></li>
-                            <li><a th:href="@{#}">Butter & Eggs</a></li>
-                            <li><a th:href="@{#}">Fastfood</a></li>
-                            <li><a th:href="@{#}">Fresh Onion</a></li>
-                            <li><a th:href="@{#}">Papayaya & Crisps</a></li>
-                            <li><a th:href="@{#}">Oatmeal</a></li>
-                            <li><a th:href="@{#}">Fresh Bananas</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_1')}">고구마 / 감자 / 당근</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_2')}">양파 / 파 / 마늘 / 생강</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_3')}">배추 / 무 / 김장채소</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_4')}">오이 / 호박 / 고추</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_5')}">상추 / 깻잎 / 쌈채소 / 나물</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_9')}">기타 채소	</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_10')}">사과 / 배 / 토마토</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_11')}">수박 / 참외 / 메론 / 파인애플</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_12')}">귤 / 오렌지 / 레몬 / 자몽</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_13')}">딸기 / 키위 / 바나나</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_16')}">망고 / 열대과일</a></li>
+                            <li><a th:href="@{/userGoods/userGoodsList(searchCate='goods_large_cate_18')}">기타 과일</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form th:action="@{/userGoods/userGoodsList}" method="get">
                                 <div class="hero__search__categories">
                                     	전체 카테고리
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="상품명을 검색하세요">
+                                <input type="text" name="searchValue" placeholder="상품명을 검색하세요">
                                 <button type="submit" class="site-btn">검색</button>
                             </form>
                         </div>

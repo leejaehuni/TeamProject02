@@ -3,6 +3,8 @@ package com.kfarmstar.admin.service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -12,13 +14,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kfarmstar.admin.mapper.AdMapper;
 import com.kfarmstar.admin.mapper.CommonMapper;
+import com.kfarmstar.admin.mapper.FileMapper;
 import com.kfarmstar.dto.AdApply;
 import com.kfarmstar.dto.AdPrice;
 import com.kfarmstar.dto.BeforeAdPay;
+import com.kfarmstar.dto.FileDto;
 import com.kfarmstar.dto.Grade;
+import com.kfarmstar.util.FileUtil;
 
 @Service
 @Transactional
@@ -28,11 +34,15 @@ public class AdService {
 
 	private AdMapper adMapper;
 	private CommonMapper commonMapper;
+	private FileUtil fileUtil;
+	private FileMapper fileMapper;
 	
 	@Autowired
-	public AdService(AdMapper adMapper, CommonMapper commonMapper) {
+	public AdService(AdMapper adMapper, CommonMapper commonMapper, FileUtil fileUtil, FileMapper fileMapper) {
 		this.adMapper = adMapper;
 		this.commonMapper = commonMapper;
+		this.fileUtil = fileUtil;
+		this.fileMapper = fileMapper;
 	}
 	
 	
@@ -49,12 +59,29 @@ public class AdService {
 	/**
 	 * 광고 신청 등록 처리
 	 */
-	public int addAdApply(AdApply adApply, String sessionId) {
+	public int addAdApply(AdApply adApply, String sessionId, MultipartFile[] fileImage, String fileRealPath) {
 		
 		// ad_apply_code 자동 생성 (ad_apply_permit 테이블 등록)
 		String adApplyCode = commonMapper.getNewCode("ad_apply_code", "ad_apply_permit");
 		adApply.setAdApplyCode(adApplyCode);
 		adApply.setMemberId(sessionId);	// 로그인한 세션아이디로 광고 신청 아이디값 넣어주기
+		
+		List<FileDto> fileList = fileUtil.parseFileInfo(fileImage, fileRealPath);
+		
+		fileMapper.addFiles(fileList);
+		
+		List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
+		
+		Map<String, String> paramMap = null;
+		
+		for(FileDto fileDto : fileList) {
+			paramMap = new HashMap<String,String>();
+			paramMap.put("referenceCode", adApplyCode);
+			paramMap.put("fileIdx", fileDto.getFileIdx());
+			paramList.add(paramMap);
+		}
+		
+		fileMapper.addFilesContol(paramList);
 		
 		return adMapper.addAdApply(adApply);
 	}

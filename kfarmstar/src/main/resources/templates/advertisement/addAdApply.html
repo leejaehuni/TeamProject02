@@ -22,22 +22,20 @@
 	
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
-	
 		<script>
         $(function() {
         	
         	// 광고 가격 계산 (광고기간 * 카테고리별 가격)
 			$('#adSelect, #adStartDate, #adEndDate').on('change', function(e) {
-				var adSelect = $('#adSelect').val();
-				var adSelect = $('#adSelect').val();
-				var adStartDate = $('#adStartDate').val();
-				var adEndDate = $('#adEndDate').val();
-				var sellerAdDiscount = $('#sellerAdDiscount').val();		//판매자 등급별 할인율
-				var adFinalPrice = $('#adFinalPrice');						//할인 후 최종 금액
-				var adContractTerm = $('#adContractTerm');					//광고계약기간
-				var adCategory = $('#adCategory');							//광고 카테고리
-				var adOriginPrice = $('#adOriginPrice');					//광고 원가격
-				var adDiscount = $('#adDiscount');							//광고 할인가격
+				var adSelect 			= $('#adSelect').val();
+				var adStartDate 		= $('#adStartDate').val();
+				var adEndDate 			= $('#adEndDate').val();
+				var sellerAdDiscount 	= $('#sellerAdDiscount').val();			//판매자 등급별 할인율
+				var adFinalPrice 		= $('#adFinalPrice');					//할인 후 최종 금액
+				var adContractTerm 		= $('#adContractTerm');					//광고계약기간
+				var adCategory 			= $('#adCategory');						//광고 카테고리
+				var adOriginPrice 		= $('#adOriginPrice');					//광고 원가격
+				var adDiscount 			= $('#adDiscount');						//광고 할인가격
 					console.log(adSelect);
 					console.log(adStartDate);
 					console.log(adEndDate);
@@ -73,7 +71,93 @@
 					}); 
 				}
 			});
+        	
+        	
+			var sessionLevel = '[[${session.SLEVEL}]]';
+
+			$('#addAdApplyBtn').click(function(){
+				
+				/* 판매자만 광고 신청을 등록할 수 있게 처리 */
+				
+				if(sessionLevel != '판매자'){
+					alert('판매자만 광고 신청이 가능합니다')
+					return false;
+				}
+			
+				/* 유효성 검사 */
+				var isSubmit = true;
+				 
+				
+				
+				if(isSubmit){
+					if($("#adApplyTitle").val() == ""){
+					    alert("제목을 입력해주세요.");
+					    $("#adApplyTitle").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+				
+				if(isSubmit){
+					if($("#adStartDate").val() == ""){
+					    alert("광고 시작 날짜를 입력해주세요.");
+					    $("#adStartDate").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+				
+				if(isSubmit){
+					if($("#adEndDate").val() == ""){
+					    alert("광고 종료 날짜를 입력해주세요.");
+					    $("#adEndDate").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+				
+				if(isSubmit){
+					if($("#adSelect").val() == ""){
+					    alert("광고 종류를 선택해주세요.");
+					    $("#adSelect").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+					
+				if(isSubmit){
+					if($("#adGoodsUrl").val() == ""){
+					    alert("상품 주소를 입력해주세요.");
+					    $("#adGoodsUrl").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+				
+				if(isSubmit){
+					if($("#adContent").val() == ""){
+					    alert("광고 내용을 입력해주세요.");
+					    $("#adContent").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+				if(isSubmit){
+					if($("#adImg").val() == ""){
+					    alert("광고 사진을 첨부해주세요.");
+					    $("#adImg").focus();
+					    isSubmit = false;
+					    return false;
+					}
+				}
+
+				if(isSubmit) $('#addAdApplyForm').submit();
+				
+			});
+        	
         });
+        
+        
     	</script>
 
 	</th:block>
@@ -90,7 +174,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-					<form class="form-horizontal form-label-left pt-3" th:action="@{/advertisement/addAdApply}" method="post">
+					<form id="addAdApplyForm" class="form-horizontal form-label-left pt-3" th:action="@{/advertisement/addAdApply}" method="post" enctype="multipart/form-data">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -107,7 +191,7 @@
 												<label class="control-label" for="adApplyTitle">게시글 제목</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" placeholder="Title" name="adApplyTitle">
+												<input type="text" class="form-control" placeholder="Title" name="adApplyTitle" id="adApplyTitle">
 											</div>
 										</div>
 									</td>
@@ -194,7 +278,7 @@
 											</div>
 											<div class="col-md-3 col-sm-3">
 												<input type="text" class="form-control" name="sellerAdDiscount" id="sellerAdDiscount"
-												th:value="${g.sellerGrade.sellerAdDiscount}" readonly="readonly">
+														th:value="${g.sellerGrade.sellerAdDiscount}" readonly="readonly">
 											</div>
 										</div>
 										
@@ -212,7 +296,6 @@
 												<input type="text" class="form-control" name="sellerAdDiscount" id="sellerAdDiscount" readonly="readonly">
 											</div>
 										</div>
-									
 									
 									
 										<div class="form-group row">
@@ -242,18 +325,18 @@
 												<label class="control-label" for="adGoodsUrl">광고 상품 주소</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" placeholder="Ad Goods Url" name="adGoodsUrl">
+												<input type="text" class="form-control" placeholder="Ad Goods Url" name="adGoodsUrl" id="adGoodsUrl">
 											</div>
 										</div>
 										
 	
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adContents">광고 내용 
+												<label class="control-label" for="adContent">광고 내용 
 												</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-												<textarea class="form-control" rows="3" placeholder="Ad Content" name="adContent"></textarea>
+												<textarea class="form-control" rows="3" placeholder="Ad Content" name="adContent" id="adContent"></textarea>
 											</div>
 										</div>
 	
@@ -266,11 +349,8 @@
 											<div class="col-md-2 col-sm-2">
 												<label class="control-label">광고 사진</label>
 											</div>
-											<div class="col-md-3 col-sm-3">
-												<img th:src="@{/img/exOrange.jpg}" class="img-fluid" alt="Responsive image">
-											</div>
 											<div class="col-md-5 col-sm-5 ">
-												<input type="file">
+												<input type="file" multiple="multiple" name="fileImage" id="adImg">
 											</div>
 										</div>
 									</td>
@@ -279,10 +359,10 @@
 						</table>
 						<div class="ln_solid"></div>
 						<div class="form-group">
-							<div class="col-md-8 col-sm-8  offset-md-4">
-								<button type="button" class="btn btn-primary">취소</button>
+							<div class="col text-center">
+								<button type="button" class="btn btn-primary" onclick="history.back(-1)">취소</button>
 								<button type="reset" class="btn btn-info">초기화</button>
-								<button type="submit" class="btn btn-success">등록</button>
+								<button type="button" class="btn btn-success" id="addAdApplyBtn">등록</button>
 							</div>
 						</div>
 	

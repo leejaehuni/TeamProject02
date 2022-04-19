@@ -51,6 +51,13 @@
 			<result column="m_level" 	property="memberLevel"/>
 			<result column="m_pw" 		property="memberPw"/>
 		</association>
+		<collection property="fileList" javaType="java.util.List" ofType="FileDto">
+			<id 	column="file_idx" 			property="fileIdx"/>
+			<result column="file_original_name" property="fileOriginalName"/>
+			<result column="file_new_name" 		property="fileNewName"/>
+			<result column="file_path" 			property="filePath"/>
+			<result column="file_size" 			property="fileSize"/>
+		</collection>
 	</resultMap>
 
 	
@@ -279,7 +286,17 @@
 			, a.ad_permit_state
 			, a.manager_id
 			, a.ad_permit_date
+			, f.file_idx
+			, f.file_path
 		FROM ad_apply_permit AS a
+			LEFT JOIN
+			tb_file_control AS fc
+			ON 
+			a.ad_apply_code = fc.reference_code
+			LEFT JOIN 
+			tb_file AS f
+			ON 
+			fc.file_idx = f.file_idx
 		WHERE a.ad_apply_code = #{adApplyCode};
 	</select>
 	

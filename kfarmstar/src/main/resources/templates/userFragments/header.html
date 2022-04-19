@@ -20,8 +20,8 @@
                                 <a th:href="@{https://twitter.com/?lang=ko}"><i class="fa fa-twitter"></i></a>
                                 <a th:href="@{https://www.instagram.com/}"><i class="fa fa-instagram"></i></a>
                             </div>
-                            <div class="header__top__right__language">
-                                	<a th:if="${session.SLEVEL == '관리자' || session.SLEVEL == '판매자'}" th:href="@{/}">관리 페이지</a>
+                            <div class="header__top__right__language" th:if="${session.SLEVEL == '관리자' || session.SLEVEL == '판매자'}">
+                                	<a  th:href="@{/}">관리 페이지</a>
                             </div>
                             <div class="header__top__right__auth">
                                 <a th:if="${session.SID == null}" th:href="@{/userMember/login}"><i class="fa fa-user"></i> 로그인</a>

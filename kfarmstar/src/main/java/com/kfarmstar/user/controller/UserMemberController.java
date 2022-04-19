@@ -101,7 +101,7 @@ public class UserMemberController {
 	public String login(Model model
 						,@RequestParam(value="result", required = false) String result) {
 		
-		model.addAttribute("title", "Foode Refurb : 로그인");
+		model.addAttribute("title", "Food Refurb : 로그인");
 		
 		if(result != null) model.addAttribute("result", result);
 		

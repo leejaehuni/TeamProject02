@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kfarmstar.admin.service.AdService;
 import com.kfarmstar.dto.AdApply;
@@ -22,7 +24,7 @@ import com.kfarmstar.dto.AdPrice;
 import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.Grade;
 
-/*깃허브수정*/
+
 @Controller
 @RequestMapping("/advertisement")
 public class AdController {
@@ -38,6 +40,7 @@ public class AdController {
 	
 	/**
 	 * 광고 가격 계산 Ajax
+	 * 광고 단가 코드별  상세 정보 조회
 	 * @param adPriceCode
 	 * @return
 	 */
@@ -45,7 +48,9 @@ public class AdController {
     @ResponseBody
     public AdPrice getAdPriceInfoByCode(@RequestParam(value = "adPriceCode") String adPriceCode) {
 		log.info("adPriceCode 광고번호 {}" + adPriceCode);
-        return adService.getAdPriceInfoByCode(adPriceCode);
+		AdPrice adPrice = adService.getAdPriceInfoByCode(adPriceCode);
+		
+        return adPrice;
     }
 	
 	
@@ -141,7 +146,6 @@ public class AdController {
 	
 	/**
 	 * 광고 신청 화면
-	 * @return
 	 */
 	@GetMapping("/addAdApply")
 	public String addAdApply(Model model, HttpSession session) {
@@ -161,17 +165,26 @@ public class AdController {
 	
 	/**
 	 * 광고 신청 처리
-	 * @param adApply
-	 * @param adApplyCode
-	 * @return
 	 */
 	@PostMapping("/addAdApply")
 	public String addAdApply(AdApply adApply
-							, HttpSession session) {
+							, HttpSession session
+							, @RequestParam MultipartFile[] fileImage
+							, HttpServletRequest request) {
 		
-		log.info("광고 단가 등록 폼 입력값: {}", adApply);
+		log.info("광고 신청 폼 입력값: {}", adApply);
 		String sessionId = (String) session.getAttribute("SID");
-		adService.addAdApply(adApply, sessionId);
+		
+		String serverName = request.getServerName();
+		String fileRealPath = "";
+		if("localhost".equals(serverName)) {				
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}else {
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
+		
+		adService.addAdApply(adApply, sessionId, fileImage, fileRealPath);
 		
 		return "redirect:/advertisement/adApplyList";
 		
@@ -270,9 +283,13 @@ public class AdController {
 	
 	
 	@GetMapping("/adPaymentDetail")
-	public String adPaymentDetail(Model model) {
+	public String adPaymentDetail(Model model
+			, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
+		
+		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 결제 상세 정보");
 		model.addAttribute("titleName", "광고 결제 상세 정보");
+		model.addAttribute("adApply", adApply);
 		
 		return "advertisement/adPaymentDetail";
 	}

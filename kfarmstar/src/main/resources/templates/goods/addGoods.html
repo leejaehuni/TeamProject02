@@ -89,7 +89,7 @@
 				
 			  
 				
-				/* 	유효성 검사 수정 필요! */
+				/* 유효성 검사 */
 				function validationCheck(data){
 					if(typeof data == 'undefined' || data == '' || data == null){
 						return false;
@@ -355,7 +355,7 @@
 						</table>
 						<div class="ln_solid"></div>
 						<div class="form-group">
-							<div class="col-md-8 col-sm-8  offset-md-5">
+							<div class="col text-center">
 								<a th:href="@{/goods/goodsList}"><button type="button" class="btn btn-primary">취소</button></a>
 								<button type="button" class="btn btn-success" id="addGoodsBtn">상품등록</button>
 							</div>

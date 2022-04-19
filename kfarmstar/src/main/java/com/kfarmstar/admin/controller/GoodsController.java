@@ -202,6 +202,7 @@ public class GoodsController {
 		List<GoodsLarge> largeCateList = goodsService.getLargeCateList();	// 대분류 카테고리 리스트
 		log.info("상품별 상세정보");
 		log.info("상품 폼 쿼리스트링 goods : {}", goods);
+		log.info("체크체크체크 : " + goods.getFileList());
 		
 		List<GoodsSmall> goodsSmallList = goodsMapper.getSmallCateList(goods.getGoodsLargeCate());
 		model.addAttribute("title", "FoodRefurb : 상품 정보");
