@@ -1,7 +1,9 @@
 package com.kfarmstar.user.controller;
 
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,14 +68,28 @@ public class UserGoodsController {
 	
 	
 	
+	/**
+	 * 사용자 화면 - 상품 목록 조회
+	 */
 	@GetMapping("/userGoodsList")
-	public String getUserGoodsList(Model model) {
+	public String getUserGoodsList(Model model
+								, @RequestParam(value="searchCate", required = false) String searchCate
+								, @RequestParam(value="searchValue", required = false) String searchValue) {
 		
-		List<Goods> goodsList = userGoodsService.getUserGoodsList();
-		model.addAttribute("title", "Food Refurb : 전체 상품");
+		log.info("상품 목록 요청");
+		log.info("searchCate:{}", searchCate);
+		log.info("searchValue:{}", searchValue);
+		Map<String, Object> paramMap = new HashMap<String , Object>();
+		
+		paramMap.put("searchCate", searchCate);
+		paramMap.put("searchValue", searchValue);
+		
+		List<Goods> goodsList = userGoodsService.getUserGoodsList(paramMap);
+		paramMap = null;
+		
+		model.addAttribute("title", "Food Refurb : 상품");
 		model.addAttribute("breadTitle", "Refurb Goods");
 		model.addAttribute("breadSubTitle", "Goods List");
-		
 		model.addAttribute("goodsList", goodsList);
 		
 		return "userGoods/userGoodsList";

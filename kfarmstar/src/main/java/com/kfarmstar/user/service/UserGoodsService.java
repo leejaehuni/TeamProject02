@@ -2,6 +2,7 @@ package com.kfarmstar.user.service;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,8 @@ public class UserGoodsService {
 		return userMainGoodsList;
 	}
 	// 사용자 화면 - 상품 전체 목록 조회
-	public List<Goods> getUserGoodsList() {
-		List<Goods> userGoodsList = userGoodsMapper.getUserGoodsList();
+	public List<Goods> getUserGoodsList(Map<String, Object> paramMap) {
+		List<Goods> userGoodsList = userGoodsMapper.getUserGoodsList(paramMap);
 		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'
 		NumberFormat numberFormat = NumberFormat.getInstance();
 		for(int i=0; i<userGoodsList.size(); i++) {
