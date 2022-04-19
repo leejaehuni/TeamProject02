@@ -1,12 +1,15 @@
 package com.kfarmstar.user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kfarmstar.admin.mapper.CommonMapper;
+import com.kfarmstar.dto.AfterPayment;
 import com.kfarmstar.dto.Basket;
 import com.kfarmstar.dto.BeforePayment;
 import com.kfarmstar.dto.Goods;
@@ -27,17 +30,18 @@ public class UserPaymentService {
 		this.commonMapper = commonMapper;
 	}
 	
-	public List<BeforePayment> afterPaymentInfoByCode(String sessionId, String goodsRefurbCode){
+	public List<AfterPayment> afterPaymentInfoByCode(String sessionId, String paymentCompleteCode){
 		
 		
-		return userPaymentMapper.afterPaymentInfoByCode(sessionId, goodsRefurbCode);
+		return userPaymentMapper.afterPaymentInfoByCode(sessionId, paymentCompleteCode);
 	}
 	
-	public int addBeforePayment(BeforePayment beforePayment, String sessionId, PaymentType paymentType, String goodsRefurbCode) {
+	public Map<String, Object> addBeforePayment(BeforePayment beforePayment, String sessionId, PaymentType paymentType, String goodsRefurbCode) {
 		
 		String newCode = commonMapper.getNewCode("purchaser_payment_code", "before_purchaser_info");
 		String newCode2 = commonMapper.getNewCode("before_mid_sum_code", "before_purchaser_info");
 		String newCode3 = commonMapper.getNewCode("payment_type_code", "type_payment_info");
+		String newCode4 = commonMapper.getNewCode("payment_complete_code", "after_payment_info");
 		
 		beforePayment.setPurchaserPaymentCode(newCode);
 		beforePayment.setBeforeMidSumCode(newCode2);
@@ -47,10 +51,27 @@ public class UserPaymentService {
 		paymentType.setMemberId(sessionId);
 		paymentType.setPaymentTypeCode(newCode3);
 		
+		AfterPayment afterPayment = new AfterPayment();
+		afterPayment.setPaymentCompleteCode(newCode4);
+		afterPayment.setPurchaserPaymentCode(newCode);
+		afterPayment.setGoodsRefurbCode(goodsRefurbCode);
+		afterPayment.setMemberId(sessionId);
+		afterPayment.setPaymentTypeCode(newCode3);
+		afterPayment.setBeforeGoodsCount(beforePayment.getBeforeGoodsCount());
+		afterPayment.setMidSumPrice(beforePayment.getMidSumPrice());
+		afterPayment.setPaymentOption(paymentType.getPaymentOptionType());
+		afterPayment.setLastPaymentPrice(beforePayment.getMidSumPrice());
+		
+		
 		int result = userPaymentMapper.addBeforePayment(beforePayment);
 		result += userPaymentMapper.addPaymentType(paymentType);
+		result += userPaymentMapper.addAfterPayment(afterPayment);
 		
-		return result;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		resultMap.put("paymentCompleteCode", afterPayment.getPaymentCompleteCode());
+		
+		return resultMap;
 	}
 	
 	public List<Goods> beforePaymentInfoByCode(String sessionId, String goodsRefurbCode) {

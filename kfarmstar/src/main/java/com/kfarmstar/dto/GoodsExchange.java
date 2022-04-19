@@ -1,5 +1,5 @@
 package com.kfarmstar.dto;
-/*깃허브수정*/
+
 public class GoodsExchange {
 	private String goodsExchangeCode;
 	private String paymentCompleteCode;
