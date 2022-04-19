@@ -32,6 +32,7 @@
 					console.log(validationCheck(memberId));
 					var vCheck = validationCheck(memberId);
 					if(vCheck){
+					console.log(vCheck)
 						$.ajax({
 							 url: '/userMember/idCheck'
 							,type: 'POST'
