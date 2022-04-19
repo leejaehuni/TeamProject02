@@ -36,6 +36,7 @@
   .excludePathPatterns("/vendors/**")
   .excludePathPatterns("/images/**")
   .excludePathPatterns("/userMain")
+  .excludePathPatterns("/userMember/idCheck")
   .excludePathPatterns("/userMember/beforeAddMember")
   .excludePathPatterns("/userMember/addMember")
   .excludePathPatterns("/userMember/addSellerMember")

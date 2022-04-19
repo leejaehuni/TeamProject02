@@ -45,16 +45,16 @@
 								// 아이디 중복이 발생 않은 경우(회원가입 O) 입력하는 요소는 활성화
 								if(data){
 									$('#idCheckResult').text('사용 가능한 아이디 입니다.');
-									$('.addSellerForm input').prop('disabled', false);
-									$('.addSellerForm select').prop('disabled', false);
-									$('.addSellerForm button').prop('disabled', false);
+									$('#addSellerMemberForm input').prop('disabled', false);
+									$('#addSellerMemberForm select').prop('disabled', false);
+									$('#addSellerMemberForm button').prop('disabled', false);
 								}else{									
 									// 아이디 중복이 발생하는 경우(회원가입 X) 입력하는 요소는 비활성화
 									$('#idCheckResult').text('중복된 아이디가 있습니다.');
 									$('#idCheckResult').attr('color','red');
-									$('.addSellerForm input').not('input[name="memberId"]').prop('disabled', true);
-									$('.addSellerFormbutton').not('#idCheck').prop('disabled', true);
-									$('.addSellerForm select').prop('disabled', true);
+									$('#addSellerMemberForm input').not('input[name="memberId"]').prop('disabled', true);
+									$('#addSellerMemberForm button').not('#idCheck').prop('disabled', true);
+									$('#addSellerMemberForm select').prop('disabled', true);
 								}
 							}
 						});

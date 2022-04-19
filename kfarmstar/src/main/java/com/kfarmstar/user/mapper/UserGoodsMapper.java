@@ -1,7 +1,6 @@
 package com.kfarmstar.user.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,7 +13,7 @@ public interface UserGoodsMapper {
 	public List<Goods> getUserMainGoodsList();
 	
 	// 사용자 화면 - 상품 전체 목록 조회
-	public List<Goods> getUserGoodsList(Map<String, Object> paramMap);
+	public List<Goods> getUserGoodsList();
 	
 	// 사용자 화면 - 상품 코드별 상세 정보 조회
 	public Goods getUserGoodsByCode(String goodsRefurbCode);

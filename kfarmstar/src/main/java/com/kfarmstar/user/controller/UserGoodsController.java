@@ -1,8 +1,7 @@
 package com.kfarmstar.user.controller;
 
-import java.util.HashMap;
+import java.text.NumberFormat;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +34,23 @@ public class UserGoodsController {
 		log.info("상품별 상세정보");
 		Goods goods = userGoodsService.getUserGoodsByCode(goodsRefurbCode);	//각 상품별 정보
 		List<Goods> randomGoods = userGoodsService.getRandomGoods(goodsRefurbCode); // 특정 상품 제외 후 네 가지 상품 정보 랜덤 조회
+		
+		
+		  NumberFormat numberFormat = NumberFormat.getInstance(); 
+		  int refurbPrice = Integer.parseInt(goods.getGoodsRefurbPrice()); 
+		  int normalPrice = Integer.parseInt(goods.getGoodsNormalPrice());
+		  
+		  String refurbResult = numberFormat.format(refurbPrice); 
+		  String nomalResult = numberFormat.format(normalPrice);
+		  
+
+		 
+		
 		model.addAttribute("title", "Food Refurb : 개인 상품");	
 		model.addAttribute("breadTitle", "Refurb Goods");
 		model.addAttribute("breadSubTitle", "Goods Info");
+		model.addAttribute("refurbResult", refurbResult + " 원");
+		model.addAttribute("nomalResult", nomalResult + " 원");
 		
 		/*
 		 * FileDto file = goods.getFileList().get(0);
@@ -52,30 +65,15 @@ public class UserGoodsController {
 
 	
 	
-	/**
-	 * 사용자 화면 - 상품 목록 조회
-	 * @param model
-	 * @return
-	 */
+	
 	@GetMapping("/userGoodsList")
-	public String getUserGoodsList(Model model
-								, @RequestParam(value="searchCate", required = false) String searchCate
-								, @RequestParam(value="searchValue", required = false) String searchValue) {
+	public String getUserGoodsList(Model model) {
 		
-		log.info("상품 목록 요청");
-		log.info("searchCate:{}", searchCate);
-		log.info("searchValue:{}", searchValue);
-		Map<String, Object> paramMap = new HashMap<String , Object>();
-		
-		paramMap.put("searchCate", searchCate);
-		paramMap.put("searchValue", searchValue);
-		
-		List<Goods> goodsList = userGoodsService.getUserGoodsList(paramMap);
-		paramMap = null;
-		
-		model.addAttribute("title", "Food Refurb : 상품");
+		List<Goods> goodsList = userGoodsService.getUserGoodsList();
+		model.addAttribute("title", "Food Refurb : 전체 상품");
 		model.addAttribute("breadTitle", "Refurb Goods");
 		model.addAttribute("breadSubTitle", "Goods List");
+		
 		model.addAttribute("goodsList", goodsList);
 		
 		return "userGoods/userGoodsList";
