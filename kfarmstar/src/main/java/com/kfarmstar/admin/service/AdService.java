@@ -20,7 +20,9 @@ import com.kfarmstar.admin.mapper.AdMapper;
 import com.kfarmstar.admin.mapper.CommonMapper;
 import com.kfarmstar.admin.mapper.FileMapper;
 import com.kfarmstar.dto.AdApply;
+import com.kfarmstar.dto.AdPayType;
 import com.kfarmstar.dto.AdPrice;
+import com.kfarmstar.dto.AfterAdPay;
 import com.kfarmstar.dto.BeforeAdPay;
 import com.kfarmstar.dto.FileDto;
 import com.kfarmstar.dto.Grade;
@@ -212,11 +214,60 @@ public class AdService {
 		
 	}
 
-	//광고 승인 취소
+	// 광고 승인 취소
 	public int adApproveCancle(AdApply adApply, String sessionId) {
 		log.info("sessionId {}" , sessionId);
 		adApply.setManagerId(sessionId);
 		return adMapper.adApproveCancle(adApply);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 광고 결제 완료 처리 음,, 근데 결제 버튼 눌렀을때 해야하는건데 여기다 따로 작성하는게 맞는건가? 결제처리 서비스쪽에서 결제완료 맵퍼를 불러와야하는거아닌가... 흠,, 아님 컨트롤러 쪽에서 바로? 일단 보류
+	/*
+	 * public int adPayComplete(AdApply adApply) { return
+	 * adMapper.adPayComplete(adApply); }
+	 */
+	
+	
+	
+
+	// 광고 결제 처리 및 진행상태 수정(결제완료)
+	public int addAdPayment(String sessionId, AfterAdPay afterAdPay, AdPayType adPayType, AdApply adApply) {
+		
+		// 광고 결제 종류 등록 (ad_pay_type 테이블 등록)
+		String adPayTypeCode = commonMapper.getNewCode("ad_pay_type_code", "ad_pay_type");
+		adPayType.setAdPayTypeCode(adPayTypeCode);
+		adPayType.setMemberId(sessionId);
+		int result = adMapper.addAdPayType(adPayType);
+		
+		// 광고 결제 정보 등록 (after_ad_payment 테이블 등록)
+		String adPayCompleteCode = commonMapper.getNewCode("ad_pay_complete_code", "after_ad_payment");
+		afterAdPay.setAdPayCompleteCode(adPayCompleteCode);
+		afterAdPay.setAdPayTypeCode(adPayType.getAdPayTypeCode());
+		result += adMapper.addAfterAdPay(afterAdPay);
+		
+		// 광고 진행상태 결제완료 처리
+		result += adMapper.adPayComplete(adApply);
+		
+		return result;
+		
+	}
+	
+	
+	// 광고 신청 코드에 따라 결제 코드 조회
+	public String getPayCodeByApplyCode(String adApplyCode) {
+		
+		return adMapper.getPayCodeByApplyCode(adApplyCode);
+	}
+	
 	
 }
