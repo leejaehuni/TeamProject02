@@ -5,35 +5,42 @@
 <mapper namespace="com.kfarmstar.admin.mapper.StatisticsMapper">
 
 	<resultMap type="Statistics" id="StatisticsResultMap">
-		<result column="goods_statistics_code"			property="goodsStatisticsCode"/>	
+		<result column="goods_statistics_code"		property="goodsStatisticsCode"/>	
 		<result column="goods_sales_amount"			property="goodsSalesAmount"/>	
 		<result column="goods_sales_price"			property="goodsSalesPrice"/>	
-		<result column="search_year"			property="searchYear"/>	
-		<result column="search_month"			property="searchMonth"/>	
-		<result column="search_week"			property="searchWeek"/>	
-		<result column="search_day"			property="searchDay"/>	
+		<result column="search_year"				property="searchYear"/>	
+		<result column="search_month"				property="searchMonth"/>	
+		<result column="search_week"				property="searchWeek"/>	
+		<result column="search_day"					property="searchDay"/>	
+		<result column="goods_large_cate" 			property="goodsLargeCate"/>
+		<result column="goods_small_cate" 			property="goodsSmallCate"/>
 		
-		<association property="goods_large" javaType="GoodsLarge">
-			<result column="goods_large_cate" property="goodsLargeCate"/>
+		<association property="goodsLarge" javaType="GoodsLarge">
+			<id column="goods_large_cate" property="goodsLargeCate"/>
 		</association> 
 		
 		<association property="goodsSmall" javaType="GoodsSmall">
-			<result column="goods_small_catse" property="goodsSmallCate"/>
+			<id column="goods_small_cate" property="goodsSmallCate"/>
+			<result column="goods_small_name" property="goodsSmallName"/>
 		</association>
 		
 		<association property="afterPayment" javaType="AfterPayment">
-			<result column="payment_complete_code" property="paymentCompleteCode"/>
+			<id column="payment_complete_code" property="paymentCompleteCode"/>
+			<result column="before_goods_count" property="beforeGoodsCount"/>
+			<result column="last_payment_price" property="lastPaymentPrice"/>
+			<result column="payment_date" property="paymentDate"/>
+			
 		</association>
 		
 		<association property="member" javaType="Member">
-			<result column="member_id" property="memberId"/>
+			<id column="member_id" property="memberId"/>
 		</association>
 	</resultMap>
 	<select id="getGoodsStatisticsList" resultMap="StatisticsResultMap">
-		SELECT 
+SELECT 
 			  s.goods_statistics_code
-			, s.goods_large_code
-			, s.goods_small_code
+			, s.goods_large_cate
+			, s.goods_small_cate
 			, s.payment_complete_code
 			, s.member_id
 			, s.goods_sales_amount
@@ -42,24 +49,80 @@
 			, s.search_month
 			, s.search_week
 			, s.search_day
+			, p.last_payment_price
+			, p.payment_date
+			, p.before_goods_count
+			, g.goods_small_name
 		FROM 
 			goods_statistics AS s
+			
 			INNER JOIN
 			goods_large AS l
 			ON
-			s.goods_large_code = l.goods_large_cate
+			s.goods_large_cate = l.goods_large_cate
+			
 			INNER JOIN
 			goods_small AS g
 			ON
-			s.goods_small_code = g.goods_small_cate
+			s.goods_small_cate = g.goods_small_cate
+			
 			INNER JOIN
 			after_payment_info AS p
 			ON
 			s.payment_complete_code = p.payment_complete_code
+			
+			INNER JOIN
+			member AS m
+			ON
+			s.member_id = m.member_id
+		WHERE
+			p.payment_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	<select id="goodsTypeStatisticsList" parameterType="String" resultMap="StatisticsResultMap">
+	SELECT 
+			  s.goods_statistics_code
+			, s.goods_large_cate
+			, s.goods_small_cate
+			, s.payment_complete_code
+			, s.member_id
+			, s.goods_sales_amount
+			, s.goods_sales_price
+			, s.search_year
+			, s.search_month
+			, s.search_week
+			, s.search_day
+			, p.last_payment_price
+			, p.payment_date
+			, p.before_goods_count
+			, g.goods_small_name
+		FROM 
+			goods_statistics AS s
+			
+			INNER JOIN
+			goods_large AS l
+			ON
+			s.goods_large_cate = l.goods_large_cate
+			
+			INNER JOIN
+			goods_small AS g
+			ON
+			s.goods_small_cate = g.goods_small_cate
+			
+			INNER JOIN
+			after_payment_info AS p
+			ON
+			s.payment_complete_code = p.payment_complete_code
+			
 			INNER JOIN
 			member AS m
 			ON
 			s.member_id = m.member_id
 			
+			WHERE
+			s.goods_small_cate = #{goodsSmallCate}
 	</select>
+	
+	
+	
+	
 </mapper>

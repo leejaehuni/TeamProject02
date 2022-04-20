@@ -26,6 +26,12 @@
     <script th:src="@{/vendors/pdfmake/build/vfs_fonts.js}"></script>
 	<!-- ECharts -->
     <script th:src="@{/vendors/echarts/dist/echarts.min.js}"></script>
+    <!-- 제이쿼리 ui js -->
+   	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+   	<!-- searchDate -->
+	<script th:src="@{/vendors/jquery/dist/searchDate.js}"></script>
+	<!-- moment.js -->
+	<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
@@ -65,6 +71,78 @@
                 });
 			 });
 		});
+	$(function(){
+		
+		$(document).on('click', '.dateBtnGroup', function(){
+			$('form').remove('#testForm')
+			
+			var startDate = $('input[name="startDate"]').val();
+			var endDate = $('input[name="endDate"]').val();
+			
+			var dateBtnForm = $('<form></form>');
+			
+			dateBtnForm.attr("id", "testForm");
+			dateBtnForm.attr("name", "dateBtnForm");
+			dateBtnForm.attr("method", "get");
+			dateBtnForm.attr("action", "/statistics/getGoodsStatistics");
+			
+			dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+			dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+			
+			dateBtnForm.appendTo('body');
+			
+			dateBtnForm.submit();
+		});
+		
+		$(document).on('change', '#startDate, #endDate', function(){
+			
+			$('form').remove('#testForm')
+			
+			
+			var startDate = $('input[name="startDate"]').val();
+			var endDate = $('input[name="endDate"]').val();
+			
+			var datepickerForm = $('<form></form>');
+			
+			datepickerForm.attr("id", "testForm");
+			datepickerForm.attr("name", "datepickerForm");
+			datepickerForm.attr("method", "get");
+			datepickerForm.attr("action", "/statistics/getGoodsStatistics");
+			
+			datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+			datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+			
+			datepickerForm.appendTo('body');
+				
+			if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+				
+				datepickerForm.submit();
+			}
+		});
+	});
+	
+	$(document).on('click', '#searchBtn', function(){
+		
+		$('form').remove('#testForm');
+		
+		var checkGoodsCate = $(this).val();
+		
+		console.log(checkGoodsCate);
+		
+		var checkGoodsCateForm = $('<form></form>');
+		
+		checkGoodsCateForm.attr("id", "testForm");
+		checkGoodsCateForm.attr("name", "checkGoodsCateForm");
+		checkGoodsCateForm.attr("method", "get");
+		checkGoodsCateForm.attr("action", "/statistics/getGoodsStatistics");
+		
+		checkMemberForm.append($('<input/>', {type: 'hidden', name: 'memberLevel', value: checkMemberLevel}));
+		
+		checkMemberForm.appendTo('body');
+			
+		checkMemberForm.submit();
+			
+	});
 	
 		</script>
 	</th:block>
@@ -77,7 +155,7 @@
  <div class="container-fluid">
  	<div class="card mb-3">
  		<div class="card-body">
- 			<form>
+ 			<form th:action="@{/statistics/goodsTypeStatisticsList}" method="get">
  				<div class="row form-horizontal mb-3">
 					<label class="col-sm-2 col-form-label" style="font-size: 20px;  font-weight: bold;" for="goodsLargeCate">상품명</label>
  					<div class="col-sm-10 form-inline">
@@ -95,9 +173,13 @@
 							     <option>상품 소분류</option>
 						     </select>
  						</div>
+ 						<button class="btn" id="searchBtn" data-toggle="modal" data-target="#myModal" type="submit" style="color: #fff; background-color: #007bff">
+ 						<i class="fa fa-search"></i> 검색</button>
  					</div>
  				</div>
+ 			</form>
  				<!-- 분석방법 -->
+ 			<form id="reset_form">
  				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" style="font-size: 20px; font-weight: bold;">분석방법</label>
  					<div class="col-sm-10 form-inline">
@@ -124,24 +206,24 @@
  					</div>
  				</div>
  				<!-- 분석방법 -->
- 				<div class="row">
+ 				<div class="row searchBtn">
 					<label class="col-sm-2 col-form-label" style="font-size: 20px; font-weight: bold;">조회기간</label>
  					<div class="col-sm-10">
- 						<div class="mb-1">
-	 						<button class="btn btn-primary btn-sm" type="button"style="color: #fff; background-color: #007bff">오늘</button>
-							<button class="btn btn-primary btn-sm" type="button"style="color: #fff; background-color: #007bff">1주일</button>
-							<button class="btn btn-primary btn-sm" type="button"style="color: #fff; background-color: #007bff">1개월</button>	
-							<button class="btn btn-primary btn-sm" type="button"style="color: #fff; background-color: #007bff">3개월</button>
-							<button class="btn btn-primary btn-sm" type="button"style="color: #fff; background-color: #007bff">6개월</button>	
-							<button class="btn btn-primary btn-sm" type="button"style="color: #fff; background-color: #007bff">1년</button>				
+ 						<div class="mb-1" >
+	 						<button class="btn btn-primary btn-sm dateBtnGroup" type="button"style="color: #fff; background-color: #007bff" 	name="filterDate" 	id="btn-date1">오늘</button>
+							<button class="btn btn-primary btn-sm dateBtnGroup" type="button"style="color: #fff; background-color: #007bff"	name="filterDate" 	id="btn-date2">1주일</button>
+							<button class="btn btn-primary btn-sm dateBtnGroup" type="button"style="color: #fff; background-color: #007bff"	name="filterDate" 	id="btn-date3">1개월</button>	
+							<button class="btn btn-primary btn-sm dateBtnGroup" type="button"style="color: #fff; background-color: #007bff"	name="filterDate" 	id="btn-date4">3개월</button>
+							<button class="btn btn-primary btn-sm dateBtnGroup" type="button"style="color: #fff; background-color: #007bff"	name="filterDate" 	id="btn-date5">6개월</button>	
+							<button class="btn btn-primary btn-sm dateBtnGroup" type="button"style="color: #fff; background-color: #007bff"	name="filterDate" 	id="btn-date6">1년</button>				
  						</div>
 						<!-- 기간선택 -->
 						  <div class="form-row pb-3">
 				            <div class="col-md-3 col-sm-3 ">
-				               <input class="date-picker form-control" placeholder="dd-mm-yyyy"
+				               <input class="date-picker form-control searchDatepicker" placeholder="년도-월-일"
 				                  type="date" required="required" onfocus="this.type='date'"
 				                  onmouseover="this.type='date'" onclick="this.type='date'"
-				                  onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+				                  onblur="this.type='text'" onmouseout="timeFunctionLong(this)" name="startDate" id="startDate">
 					               <script>
 					                  function timeFunctionLong(input) {
 					                     setTimeout(function() {
@@ -155,10 +237,10 @@
 				            </div>
 				            
 				            <div class="col-md-3 col-sm-3 ">
-				               <input class="date-picker form-control" placeholder="dd-mm-yyyy"
+				               <input class="date-picker form-control searchDatepicker" placeholder="년도-월-일"
 				                  type="date" required="required" onfocus="this.type='date'"
 				                  onmouseover="this.type='date'" onclick="this.type='date'"
-				                  onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+				                  onblur="this.type='text'" onmouseout="timeFunctionLong(this)"  name="endDate" id="endDate">
 					               <script>
 					                  function timeFunctionLong(input) {
 					                     setTimeout(function() {
@@ -170,8 +252,7 @@
 					         </div>
 					    <!-- 검색버튼 -->
 						<div class="text-center">
-							<a href="#/search"><button class="btn" data-toggle="modal" data-target="#myModal" type="button" style="color: #fff; background-color: #007bff"><i class="fa fa-search"></i> 검색</button>	</a>
-							<a href="#/minus-circle"><button class="btn" type="reset" style="color: #fff; background-color: #007bff"><i class="fa fa-minus-circle"></i> 통계 초기화</button></a>
+							<button class="btn" type="reset" style="color: #fff; background-color: #007bff" id="btn_reset"><i class="fa fa-minus-circle"></i> 통계 초기화</button>
 						</div>
  					</div>
  				</div>
@@ -284,32 +365,28 @@
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
-                          <th>상품명</th>
-                          <th>상품 상세 정보</th>
-                          <th>원산지</th>
+                          <th>통계 상품 코드</th>
+                          <th>아이디</th>
+                          <th>상품 이름</th>
                           <th>수량[단위]</th>
-                          <th>날짜</th>
-                          <th>가격</th>
-                          <th>수정</th>
-                          <th>삭제</th>
+                          <th>거래 가격</th>
+                          <th>거래 일시</th>
+                          <th>상품 총 거래 가격</th>
                         </tr>
                       </thead>
 						
                       <tbody>
-                        <tr th:if="${not #lists.isEmpty(noticeBoardList)}" th:each="l : ${noticeBoardList}">
-                          <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-							<td th:text="${l.noticeNum}"></td>
-							<td><a th:href="@{/noticeboard/detailNotice(noticeNum=${l.noticeNum})}"
-								   th:text="${l.noticeTitle}"></a></td>
+                        <tr th:if="${not #lists.isEmpty(goodsStatisticsList)}" th:each="l : ${goodsStatisticsList}">
+							<td th:text="${l.goodsStatisticsCode}"></td>
 							<td th:text="${l.member.memberId}"></td>
-							<td th:text="${l.noticeDate}"></td>
-							<td th:text="${l.noticeHit}"></td>
-							<td><a th:href="@{/noticeboard/modifyNotice(noticeNum=${l.noticeNum})}" class="btn btn-outline-primary btn-sm">수정</a></td>    
-							<td><a th:href="@{/noticeboard/removeNotice(noticeNum=${l.noticeNum})}" type="button"  class="btn btn-outline-primary btn-sm">삭제</a></td>
+							<td th:text="${l.goodsSmall.goodsSmallName}"></td>
+							<td th:text="${l.AfterPayment.beforeGoodsCount}"></td>
+							<td th:text="${l.AfterPayment.lastPaymentPrice}"></td>
+							<td th:text="${l.AfterPayment.paymentDate}"></td>
+							<td th:text="${l.goodsSalesAmount}"></td>
+							<!-- <td><a th:href="@{/noticeboard/modifyNotice(noticeNum=${l.noticeNum})}" class="btn btn-outline-primary btn-sm">수정</a></td>    
+							<td><a th:href="@{/noticeboard/removeNotice(noticeNum=${l.noticeNum})}" type="button"  class="btn btn-outline-primary btn-sm">삭제</a></td> -->
 						</tr>
-              
                       </tbody>
                     </table>
                   </div>
