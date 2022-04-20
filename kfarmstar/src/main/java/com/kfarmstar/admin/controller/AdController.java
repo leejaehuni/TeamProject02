@@ -295,11 +295,12 @@ public class AdController {
 	@PostMapping("/addAdPayment")
 	public String addAdPayment(HttpSession session
 							 , AfterAdPay afterAdPay
-							 , AdPayType adPayType) {
+							 , AdPayType adPayType
+							 , AdApply adApply) {
 		log.info("광고 결제 처리");
 		log.info("확인코드 : {}" + afterAdPay);
 		String sessionId = (String) session.getAttribute("SID");
-		adService.addAdPayment(sessionId, afterAdPay, adPayType);
+		adService.addAdPayment(sessionId, afterAdPay, adPayType, adApply);
 		
 		
 		return "redirect:/advertisement/adApplyList";
