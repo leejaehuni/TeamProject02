@@ -9,10 +9,14 @@ public class Statistics {
 	private String searchMonth;
 	private String searchWeek;
 	private String searchDay;
-	private String goodsLargeCode;
-	private String goodsSmallCode;
+	private String goodsLargeCate;
+	private String goodsSmallCate;
 	private String paymentCompleteCode;
 	private String memberId;
+	private String lastPaymentPrice;
+	private String paymentDate;
+	private String beforeGoodsCount;
+	private String goodsSmallName;
 	
 	private GoodsLarge goodsLarge;
 	private GoodsSmall goodsSmall;
@@ -60,17 +64,17 @@ public class Statistics {
 	public void setSearchDay(String searchDay) {
 		this.searchDay = searchDay;
 	}
-	public String getGoodsLargeCode() {
-		return goodsLargeCode;
+	public String getGoodsLargeCate() {
+		return goodsLargeCate;
 	}
-	public void setGoodsLargeCode(String goodsLargeCode) {
-		this.goodsLargeCode = goodsLargeCode;
+	public void setGoodsLargeCate(String goodsLargeCate) {
+		this.goodsLargeCate = goodsLargeCate;
 	}
-	public String getGoodsSmallCode() {
-		return goodsSmallCode;
+	public String getGoodsSmallCate() {
+		return goodsSmallCate;
 	}
-	public void setGoodsSmallCode(String goodsSmallCode) {
-		this.goodsSmallCode = goodsSmallCode;
+	public void setGoodsSmallCate(String goodsSmallCate) {
+		this.goodsSmallCate = goodsSmallCate;
 	}
 	public String getPaymentCompleteCode() {
 		return paymentCompleteCode;
@@ -83,6 +87,30 @@ public class Statistics {
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	public String getLastPaymentPrice() {
+		return lastPaymentPrice;
+	}
+	public void setLastPaymentPrice(String lastPaymentPrice) {
+		this.lastPaymentPrice = lastPaymentPrice;
+	}
+	public String getPaymentDate() {
+		return paymentDate;
+	}
+	public void setPaymentDate(String paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+	public String getBeforeGoodsCount() {
+		return beforeGoodsCount;
+	}
+	public void setBeforeGoodsCount(String beforeGoodsCount) {
+		this.beforeGoodsCount = beforeGoodsCount;
+	}
+	public String getGoodsSmallName() {
+		return goodsSmallName;
+	}
+	public void setGoodsSmallName(String goodsSmallName) {
+		this.goodsSmallName = goodsSmallName;
 	}
 	public GoodsLarge getGoodsLarge() {
 		return goodsLarge;
@@ -112,11 +140,14 @@ public class Statistics {
 	public String toString() {
 		return "Statistics [goodsStatisticsCode=" + goodsStatisticsCode + ", goodsSalesAmount=" + goodsSalesAmount
 				+ ", goodsSalesPrice=" + goodsSalesPrice + ", searchYear=" + searchYear + ", searchMonth=" + searchMonth
-				+ ", searchWeek=" + searchWeek + ", searchDay=" + searchDay + ", goodsLargeCode=" + goodsLargeCode
-				+ ", goodsSmallCode=" + goodsSmallCode + ", paymentCompleteCode=" + paymentCompleteCode + ", memberId="
-				+ memberId + ", goodsLarge=" + goodsLarge + ", goodsSmall=" + goodsSmall + ", afterPayment="
-				+ afterPayment + ", member=" + member + "]";
+				+ ", searchWeek=" + searchWeek + ", searchDay=" + searchDay + ", goodsLargeCate=" + goodsLargeCate
+				+ ", goodsSmallCate=" + goodsSmallCate + ", paymentCompleteCode=" + paymentCompleteCode + ", memberId="
+				+ memberId + ", lastPaymentPrice=" + lastPaymentPrice + ", paymentDate=" + paymentDate
+				+ ", beforeGoodsCount=" + beforeGoodsCount + ", goodsSmallName=" + goodsSmallName + ", goodsLarge="
+				+ goodsLarge + ", goodsSmall=" + goodsSmall + ", afterPayment=" + afterPayment + ", member=" + member
+				+ "]";
 	}
 	
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kfarmstar.admin.mapper.StatisticsMapper;
+import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.Statistics;
 
 @Service
@@ -22,14 +23,22 @@ private static final Logger log = LoggerFactory.getLogger(NoticeBoardService.cla
 		this.statisticsMapper = statisticsMapper;
 	}
 	
-	//공지 목록 조회
-	public List<Statistics> getGoodsStatisticsList() {
+	//기간별 공지 목록 조회
+	public List<Statistics> getGoodsStatisticsList(String startDate, String endDate) {
 		System.out.println("getGoodsStatisticsList StatisticsService.java");
 
-		List<Statistics> goodsStatisticsList = statisticsMapper.getGoodsStatisticsList();
+		List<Statistics> goodsStatisticsList = statisticsMapper.getGoodsStatisticsList(startDate, endDate);
 		System.out.println(goodsStatisticsList+"<-- GoodsStatisticsList getGoodsStatisticsList NoticeBoardService.java");
 			
 		return goodsStatisticsList;
+	}
+	
+	//상품별 통계 목록 조회
+	public List<Statistics> goodsTypeStatisticsList(String goodsSmallCate){
+		
+		List<Statistics> goodsTypeStatisticsList = statisticsMapper.goodsTypeStatisticsList(goodsSmallCate);
+		
+		return goodsTypeStatisticsList;
 	}
 		
 		
