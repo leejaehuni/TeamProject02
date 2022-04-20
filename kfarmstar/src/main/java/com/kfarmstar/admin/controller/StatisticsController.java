@@ -18,6 +18,7 @@ import com.kfarmstar.admin.service.GoodsService;
 import com.kfarmstar.admin.service.StatisticsService;
 import com.kfarmstar.dto.GoodsLarge;
 import com.kfarmstar.dto.GoodsSmall;
+import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.Statistics;
 
 @Controller
@@ -40,10 +41,15 @@ public class StatisticsController {
 
 	
 	@GetMapping("/getGoodsStatistics")
-	public String getGoodsStatistics(Model model) {
+	public String getGoodsStatistics(Model model
+									,@RequestParam(value="startDate", required = false) String startDate
+									,@RequestParam(value="endDate", required = false) String endDate) {
 		
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
 		System.out.println("getGoodsStatistics StatisticsController.java");
-		List<Statistics> goodsStatisticsList = statisticsService.getGoodsStatisticsList();
+		
+		List<Statistics> goodsStatisticsList = statisticsService.getGoodsStatisticsList(startDate, endDate);
 		List<GoodsLarge> largeCateList = goodsService.getLargeCateList();	// 대분류 카테고리 리스트
 		
 		model.addAttribute("title", "FoodRefurb : 상품 통계 조회");
@@ -51,6 +57,19 @@ public class StatisticsController {
 		model.addAttribute("goodsStatisticsList", goodsStatisticsList);
 		model.addAttribute("largeCateList", largeCateList);
 		
+		
+		return "statistics/getGoodsStatistics";
+	}
+	
+	@GetMapping("/goodsTypeStatisticsList")
+	public String goodsTypeStatisticsList(Model model
+											,@RequestParam(value="goodsSmallCate", required = false) String goodsSmallCate) {
+		
+		log.info("상품별 통계 목록 조회:{}", goodsSmallCate);
+		
+		List<Statistics> goodsTypeStatisticsList = statisticsService.goodsTypeStatisticsList(goodsSmallCate);
+		
+		model.addAttribute("goodsStatisticsList", goodsTypeStatisticsList);
 		
 		return "statistics/getGoodsStatistics";
 	}
