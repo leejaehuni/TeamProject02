@@ -84,93 +84,42 @@
 								</ul>
 								<div id="step-1" style="height: 500px;">
 									<form class="tum form-horizontal form-label-left">
-										<div class="row">
-											<div class="col-sm-2"></div>
-											<button type="button" class="btn btn-primary col-sm-8 col-12" data-toggle="modal" data-target=".bs-example-modal-lg">회사 검색</button>
-											<div class="col-sm-2"></div>
-											<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-												<div class="modal-dialog modal-lg">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h4 class="modal-title" id="myModalLabel">회사 검색 <small>companySearch</small></h4>
-															<button type="button" class="close" data-dismiss="modal">
-																<span aria-hidden="true">×</span>
-															</button>
-														</div>
-														<div class="modal-body">
-														
-															<!-- START : 상단 검색바
-															============================== -->
-															<div th:replace="delivery/searchBar :: searchBarFragment"></div>
-															<!-- END : 상단 검색바
-															============================== -->
-															
-															<!-- START : 상단 검색 상세정보 
-															============================== -->
-															<div th:replace="delivery/searchDetail :: searchDetailFragment"></div>
-															<!-- END : 상단 검색 상세정보
-															============================== -->
-															
-														<div class="tum table-responsive">
-															<table class="table table-striped jambo_table bulk_action">
-																<thead>
-																	<tr class="headings">
-																		<th class="column-title">선택</th>
-																		<th class="column-title">회사 이름</th>
-																		<th class="column-title">대표자 명</th>
-																		<th class="column-title">회사 연락처</th>
-																		<th class="column-title">회사 주소</th>
-																	</tr>
-																</thead>
-										
-																<tbody>
-																	<tr class="even pointer">
-																		<td class="a-center ">
-																			<input type="radio" class="flat" name="table_records">
-																		</td>
-																		<td class=" ">의적 배송</td>
-																		<td class=" ">홍길동</td>
-																		<td class=" ">012-345-6789</td>
-																		<td class=" ">전주시 덕진구 기린대로 445 2층</td>
-																	</tr>
-																</tbody>
-															</table>
-															
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-primary">선택</button>
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="tum row">
-											<div class="col-sm-2"></div>
-											<label class="control-label col-sm-10">회사 이름</label>
-											<div class="col-sm-2"></div>
+										<div class="form-group row">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">배송 회사 <span class="required">*</span></label>
 											<div class="col-sm-8 col-12">
-												<input type="text" class="form-control" value="#" readonly>
+												<select class="form-control">
+													<option>== 선택 ==</option>
+													<option value="#">가 배송</option>
+													<option value="#">나 배송</option>
+												</select>
 											</div>
-											<div class="col-sm-2"></div>
+											<div class="col-sm-1"></div>
 										</div>
-										<div class=" row">
-											<div class="col-sm-2"></div>
-											<label class="control-label col-sm-10">코드 입력</label>
-											<div class="col-sm-2"></div>
+										<div class="form-group row">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2">코드 입력 <span class="required">*</span></label>
 											<div class="col-sm-8 col-12">
 												<input type="text" class="form-control" value="#">
 											</div>
-											<div class="col-sm-2"></div>
-										</div>
+											<div class="col-sm-1"></div>
 										</div>
 									</form>
 								</div>
 								<div id="step-2" style="height: 500px;">
 									<form class="tum  form-label-left">
+										<div class="tum form-group row">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2">회사 이름</label>
+											<div class="col-sm-8 col-12">
+												<input type="text" class="form-control" value="#" readonly>
+											</div>
+											<div class="col-sm-1"></div>
+										</div>
 										<div class="form-group row">
-											<label class="control-label col-sm-3 col-12">회사 소속</label>
-											<div class="col-sm-9 col-12">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">회사 소속 <span class="required">*</span></label>
+											<div class="col-sm-8 col-12">
 												<select class="form-control">
 													<option>== 선택 ==</option>
 													<option value="#">본사</option>
@@ -179,10 +128,12 @@
 													<option value="#">현장</option>
 												</select>
 											</div>
+											<div class="col-sm-1"></div>
 										</div>
 										<div class="form-group row">
-											<label class="control-label col-md-3 col-sm-3 ">직책</label>
-											<div class="col-md-9 col-sm-9 ">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">직책 <span class="required">*</span></label>
+											<div class="col-sm-8 col-12">
 												<select class="select2_group form-control">
 													<option>== 선택 ==</option>
 													<optgroup label="본사">
@@ -192,7 +143,7 @@
 														<option value="#">과장</option>
 														<option value="#">대리</option>
 														<option value="#">주임</option>
-														<option value="#">사원</option>
+														<option value="#">본사 직원</option>
 													</optgroup>
 													<optgroup label="물류 센터">
 														<option value="#">센터장</option>
@@ -200,27 +151,32 @@
 														<option value="#">센터 직원</option>
 													</optgroup>
 													<optgroup label="물류 창고">
-														<option value="#">창고 장</option>
+														<option value="#">창고장</option>
 														<option value="#">물품 관리자</option>
-														<option value="#">직원</option>
+														<option value="#">창고 직원</option>
 													</optgroup>
 													<optgroup label="현장">
 														<option value="#">배송원</option>
 													</optgroup>
 												</select>
 											</div>
+											<div class="col-sm-1"></div>
 										</div>
-										<div class="form-group row ">
-											<label class="control-label col-sm-3 col-12">이름</label>
-											<div class="col-sm-9 col-12">
+										<div class="form-group row">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">이름 <span class="required">*</span></label>
+											<div class="col-sm-8 col-12">
 												<input type="text" class="form-control" value="#">
 											</div>
+											<div class="col-sm-1"></div>
 										</div>
-										<div class="form-group row ">
-											<label class="control-label col-sm-3 col-12">전화번호</label>
-											<div class="col-sm-9 col-12">
+										<div class="form-group row">
+											<div class="col-sm-1"></div>
+											<label class="control-label col-sm-2 col-12">연락처 <span class="required">*</span></label>
+											<div class="col-sm-8 col-12">
 												<input type="text" class="form-control" value="#">
 											</div>
+											<div class="col-sm-1"></div>
 										</div>
 									</form>
 								</div>
