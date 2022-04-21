@@ -3,17 +3,150 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
 	
-		<!-- 사용자 정의 Css -->
-		<th:block layout:fragment="customCss">
-		
-		</th:block>
 
-		<!-- 사용자 정의 title -->
-		<th:block layout:fragment="customTitle">
-			<title th:text="${title}"></title>
-		</th:block>
-		
-		<!-- 사용자 정의 contents -->
-		<th:block layout:fragment="customContents">
-		
-		</th:block>
+
+
+	
+	<!-- 사용자 정의 Css -->
+	<th:block layout:fragment="customCss">
+		<!-- addForm -->
+	    <link th:href="@{/vendors/delivery/addForm.css}" rel="stylesheet">
+	</th:block>
+
+
+
+
+
+	<!-- 사용자 정의 Script -->
+	<th:block layout:fragment="customScript">
+		<!-- addForm -->
+   		<script th:src="@{/vendors/delivery/js/addForm.js}"></script>
+	</th:block>
+
+
+
+
+
+	<!-- 사용자 정의 title -->
+	<th:block layout:fragment="customTitle">
+		<title th:text="${title}"></title>
+	</th:block>
+	
+
+
+
+	
+	<!-- 사용자 정의 contents -->
+	<th:block layout:fragment="customContents">
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8 col-12 ">
+				<div class="x_panel">
+					<div class="x_title">
+					
+						<!-- START : 화면 경로
+						============================== -->
+						<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
+						<!-- END : 화면 경로
+						============================== -->
+						
+					</div>
+					<div class="x_content">
+						<form class="form-horizontal form-label-left getTum tum">
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companySectors">사업장 업종</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="companySectors" th:value="${getDeliveryCompany.companySectors}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyScale">기업 규모</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="companyScale" th:value="${getDeliveryCompany.companyScale}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyName">회사 이름</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="companyName" th:value="${getDeliveryCompany.companyName}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyPhone">회사 연락처</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="companyPhone" th:value="${getDeliveryCompany.companyPhone}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyAddr, companyAddrDetail">회사 주소</label>
+								<div class="col-sm-5 col-8">
+									<input type="text" class="form-control" name="companyAddr" th:value="${getDeliveryCompany.companyAddr}" readonly>
+								</div>
+								<div class="col-sm-3 col-4">
+									<input type="text" class="form-control" name="companyAddrDetail" th:value="${getDeliveryCompany.companyAddrDetail}" readonly>
+								</div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="member.memberName">대표자 이름</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="member.memberName" th:value="${getDeliveryCompany.member.memberName}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="member.memberPhone">대표자 연락처</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="member.memberPhone" th:value="${getDeliveryCompany.member.memberPhone}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyEmail">이메일</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="companyEmail" th:value="${getDeliveryCompany.companyEmail}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyFax">팩스번호</label>
+								<div class="col-sm-8 col-12">
+									<input type="text" class="form-control" name="companyFax" th:value="${getDeliveryCompany.companyFax}" readonly>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-1"></div>
+								<label class="control-label col-sm-2 col-12" for="companyEmployeeNum">직원 수</label>
+								<div class="col-sm-5 col-12">
+									<input type="text" class="form-control" name="companyEmployeeNum" th:value="${getDeliveryCompany.companyEmployeeNum}" readonly>
+								</div>
+								<a type="button" th:href="@{/delivery/getEmployeeList}" class="btn btn-outline-primary form-control col-sm-3 col-12">직원 조회</a>
+								<div class="col-sm-1"></div>
+							</div>
+						</form>
+						<div class="tum row">
+							<div class="col-sm-2 col-1"></div>
+							<a type="button" th:href="@{/delivery/modifyCompany}" class="btn btn-primary col-sm-4 col-5">수정하기</a>
+							<a type="button" th:href="@{/delivery/getCompanyList}" class="btn btn-secondary col-sm-4 col-5">목록으로</a>
+							<div class="col-sm-2 col-1"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</th:block>
+</html>
