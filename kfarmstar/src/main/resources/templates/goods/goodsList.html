@@ -41,76 +41,71 @@
 				</div>
 
 				<div class="x_content">
-					
-					
 					<!-- START : 검색 바 -->
 					<div th:include="goods/searchGoods :: searchGoodsFragment"></div><br>
 					<!-- END : 검색 바 -->
-
-				<div class="table-responsive">
-					
-					<div class="clearfix">
-						<div class="float-left">
-							Total : <span></span>
+					<div class="table-responsive">
+						
+						<div class="clearfix">
+							<div class="float-left">
+								Total : <span></span>
+							</div>
+							<div class="float-right pr-2">
+								<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">선택 삭제</button>
+							</div>
 						</div>
-						<div class="float-right pr-2">
-							<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">선택 삭제</button>
-						</div>
-					</div>
-
-					<table class="table text-center jambo_table bulk_action">
-						<thead>
-							<tr class="headings">
-								<th><input type="checkbox" id="check-all" class="flat"></th>
-								<th class="column-title">상품 번호</th>
-								<th class="column-title">대분류</th>
-								<th class="column-title">소분류</th>
-								<th class="column-title">상품명</th>
-								<th class="column-title">가격</th>
-								<th class="column-title">아이디</th>
-								<th class="column-title">등록 날짜</th>
-								<th class="column-title">상세 조회</th>
-								<th class="bulk-actions" colspan="8"><a class="antoo"
-									style="color: #fff; font-weight: 500;">선택된 개수 ( <span
-										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-								</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr class="even pointer" th:if="${not #lists.isEmpty(goodsList)}" th:each="l : ${goodsList}">
-								<td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
-								<td class=" " th:text="${l.goodsRefurbCode}"></td>
-								<td class=" " th:text="${l.goodsLarge.goodsLargeName}"></td>
-								<td class=" " th:text="${l.goodsSmall.goodsSmallName}"></td>
-								<td class=" " th:text="${l.goodsRefurbName}"></td>
-								<td class=" " th:text="${l.goodsRefurbPrice}"></td>
-								<td class=" " th:text="${l.memberId}"></td>
-								<td class=" " th:text="${l.entryTime}"></td>
-								<td class=" ">
-									<a th:href="@{/goods/goodsDetail(goodsRefurbCode=${l.goodsRefurbCode})}">
-										<input type="button" value="상세조회">
-									</a>
+	
+						<table class="table text-center jambo_table bulk_action">
+							<thead>
+								<tr class="headings">
+									<th><input type="checkbox" id="check-all" class="flat"></th>
+									<th class="column-title">상품 번호</th>
+									<th class="column-title">대분류</th>
+									<th class="column-title">소분류</th>
+									<th class="column-title">상품명</th>
+									<th class="column-title">가격</th>
+									<th class="column-title">아이디</th>
+									<th class="column-title">등록 날짜</th>
+									<th class="column-title">상세 조회</th>
+									<th class="bulk-actions" colspan="8"><a class="antoo"
+										style="color: #fff; font-weight: 500;">선택된 개수 ( <span
+											class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+									</th>
+								</tr>
+							</thead>
+	
+							<tbody>
+								<tr class="even pointer" th:if="${not #lists.isEmpty(goodsList)}" th:each="l : ${goodsList}">
+									<td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
+									<td th:text="${l.goodsRefurbCode}"></td>
+									<td th:text="${l.goodsLarge.goodsLargeName}"></td>
+									<td th:text="${l.goodsSmall.goodsSmallName}"></td>
+									<td th:text="${l.goodsRefurbName}"></td>
+									<td th:text="${l.goodsRefurbPrice}"></td>
+									<td th:text="${l.memberId}"></td>
+									<td th:text="${l.entryTime}"></td>
+									<td>
+										<a th:href="@{/goods/goodsDetail(goodsRefurbCode=${l.goodsRefurbCode})}">
+											<input type="button" value="상세조회">
+										</a>
 									</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<!-- Page navigation -->
-					<nav aria-label="Page navigation">
-						<ul class="pagination justify-content-center">
-							<li class="page-item disabled"><a class="page-link">Previous</a></li>
-							<li class="page-item active"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li>
-						</ul>
-					</nav>
+								</tr>
+							</tbody>
+						</table>
+	
+						<!-- Page navigation -->
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								<li class="page-item disabled"><a class="page-link">Previous</a></li>
+								<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li>
+							</ul>
+						</nav>
+					</div>
 				</div>
-
-
 			</div>
-                </div>
 		</div>
               
 		<!-- Modal -->

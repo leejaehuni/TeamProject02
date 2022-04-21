@@ -30,6 +30,10 @@ public class UserGoodsController {
 		this.userGoodsService = userGoodsService;
 	}
 	
+	
+	/**
+	 * 사용자 화면 - 상품 상세 정보 조회
+	 */
 	@GetMapping("/userGoodsDetail")
 	public String getShopGoodsDetail(Model model
 									,@RequestParam(name="goodsRefurbCode", required = false) String goodsRefurbCode) {

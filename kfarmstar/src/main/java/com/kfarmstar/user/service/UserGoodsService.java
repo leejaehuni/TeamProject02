@@ -27,7 +27,7 @@ public class UserGoodsService {
 		this.userGoodsMapper = userGoodsMapper;
 	}
 	
-	// 사용자 화면 - 상품 전체 목록 조회
+	// 사용자 메인 화면 - 상품 전체 목록 조회
 	public List<Goods> getUserMainGoodsList() {
 		List<Goods> userMainGoodsList = userGoodsMapper.getUserMainGoodsList();
 		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'
@@ -45,7 +45,7 @@ public class UserGoodsService {
 		
 		return userMainGoodsList;
 	}
-	// 사용자 화면 - 상품 전체 목록 조회
+	// 사용자 상품 화면 - 상품 전체 목록 조회
 	public List<Goods> getUserGoodsList(Map<String, Object> paramMap) {
 		List<Goods> userGoodsList = userGoodsMapper.getUserGoodsList(paramMap);
 		// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'

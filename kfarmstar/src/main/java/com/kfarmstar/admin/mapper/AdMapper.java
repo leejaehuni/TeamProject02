@@ -21,7 +21,7 @@ public interface AdMapper {
 	// 광고 신청 등록
 	public int addAdApply(AdApply adApply);
 	
-	// 광고 진행 중 or 광고 완료 목록
+	// 광고 진행 중 & 광고 완료 목록
 	public List<AdApply> getAdvertisingList();
 	
 	// 광고 신청 목록
@@ -61,7 +61,7 @@ public interface AdMapper {
 	// 광고 결제 처리
 	public int addAfterAdPay(AfterAdPay afterAdPay);
 	
-	// 광고 결제 타입 등록 처리
+	// 광고 결제 종류 등록 처리
 	public int addAdPayType(AdPayType adPayType);
 	
 	
