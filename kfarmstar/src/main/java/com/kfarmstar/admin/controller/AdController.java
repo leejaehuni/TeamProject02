@@ -255,7 +255,9 @@ public class AdController {
 		return "redirect:/advertisement/adPriceList";
 	}
 	
-
+	/**
+	 * 광고 등록 처리 (보류)
+	 */
 	@GetMapping("/addAdvertising")
 	public String addAdvertising(Model model) {
 		model.addAttribute("title", "FoodRefurb : 광고 등록");
@@ -267,8 +269,6 @@ public class AdController {
 	
 	/**
 	 * 광고 결제 페이지
-	 * @param model
-	 * @return
 	 */
 	@GetMapping("/addAdPayment")
 	public String addAdPayment(Model model, HttpSession session
@@ -311,7 +311,7 @@ public class AdController {
 	
 	
 	/**
-	 * 광고 결제후상세 페이지
+	 * 광고 결제 후 상세 페이지
 	 * @param model
 	 * @param adApplyCode
 	 * @return
@@ -328,7 +328,7 @@ public class AdController {
 		return "advertisement/adPaymentDetail";
 	}
 	
-	
+/*	
 	@GetMapping("/adPaymentList")
 	public String getAdPaymentList(Model model) {
 		model.addAttribute("title", "FoodRefurb : 광고 결제 목록");
@@ -346,6 +346,11 @@ public class AdController {
 		return "advertisement/adPaymentOrderInfo";
 	}
 	
+*/
+	
+	/**
+	 * 광고 단가 목록 
+	 */
 	@GetMapping("/adPriceList")
 	public String getAdPriceList(Model model) {
 		
@@ -360,7 +365,9 @@ public class AdController {
 		return "advertisement/adPriceList";
 	}
 	
-	
+	/**
+	 * 광고 환불 목록 
+	 */
 	@GetMapping("/adRefundList")
 	public String getAdRefundList(Model model) {
 		model.addAttribute("title", "FoodRefurb : 광고 환불 목록");
@@ -393,7 +400,7 @@ public class AdController {
 	
 	
 	/**
-	 * 광고 단가 수정 화면 연결
+	 * 광고 단가 수정 화면
 	 * @param adPriceCode
 	 * @return
 	 */
@@ -425,8 +432,9 @@ public class AdController {
 	}
 	
 	
-	
-	
+	/**
+	 * 광고 환불 수정 화면,,, 환불 수정...? 고민해보기
+	 */
 	@GetMapping("/modifyAdRefund")
 	public String modifyAdRefund(Model model) {
 		model.addAttribute("title", "FoodRefurb : 광고 환불 수정");
@@ -435,7 +443,9 @@ public class AdController {
 		return "advertisement/modifyAdRefund";
 	}
 	
-	
+	/**
+	 * 광고 신청 취소 화면 ... 이것도 뭔가 이상하다..? 고민해보기
+	 */
 	@GetMapping("/removeAdApply")
 	public String removeAdApply(Model model) {
 		model.addAttribute("title", "FoodRefurb : 광고 신청 취소");

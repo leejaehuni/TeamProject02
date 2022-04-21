@@ -99,6 +99,9 @@ public class GoodsController {
 	}
 	
 	
+	/**
+	 * 상품 대분류 카테고리 등록 화면
+	 */
 	@GetMapping("/addLargeCate")
 	public String addLargeCate(Model model) {
 		model.addAttribute("title", "FoodRefurb : 상품 대분류 카테고리 등록");
@@ -107,6 +110,9 @@ public class GoodsController {
 		return "goods/addLargeCate";
 	}
 	
+	/**
+	 * 상품 대분류 카테고리 등록 처리
+	 */
 	@PostMapping("/addLargeCate")
 	public String addLargeCate(GoodsLarge goodsLarge) {
 		
@@ -117,7 +123,9 @@ public class GoodsController {
 	}
 	
 	
-	
+	/**
+	 * 상품 소분류 카테고리 등록 화면
+	 */
 	@GetMapping("/addSmallCate")
 	public String addSmallCate(Model model) {
 		// 대분류 카테고리 리스트
@@ -129,6 +137,9 @@ public class GoodsController {
 		return "goods/addSmallCate";
 	}
 	
+	/**
+	 * 상품 소분류 카테고리 등록 처리
+	 */
 	@PostMapping("/addSmallCate")
 	public String addSmallCate(GoodsSmall goodsSmall) {
 		
@@ -174,7 +185,7 @@ public class GoodsController {
 	
 	
 	/**
-	 * 카테고리 등록 날짜별 검색
+	 * 등록 날짜별 카테고리 검색
 	 * @param startDate
 	 * @param endDate
 	 * @return
@@ -311,6 +322,9 @@ public class GoodsController {
 	}
 	
 	
+	/**
+	 * 상품 삭제 화면
+	 */
 	@GetMapping("/removeGoods")
 	public String removeGoods(Model model) {
 		model.addAttribute("title", "FoodRefurb : 상품 삭제");
@@ -319,6 +333,10 @@ public class GoodsController {
 		return "goods/removeGoods";
 	}
 	
+	
+	/**
+	 * 상품 소분류 카테고리 삭제 화면
+	 */
 	@GetMapping("/removeGoodsCate")
 	public String removeGoodsCate(Model model) {
 		model.addAttribute("title", "FoodRefurb : 상품 카테고리 삭제");

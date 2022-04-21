@@ -123,7 +123,7 @@ public class GoodsService {
 	
 	
 	/**
-	 * 상품 목록 조회
+	 * 상품 카테고리 기간 조회
 	 */
 	public List<Goods> getGoodsCateListByDate(String startDate, String endDate) {
 		
@@ -166,15 +166,6 @@ public class GoodsService {
 	
 	
 	/**
-	 * 상품 카테고리 수정
-	 */
-	public int modifyGoodsCate(GoodsSmall goodsSmall) {
-			
-		return goodsMapper.modifyGoodsCate(goodsSmall);
-	}
-	
-	
-	/**
 	 * 상품 소분류 카테고리 등록
 	 */
 	public int addSmallCate(GoodsSmall goodsSmall) {
@@ -186,6 +177,15 @@ public class GoodsService {
 		return result;
 	}
 
+	/**
+	 * 상품 카테고리 수정
+	 */
+	public int modifyGoodsCate(GoodsSmall goodsSmall) {
+		
+		return goodsMapper.modifyGoodsCate(goodsSmall);
+	}
+	
+	
 	
 	/**
 	 * 상품 코드별 카테고리 정보 조회

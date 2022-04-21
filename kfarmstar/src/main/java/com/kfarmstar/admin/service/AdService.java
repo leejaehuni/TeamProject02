@@ -116,9 +116,6 @@ public class AdService {
 		return adMapper.getAdApplyByCode(adApplyCode);
 	}
 	
-	
-	
-	
 	/**
 	 * 광고 단가 목록 조회
 	 */
@@ -130,7 +127,7 @@ public class AdService {
 	
 
 	/**
-	 * 광고단가 코드별 정보 조회
+	 * 광고 단가 코드별 정보 조회
 	 */
 	public AdPrice getAdPriceInfoByCode(String adPriceCode) {
 		return adMapper.getAdPriceInfoByCode(adPriceCode);
@@ -222,24 +219,6 @@ public class AdService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 광고 결제 완료 처리 음,, 근데 결제 버튼 눌렀을때 해야하는건데 여기다 따로 작성하는게 맞는건가? 결제처리 서비스쪽에서 결제완료 맵퍼를 불러와야하는거아닌가... 흠,, 아님 컨트롤러 쪽에서 바로? 일단 보류
-	/*
-	 * public int adPayComplete(AdApply adApply) { return
-	 * adMapper.adPayComplete(adApply); }
-	 */
-	
-	
-	
-
 	// 광고 결제 처리 및 진행상태 수정(결제완료)
 	public int addAdPayment(String sessionId, AfterAdPay afterAdPay, AdPayType adPayType, AdApply adApply) {
 		
