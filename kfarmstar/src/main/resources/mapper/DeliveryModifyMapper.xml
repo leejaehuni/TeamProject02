@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.kfarmstar.admin.mapper.DeliveryMapper">
+	<!-- 
+		MyBatis resultMap
+		DB Table : delivery_company
+			FK	 : member
+	-->
+	<!-- 
+	<resultMap type="DeliveryCompany" id="deliveryCompanyResultMap">
+		<result column="company_code" 						property="companyCode"/>
+		<result column="fk_company_member_id" 				property="ceoId"/>
+		<result column="company_num" 						property="companyNum"/>
+		<result column="company_sectors" 					property="companySectors"/>
+		<result column="company_scale" 						property="companyScale"/>
+		<result column="company_name" 						property="companyName"/>
+		<result column="company_phone" 						property="companyPhone"/>
+		<result column="company_addr" 						property="companyAddr"/>
+		<result column="company_addr_detail" 				property="companyAddrDetail"/>
+		<result column="company_email" 						property="companyEmail"/>
+		<result column="company_fax" 						property="companyFax"/>
+		<result column="company_employee_num" 				property="companyEmployeeNum"/>
+		<result column="company_registration_date"			property="companyRegistrationDate"/>
+		<association property="member" 					javaType="Member">
+			<result column="member_id" 						property="memberId"/>
+			<result column="member_name" 					property="memberName"/>
+			<result column="member_level" 					property="memberLevel"/>
+			<result column="member_pw" 						property="memberPw"/>
+			<result column="member_phone" 					property="memberPhone"/>
+			<result column="member_addr" 					property="memberAddr"/>
+			<result column="member_detail_addr" 			property="memberDetailAddr"/>
+			<result column="member_email" 					property="memberEmail"/>
+			<result column="member_date" 					property="memberDate"/>
+		</association>
+	</resultMap>
+	  -->
+	<!-- 
+		MyBatis resultMap
+		DB Table : company_employee
+			FK	 : delivery_company
+				   member
+	 -->
+	<resultMap type="CompanyEmployee" id="modifyEmployeeResultMap">
+		<result column="employee_num"						property="employeeNum"/>
+		<result column="fk_employee_company_code"			property="companyCode"/>
+		<result column="fk_employee_member_id"				property="memberId"/>
+		<result column="company_affiliation"				property="companyAffiliation"/>
+		<result column="company_position"					property="companyPosition"/>
+		<association property="deliveryCompany" 		javaType="DeliveryCompany">
+	 		<result column="company_code" 					property="companyCode"/>
+			<result column="company_name" 					property="companyName"/>
+			<result column="company_phone" 					property="companyPhone"/>
+			<result column="company_addr" 					property="companyAddr"/>
+			<result column="company_addr_detail" 			property="companyAddrDetail"/>
+			<result column="company_employee_num" 			property="companyEmployeeNum"/>
+			<result column="company_registration_date"		property="companyRegistrationDate"/>
+	 	</association>
+		<association property="member" 					javaType="Member">
+			<result column="member_id" 						property="memberId"/>
+			<result column="member_name" 					property="memberName"/>
+			<result column="member_level" 					property="memberLevel"/>
+			<result column="member_pw" 						property="memberPw"/>
+			<result column="member_phone" 					property="memberPhone"/>
+			<result column="member_addr" 					property="memberAddr"/>
+			<result column="member_detail_addr" 			property="memberDetailAddr"/>
+			<result column="member_email" 					property="memberEmail"/>
+			<result column="member_date" 					property="memberDate"/>
+		</association>
+	</resultMap>
+	 
+	 
+	<!-- 배송 회사 내역 수정 -->
+	<!-- 
+	<select id="modifyCompany" resultType="DeliveryCompany" resultMap="deliveryCompanyResultMap">
+		SELECT 
+			 m.member_id
+			,c.company_sectors
+			,c.company_scale
+			,c.company_name
+			,c.company_phone
+			,c.company_addr
+			,c.company_addr_detail
+			,m.member_name
+			,m.member_phone
+			,c.company_email
+			,c.company_fax
+			,c.company_employee_num
+		FROM 
+			delivery_company AS c
+			INNER JOIN 
+			member AS m
+			ON 
+			c.fk_company_member_id = m.member_id
+			
+		WHERE 
+			m.member_id = #{session}
+			
+			;
+	</select>
+	 -->
+	<!-- 회사 직원 내역 수정 -->
+	<select id="" resultType="CompanyEmployee" resultMap="modifyEmployeeResultMap">
+		SELECT
+			 CE.company_affiliation
+			,CE.company_position
+			,M.member_name
+			,M.member_phone
+		FROM
+			company_employee AS CE
+			INNER JOIN 
+			member AS M
+			ON 
+			CE.fk_employee_member_id = M.member_id
+		WHERE 
+			CE.employee_num = '01'
+			;
+	</select>
+	<!-- 운송장 내역 수정 -->
+	 
+	<!-- 집하 내역 수정 -->
+	
+	
+</mapper>

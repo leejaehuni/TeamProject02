@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.kfarmstar.admin.mapper.DeliveryMapper">
+	<!-- 
+		MyBatis resultMap
+		DB Table : delivery_company
+			FK	 : member
+	-->
+	<resultMap type="DeliveryCompany" id="deliveryCompanyResultMap">
+		<result column="company_code" 						property="companyCode"/>
+		<result column="fk_company_member_id" 				property="ceoId"/>
+		<result column="company_num" 						property="companyNum"/>
+		<result column="company_sectors" 					property="companySectors"/>
+		<result column="company_scale" 						property="companyScale"/>
+		<result column="company_name" 						property="companyName"/>
+		<result column="company_phone" 						property="companyPhone"/>
+		<result column="company_addr" 						property="companyAddr"/>
+		<result column="company_addr_detail" 				property="companyAddrDetail"/>
+		<result column="company_email" 						property="companyEmail"/>
+		<result column="company_fax" 						property="companyFax"/>
+		<result column="company_employee_num" 				property="companyEmployeeNum"/>
+		<result column="company_registration_date"			property="companyRegistrationDate"/>
+		<association property="member" 					javaType="Member">
+			<result column="member_id" 						property="memberId"/>
+			<result column="member_name" 					property="memberName"/>
+			<result column="member_level" 					property="memberLevel"/>
+			<result column="member_pw" 						property="memberPw"/>
+			<result column="member_phone" 					property="memberPhone"/>
+			<result column="member_addr" 					property="memberAddr"/>
+			<result column="member_detail_addr" 			property="memberDetailAddr"/>
+			<result column="member_email" 					property="memberEmail"/>
+			<result column="member_date" 					property="memberDate"/>
+		</association>
+	</resultMap>
+	 
+	<!-- 
+		MyBatis resultMap
+		DB Table : delivery_goods
+			FK	 : delivery_company
+				   company_employee
+				   goods_management
+				   after_payment_info
+				   before_purchaser_info
+	 -->
+	 <!-- 
+	<resultMap type="DeliveryGoods" id="GoodsListResultMap">
+	 	<result column="delivery_num" 						property="deliveryNum"/>
+	 	<result column="fk_goods_company_code" 				property="goodsCompanyCode"/>
+	 	<result column="fk_goods_employee_num" 				property="goodsEmployeeNum"/>
+	 	<result column="fk_goods_refurb_code" 				property="goodsRefurbCode"/>
+	 	<result column="fk_goods_purchaser_payment_code"	property="goodsPurchaserPaymentCode"/>
+	 	<result column="fk_goods_payment_complete_code" 	property="goodsPaymentCompleteCode"/>
+	 	<result column="fk_goods_member_id" 				property="memberId"/>
+	 	<result column="delivery_status" 					property="deliveryStatus"/>
+	 	<result column="delivery_registration_date" 		property="deliveryRegistrationDate"/>
+	 	<result column="delivery_expected_date" 			property="deliveryExpectedDate"/>
+	 	<association property="deliveryCompany" 		javaType="DeliveryCompany">
+	 		<result column="company_code" 					property="companyCode"/>
+			<result column="company_name" 					property="companyName"/>
+			<result column="company_phone" 					property="companyPhone"/>
+			<result column="company_addr" 					property="companyAddr"/>
+			<result column="company_addr_detail" 			property="companyAddrDetail"/>
+			<result column="company_employee_num" 			property="companyEmployeeNum"/>
+			<result column="company_registration_date"		property="companyRegistrationDate"/>
+	 	</association>
+	 	<association property="companyEmployee" 		javaType="CompanyEmployee">
+		 	<result column="employee_num" 					property="employeeNum"/>
+		 	<result column="company_affiliation" 			property="companyAffiliation"/>
+		 	<result column="company_position" 				property="companyPosition"/>
+	 	</association>
+	 	<association property="goodsRefund" 			javaType="GoodsRefund">
+	 		<result column="goods_refurb_name" 				property="refundReasonContent"/>
+	 	</association>
+	 	<association property="afterPayment" 			javaType="AfterPayment">
+			<result column="payment_complete_code" 			property="paymentCompleteCode"/>
+			<result column="before_goods_count" 			property="beforeGoodsCount"/>
+			<result column="mid_sum_price" 					property="midSumPrice"/>
+			<result column="payment_option" 				property="paymentOption"/>
+			<result column="last_payment_price" 			property="lastPaymentPrice"/>
+			<result column="payment_date" 					property="paymentDate"/>
+		</association>
+	 	<association property="puchaserPayment" 		javaType="PuchaserPayment">
+			<result column="purchaser_payment_code" 		property="purchaserPaymentCode"/>
+			<result column="before_mid_sum_code" 			property="beforeMidSumCode"/>
+			<result column="before_goods_count" 			property="beforeGoodsCount"/>
+			<result column="mid_sum_price" 					property="midSumPrice"/>
+			<result column="payment_option" 				property="paymentOption"/>
+			<result column="delivery_postnum_addr" 			property="deliveryPostnumAddr"/>
+			<result column="delivery_addr" 					property="deliveryAddr"/>
+			<result column="delivery_detail_addr" 			property="deliveryDetailAddr"/>
+			<result column="recipient_name" 				property="recipientName"/>
+			<result column="recipient_phone" 				property="recipientPhone"/>
+		</association>
+		<association property="member" 					javaType="Member">
+			<result column="member_id" 						property="memberId"/>
+			<result column="member_name" 					property="memberName"/>
+			<result column="member_level" 					property="memberLevel"/>
+			<result column="member_pw" 						property="memberPw"/>
+			<result column="member_phone" 					property="memberPhone"/>
+			<result column="member_addr" 					property="memberAddr"/>
+			<result column="member_detail_addr" 			property="memberDetailAddr"/>
+			<result column="member_email" 					property="memberEmail"/>
+			<result column="member_date" 					property="memberDate"/>
+		</association>
+	</resultMap>
+	 -->
+	 
+	<!-- 배송 회사 내역 조회 -->
+	<select id="getCompany" resultType="DeliveryCompany" resultMap="deliveryCompanyResultMap">
+		SELECT 
+			 c.company_code
+			,c.company_sectors
+			,c.company_scale
+			,c.company_name
+			,c.company_phone
+			,c.company_addr
+			,c.company_addr_detail
+			,m.member_name
+			,m.member_phone
+			,c.company_email
+			,c.company_fax
+			,c.company_employee_num
+		FROM 
+			delivery_company AS c
+			INNER JOIN 
+			member AS m
+			ON 
+			c.fk_company_member_id = m.member_id
+		WHERE 
+			c.company_code = #{companyCode}
+			;
+	</select>
+	 
+	<!-- 배송 운송장 내역 조회 -->
+	<!-- 
+	<select id="getDelivery" resultType="DeliveryGoods" resultMap="goodsGetResultMap">
+		SELECT
+			 DG.delivery_num
+			,GM.goods_refurb_name
+			,BPI.before_goods_count
+			,BPI.recipient_name
+			,BPI.recipient_phone
+			,BPI.delivery_addr
+			,BPI.delivery_detail_addr
+			,M.member_name
+			,M.member_phone
+			,CE.company_affiliation
+			,DG.delivery_registration_date
+			,DG.delivery_expected_date
+		FROM
+			delivery_goods AS DG
+			LEFT JOIN 
+			goods_management AS GM
+			ON
+			DG.fk_goods_refurb_code = GM.goods_refurb_code
+			LEFT JOIN 
+			before_purchaser_info AS BPI
+			ON 
+			DG.fk_goods_purchaser_payment_code = BPI.purchaser_payment_code
+			LEFT JOIN 
+			company_employee AS CE
+			ON 
+			DG.fk_goods_employee_num = CE.employee_num
+			INNER JOIN 
+			member AS M
+			ON 
+			CE.fk_employee_member_id = M.member_id
+		
+			;
+	</select>
+	 -->
+</mapper>
