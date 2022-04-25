@@ -75,200 +75,198 @@
 	
 	<th:block layout:fragment="customContents">
 
-	<div class="col-md-8 col-sm-8 offset-md-2">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>
-					광고 결제 페이지<small>AD Payment Page</small>
-				</h2>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
-				<form class="form-horizontal form-label-left" th:action="@{/advertisement/addAdPayment}" method="post">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th scope="col" style="width: 15%;">#</th>
-								<th scope="col">결제내역관리</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">광고 결제 정보</th>
-								<td>
-									<div class="form-group row">
-										<div class="col-md-2 col-sm-2">
-											<label class="control-label">광고 신청 번호</label>
-										</div>
-										<div class="col-md-8 col-sm-8 ">
-											<input type="text" class="form-control" th:value="${adApply.adApplyCode}" name="adApplyCode" readonly="readonly">
-											<input type="hidden" class="form-control" th:value="${adPaymentCode}" name="adPaymentCode" readonly="readonly">
-										</div>
-									</div>
-									<div class="form-group row">
-										<div class="col-md-2 col-sm-2">
-											<label class="control-label" for="memberId">아이디</label>
-										</div>
-										<div class="col-md-8 col-sm-8">
-											<input type="text" class="form-control"
-												 	name="memberId" th:value="${adApply.memberId}" readonly="readonly">
-										</div>
-									</div>
-								</td>
-							</tr>
-							
-							<tr>
-									<th scope="row">광고 게시 기간</th>
+		<div class="col-md-8 col-sm-8 offset-md-2">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>
+						광고 결제 페이지<small>AD Payment Page</small>
+					</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<form class="form-horizontal form-label-left" th:action="@{/advertisement/addAdPayment}" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col" style="width: 15%;">#</th>
+									<th scope="col">결제내역관리</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">광고 결제 정보</th>
 									<td>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adCate">광고 카테고리</label>
+												<label class="control-label">광고 신청 번호</label>
 											</div>
-											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="adCate" th:value="${adApply.adCate}" readonly="readonly">
+											<div class="col-md-8 col-sm-8 ">
+												<input type="text" class="form-control" th:value="${adApply.adApplyCode}" name="adApplyCode" readonly="readonly">
+												<input type="hidden" class="form-control" th:value="${adPaymentCode}" name="adPaymentCode" readonly="readonly">
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-md-2 col-sm-2">
-												<label class="control-label">기간</label>
+												<label class="control-label" for="memberId">아이디</label>
 											</div>
 											<div class="col-md-8 col-sm-8">
-							
-												<div class="form-row">
-													<div class="col-md-4 col-sm-5">
-														<input class="date-picker form-control" placeholder="dd-mm-yyyy"
-															type="date"  id="adStartDate" name="adStartDate" 
-															th:value="${adApply.adStartDate}" readonly="readonly">
+												<input type="text" class="form-control"
+													 	name="memberId" th:value="${adApply.memberId}" readonly="readonly">
+											</div>
+										</div>
+									</td>
+								</tr>
+								
+								<tr>
+										<th scope="row">광고 게시 기간</th>
+										<td>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adCate">광고 카테고리</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control" name="adCate" th:value="${adApply.adCate}" readonly="readonly">
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label">기간</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+								
+													<div class="form-row">
+														<div class="col-md-4 col-sm-5">
+															<input class="date-picker form-control" placeholder="dd-mm-yyyy"
+																type="date"  id="adStartDate" name="adStartDate" 
+																th:value="${adApply.adStartDate}" readonly="readonly">
+														</div>
+														<div class="align-self-center">
+															<i class="fa fa-minus"></i>
+														</div>
+														
+														<div class="col-md-4 col-sm-5">
+															<input class="date-picker form-control" placeholder="dd-mm-yyyy"
+																type="date" id="adEndDate" name="adEndDate" 
+																th:value="${adApply.adEndDate}" readonly="readonly">
+														</div>
+														<div class="col-md-3 col-sm-3">
+															<input type="text" class="form-control text-center" 
+																	th:value="${adApply.adContractTerm} + ' 일'" readonly="readonly">
+															<input type="hidden" th:value="${adApply.adContractTerm}" name="adContractTerm">
+														</div>
 													</div>
-													<div class="align-self-center">
-														<i class="fa fa-minus"></i>
-													</div>
-													
-													<div class="col-md-4 col-sm-5">
-														<input class="date-picker form-control" placeholder="dd-mm-yyyy"
-															type="date" id="adEndDate" name="adEndDate" 
-															th:value="${adApply.adEndDate}" readonly="readonly">
-													</div>
-													<div class="col-md-3 col-sm-3">
-														<input type="text" class="form-control text-center" 
-																th:value="${adApply.adContractTerm} + ' 일'" readonly="readonly">
-														<input type="hidden" th:value="${adApply.adContractTerm}" name="adContractTerm">
-													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								<tr>
+									<th scope="row">결제 정보</th>
+									<td>
+										
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="adPayOption">결제 종류</label>
+											</div>
+											<div class="col-md-8 col-sm-8">
+												<select class="form-control text-center" id="adPayOption" name="adPayOption" >
+											        <option>휴대폰</option>
+											        <option>신용카드</option>
+											        <option>무통장입금</option>
+										      </select>
+											</div>
+										</div>
+										<div class="paymentTypeMobile">
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adPayPhoneCarrier">결제 휴대폰 통신사</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<select class="form-control text-center" name="adPayPhoneCarrier">
+												        <option value=""> :: 선택 :: </option>
+												        <option>SKT</option>
+												        <option>KT</option>
+												        <option>UPLUS</option>
+											      </select>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adPayPhoneNum">결제 휴대폰 번호</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control" name="adPayPhoneNum">
+												</div>
+											</div>
+										</div>
+										<div class="paymentTypeBank">
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adPayAccountType">무통장 결제 은행</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control" name="adPayAccountType">
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adPayAccountNum">무통장 결제 계좌번호</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control" name="adPayAccountNum">
+												</div>
+											</div>
+										</div>
+										<div class="paymentTypeCard">
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adPayCardType">신용카드 결제 은행</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control" name="adPayCardType">
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="adPayCardNum">신용카드 번호</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control" name="adPayCardNum">
 												</div>
 											</div>
 										</div>
 									</td>
 								</tr>
-							<tr>
-								<th scope="row">결제 정보</th>
-								<td>
+								<tr>
+									<th scope="row">상품 결제 정보</th>
+									<td>
+										
+										<div class="form-group row">
+											<div class="col-md-2 col-sm-2">
+												<label class="control-label" for="adContractPrice">총 결제 금액</label>
+											</div>
+											<div class="col-md-8 col-sm-8">
+												<input type="text" class="form-control" name="adContractPrice" th:value="${adApply.adContractPrice}" readonly="readonly">
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="ln_solid"></div>
+						<div class="form-group">
+							<div class="col text-center">
+								<button type="button" class="btn btn-primary" onclick="history.back(-1)">뒤로가기</button>
+								<button type="submit" class="btn btn-info" 
+										th:if="${adApply.adPermitState}=='결제전' and ${sessionLevel}=='판매자'">결제</button>
+								<!-- <a th:if="${adApply.adPermitState}=='결제전' and ${sessionLevel}=='판매자'" 
+									role="button" class="btn btn-success" th:src="@{}">결제</a> -->
 									
-									<div class="form-group row">
-										<div class="col-md-2 col-sm-2">
-											<label class="control-label" for="adPayOption">결제 종류</label>
-										</div>
-										<div class="col-md-8 col-sm-8">
-											<select class="form-control text-center" id="adPayOption" name="adPayOption" >
-										        <option>휴대폰</option>
-										        <option>신용카드</option>
-										        <option>무통장입금</option>
-									      </select>
-										</div>
-									</div>
-									<div class="paymentTypeMobile">
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adPayPhoneCarrier">결제 휴대폰 통신사</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												<select class="form-control text-center" name="adPayPhoneCarrier">
-											        <option value=""> :: 선택 :: </option>
-											        <option>SKT</option>
-											        <option>KT</option>
-											        <option>UPLUS</option>
-										      </select>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adPayPhoneNum">결제 휴대폰 번호</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="adPayPhoneNum">
-											</div>
-										</div>
-									</div>
-									<div class="paymentTypeBank">
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adPayAccountType">무통장 결제 은행</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="adPayAccountType">
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adPayAccountNum">무통장 결제 계좌번호</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="adPayAccountNum">
-											</div>
-										</div>
-									</div>
-									<div class="paymentTypeCard">
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adPayCardType">신용카드 결제 은행</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="adPayCardType">
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="adPayCardNum">신용카드 번호</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												<input type="text" class="form-control" name="adPayCardNum">
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">상품 결제 정보</th>
-								<td>
-									
-									<div class="form-group row">
-										<div class="col-md-2 col-sm-2">
-											<label class="control-label" for="adContractPrice">총 결제 금액</label>
-										</div>
-										<div class="col-md-8 col-sm-8">
-											<input type="text" class="form-control" name="adContractPrice" th:value="${adApply.adContractPrice}" readonly="readonly">
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="ln_solid"></div>
-					<div class="form-group">
-						<div class="col text-center">
-							<button type="button" class="btn btn-primary" onclick="history.back(-1)">뒤로가기</button>
-							<button type="submit" class="btn btn-info" 
-									th:if="${adApply.adPermitState}=='결제전' and ${sessionLevel}=='판매자'">결제</button>
-							<!-- <a th:if="${adApply.adPermitState}=='결제전' and ${sessionLevel}=='판매자'" 
-								role="button" class="btn btn-success" th:src="@{}">결제</a> -->
-								
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-
-
-
-</th:block>
+	
+	</th:block>
 </html>

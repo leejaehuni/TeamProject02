@@ -31,56 +31,56 @@
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
 		<script>
-		$(function(){
-			
-			$(document).on('click', '.dateBtnGroup', function(){
-				$('form').remove('#testForm')
+			$(function(){
 				
-				var startDate = $('input[name="startDate"]').val();
-				var endDate = $('input[name="endDate"]').val();
-				
-				var dateBtnForm = $('<form></form>');
-				
-				dateBtnForm.attr("id", "testForm");
-				dateBtnForm.attr("name", "dateBtnForm");
-				dateBtnForm.attr("method", "get");
-				dateBtnForm.attr("action", "/goods/goodsCateListByDate");
-				
-				dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
-				dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
-				
-				dateBtnForm.appendTo('body');
-				
-				dateBtnForm.submit();
-			});
-			
-			$(document).on('change', '#startDate, #endDate', function(){
-				
-				$('form').remove('#testForm')
-				
-				
-				var startDate = $('input[name="startDate"]').val();
-				var endDate = $('input[name="endDate"]').val();
-				
-				var datepickerForm = $('<form></form>');
-				
-				datepickerForm.attr("id", "testForm");
-				datepickerForm.attr("name", "datepickerForm");
-				datepickerForm.attr("method", "get");
-				datepickerForm.attr("action", "/goods/goodsCateListByDate");
-				
-				datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
-				datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
-				
-				datepickerForm.appendTo('body');
+				$(document).on('click', '.dateBtnGroup', function(){
+					$('form').remove('#testForm')
 					
-				if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+					var startDate = $('input[name="startDate"]').val();
+					var endDate = $('input[name="endDate"]').val();
 					
-					datepickerForm.submit();
-				}
+					var dateBtnForm = $('<form></form>');
+					
+					dateBtnForm.attr("id", "testForm");
+					dateBtnForm.attr("name", "dateBtnForm");
+					dateBtnForm.attr("method", "get");
+					dateBtnForm.attr("action", "/goods/goodsCateListByDate");
+					
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+					dateBtnForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+					
+					dateBtnForm.appendTo('body');
+					
+					dateBtnForm.submit();
+				});
+				
+				$(document).on('change', '#startDate, #endDate', function(){
+					
+					$('form').remove('#testForm')
+					
+					
+					var startDate = $('input[name="startDate"]').val();
+					var endDate = $('input[name="endDate"]').val();
+					
+					var datepickerForm = $('<form></form>');
+					
+					datepickerForm.attr("id", "testForm");
+					datepickerForm.attr("name", "datepickerForm");
+					datepickerForm.attr("method", "get");
+					datepickerForm.attr("action", "/goods/goodsCateListByDate");
+					
+					datepickerForm.append($('<input/>', {type: 'hidden', name: 'startDate', value: startDate}));
+					datepickerForm.append($('<input/>', {type: 'hidden', name: 'endDate', value: endDate}));
+					
+					datepickerForm.appendTo('body');
+						
+					if(startDate != null && endDate != null && startDate != '' && endDate != ''){
+						
+						datepickerForm.submit();
+					}
+				});
+				
 			});
-			
-		});
 		</script>
 	</th:block>	
 	
@@ -97,90 +97,83 @@
 	
 				<div class="x_content">
 
-			<p>
-				Add class
-				<code>bulk_action</code>
-				to table for bulk actions options on row select
-			</p>
-			
-			<!-- START : 검색 바  -->
-			<div th:include="goods/searchCate :: searchGoodsCateFragment"></div><br>
-			<!-- END : 검색 바  -->
-			
-
-				<div class="table-responsive">
+					<!-- START : 검색 바  -->
+					<div th:include="goods/searchCate :: searchGoodsCateFragment"></div><br>
+					<!-- END : 검색 바  -->
 				
-					<div class="clearfix">
-						<div class="float-left">
-							Total : <span></span>
-						</div>
-						<div class="float-right pr-2">
-								<button class="btn btn-danger btn-sm">선택 삭제</button>
-						</div>
-					</div>
+
+					<div class="table-responsive">
 					
-					<table class="table text-center jambo_table bulk_action">
-						<thead>
-							<tr class="headings">
-								<th>
-									<input type="checkbox" id="check-all" class="flat">
-								</th>
-								<th class="column-title">대분류 번호</th>
-								<th class="column-title">소분류 번호</th>
-								<th class="column-title">대분류</th>
-								<th class="column-title">소분류</th>
-								<th class="column-title">등록 날짜</th>
-                            	<th class="column-title">수정</th>
-								<th class="column-title">삭제</th>
-								<th class="bulk-actions" colspan="7"><a class="antoo"
-									style="color: #fff; font-weight: 500;"> 선택된 개수 ( <span
-										class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-								</th>
-							</tr>
-						</thead>
+						<div class="clearfix">
+							<div class="float-left">
+								Total : <span></span>
+							</div>
+							<div class="float-right pr-2">
+									<button class="btn btn-danger btn-sm">선택 삭제</button>
+							</div>
+						</div>
+						
+						<table class="table text-center jambo_table bulk_action">
+							<thead>
+								<tr class="headings">
+									<th>
+										<input type="checkbox" id="check-all" class="flat">
+									</th>
+									<th class="column-title">대분류 번호</th>
+									<th class="column-title">소분류 번호</th>
+									<th class="column-title">대분류</th>
+									<th class="column-title">소분류</th>
+									<th class="column-title">등록 날짜</th>
+	                            	<th class="column-title">수정</th>
+									<th class="column-title">삭제</th>
+									<th class="bulk-actions" colspan="7"><a class="antoo"
+										style="color: #fff; font-weight: 500;"> 선택된 개수 ( <span
+											class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+									</th>
+								</tr>
+							</thead>
+	
+							<tbody>
+								<tr class="even pointer" th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l : ${goodsCateList}">
+									<td class="a-center ">
+										<input type="checkbox" class="flat" name="table_records">
+									</td>
+									<td th:text="${l.goodsLargeCate}"></td>
+									<td th:text="${l.goodsSmallCate}"></td>
+									<td th:text="${l.goodsLarge.goodsLargeName}"></td>
+									<td th:text="${l.goodsSmallName}"></td>
+									<td th:text="${l.entryTime}"></td>
+									<td class=" ">
+		                         		<!-- /goods/modifyGoodsCate?goodsSmallCate=goods_small_cate_1 -->
+		                            	<a th:href="@{/goods/modifyGoodsCate(goodsSmallCate=${l.goodsSmallCate})}">
+		                            		<input type="button" value="수정">
+		                            	</a>
+		                            </td>
+		                            <td class=" ">
+		                            	<a th:href="@{/goods/removeGoodsCate}">
+		                            		<input type="button" value="삭제">
+		                            	</a>
+		                            </td>
+								</tr>
+							</tbody>
+						</table>
+	
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<li class="page-item disabled"><a class="page-link">Previous</a>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
 
-						<tbody>
-							<tr class="even pointer" th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l : ${goodsCateList}">
-								<td class="a-center ">
-									<input type="checkbox" class="flat" name="table_records">
-								</td>
-								<td th:text="${l.goodsLargeCate}"></td>
-								<td th:text="${l.goodsSmallCate}"></td>
-								<td th:text="${l.goodsLarge.goodsLargeName}"></td>
-								<td th:text="${l.goodsSmallName}"></td>
-								<td th:text="${l.entryTime}"></td>
-								<td class=" ">
-	                         		<!-- /goods/modifyGoodsCate?goodsSmallCate=goods_small_cate_1 -->
-	                            	<a th:href="@{/goods/modifyGoodsCate(goodsSmallCate=${l.goodsSmallCate})}">
-	                            		<input type="button" value="수정">
-	                            	</a>
-	                            </td>
-	                            <td class=" ">
-	                            	<a th:href="@{/goods/removeGoodsCate}">
-	                            		<input type="button" value="삭제">
-	                            	</a>
-	                            </td>
-							</tr>
-						</tbody>
-					</table>
-
-					<nav aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
-							<li class="page-item disabled"><a class="page-link">Previous</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a>
-							</li>
-						</ul>
-					</nav>
 				</div>
-
-
 			</div>
 		</div>
-	</div>
 
 	</th:block>
 </html>

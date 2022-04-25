@@ -19,6 +19,12 @@ public class UserMainController {
 			this.userGoodsService = userGoodsService;
 		}
 	
+		
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-15
+	 * 사용자 화면 - 최신 상품 8개 조회
+	 */
 	@GetMapping("/userMain")
 	public String main(Model model) {
 		

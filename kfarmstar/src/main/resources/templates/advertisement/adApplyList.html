@@ -32,27 +32,25 @@
 	
 	
 	<th:block layout:fragment="customContents">
-			<div class="col-md-10 col-sm-12 offset-1">
-				<div class="x_panel">
-					<div class="x_title">
-						<h2>
-							광고 신청 목록<small>Ad Apply List</small>
-						</h2>
-						<div class="clearfix"></div>
-					</div>
-		
-					<div class="x_content">
+		<div class="col-md-10 col-sm-12 offset-1">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>
+						광고 신청 목록<small>Ad Apply List</small>
+					</h2>
+					<div class="clearfix"></div>
+				</div>
+	
+				<div class="x_content">
 
-					<p>
-						Add class
-						<code>bulk_action</code>
-						to table for bulk actions options on row select
-					</p>
-				
+				<p>
+					광고가 승인되면 결제 버튼이 활성화 됩니다.
+				</p>
+			
 
-				<!-- START : 검색 바 -->
-					<div th:include="advertisement/searchAd :: searchApplyListFragment"></div><br>
-				<!-- END : 검색 바 -->
+			<!-- START : 검색 바 -->
+				<div th:include="advertisement/searchAd :: searchApplyListFragment"></div><br>
+			<!-- END : 검색 바 -->
 
 
 				<div class="table-responsive">

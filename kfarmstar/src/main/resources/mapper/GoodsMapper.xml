@@ -268,6 +268,9 @@
 			<if test="searchKey != null and searchKey != '' and searchValue != ''">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
+			<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
+				AND m.entry_time BETWEEN #{startDate} AND #{endDate}
+			</if>
 		</trim>
 		ORDER BY cast(SUBSTRING_INDEX(m.goods_refurb_code,'_',-1) AS UNSIGNED) ASC;
 	</select>
@@ -416,6 +419,7 @@
 	</select>
 	
 	<insert id="addStoreGoodsLarge" parameterType="StoreGoodsLarge">
+		/* 판매자 스토어별 상품 대분류 등록 */
 		INSERT INTO store_goods_large
 			(goods_large_code
 			, seller_store_num
@@ -429,6 +433,7 @@
 	</insert>
 	
 	<insert id="addStoreGoodsSmall" parameterType="StoreGoodsSmall">
+		/* 판매자 스토어별 상품 소분류 등록 */
 		INSERT INTO store_goods_small
 			(goods_small_code
 			, seller_store_num

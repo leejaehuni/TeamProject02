@@ -115,4 +115,19 @@ public class UserGoodsService {
 			return randomGoods;
 		}
 	
+		
+		public List<Goods> getAdGoods() {
+			List<Goods> adGoods = userGoodsMapper.getAdGoods();
+			// 금액 표시 : 세자리 마다 쉼표 찍어주고 + '원'
+			NumberFormat numberFormat = NumberFormat.getInstance();
+			for(int i=0; i<adGoods.size(); i++) {
+				int refurbPrice = Integer.parseInt(adGoods.get(i).getGoodsRefurbPrice());
+
+				String refurbResult = numberFormat.format(refurbPrice);
+	            
+				adGoods.get(i).setGoodsRefurbPrice(refurbResult + "원");
+			}
+			
+			return adGoods;
+		}
 }

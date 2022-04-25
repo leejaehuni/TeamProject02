@@ -22,4 +22,7 @@ public interface UserGoodsMapper {
 	// 사용자 화면 - 특정 상품을 제외하고  네 가지 상품 랜덤 조회
 	public List<Goods> getRandomGoods(String goodsRefurbCode);
 	
+	// 사용자 화면 - 광고 상품 랜덤 조회
+	public List<Goods> getAdGoods();
+	
 }

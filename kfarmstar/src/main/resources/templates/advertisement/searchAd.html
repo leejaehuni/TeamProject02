@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- 광고 관련 검색 바 -->
 
-
-
-<!-- 광고 신청 검색 바 -->
-		<!-- 상품 카테고리 검색 바 -->
+		<!-- 광고 신청 검색 바 -->
 			<div th:fragment="searchApplyListFragment">
 				<form th:action="@{/advertisement/adApplyList}" method="get">	
 						
-					<!-- start : 기간 검색 바 -->
+					<!-- START : 기간 검색 바 -->
 			<div class="form-row mb-2">
 				<div class="col-md-5 col-sm-5 searchBtn">
 					<label>기간 조회</label>
-					<button type="button" class="btn btn-light btn-sm ml-2" 	name="filterDate" 	id="btn-date1">오늘</button>
-					<button type="button" class="btn btn-light btn-sm" 			name="filterDate" 	id="btn-date2">1주</button>
-					<button type="button" class="btn btn-light btn-sm"		 	name="filterDate" 	id="btn-date3">1개월</button>
-					<button type="button" class="btn btn-light btn-sm"		 	name="filterDate" 	id="btn-date4">3개월</button>
-					<button type="button" class="btn btn-light btn-sm"		 	name="filterDate" 	id="btn-date5">6개월</button>
-					<button type="button" class="btn btn-light btn-sm"		 	name="filterDate" 	id="btn-date6">1년</button>
+					<button type="button" class="btn btn-light btn-sm ml-2 dateBtnGroup"		name="filterDate"	id="btn-date1">오늘</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"				name="filterDate"	id="btn-date2">1주</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date3">1개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date4">3개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date5">6개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date6">1년</button>
 				</div>
 					<div class="col-md-2 col-sm-2">
-						<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="startDate">
+						<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="startDate" name="startDate">
 					</div>
 					<div class="align-self-center">
 						<i class="fa fa-minus"></i>
 					</div>
 					<div class="col-md-2 col-sm-2">
-						<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="endDate">
+						<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="endDate" name="endDate">
 					</div>
 			</div>
 			<!-- END : 기간 검색 바 -->
 		
 		
-					<!-- start : 검색 바 -->
-					 <div class="form-row">
-					    <div class="form-group col-md-2" >
-					      <select id=" " class="form-control text-center" name="searchKey">
-					        <option value="" selected> :: 선택 :: </option>
-					        <option value="adApplyCode">광고 신청 번호</option>
-					        <option value="adApplyTitle">제목</option>
-					        <option value="adPermitState">진행상태</option>
-					        <option th:if="${session.SLEVEL == '관리자'}" value="memberId">아이디</option>
-					      </select>
-					    </div>
+					<!-- START : 검색 바 -->
+					<div class="form-row">
+						<div class="form-group col-md-2" >
+							<select id=" " class="form-control text-center" name="searchKey">
+								<option value="" selected> :: 선택 :: </option>
+								<option value="adApplyCode">광고 신청 번호</option>
+								<option value="adApplyTitle">제목</option>
+								<option value="adPermitState">진행상태</option>
+								<option th:if="${session.SLEVEL == '관리자'}" value="memberId">아이디</option>
+							</select>
+						</div>
 						<div class="form-group col-md-6">
 							<input type="text" class="form-control" name="searchValue"
 								placeholder="Search" aria-label="Text input with button">
@@ -55,46 +51,32 @@
 								<button type="reset" class="btn btn-info" id="btn_reset">초기화</button>
 							</div>
 						</div>
-					  </div>
+					</div>
 		
 					<!-- END : 검색 바 -->
 				</form>
-		
-			
 			</div>
 			
-			<!-- 예시
-			<div th:fragment="searchGoodsFragment">
-				<form th:action="@{/goods/goodsList}" method="get">
-					<select	name="searchKey">
-						<option value="goodsName">상품명</option>
-						<option th:if="${session.SLEVEL == '1'}" value="goodsSellerId">판매자</option>
-					</select>
-					<input type="text" name="searchValue" placeholder="검색 키워드를 입력해주세요."/>
-					<button type="submit">검색</button>
-				</form>
-			</div>
-			 -->
+			
+			
+			
+	<!-- 광고 결제 검색 바 -->
 
-
-
-
-<!-- 광고 결제 검색 바 -->
-
-
-		<!-- 상품 카테고리 검색 바 -->
-		<div th:fragment="searchAdPaymentListFragment">
+		<!-- <div th:fragment="searchAdPaymentListFragment">
 			<form th:action="@{/advertisement/adPaymentList}" method="get">	
 					
-			<!-- start : 기간 검색 바 -->
+			START : 기간 검색 바
 							
 			<div class="form-row pb-3">
-				<div class="pl-1 pt-1">
-					<button type="button" class="btn btn-light btn-sm">오늘</button>
-					<button type="button" class="btn btn-light btn-sm">1주</button>
-					<button type="button" class="btn btn-light btn-sm">1개월</button>
-					<button type="button" class="btn btn-light btn-sm">3개월</button>
-               	</div>
+				<div class="col-md-5 col-sm-5 searchBtn">
+					<label>기간 조회</label>
+					<button type="button" class="btn btn-light btn-sm ml-2 dateBtnGroup"		name="filterDate"	id="btn-date1">오늘</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"				name="filterDate"	id="btn-date2">1주</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date3">1개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date4">3개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date5">6개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date6">1년</button>
+				</div>
 				<div class="col-md-3 col-sm-3 ">
 					<input class="date-picker form-control" placeholder="dd-mm-yyyy"
 						type="date" required="required" onfocus="this.type='date'"
@@ -127,10 +109,10 @@
 				</div>
 			</div>
 			
-			<!-- END : 기간 검색 바 -->
+			END : 기간 검색 바
 
 
-			<!-- start : 검색 바 -->
+			START : 검색 바
 			 <div class="form-row">
 			    <div class="form-group col-md-2">
 			      <select id=" " class="form-control text-center">
@@ -151,26 +133,30 @@
 				</div>
 			  </div>
 
-				<!-- END : 검색 바 -->
+				END : 검색 바
 				</form>
 			</div>
 
-<!-- 광고 환불 검색 바 -->
 
 
-		<!-- 상품 카테고리 검색 바 -->
+
+	광고 환불 검색 바
+
 		<div th:fragment="searchRefundListFragment">
 			<form th:action="@{/advertisement/adRefundList}" method="get">	
 					
-			<!-- start : 기간 검색 바 -->
+			START : 기간 검색 바
 							
 			<div class="form-row pb-3">
-				<div class="pl-1 pt-1">
-					<button type="button" class="btn btn-light btn-sm">오늘</button>
-					<button type="button" class="btn btn-light btn-sm">1주</button>
-					<button type="button" class="btn btn-light btn-sm">1개월</button>
-					<button type="button" class="btn btn-light btn-sm">3개월</button>
-               	</div>
+				<div class="col-md-5 col-sm-5 searchBtn">
+					<label>기간 조회</label>
+					<button type="button" class="btn btn-light btn-sm ml-2 dateBtnGroup"		name="filterDate"	id="btn-date1">오늘</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"				name="filterDate"	id="btn-date2">1주</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date3">1개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date4">3개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date5">6개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date6">1년</button>
+				</div>
 				<div class="col-md-3 col-sm-3 ">
 					<input class="date-picker form-control" placeholder="dd-mm-yyyy"
 						type="date" required="required" onfocus="this.type='date'"
@@ -203,10 +189,10 @@
 				</div>
 			</div>
 			
-			<!-- END : 기간 검색 바 -->
+			END : 기간 검색 바
 
 
-			<!-- start : 검색 바 -->
+			start : 검색 바
 			 <div class="form-row">
 			    <div class="form-group col-md-2">
 			      <select id=" " class="form-control text-center">
@@ -227,38 +213,38 @@
 				</div>
 			  </div>
 
-				<!-- END : 검색 바 -->
+				END : 검색 바
 				</form>
-			</div>
+			</div> -->
 
 
-<!-- 광고 진행 검색 바 -->
 
 
-		<!-- 상품 카테고리 검색 바 -->
+	<!-- 광고 진행 검색 바 -->
+
 		<div th:fragment="searchAdvertisingListFragment">
 			<form th:action="@{/advertisement/advertisingList}" method="get">	
 					
-			<!-- start : 기간 검색 바 -->
+			<!-- START : 기간 검색 바 -->
 						
 			<div class="form-row mb-2">
-				<div class="col-md-4 col-sm-4 searchBtn">
-					<label>기간 조회</label>
-               		<button type="button" class="btn btn-light btn-sm ml-2 	btn-date" 		name="filterDate" 		value="1">오늘</button>
-               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="2">1주</button>
-               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="3">1개월</button>
-               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="4">3개월</button>
-               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="5">6개월</button>
-               		<button type="button" class="btn btn-light btn-sm 		btn-date" 		name="filterDate" 		value="6">1년</button>
-                </div>
+				<div class="col-md-5 col-sm-5 searchBtn">
+					<label>광고 날짜 조회</label>
+					<button type="button" class="btn btn-light btn-sm ml-2 dateBtnGroup"		name="filterDate"	id="btn-date1">오늘</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"				name="filterDate"	id="btn-date2">1주</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date3">1개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date4">3개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date5">6개월</button>
+					<button type="button" class="btn btn-light btn-sm dateBtnGroup"		 		name="filterDate"	id="btn-date6">1년</button>
+				</div>
 				<div class="col-md-2 col-sm-2">
-					<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="startDate">
+					<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="startDate" name="startDate">
 				</div>
 				<div class="align-self-center">
 					<i class="fa fa-minus"></i>
 				</div>
 				<div class="col-md-2 col-sm-2">
-					<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="endDate">
+					<input type="text" class="datepicker form-control" placeholder="연도-월-일" id="endDate" name="endDate">
 				</div>
 			</div>
 			
@@ -268,29 +254,30 @@
 			<!-- START : 권한별 검색 -->
 			<div class="mb-2">
 				<div class="checkbox">
-					<label>권한별 조회</label>
+					<label>진행상태 조회</label>
 					<label class="btn btn-default">
-						<input type="checkbox" name="options" id="option1" class="flat"> 구매자
+						<input type="checkbox" name="options" id="option1" class="flat"> 결제완료
 					</label>
 					<label class="btn btn-default">
-						<input type="checkbox" name="options" id="option2" class="flat"> 판매자
+						<input type="checkbox" name="options" id="option2" class="flat"> 광고중
 					</label>
 					<label class="btn btn-default">
-						<input type="checkbox" name="options" id="option3" class="flat"> 관리자
+						<input type="checkbox" name="options" id="option3" class="flat"> 광고완료
 					</label>
 				</div>
 			</div>
 
 			<!-- END : 권한별 검색 -->
 
-			<!-- start : 검색 바 -->
+			<!-- START : 검색 바 -->
 			<div class="form-row">
 				<div class="form-group col-md-2">
-					<select id=" " class="form-control text-center">
-						<option selected>:: 선택 ::</option>
-						<option>옵션 1</option>
-						<option>옵션 2</option>
-						<option>옵션 3</option>
+					<select id=" " class="form-control text-center" name="searchKey">
+						<option value="" selected> :: 선택 :: </option>
+						<option value="adApplyCode">광고 번호</option>
+						<option value="adCate">광고 종류</option>
+						<option value="adPermitState">진행상태</option>
+						<option th:if="${session.SLEVEL == '관리자'}" value="memberId">아이디</option>
 					</select>
 				</div>
 				<div class="form-group col-md-6">
@@ -299,7 +286,7 @@
 				</div>
 				<div class="form-group col-md-4">
 					<div class="input-group-append">
-						<button type="button" class="btn btn-success">검색</button>
+						<button type="submit" class="btn btn-success">검색</button>
 						<button type="reset" class="btn btn-info" id="btn_reset">초기화</button>
 					</div>
 				</div>
@@ -307,10 +294,6 @@
 			<!-- END : 검색 바 -->
       </form>
    </div>
-
-
-
-
 
 
 

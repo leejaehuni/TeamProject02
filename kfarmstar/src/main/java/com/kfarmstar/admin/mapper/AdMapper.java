@@ -22,7 +22,7 @@ public interface AdMapper {
 	public int addAdApply(AdApply adApply);
 	
 	// 광고 진행 중 & 광고 완료 목록
-	public List<AdApply> getAdvertisingList();
+	public List<AdApply> getAdvertisingList(Map<String, Object> paramMap);
 	
 	// 광고 신청 목록
 	public List<AdApply> getAdApplyList(Map<String, Object> paramMap);
@@ -67,6 +67,9 @@ public interface AdMapper {
 	
 	// 광고 신청번호에 따른 ad_payment_code 조회
 	public String getPayCodeByApplyCode(String adApplyCode);
+
+	// 광고 신청번호에 따른 결제후 정보 조회
+	public AfterAdPay adPayDetailByApplyCode(String adApplyCode);
 	
 
 }

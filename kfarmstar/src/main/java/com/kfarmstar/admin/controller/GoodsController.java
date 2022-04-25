@@ -238,13 +238,15 @@ public class GoodsController {
 		
 	}
 	
+	
 	/**
 	 * 상품 목록 화면 및 검색 화면
-	 * 
 	 */
 	@GetMapping("/goodsList")
 	public String getGoodsList(Model model
 							, HttpSession session
+							, @RequestParam(value="startDate", required = false) String startDate
+							, @RequestParam(value="endDate", required = false) String endDate
 							, @RequestParam(value="searchKey", required = false) String searchKey
 							, @RequestParam(value="searchValue", required = false) String searchValue) {
 		
@@ -272,6 +274,8 @@ public class GoodsController {
 			}
 		}
 		
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
 		paramMap.put("searchKey", searchKey);
 		paramMap.put("searchValue", searchValue);
 		

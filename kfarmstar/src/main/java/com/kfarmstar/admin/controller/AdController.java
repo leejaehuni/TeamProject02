@@ -40,11 +40,13 @@ public class AdController {
 		this.adService = adService;
 	}
 	
-	/**
+
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-01
 	 * 광고 가격 계산 Ajax
 	 * 광고 단가 코드별  상세 정보 조회
 	 * @param adPriceCode
-	 * @return
 	 */
 	@PostMapping("/getAdPriceInfoByCode")
     @ResponseBody
@@ -56,10 +58,10 @@ public class AdController {
     }
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-04
 	 * 광고 신청 후 상세 화면
-	 * @param model
-	 * @param adApplyCode
 	 */
 	@GetMapping("/adApplyDetail")
 	public String getDetailAdApplyInfo(Model model
@@ -83,7 +85,9 @@ public class AdController {
 	}
 
 	
-	/**
+	/* 
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-05
 	 * 광고신청 상세화면(adApplyDetail)에서  
 	 * 수정처리 (수정 -> 저장 버튼 클릭시)
 	 */
@@ -96,13 +100,17 @@ public class AdController {
 	}
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-02
 	 * 광고 신청 목록 화면
 	 */
 	@GetMapping("/adApplyList")
 	public String getAdApplyList(Model model
 								, HttpSession session
 								, @RequestParam(name="adApplyCode", required = false) String adApplyCode
+								, @RequestParam(value="startDate", required = false) String startDate
+								, @RequestParam(value="endDate", required = false) String endDate
 								, @RequestParam(value="searchKey", required = false) String searchKey
 								, @RequestParam(value="searchValue", required = false) String searchValue) {
 		
@@ -133,20 +141,23 @@ public class AdController {
 		
 		paramMap.put("searchKey", searchKey);
 		paramMap.put("searchValue", searchValue);
-		
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
 		
 		List<AdApply> adApplyList = adService.getAdApplyList(paramMap);
-		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
+		//AdApply adApply = adService.getAdApplyByCode(adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 신청 목록");
 		model.addAttribute("titleName", "광고 신청 목록");
 		model.addAttribute("adApplyList", adApplyList);
-		model.addAttribute("adApply", adApply);
+		//model.addAttribute("adApply", adApply);
 		
 		return "advertisement/adApplyList";
 	}
 
 	
-	/**
+	/*	 
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-03-28
 	 * 광고 신청 화면
 	 */
 	@GetMapping("/addAdApply")
@@ -165,7 +176,9 @@ public class AdController {
 	}
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-03-30
 	 * 광고 신청 처리
 	 */
 	@PostMapping("/addAdApply")
@@ -189,12 +202,13 @@ public class AdController {
 		adService.addAdApply(adApply, sessionId, fileImage, fileRealPath);
 		
 		return "redirect:/advertisement/adApplyList";
-		
 	}
 	
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-05
 	 * 광고 승인 처리(신청 테이블 update & 결제전 테이블에 insert)
 	 * (관리자 : 신청 상세 화면을 보고 승인 버튼을 누르면 진행 상태가 결제전 으로 바뀐다)
 	 * @param adApplyCode
@@ -214,7 +228,9 @@ public class AdController {
 	}
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-06
 	 * 광고 거절 처리
 	 * (관리자 : 신청 상세 화면을 보고 승인 버튼을 누르면 진행 상태가 결제전 으로 바뀐다)
 	 * @param adApplyCode
@@ -228,32 +244,6 @@ public class AdController {
 	}
 	
 	
-	/**
-	 * 광고 단가 등록 화면
-	 * @param adPrice
-	 */
-	@GetMapping("/addAdPrice")
-	public String addAdPrice(Model model) {
-		model.addAttribute("title", "FoodRefurb : 광고 단가 등록");
-		model.addAttribute("titleName", "광고 단가 등록");
-		
-		
-		return "advertisement/addAdPrice";
-	}
-	
-	
-	/**
-	 * 광고 단가 등록 처리
-	 * @param adPrice
-	 */
-	@PostMapping("/addAdPrice")
-	public String addAdPrice(AdPrice adPrice) {
-		
-		adService.addAdPrice(adPrice);
-		log.info("광고 단가 등록 폼 입력값: {}", adPrice); 
-		
-		return "redirect:/advertisement/adPriceList";
-	}
 	
 	/**
 	 * 광고 등록 처리 (보류)
@@ -267,7 +257,9 @@ public class AdController {
 	}
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-08
 	 * 광고 결제 페이지
 	 */
 	@GetMapping("/addAdPayment")
@@ -289,7 +281,9 @@ public class AdController {
 	
 	/****************************************** 작업중 *********************************************/
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-10
 	 * 광고 결제 처리
 	 */
 	@PostMapping("/addAdPayment")
@@ -314,16 +308,16 @@ public class AdController {
 	 * 광고 결제 후 상세 페이지
 	 * @param model
 	 * @param adApplyCode
-	 * @return
 	 */
 	@GetMapping("/adPaymentDetail")
 	public String adPaymentDetail(Model model
 			, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
 		
-		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
+		log.info("광고 상세 페이지");
+		AfterAdPay afterAdPay = adService.adPayDetailByApplyCode(adApplyCode);
 		model.addAttribute("title", "FoodRefurb : 광고 결제 상세 정보");
 		model.addAttribute("titleName", "광고 결제 상세 정보");
-		model.addAttribute("adApply", adApply);
+		model.addAttribute("afterAdPay", afterAdPay);
 		
 		return "advertisement/adPaymentDetail";
 	}
@@ -348,7 +342,60 @@ public class AdController {
 	
 */
 	
-	/**
+	
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-11
+	 * 결제완료, 광고중, 광고완료 상태인 광고 목록
+	 */
+	@GetMapping("/advertisingList")
+	public String getAdvertisingList(Model model
+									, @RequestParam(name="adApplyCode", required = false) String adApplyCode
+									, @RequestParam(value="startDate", required = false) String startDate
+									, @RequestParam(value="endDate", required = false) String endDate
+									, @RequestParam(value="searchKey", required = false) String searchKey
+									, @RequestParam(value="searchValue", required = false) String searchValue) {
+		
+		log.info("searchValue:{}", searchValue);
+		log.info("searchKey:{}", searchKey);
+		log.info("startDate:{}", startDate);
+		log.info("endDate:{}", endDate);
+		Map<String, Object> paramMap = new HashMap<String , Object>();
+		
+		if(searchKey != null) {
+			if("memberId".equals(searchKey)) {
+				searchKey = "a.member_id";						
+			}else if("adApplyCode".equals(searchKey)) {
+				searchKey = "ad_apply_code";
+			}else if("adCate".equals(searchKey)) {
+				searchKey = "ad_cate";
+			}else if("adPermitState".equals(searchKey)) {
+				searchKey = "ad_permit_state";
+			}
+		}
+		
+		paramMap.put("searchKey", searchKey);
+		paramMap.put("searchValue", searchValue);
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
+		
+		List<AdApply> advertisingList = adService.getAdvertisingList(paramMap);
+		//AdApply adApply = adService.getAdApplyByCode(adApplyCode);
+		
+		
+		model.addAttribute("title", "FoodRefurb : 광고 목록");
+		model.addAttribute("titleName", "광고 목록");
+		model.addAttribute("advertisingList", advertisingList);
+		//model.addAttribute("adApply", adApply);
+		
+		return "advertisement/advertisingList";
+	}
+	
+	
+	
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-02
 	 * 광고 단가 목록 
 	 */
 	@GetMapping("/adPriceList")
@@ -365,36 +412,38 @@ public class AdController {
 		return "advertisement/adPriceList";
 	}
 	
-	/**
-	 * 광고 환불 목록 
+	
+	/* 
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-02
+	 * 광고 단가 등록 화면
+	 * @param adPrice
 	 */
-	@GetMapping("/adRefundList")
-	public String getAdRefundList(Model model) {
-		model.addAttribute("title", "FoodRefurb : 광고 환불 목록");
-		model.addAttribute("titleName", "광고 환불 목록");
+	@GetMapping("/addAdPrice")
+	public String addAdPrice(Model model) {
+		model.addAttribute("title", "FoodRefurb : 광고 단가 등록");
+		model.addAttribute("titleName", "광고 단가 등록");
 		
-		return "advertisement/adRefundList";
+		
+		return "advertisement/addAdPrice";
 	}
 	
 	
-	/**
-	 * 결제완료, 광고중, 광고완료 상태인 광고 목록
-	 * @param model
-	 * @return
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-02
+	 * 광고 단가 등록 처리
+	 * @param adPrice
 	 */
-	@GetMapping("/advertisingList")
-	public String getAdvertisingList(Model model
-									, @RequestParam(name="adApplyCode", required = false) String adApplyCode) {
-		List<AdApply> advertisingList = adService.getAdvertisingList();
-		AdApply adApply = adService.getAdApplyByCode(adApplyCode);
+	@PostMapping("/addAdPrice")
+	public String addAdPrice(AdPrice adPrice
+							, HttpSession session) {
 		
+		String sessionId = (String) session.getAttribute("SID");
+		adService.addAdPrice(adPrice, sessionId);
+		log.info("광고 단가 등록 폼 입력값: {}", adPrice); 
 		
-		model.addAttribute("title", "FoodRefurb : 광고 목록");
-		model.addAttribute("titleName", "광고 목록");
-		model.addAttribute("advertisingList", advertisingList);
-		model.addAttribute("adApply", adApply);
-		
-		return "advertisement/advertisingList";
+		return "redirect:/advertisement/adPriceList";
 	}
 	
 	
@@ -402,7 +451,6 @@ public class AdController {
 	/**
 	 * 광고 단가 수정 화면
 	 * @param adPriceCode
-	 * @return
 	 */
 	@GetMapping("/modifyAdPrice")
 	public String modifyAdPrice(Model model
@@ -425,23 +473,14 @@ public class AdController {
 	 * @param adPrice
 	 */
 	@PostMapping("/modifyAdPrice")
-	public String modifyAdPrice(AdPrice adPrice) {
-		adService.modifyAdPrice(adPrice);
+	public String modifyAdPrice(AdPrice adPrice
+								, HttpSession session) {
+		String sessionId = (String) session.getAttribute("SID");
+		adService.modifyAdPrice(adPrice, sessionId);
 		
 		return "redirect:/advertisement/adPriceList";
 	}
 	
-	
-	/**
-	 * 광고 환불 수정 화면,,, 환불 수정...? 고민해보기
-	 */
-	@GetMapping("/modifyAdRefund")
-	public String modifyAdRefund(Model model) {
-		model.addAttribute("title", "FoodRefurb : 광고 환불 수정");
-		model.addAttribute("titleName", "광고 환불 수정");
-		
-		return "advertisement/modifyAdRefund";
-	}
 	
 	/**
 	 * 광고 신청 취소 화면 ... 이것도 뭔가 이상하다..? 고민해보기
@@ -462,17 +501,6 @@ public class AdController {
 		
 		return "advertisement/removeAdPrice";
 	}
-	
-	
-	@GetMapping("/removeAdRefund")
-	public String removeAdRefund(Model model) {
-		model.addAttribute("title", "FoodRefurb : 광고 환불 취소");
-		model.addAttribute("titleName", "광고 환불 취소");
-		
-		return "advertisement/removeAdRefund";
-	}
-	
-	
 	
 	
 }
