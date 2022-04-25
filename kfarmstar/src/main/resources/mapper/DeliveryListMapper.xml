@@ -88,8 +88,8 @@
 	 	<result column="fk_goods_payment_complete_code" 	property="goodsPaymentCompleteCode"/>
 	 	<result column="fk_goods_member_id" 				property="memberId"/>
 	 	<result column="delivery_status" 					property="deliveryStatus"/>
-	 	<result column="delivery_registration_date" 		property="deliveryRegistrationDate"/>
-	 	<result column="delivery_expected_date" 			property="deliveryExpectedDate"/>
+	 	<result column="delivery_registration_date" 		property="registrationDate"/>
+	 	<result column="delivery_expected_date" 			property="expectedDate"/>
 	 	<association property="deliveryCompany" 		javaType="DeliveryCompany">
 	 		<result column="company_code" 					property="companyCode"/>
 			<result column="company_name" 					property="companyName"/>
@@ -104,8 +104,9 @@
 		 	<result column="company_affiliation" 			property="companyAffiliation"/>
 		 	<result column="company_position" 				property="companyPosition"/>
 	 	</association>
-	 	<association property="goodsRefund" 			javaType="GoodsRefund">
-	 		<result column="goods_refurb_name" 				property="refundReasonContent"/>
+	 	<association property="goods" 				javaType="goods">
+	 		<result column="goods_refurb_code" 				property="goodsRefurbCode"/>
+	 		<result column="goods_refurb_name" 				property="goodsRefurbName"/>
 	 	</association>
 	 	<association property="afterPayment" 			javaType="AfterPayment">
 			<result column="payment_complete_code" 			property="paymentCompleteCode"/>

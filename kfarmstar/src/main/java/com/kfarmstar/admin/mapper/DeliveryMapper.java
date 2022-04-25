@@ -29,7 +29,7 @@ public interface DeliveryMapper {
 	public DeliveryCompany getCompany(String companyCode);
 	
 	//배송 운송장 내역 조회
-	public DeliveryGoods getDelivery(String deliveryNum);
+	//public DeliveryGoods getDelivery(String deliveryNum);
 	
 	//배송 회사 내역 수정
 	//public List<DeliveryCompany> modifyCompany();
@@ -44,7 +44,7 @@ public interface DeliveryMapper {
 	public List<DeliveryGoods> addDeliveryCompany();
 	public List<DeliveryGoods> addDeliveryGoods();
 	public int addDelivery(DeliveryGoods deliveryGoods);
-	public List<DeliveryCompany> changeDelivery();
+	public DeliveryCompany getCompanyByCompanyCode(String companyCode);
 	
 	//집하 등록
 	
