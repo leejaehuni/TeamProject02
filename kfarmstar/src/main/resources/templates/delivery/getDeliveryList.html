@@ -99,8 +99,8 @@
 								<th>
 									<input type="checkbox" id="check-all" class="flat">
 								</th>
-								<th class="column-title">운송장 번호</th>
 								<th class="column-title">배송 상태</th>
+								<th class="column-title">운송장 번호</th>
 								<th class="column-title">상품 이름</th>
 								<th class="column-title">주문자 이름</th>
 								<th class="column-title">담당자 이름</th>
@@ -113,16 +113,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="even pointer" th:each="l : ${deliveryList}" th:if="${not #lists.isEmpty(deliveryList)}">
+							<tr class="even pointer" th:if="${not #lists.isEmpty(deliveryList)}" th:each="l : ${deliveryList}">
 								<td class="a-center ">
 									<input type="checkbox" class="flat" name="table_records">
 								</td>
 								<td th:text="${l.deliveryNum}"></td>
-								<td>=====오류======</td>
-								<!-- 
-								<td th:text="${l.deliveryStatus}"></td>
-								 -->
-								<td th:text="${l.goodsRefund.refundReasonContent}"></td>
+								<td th:text="@{l.deliveryStatus}"></td>
+								<td th:text="${l.goods.goodsRefurbName}"></td>
 								<td th:text="${l.puchaserPayment.recipientName}"></td>
 								<td th:text="${l.member.memberName}"></td>
 								<td th:text="${l.member.memberPhone}"></td>
