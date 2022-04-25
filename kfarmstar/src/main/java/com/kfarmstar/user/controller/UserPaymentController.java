@@ -23,7 +23,6 @@ import com.kfarmstar.dto.Goods;
 import com.kfarmstar.dto.PaymentType;
 import com.kfarmstar.user.mapper.UserPaymentMapper;
 import com.kfarmstar.user.service.UserPaymentService;
-/*깃허브수정*/
 @Controller
 @RequestMapping("/userPayment")
 public class UserPaymentController {
@@ -39,6 +38,11 @@ public class UserPaymentController {
 		this.userPaymemtMapper = userPaymemtMapper;
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-21
+	 * 결제 후 결제한 정보 조회
+	 * */
 	@GetMapping("/userAfterPayment")
 	public String userAfterPayment(Model model
 									,HttpSession session
@@ -60,7 +64,11 @@ public class UserPaymentController {
 		return "userPayment/userAfterPayment";
 	}
 	
-	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-21
+	 * 결제전 결제 정보 입력
+	 * */
 	@PostMapping("/userBeforePayment")
 	public String userBeforePayment(HttpSession session
 									,BeforePayment beforePayment
@@ -82,6 +90,11 @@ public class UserPaymentController {
 		 return "redirect:/userPayment/userAfterPayment";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-21
+	 * 결제 전 상품 정보 조회 및 합계 조회
+	 * */
 	@GetMapping("/userBeforePayment")
 	public String userBeforePayment(Model model
 									,HttpSession session

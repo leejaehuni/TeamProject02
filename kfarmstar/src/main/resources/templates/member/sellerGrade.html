@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
-/*깃허브수정*/	
 	<!-- 사용자 정의 title -->
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
@@ -52,7 +51,7 @@
 										<a th:href="@{/member/modifySellerGrade(sellerGradeNum=${l.sellerGradeNum})}"><button type="button">수정</button></a>
 									</td>
 									<td>
-										<a th:href="@{/member/modifySellerGrade}"><button type="button">삭제</button></a>
+										<a th:href="@{/member/removeSellerGradeBenefit}"><button type="button">삭제</button></a>
 									</td>
 								</tr>
 							</tbody>

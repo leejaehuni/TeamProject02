@@ -36,11 +36,11 @@ public class PaymentController {
 		this.paymentMapper = paymentMapper;
 	}
 	
-	@GetMapping("/beforePurchaserInfo")
-	public String beforePurchaserInfo(Model model) {
-		return "payment/beforePurchaserInfo";
-	}
-	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-16
+	 * 처리상태별 상품교환 내역 목록 조회
+	 * */
 	@GetMapping("/searchStateExchange")
 	public String searchStateExchange(Model model
 									,@RequestParam(value="exchangeProcessState", required = false) String exchangeProcessState) {
@@ -54,6 +54,11 @@ public class PaymentController {
 		return "payment/goodsExchange";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-15
+	 * 상품 교환 날짜별 상품 교환 내역 목록 조회
+	 * */
 	@GetMapping("/searchDateGoodsExchange")
 	public String searchDateGoodsExchange(Model model
 										,@RequestParam(value="startDate", required = false) String startDate
@@ -71,6 +76,28 @@ public class PaymentController {
 		return "payment/goodsExchange";
 	}
 	
+	@GetMapping("/searchDateGoodsRefund")
+	public String searchDateGoodsRefund(Model model
+										,@RequestParam(value="startDate", required = false) String startDate
+										,@RequestParam(value="endDate", required = false) String endDate) {
+		
+		log.info("시작날짜 검색:{}", startDate);
+		log.info("종료날짜 검색:{}", endDate);
+		
+		List<GoodsRefund> searchDateGoodsRefund = paymentService.searchDateGoodsRefund(startDate, endDate);
+		
+		model.addAttribute("title", "FoodRefurb : 상품 환불 관리");
+		model.addAttribute("titleName", "상품 환불 내역 관리");
+		model.addAttribute("goodsRefundInfo", searchDateGoodsRefund);
+		
+		return "payment/goodsRefund";
+	}
+	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-10
+	 * 결제타입별 결제 내역 목록 조회
+	 * */
 	@GetMapping("/searchTypeAfterPayment")
 	public String searchTypeAfterPayment(Model model
 										,@RequestParam(value="paymentOption", required = false) String paymentOption) {
@@ -79,11 +106,18 @@ public class PaymentController {
 		
 		List<AfterPayment> searchTypeAfterPayment = paymentService.searchTypeAfterPayment(paymentOption);
 		
+		model.addAttribute("title", "FoodRefurb : 결제관리");
+		model.addAttribute("titleName", "결제 내역 관리");
 		model.addAttribute("afterPaymentInfo", searchTypeAfterPayment);
 		
 		return "payment/afterPaymentInfo";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-11
+	 * 결제수단별 결제 내역 목록 조회
+	 * */
 	@GetMapping("/conditionAfterPaymentList")
 	public String conditionAfterPaymentList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
@@ -110,6 +144,11 @@ public class PaymentController {
 		return "payment/afterPaymentInfo";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-10
+	 * 구매자가 결제한 결제 내역 목록 조회
+	 * */
 	@GetMapping("/afterPaymentInfo")
 	public String afterPaymentInfo(Model model
 									,@RequestParam(value="searchKey", required = false) String searchKey
@@ -124,6 +163,11 @@ public class PaymentController {
 		return "payment/afterPaymentInfo";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-11
+	 * 결제코드별 결제 상세 내역 조회
+	 * */
 	@GetMapping("/afterPaymentDetail")
 	public String afterPaymentDetail(Model model
 									,@RequestParam(name="paymentCompleteCode", required = false) String paymentCompleteCode) {
@@ -139,6 +183,11 @@ public class PaymentController {
 		return "payment/afterPaymentDetail";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-11
+	 * 결제시각별 결제 내역 목록 조회
+	 * */
 	@GetMapping("/searchDateAfterPayment")
 	public String searchDateAfterPayment(Model model
 										,@RequestParam(value="startDate", required = false) String startDate
@@ -183,6 +232,11 @@ public class PaymentController {
 		return "payment/afterPaymentStatistics";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-12
+	 * 주문취소 내역 목록 조회
+	 * */
 	@GetMapping("/goodsOrderCancel")
 	public String goodsOrderCancel(Model model
 									,@RequestParam(value="searchKey", required = false) String searchKey
@@ -199,6 +253,11 @@ public class PaymentController {
 		return "payment/goodsOrderCancel";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-14
+	 * 주문취소코드별 주문 취소 상세 내역 조회
+	 * */
 	@GetMapping("/goodsOrderCancelDetail")
 	public String goodsOrderCancelDetail(Model model
 										,@RequestParam(name="orderCancelCode", required = false) String orderCancelCode) {
@@ -214,6 +273,11 @@ public class PaymentController {
 		return "payment/goodsOrderCancelDetail";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-14
+	 * 주문 취소 상세 내역 수정
+	 * */
 	@PostMapping("/goodsOrderCancelDetail")
 	public String modifyOrderCancel(OrderCancel orderCancel) {
 		
@@ -224,6 +288,11 @@ public class PaymentController {
 		return "redirect:/payment/goodsOrderCancel";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-13
+	 * 검색조건별 주문 취소 내역 조회
+	 * */
 	@GetMapping("/conditionOrderCancelList")
 	public String conditionOrderCancelList(Model model
 										,@RequestParam(value="searchKey", required = false) String searchKey
@@ -253,6 +322,11 @@ public class PaymentController {
 			return "payment/goodsOrderCancel";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-12
+	 * 날짜별 주문취소내역 목록 조회
+	 * */
 	@GetMapping("/searchDateOrderCancel")
 	public String searchDateOrderCancel(Model model
 										,@RequestParam(value="startDate", required = false) String startDate
@@ -297,6 +371,11 @@ public class PaymentController {
 		return "payment/goodsOrderStatistics";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-15
+	 * 상품교환내역 목록 조회
+	 * */
 	@GetMapping("/goodsExchange")
 	public String goodsExchange(Model model
 								,@RequestParam(value="searchKey", required = false) String searchKey
@@ -331,6 +410,11 @@ public class PaymentController {
 		return "payment/goodsExchangeRemove";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-17
+	 * 교환 코드에 맞는 교환 상세 내역 정보 조회
+	 * */
 	@GetMapping("/goodsExchangeDetail")
 	public String goodsExchangeDetail(Model model
 									,@RequestParam(name="goodsExchangeCode", required = false) String goodsExchangeCode) {
@@ -346,6 +430,11 @@ public class PaymentController {
 		return "payment/goodsExchangeDetail";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-17
+	 * 상품 교환 상세 내역 정보 수정
+	 * */
 	@PostMapping("/goodsExchangeDetail")
 	public String modifyGoodsExchange(GoodsExchange goodsExchange) {
 		
@@ -356,6 +445,11 @@ public class PaymentController {
 		return "redirect:/payment/goodsExchange";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-17
+	 * 검색조건별 상품 교환 내역 목록 조회
+	 * */
 	@GetMapping("/conditionGoodsExchangeList")
 	public String conditionGoodsExchangeList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
@@ -382,6 +476,11 @@ public class PaymentController {
 		return "payment/goodsExchange";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-18
+	 * 상품 결제 환불 내역을 조회
+	 * */
 	@GetMapping("/goodsRefund")
 	public String goodsRefund(Model model
 								,@RequestParam(value="searchKey", required = false) String searchKey
@@ -417,6 +516,11 @@ public class PaymentController {
 		return "payment/goodsRefundRemove";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-19
+	 * 상품 환불 상세내역 조회
+	 * */
 	@GetMapping("/goodsRefundDetail")
 	public String goodsRefundDetail(Model model
 									,@RequestParam(name="refundCode", required = false) String refundCode) {
@@ -432,6 +536,11 @@ public class PaymentController {
 		return "payment/goodsRefundDetail";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-18
+	 * 환불 상세내역 정보 수정
+	 * */
 	@PostMapping("/goodsRefundDetail")
 	public String modifyGoodsRefund(GoodsRefund goodsRefund) {
 		

@@ -12,10 +12,30 @@
 	</th:block>
 	
 	<th:block layout:fragment="customJsScript">
+		<!-- 주소검색 API -->
+		<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
 	<th:block layout:fragment="customScript">
+		<script>
+		$(function(){
+			$('#modifyButton').click(function(){
+				$('input').attr("readonly",false);
+				$('.readonlyMember').attr("readonly",true);
+				$('#taxTypeSelect').attr("disabled",false);
+			});
+		});
+		</script>
+		<script>
+		$(function(){
+			$('#modifySellerButton').click(function(){
+				$('input').attr("readonly",false)
+				$('.readonlySeller').attr("readonly",true);
+				$('select').attr("disabled",false);
+			});
+		});
+		</script>
 		<script>
 		function searchPostNum() {
 	        new daum.Postcode({
@@ -45,106 +65,246 @@
 	<th:block layout:fragment="customContents">
 		<section class="checkout spad">
 			<div class="container">
-				<div class="offset-lg-2 col-lg-10">
+				<div class="offset-lg-1 col-lg-11">
 					<div class="row">
-						<div class="col-lg-6">
-							<h4>이재훈<span>님의 페이지</span></h4>
-						</div>
-						<div class="col-lg-6 text-right">
-							<button type="button" class="btn btn-success">정보수정</button>
+						<div class="col-lg-12 text-center">
+							<h2 style="font-family: 'ONE-Mobile-Regular'">[[${sessionName}]]</h2><span>님의 마이페이지</span>
 						</div>
 					</div>
 					<div class="row">
+					<form th:action="@{/userMember/modifyMemberMyPage}" method="post">
 						<div class="col-lg-12">
-							<table class="table table-bordered mt-5">
-							<thead>
-							<tr>
-								<th scope="col" style="width: 10%;">#</th>
-								<th scope="col">내정보관리</th>
-							</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">회원 정보</th>
-									<td>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="memberId">아이디</label>
+								<table class="table table-bordered mt-5">
+									<thead>
+										<tr>
+											<th scope="col" style="width: 10%;">#</th>
+											<th scope="col">내정보관리</th>
+										</tr>
+									</thead>
+								<tbody>
+									<tr>
+										<th scope="row">회원 정보</th>
+										<td>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="memberId">아이디</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control text-center readonlyMember" name="memberId" th:value="${member.memberId}" readonly="readonly">
+												</div>
 											</div>
-											<div class="col-md-6 col-sm-6">
-												아이디
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="memberLevel">권한</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control text-center readonlyMember" name="memberLevel" th:value="${member.memberLevel}" readonly="readonly">
+												</div>
 											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="memberLevel">권한</label>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="memberName">회원이름</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control text-center notReadonlyMember" name="memberName" th:value="${member.memberName}" readonly="readonly">
+												</div>
 											</div>
-											<div class="col-md-6 col-sm-6">
-												권한
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="memberNickname">닉네임</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control text-center notReadonlyMember" name="memberNickname" th:value="${member.memberNickname}" readonly="readonly">
+												</div>
 											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="memberName">회원이름</label>
+										
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label" for="memberPostNum">회원 주소</label>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<input type="text" class="form-control readonlyMember" name="memberPostNum" id="memberPostNum" th:value="${member.memberPostNum}" readonly="readonly">
+												</div>
+												<div class="col-md-4 col-sm-4">
+													<button type="button" class="btn btn-info" id="postNum" onclick="searchPostNum()">우편번호찾기</button>
+												</div>
 											</div>
-											<div class="col-md-6 col-sm-6">
-												회원이름
+											<div class="form-group row">
+												<div class="col-md-8 offset-md-2">
+													<input type="text" class="form-control readonlyMember" id="memberAddr" name="memberAddr" th:value="${member.memberAddr}" readonly="readonly">
+												</div>
 											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="memberNickname">닉네임</label>
+											<div class="form-group row">
+												<div class="col-md-8 offset-md-2">
+													<input type="text" class="form-control notReadonlyMember" name="memberDetailAddr" id="memberDetailAddr" th:value="${member.memberDetailAddr}" readonly="readonly">
+												</div>
 											</div>
-											<div class="col-md-6 col-sm-6">
-												닉네임
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label">이메일</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control text-center notReadonlyMember" name="memberEmail" th:value="${member.memberEmail}" readonly="readonly">
+												</div>
 											</div>
-										</div>
-									
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label" for="memberPostNum">회원 주소</label>
+											<div class="form-group row">
+												<div class="col-md-2 col-sm-2">
+													<label class="control-label">전화번호</label>
+												</div>
+												<div class="col-md-8 col-sm-8">
+													<input type="text" class="form-control text-center notReadonlyMember" name="memberPhone" th:value="${member.memberPhone}" readonly="readonly">
+												</div>
 											</div>
-											<div class="col-md-6 col-sm-6">
-												<input type="text" class="form-control" name="memberPostNum" id="memberPostNum" readonly="readonly">
-											</div>
-											<div class="col-md-4 col-sm-4">
-												<button type="button" class="btn btn-info" id="postNum" onclick="searchPostNum()">우편번호찾기</button>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-8 offset-md-2">
-												<input type="text" class="form-control" id="memberAddr" name="memberAddr" readonly="readonly">
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-8 offset-md-2">
-												<input type="text" class="form-control" name="memberDetailAddr" id="memberDetailAddr" readonly="readonly">
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label">이메일</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												이메일
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-md-2 col-sm-2">
-												<label class="control-label">전화번호</label>
-											</div>
-											<div class="col-md-8 col-sm-8">
-												전화번호
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						<div class="ln_solid"></div>
+						<div class="form-group">
+							<div class="col-md-12 col-sm-12 text-center">
+								<button type="button" class="btn btn-success" id="modifyButton">수정</button>
+								<button type="submit" class="btn btn-info">저장</button>
+							</div>
 						</div>
+						</form>
+					</div>
+						<th:block th:if="${member.memberLevel == '판매자'}">
+							<div class="row">
+								<form th:action="@{/userMember/modifySellerMyPage}" method="post">
+									<div class="col-lg-12">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th scope="col" style="width: 10%;">#</th>
+													<th scope="col">사업장 관리</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row">사업장 정보</th>
+													<td>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerStoreNum">사업장 관리 번호</label>
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<input type="text" class="form-control readonlySeller" name="sellerStoreNum" th:value="${sellerStore.sellerStoreNum}" readonly="readonly">
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="memberId">판매자 아이디</label>
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<input type="text" class="form-control readonlySeller" name="memberId" th:value="${sellerStore.memberId}" disabled="disabled">
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerStoreName">사업장 이름</label>
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<input type="text" class="form-control" name="sellerStoreName" th:value="${sellerStore.sellerStoreName}" readonly="readonly">
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerStoreAddr">사업장 주소</label>
+															</div>
+															<div class="col-md-4 col-sm-4">
+																	<input type="text" class="form-control" name="sellerStorePostNum" id="sellerStorePostNum" th:value="${sellerStore.sellerStorePostNum}" readonly="readonly">
+																</div>
+																<div class="col-md-3 col-sm-3">
+																	<button type="button" class="btn btn-info" id="postNum" onclick="searchPostNum()">우편번호찾기</button>
+																</div>
+															</div>
+														<div class="form-group row">
+															<div class="col-md-6 offset-md-2">
+																<input type="text" class="form-control" id="sellerStoreAddr" name="sellerStoreAddr"  th:value="${sellerStore.sellerStoreAddr}" readonly="readonly">
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-6 offset-md-2">
+																<input type="text" class="form-control" name="sellerStoreDetailAddr" id="sellerStoreDetailAddr" th:value="${sellerStore.sellerStoreDetailAddr}" readonly="readonly">
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerStorePhone">사업장 전화번호</label>
+															</div>
+															<div class="col-md-6 col-sm-6">
+																<input type="text" class="form-control" name="sellerStorePhone" th:value="${sellerStore.sellerStorePhone}" readonly="readonly">
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">사업자 등록증 사진</th>
+													<td>
+														<div class="form-group row">
+															<div class="col-md-3 col-sm-3">
+																<img th:src="@{/build/images/license.jpg}" class="img-fluid" alt="Responsive image">
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<input type="file">
+															</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">사업자 등록 정보</th>	
+													<td>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerLicenseNum">사업자 등록번호</label>
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<input type="text" class="form-control readonlySeller" name="sellerLicenseNum" th:value="${sellerStore.sellerLicenseNum}" readonly="readonly">
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerTaxType">과세구분</label>
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<select name="sellerTaxType" class="form-control" id="taxTypeSelect" disabled="disabled" th:value="${sellerStore.sellerTaxType}">
+																	<option value=""> :: 과세구분 :: </option>
+																	<option th:selected="${sellerStore.sellerTaxType == '개인사업자'}">개인사업자</option>
+																	<option th:selected="${sellerStore.sellerTaxType == '법인사업자'}">법인사업자</option>
+																	<option th:selected="${sellerStore.sellerTaxType == '과세사업자'}">과세사업자</option>
+																	<option th:selected="${sellerStore.sellerTaxType == '면세사업자'}">면세사업자</option>
+																	<option th:selected="${sellerStore.sellerTaxType == '일반과세자'}">일반과세자</option>
+																	<option th:selected="${sellerStore.sellerTaxType == '간이과세자'}">간이과세자</option>
+																</select>
+															</div>
+														</div>
+														<div class="form-group row">
+															<div class="col-md-2 col-sm-2">
+																<label class="control-label" for="sellerEntryDate">사업자 등록날짜</label>
+															</div>
+															<div class="col-md-6 col-sm-6 ">
+																<input type="text" class="form-control" name="sellerEntryDate" th:value="${sellerStore.sellerEntryDate}" disabled="disabled">
+															</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</form>
+							</div>
+						
+						<div class="ln_solid"></div>
+						<div class="form-group">
+							<div class="col-md-12 col-sm-12 text-center">
+								<button type="button" class="btn btn-success" id="modifySellerButton">수정</button>
+								<button type="submit" class="btn btn-info">저장</button>
+							</div>
+						</div>
+						</th:block>
 					</div>
 				</div>	
-			</div>
 		</section>
 	</th:block>
 </html>

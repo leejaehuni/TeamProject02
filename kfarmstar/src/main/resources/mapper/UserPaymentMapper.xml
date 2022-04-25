@@ -244,8 +244,7 @@
 			ON
 			a.member_id = m.member_id
 		WHERE
-			a.member_id = #{memberId} AND a.payment_complete_code=#{paymentCompleteCode}
-	
+			a.member_id = #{memberId} AND a.payment_complete_code = #{paymentCompleteCode}
 	</select>
 	
 	<insert id="addPaymentType" parameterType="PaymentType">
@@ -348,6 +347,7 @@
 		WHERE
 			b.member_id = #{memberId};
 	</select>
+	
 	<insert id="addAfterPayment" parameterType="AfterPayment">
 		/* 결제전 사용자 정보 입력 */
 		INSERT INTO 

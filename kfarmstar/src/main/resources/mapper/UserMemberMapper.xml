@@ -3,6 +3,34 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kfarmstar.user.mapper.UserMemberMapper">
+	<resultMap type="sellerStore" id="sellerResultMap">
+		<result column="seller_store_num" 			property="sellerStoreNum"/>
+		<result column="member_id" 					property="memberId"/>
+		<result column="seller_store_name" 			property="sellerStoreName"/>
+		<result column="seller_license_num" 		property="sellerLicenseNum"/>
+		<result column="seller_store_phone" 		property="sellerStorePhone"/>
+		<result column="seller_entry_date" 			property="sellerEntryDate"/>
+		<result column="seller_store_post_num" 		property="sellerStorePostNum"/>
+		<result column="seller_store_addr" 			property="sellerStoreAddr"/>
+		<result column="seller_store_detail_addr" 	property="sellerStoreDetailAddr"/>
+		<result column="seller_tax_type" 			property="sellerTaxType"/>
+			<association property="member" javaType="Member">
+				<result column="member_id" 				property="memberId"/>
+				<result column="member_name" 			property="memberName"/>
+				<result column="member_level" 			property="memberLevel"/>
+				<result column="member_pw" 				property="memberPw"/>
+				<result column="member_nickname" 		property="memberNickname"/>
+				<result column="member_phone" 			property="memberPhone"/>
+				<result column="member_post_num" 		property="memberPostNum"/>
+				<result column="member_addr" 			property="memberAddr"/>
+				<result column="member_detail_addr" 	property="memberDetailAddr"/>
+				<result column="member_birth" 			property="memberBirth"/>
+				<result column="member_email" 			property="memberEmail"/>
+				<result column="member_point" 			property="memberPoint"/>
+				<result column="member_date" 			property="memberDate"/>
+			</association>
+	</resultMap>
+	
 	<resultMap type="Member" id="memberResultMap">
 		<result column="member_id" 				property="memberId"/>
 		<result column="member_name" 			property="memberName"/>
@@ -18,6 +46,63 @@
 		<result column="member_point" 			property="memberPoint"/>
 		<result column="member_date" 			property="memberDate"/>
 	</resultMap>
+	
+	<update id="modifySellerStore" parameterType="SellerStore">
+		/* 판매자 사업장 정보 수정 */
+		UPDATE
+			seller_store
+		SET
+			 seller_store_num = #{sellerStoreNum}
+			,seller_store_name = #{sellerStoreName}
+			,seller_license_num = #{sellerLicenseNum}
+			,seller_store_phone = #{sellerStorePhone}
+			,seller_store_post_num = #{sellerStorePostNum}
+			,seller_store_addr = #{sellerStoreAddr}
+			,seller_store_detail_addr = #{sellerStoreDetailAddr}
+			,seller_tax_type = #{sellerTaxType}
+		WHERE
+			seller_store_num = #{sellerStoreNum}
+	</update>
+	
+	<update id="modifyMember" parameterType="Member">
+		/* 회원 정보 수정 */
+		UPDATE member
+		SET
+			 member_id = #{memberId}
+			,member_name = #{memberName}
+			,member_level = #{memberLevel}
+			,member_nickname = #{memberNickname}
+			,member_post_num = #{memberPostNum}
+			,member_addr = #{memberAddr}
+			,member_detail_addr = #{memberDetailAddr}
+			,member_phone = #{memberPhone}
+			,member_email = #{memberEmail}
+		WHERE 
+			member_id = #{memberId}
+	</update>
+	
+	<select id="getSellStoreInfo" parameterType="String" resultMap="sellerResultMap">
+		/* 판매자 사업장 상세 조회 */
+		SELECT
+			 s.seller_store_num
+			,s.member_id
+			,s.seller_store_name
+			,s.seller_license_num
+			,s.seller_store_phone
+			,s.seller_store_post_num
+			,s.seller_store_addr
+			,s.seller_store_detail_addr
+			,s.seller_entry_date
+			,s.seller_tax_type
+			,s.seller_store_phone
+			,m.member_level
+		FROM 
+			seller_store AS s
+			INNER JOIN
+			member AS m
+		WHERE
+			s.member_id = #{memberId} AND m.member_level = '판매자';
+	</select>
 	
 	<insert id="addSellerGrade" parameterType="Grade">
 		/* 회원 가입시 판매자 등급 부여 */

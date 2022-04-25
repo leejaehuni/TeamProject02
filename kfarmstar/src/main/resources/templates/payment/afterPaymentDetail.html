@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
-/*깃허브수정*/	
 	<!-- 사용자 정의 title -->
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
@@ -25,6 +24,7 @@
 				$('input').attr("readonly",false);
 				$('#memberId').attr("readonly",true);
 				$('select').attr("disabled",false);
+				$('.readonlyInput').attr("readonly",true);
 			});
 		});
 		function searchPostNum() {
@@ -120,7 +120,7 @@
 								<td>
 									<div class="form-group row">
 										<div class="col-md-3 col-sm-3">
-											<img th:src="@{/build/images/orange.jpg}" class="img-fluid"
+											<img th:src="@{/build/images/goguma.jpg}" class="img-fluid"
 												alt="Responsive image">
 										</div>
 										<div class="col-md-6 col-sm-6 ">
@@ -132,7 +132,7 @@
 											<label class="control-label" for="goods.goodsRefurbName">상품명</label>
 										</div>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control" name="goods.goodsRefurbName" th:value="${afterPayment.goods.goodsRefurbName}" readonly="readonly">
+											<input type="text" class="form-control readonlyInput" name="goods.goodsRefurbName" th:value="${afterPayment.goods.goodsRefurbName}" readonly="readonly">
 										</div>
 									</div>
 								</td>
@@ -232,7 +232,7 @@
 											<label class="control-label" for="puchaserPayment.deliveryPostnumAddr">수령인 주소</label>
 										</div>
 										<div class="col-md-4 col-sm-4">
-												<input type="text" class="form-control" name="puchaserPayment.deliveryPostnumAddr" id="deliveryPostNum"  th:value="${afterPayment.puchaserPayment.deliveryPostnumAddr}" readonly="readonly">
+												<input type="text" class="form-control readonlyInput" name="puchaserPayment.deliveryPostnumAddr" id="deliveryPostNum"  th:value="${afterPayment.puchaserPayment.deliveryPostnumAddr}" readonly="readonly">
 											</div>
 											<div class="col-md-3 col-sm-3">
 												<button type="button" class="btn btn-info" id="postNum" onclick="searchPostNum()">우편번호찾기</button>
@@ -240,7 +240,7 @@
 										</div>
 									<div class="form-group row">
 										<div class="col-md-6 offset-md-2">
-											<input type="text" class="form-control" id="deliveryAddr" name="deliveryAddr" th:value="${afterPayment.puchaserPayment.deliveryAddr}" readonly="readonly">
+											<input type="text" class="form-control readonlyInput" id="deliveryAddr" name="deliveryAddr" th:value="${afterPayment.puchaserPayment.deliveryAddr}" readonly="readonly">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -258,7 +258,7 @@
 											<label class="control-label" for="paymentCompleteCode">결제완료코드</label>
 										</div>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control" name="paymentCompleteCode" th:value="${afterPayment.paymentCompleteCode}" readonly="readonly">
+											<input type="text" class="form-control readonlyInput" name="paymentCompleteCode" th:value="${afterPayment.paymentCompleteCode}" readonly="readonly">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -282,7 +282,7 @@
 											<label class="control-label" for="paymentDate">결제 날짜</label>
 										</div>
 										<div class="col-md-6 col-sm-6">
-											<input type="datetime" class="form-control" name="paymentDate" th:value="${afterPayment.paymentDate}" readonly="readonly">
+											<input type="datetime" class="form-control readonlyInput" name="paymentDate" th:value="${afterPayment.paymentDate}" readonly="readonly">
 										</div>
 									</div>
 								</td>

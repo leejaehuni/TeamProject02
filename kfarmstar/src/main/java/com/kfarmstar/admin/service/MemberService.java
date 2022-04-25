@@ -26,6 +26,7 @@ public class MemberService {
 		this.memberMapper = memberMapper;
 	}
 	
+	// 회원 권한별 회원목록 조회
 	public List<Member> searchLevelMemberList(String memberLevel){
 		
 		List<Member> searchLevelMemberList = memberMapper.searchLevelMemberList(memberLevel);
@@ -33,6 +34,7 @@ public class MemberService {
 		return searchLevelMemberList;
 	}
 	
+	// 사업장 등록날짜별 사업장 목록 조회
 	public List<SellerStore> searchDateSellerList(String startDate, String endDate){
 		
 		List<SellerStore> searchDateSellerList = memberMapper.searchDateSellerList(startDate, endDate);
@@ -40,6 +42,7 @@ public class MemberService {
 		return searchDateSellerList;
 	}
 	
+	// 가입날짜별 회원목록 조회
 	public List<Member> searchDateMemberList(String startDate, String endDate){
 		
 		List<Member> searchDateMemberList = memberMapper.searchDateMemberList(startDate, endDate);
@@ -69,6 +72,7 @@ public class MemberService {
 		
 	}
 	
+	// 검색조건별 판매자 사업장 목록 조회
 	public List<SellerStore> conditionSellerStoreList(String searchKey, String searchValue){
 		
 		List<SellerStore> conditionSellerStoreList = memberMapper.conditionSellerStoreList(searchKey, searchValue);
@@ -76,6 +80,7 @@ public class MemberService {
 		return conditionSellerStoreList;
 	}
 	
+	// 검색조건별 회원 목록 조회
 	public List<Member> conditionMemberList(String searchKey, String searchValue){
 		
 		List<Member> conditionMemberList = memberMapper.conditionMemberList(searchKey, searchValue);
@@ -83,16 +88,21 @@ public class MemberService {
 		return conditionMemberList;
 	}
 	
+	//판매자 사업장 정보 수정
 	public int modifySellerStore(SellerStore sellerStore) {
 		
 		return memberMapper.modifySellerStore(sellerStore);
 	}
 	
+	
+	
+	// 판매자 사업장 상세 조회
 	public SellerStore getSellStoreInfo(String sellerStoreNum) {
 		
 		return memberMapper.getSellStoreInfo(sellerStoreNum);
 	}
 	
+	// 회원상세내역 회원정보 수정
 	public int modifyMember(Member member) {
 		
 		System.out.println("회원수정 service" + member);
@@ -100,6 +110,7 @@ public class MemberService {
 		return memberMapper.modifyMember(member);
 	}
 	
+	// 회원 아이디에 맞는 회원상세정보 조회
 	public Member getMemberInfoById(String memberId) {
 		
 		System.out.println("회원상세정보 service" + memberId);
@@ -107,16 +118,19 @@ public class MemberService {
 		return memberMapper.getMemberInfoById(memberId);
 	}
 	
+	// 기준번호에 맞는 판매자 기준 정보 조회
 	public SellerGrade getSellerStandardByNum(String sellerGradeNum) {
 		
 		return memberMapper.getSellerStandardByNum(sellerGradeNum);
 	}
 	
+	// 판매자 기준 및 혜택 정보 수정
 	public int modifySellerGrade(SellerGrade sellerGrade) {
 		
 		return memberMapper.modifySellerGrade(sellerGrade);
 	}
 	
+	// 판매자 등급 기준 및 혜택 조회
 	public List<SellerGrade> sellerStandard(){
 		
 		List<SellerGrade> sellerGradeList = memberMapper.sellerStandard();
@@ -131,17 +145,16 @@ public class MemberService {
 		return searchDate;
 	}
 	
+	// 판매자 사업장 목록 조회
 	public List<SellerStore> sellerStoreInfo(){
 		
 		List<SellerStore> sellerStoreList = memberMapper.sellerStoreInfo();
 		System.out.println(sellerStoreList.get(0).getSellerStoreNum()+"<- sellerStoreList.get(0).getSellerStoreNum() sellerStoreInfo MemberService.java");
-		//Map<String, Object> resultMap = new HashMap<String, Object>();
-		//Map<String, Object> resultMap = (List<sellerStore>)memberMapper.sellerStoreInfo();
-		//resultMap.put("sellerStorelist", sellerStoreList);
 		
 		return sellerStoreList;
 	}
 	
+	// 회원 목록 조회
 	public List<Member> getMemberList(String searchKey, String searchValue) {
 		
 		List<Member> memberList = memberMapper.getMemberList(searchKey, searchValue);
@@ -149,6 +162,7 @@ public class MemberService {
 		return memberList;
 	}
 	
+	// 관리자 회원 등록
 	public int addMember(Member member) {
 		
 		member.setMemberLevel("관리자");

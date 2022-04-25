@@ -4,10 +4,19 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.kfarmstar.dto.Grade;
 import com.kfarmstar.dto.Member;
+import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
-/*깃허브수정*/
 @Mapper
 public interface UserMemberMapper {
+	
+	//마이페이지 판매자 정보 수정
+	public int modifySellerStore(SellerStore sellerStore);
+	
+	//마이페이지 회원 정보 수정
+	public int modifyMember(Member member);
+	
+	//마이페이지 판매자 사업장 조회
+	public SellerStore getSellStoreInfo(String memberId);
 	
 	// 판매자 등급 부여
 	public int addSellerGrade(Grade grade);

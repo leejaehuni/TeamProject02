@@ -1,5 +1,7 @@
 package com.kfarmstar.dto;
 
+import java.util.List;
+
 public class SellerStore {
 	private String sellerStoreNum;
 	private String memberId;
@@ -13,6 +15,8 @@ public class SellerStore {
 	private String sellerTaxType;
 	
 	private Member member;
+	
+	private List<FileDto> fileList;
 
 	public String getSellerStoreNum() {
 		return sellerStoreNum;
@@ -102,6 +106,14 @@ public class SellerStore {
 		this.member = member;
 	}
 
+	public List<FileDto> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<FileDto> fileList) {
+		this.fileList = fileList;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -127,8 +139,10 @@ public class SellerStore {
 		builder.append(sellerTaxType);
 		builder.append(", member=");
 		builder.append(member);
+		builder.append(", fileList=");
+		builder.append(fileList);
 		builder.append("]");
 		return builder.toString();
 	}
-
+	
 }
