@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kfarmstar.admin.service.DeliveryService;
 import com.kfarmstar.dto.CompanyEmployee;
@@ -157,14 +158,14 @@ public class DeliveryController {
 		
 		log.info("운송장 조회 : {}", deliveryNum);
 		
-		DeliveryGoods getDeliveryDetail = deliveryService.getDelivery(deliveryNum);
+		//DeliveryGoods getDeliveryDetail = deliveryService.getDelivery(deliveryNum);
 		
 		log.info("===== controller getDelivery 서비스 값 받아오기 완료 =====");
 		
 		model.addAttribute("title", "FoodRefurb : 운송장 조회");
 		model.addAttribute("titleName", "운송장 조회");
 		model.addAttribute("titleMenu", "배송 관리");
-		model.addAttribute("getDeliveryDetail", getDeliveryDetail);
+		//model.addAttribute("getDeliveryDetail", getDeliveryDetail);
 
 		log.info("===== controller getDelivery 모델 셋팅 완료 =====");
 		
@@ -254,20 +255,17 @@ public class DeliveryController {
 		
 		return "delivery/addDelivery";
 	}
-	
-	@PostMapping("/changeDelivery")
-	public List<DeliveryCompany> changeDelivery(@RequestParam(name="companyName", required = false) String companyName) {
-		List<DeliveryCompany> cDelivery = null;
+	@PostMapping("/getDeliveryByCompanyCode")
+	@ResponseBody
+	public DeliveryCompany getDeliveryByCompanyCode(@RequestParam(name="companyCode") String companyCode) {
+		DeliveryCompany getDelivery = null;
 		
-		log.info("addDelivery deliveryGoods 값 : {}", companyName);
+		log.info("getDeliveryByCompanyCode companyCode 값 : {}", companyCode);
+		getDelivery = deliveryService.getCompanyByCompanyCode(companyCode);
+		log.info("===== controller getDeliveryByCompanyCode @GetMapping 등록 처리 완료=====");
 		
-		cDelivery = deliveryService.changeDelivery();
-		
-		log.info("===== controller changeDelivery @GetMapping 등록 처리 완료=====");
-		
-		return cDelivery;
+		return getDelivery;
 	}
-	
 	
 	/* 집하 등록 폼 */
 	@GetMapping("/addPickup")
