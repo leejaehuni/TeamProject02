@@ -12,6 +12,9 @@ import com.kfarmstar.dto.OrderCancel;
 @Mapper
 public interface PaymentMapper {
 	
+	// 환불날짜별 환불 내역 조회
+	public List<GoodsRefund> searchDateGoodsRefund(String startDate, String endDate);
+	
 	//처리 상태별 상품 교환 내역 조회
 	public List<GoodsExchange> searchStateExchange(String exchangeProcessState);
 	

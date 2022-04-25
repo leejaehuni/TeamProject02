@@ -25,44 +25,6 @@
 		<script>
 		$(document).ready(function(){
 	    	  
-			/* var 
-			paymentTypeBank = $('.paymentTypeBank'),
-			paymentTypeMobile = $('.paymentTypeMobile'),
-			paymentTypeCard = $('.paymentTypeCard'),
-			paymentValue = $('select[name="paymentOption"]').val();
-			
-			if(paymentValue == '휴대폰'){
-				paymentTypeBank.css('display', 'none');
-				paymentTypeMobile.css('display', 'block');
-				paymentTypeCard.css('display', 'none');
-			}else if(paymentValue == '무통장입금'){
-				paymentTypeBank.css('display', 'block');
-				paymentTypeMobile.css('display', 'none');
-				paymentTypeCard.css('display', 'none');
-			}else if(paymentValue == '신용카드'){
-				paymentTypeBank.css('display', 'none');
-				paymentTypeMobile.css('display', 'none');
-				paymentTypeCard.css('display', 'block');
-			}
-			
-			$('select[name="paymentOption"]').change(function(){
-				
-				var val = $(this).val();
-				if(val == '휴대폰'){
-					paymentTypeBank.css('display', 'none');
-					paymentTypeMobile.css('display', 'block');
-					paymentTypeCard.css('display', 'none');
-				}else if(val == '무통장입금'){
-					paymentTypeBank.css('display', 'block');
-					paymentTypeMobile.css('display', 'none');
-					paymentTypeCard.css('display', 'none');
-				}else if(val == '신용카드'){
-					paymentTypeBank.css('display', 'none');
-					paymentTypeMobile.css('display', 'none');
-					paymentTypeCard.css('display', 'block');
-				}
-			}) */
-			
 			$('#paymentType').change(function(){
 				
 				 var 
@@ -178,7 +140,7 @@
 	                            <tbody>
 	                                <tr>
 	                                    <td class="shoping__cart__item">
-	                                        <img class="goodsImg" th:src="@{/build/images/orange.jpg}">
+	                                        <img class="goodsImg" th:src="@{/build/images/tomato.jpg}">
 	                                        <h5>[[${goods.goodsRefurbName}]]</h5>
 	                                    </td>
 	                                    <td class="shoping__cart__price">

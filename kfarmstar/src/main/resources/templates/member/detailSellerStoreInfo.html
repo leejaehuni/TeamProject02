@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/default}">
-/*깃허브수정*/	
 	<!-- 사용자 정의 title -->
 	<th:block layout:fragment="customTitle">
 		<title th:text="${title}"></title>
@@ -23,7 +22,8 @@
 		$(function(){
 			$('#modifyButton').click(function(){
 				$('input').attr("readonly",false);
-				$('select').attr("disabled",false)
+				$('select').attr("disabled",false);
+				$('.readonlyInput').attr("readonly",true);
 			});
 		});
 		</script>
@@ -72,14 +72,14 @@
 							</thead>
 						<tbody>
 							<tr>
-								<th scope="row">사업장 사진</th>
+								<th scope="row">사업장 등록 사진</th>
 								<td>
 									<div class="form-group row">
-										<div class="col-md-3 col-sm-3">
-											<img th:src="@{/build/images/gochu.jpg}" class="img-fluid" alt="Responsive image">
+										<div class="col-md-3 col-sm-3" th:if="${not #lists.isEmpty(sellerStore.fileList)}" th:each="l : ${sellerStore.fileList}">
+											<img th:src="@{${ '/' + #strings.replace(l.filePath, '\', '/')}}" class="img-fluid" alt="Responsive image">
 										</div>
-										<div class="col-md-6 col-sm-6 ">
-											<input type="file">
+										<div class="col-md-6 col-sm-6" th:unless="${not #lists.isEmpty(sellerStore.fileList)}">
+											<img th:src="@{/asset/img/noImage.jpg}" class="img-fluid"/>
 										</div>
 									</div>
 								</td>
@@ -92,7 +92,7 @@
 											<label class="control-label" for="sellerStoreNum">사업장 관리 번호</label>
 										</div>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control" name="sellerStoreNum" th:value="${sellerStore.sellerStoreNum}" readonly="readonly">
+											<input type="text" class="form-control readonlyInput" name="sellerStoreNum" th:value="${sellerStore.sellerStoreNum}" readonly="readonly">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -146,19 +146,6 @@
 										</div>
 										<div class="col-md-6 col-sm-6">
 											<input type="text" class="form-control" name="memberPhone" th:value="${sellerStore.member.memberPhone}" readonly="readonly">
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">사업자 등록증 사진</th>
-								<td>
-									<div class="form-group row">
-										<div class="col-md-3 col-sm-3">
-											<img th:src="@{/build/images/license.jpg}" class="img-fluid" alt="Responsive image">
-										</div>
-										<div class="col-md-6 col-sm-6 ">
-											<input type="file">
 										</div>
 									</div>
 								</td>

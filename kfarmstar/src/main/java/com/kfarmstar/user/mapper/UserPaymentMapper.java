@@ -9,7 +9,6 @@ import com.kfarmstar.dto.Basket;
 import com.kfarmstar.dto.BeforePayment;
 import com.kfarmstar.dto.Goods;
 import com.kfarmstar.dto.PaymentType;
-/*깃허브수정*/
 @Mapper
 public interface UserPaymentMapper {
 	

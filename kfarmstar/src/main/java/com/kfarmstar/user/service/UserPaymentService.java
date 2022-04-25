@@ -30,12 +30,14 @@ public class UserPaymentService {
 		this.commonMapper = commonMapper;
 	}
 	
+	// 결제한 결제 정보 조회
 	public List<AfterPayment> afterPaymentInfoByCode(String sessionId, String paymentCompleteCode){
 		
 		
 		return userPaymentMapper.afterPaymentInfoByCode(sessionId, paymentCompleteCode);
 	}
 	
+	// 결제 정보 등록
 	public Map<String, Object> addBeforePayment(BeforePayment beforePayment, String sessionId, PaymentType paymentType, String goodsRefurbCode) {
 		
 		String newCode = commonMapper.getNewCode("purchaser_payment_code", "before_purchaser_info");
@@ -74,6 +76,7 @@ public class UserPaymentService {
 		return resultMap;
 	}
 	
+	// 상품코드별 상품 정보 조회
 	public List<Goods> beforePaymentInfoByCode(String sessionId, String goodsRefurbCode) {
 		
 		return userPaymentMapper.beforePaymentInfoByCode(sessionId, goodsRefurbCode); 

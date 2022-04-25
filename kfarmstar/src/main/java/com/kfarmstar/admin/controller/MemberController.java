@@ -21,8 +21,6 @@ import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.SellerGrade;
 import com.kfarmstar.dto.SellerStore;
 
-
-/*깃허브수정*/
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -40,6 +38,7 @@ public class MemberController {
 		this.memberMapper = memberMapper;
 	}
 	
+	// 아이디 중복체크 여부
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public boolean isIdCheck(@RequestParam(value = "memberId") String memberId) {
@@ -53,6 +52,7 @@ public class MemberController {
 		return idCheck;
 	}
 	
+	// 관리자 회원 등록
 	@GetMapping("/addMember")
 	public String addMember(Model model) {
 		
@@ -62,6 +62,7 @@ public class MemberController {
 		return "member/addMember";
 	}
 	
+	// 관리자 회원 등록
 	@PostMapping("/addMember")
 	public String addMember(Member member) {
 		
@@ -74,6 +75,7 @@ public class MemberController {
 		return "redirect:/member/memberList";
 	}
 	
+	//회원 목록 조회
 	@GetMapping("/memberList")
 	public String memberList(Model model
 							,@RequestParam(value="searchKey", required = false) String searchKey
@@ -92,7 +94,12 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
-	@PostMapping("/conditionSellerStoreList")
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-15
+	 * 검색 조건에 맞는 판매자 사업장 목록 조회
+	 * */
+	@GetMapping("/conditionSellerStoreList")
 	public String conditionSellerStoreList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
 											,@RequestParam(value="searchValue", required = false) String searchValue) {
@@ -106,7 +113,12 @@ public class MemberController {
 		return "member/sellerStoreInfo";
 	}
 	
-	@PostMapping("/conditionMemberList")
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-14
+	 * 검색 조건에 맞는 회원 목록 조회
+	 * */
+	@GetMapping("/conditionMemberList")
 	public String conditionMemberList(Model model
 											,@RequestParam(value="searchKey", required = false) String searchKey
 											,@RequestParam(value="searchValue", required = false) String searchValue) {
@@ -141,8 +153,12 @@ public class MemberController {
 		  
 		return "member/memberList";
 	}
-	 
-	@PostMapping("/searchDateMemberList")  
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-15
+	 * 회원등록날짜에 맞는 회원목록 조회
+	 */
+	@GetMapping("/searchDateMemberList")  
 	public String searchDateMemberList(Model model
 									,@RequestParam(value="startDate", required = false) String startDate
 									,@RequestParam(value="endDate", required = false) String endDate) {
@@ -157,7 +173,12 @@ public class MemberController {
 		return "member/memberList";
 	}
 	
-	@PostMapping("/searchLevelMemberList")
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-16
+	 * 회원 권한별 회원목록 조회
+	 * */
+	@GetMapping("/searchLevelMemberList")
 	public String searchLevelMemberList(Model model
 			,@RequestParam(value="memberLevel", required = false) String memberLevel) {
 		
@@ -189,6 +210,11 @@ public class MemberController {
 		return "member/removeMember";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-02
+	 * 회원 상세 정보 내역 조회
+	 * */
 	@GetMapping("/detailMember")
 	public String getDetailMemberInfo(Model model
 									,@RequestParam(name="memberId",required = false) String memberId) {
@@ -204,6 +230,11 @@ public class MemberController {
 		return "member/detailMember";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-03
+	 * 상세회원정보 회원 정보 수정
+	 * */
 	@PostMapping("/detailMember")
 	public String modifyMember(Member member) {
 			
@@ -214,7 +245,11 @@ public class MemberController {
 			return "redirect:/member/memberList";
 	}
 	
-	@SuppressWarnings("unchecked")
+	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-09
+	 * */
 	@GetMapping("/loginList")
 	public String loginHistoryList(Model model) {
 		
@@ -229,6 +264,11 @@ public class MemberController {
 		return "member/loginList";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-09
+	 * 회원 로그아웃 내역 조회
+	 * */
 	@GetMapping("/logoutList")
 	public String logoutHistoryList(Model model) {
 		
@@ -243,6 +283,11 @@ public class MemberController {
 		return "member/logoutList";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-05
+	 * 판매자 등급 혜택 및 기준 조회
+	 * */
 	@GetMapping("/sellerGrade")
 	public String sellerGrade(Model model) {
 		
@@ -257,19 +302,29 @@ public class MemberController {
 		return "member/sellerGrade";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-05
+	 * 판매자 등급 혜택 및 기준 수정
+	 * */
 	@GetMapping("/modifySellerGrade")
 	public String modifySellerGrade(Model model
 									,@RequestParam(name="sellerGradeNum", required = false) String sellerGradeNum) {
 		
 		SellerGrade sellerGrade = memberService.getSellerStandardByNum(sellerGradeNum);
 		
-		model.addAttribute("title", "FoodRefurb : 등급 기준 수정");
-		model.addAttribute("titleName", "등급 기준 수정");
+		model.addAttribute("title", "FoodRefurb : 등급 기준 및 혜택 수정");
+		model.addAttribute("titleName", "등급 기준 및 혜택 수정");
 		model.addAttribute("sellerGrade", sellerGrade);
 		
 		return "member/modifySellerGrade";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-05
+	 * 판매자 등급 혜택 및 기준 수정
+	 * */
 	@PostMapping("/modifySellerGrade")
 	public String modifySellerGrade(SellerGrade sellerGrade) {
 		
@@ -280,24 +335,25 @@ public class MemberController {
 		return "redirect:/member/sellerGrade";
 	}
 	
-	@GetMapping("/removeSellerGradeCriteria")
-	public String removeSellerGraderemoveSellerGradeCriteria(Model model) {
-		
-		model.addAttribute("title", "FoodRefurb : 등급 기준 삭제");
-		model.addAttribute("titleName", "등급 기준 삭제");
-		
-		return "member/removeSellerGradeCriteria";
-	}
-	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-08
+	 * 등급 혜택 및 기준 삭제 폼
+	 * */
 	@GetMapping("/removeSellerGradeBenefit")
 	public String removeSellerGradeBenefit(Model model) {
 		
-		model.addAttribute("title", "FoodRefurb : 등급 혜택 삭제");
-		model.addAttribute("titleName", "등급 혜택 삭제");
+		model.addAttribute("title", "FoodRefurb : 등급 혜택 및 기준 삭제");
+		model.addAttribute("titleName", "등급 혜택 및 기준 삭제");
 		
 		return "member/removeSellerGradeBenefit";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-07
+	 * 판매자 사업장 목록 조회
+	 * */
 	@GetMapping("/sellerStoreInfo")
 	public String sellerStoreInfo(Model model) {
 		
@@ -333,6 +389,11 @@ public class MemberController {
 		return "member/removeSellerStoreInfo";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-08
+	 * 판매자 사업장 목록 조회
+	 * */
 	@GetMapping("/detailSellerStoreInfo")
 	public String detailSellerStoreInfo(Model model
 										,@RequestParam(name = "sellerStoreNum" , required = false) String sellerStoreNum) {
@@ -348,6 +409,11 @@ public class MemberController {
 		return "member/detailSellerStoreInfo";
 	}
 	
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-08
+	 * 판매자 사업장 상세내역 조회
+	 * */
 	@PostMapping("/detailSellerStoreInfo")
 	public String modifySellerStore(SellerStore sellerStore) {
 			
@@ -358,7 +424,12 @@ public class MemberController {
 			return "redirect:/member/sellerStoreInfo";
 	}
 	
-	@PostMapping("/searchDateSellerList")
+	/*
+	 * 작성자 : 이재훈
+	 * 작성일자 : 2022-04-07
+	 * 기간별 판매자 사업장 목록 조회
+	 * */
+	@GetMapping("/searchDateSellerList")
 	public String searchDateSellerList(Model model
 									,@RequestParam(value="startDate", required = false) String startDate
 									,@RequestParam(value="endDate", required = false) String endDate) {
