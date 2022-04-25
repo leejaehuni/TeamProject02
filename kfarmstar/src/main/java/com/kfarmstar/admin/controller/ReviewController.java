@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kfarmstar.admin.service.ReviewService;
 import com.kfarmstar.dto.Review;
@@ -24,13 +24,16 @@ public class ReviewController {
 	
 	
 	private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
-	
+
 	private ReviewService reviewService;
 	
 	public ReviewController(ReviewService reviewService) {
 		this.reviewService = reviewService;
 	}
 	
+	/*********************
+	 *      상품평 관리	     *		
+	 *********************/
 	
 	/**
 	 * 상품평 별점
@@ -61,12 +64,7 @@ public class ReviewController {
 	 * 상품평 수정
 	 */
 	@GetMapping("/modifyReview")
-	public String modifyReview(Model model
-								,@RequestParam(name="reviewNum", required = false) String reviewNum
-								,@RequestParam(name="memberId", required = false) String memberId) {
-		log.info("회원 수정화면 폼 쿼리스트링 reviewNum : {}", reviewNum);
-		log.info("회원 수정화면 폼 쿼리스트링 memberId : {}", memberId);
-		
+	public String modifyReview(Model model) {
 		model.addAttribute("title", "FoodRefurb : 상품평 수정");
 		model.addAttribute("titleName", "상품평 수정");
 		
@@ -76,21 +74,6 @@ public class ReviewController {
 	/**
 	 * 상품평 등록
 	 */
-	@GetMapping("/addReview")
-	public String addReview(Review review
-			,HttpSession session
-			,@RequestParam(name = "reviewContents" , required = false) String reviewContents
-			,@RequestParam(name = "paymentCompleteCode" , required = false) String paymentCompleteCode) {
-		log.info("상품평 등록  review{}" , review);
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("paymentCompleteCode", paymentCompleteCode);
-		log.info("reviewAdminList ReviewController.java : ", paramMap);
-		
-		return "review/addReview";
-	}
-	/**
-	 * 등록 처리 
-	 */
 	@PostMapping("/addReview")
 	public String addReview(Review review) {
 		log.info("addReview ReviewController.java 실행");
@@ -98,6 +81,25 @@ public class ReviewController {
 		reviewService.addReview(review);
 	
 		return "redirect:/review/reviewList";
+	}
+	
+	/**
+	 * 패스워드 체크
+	 */
+	@PostMapping("/passwordCheck")
+	@ResponseBody
+	private String passwordCheck(String password) {
+		
+		String passwordCh = "Pw";
+		String Result = null;
+		if(password == passwordCh) {
+			
+			Result = "일치";
+		} else {
+			Result = "불일치";
+		}
+		
+		return Result;
 	}
 	
 	
@@ -114,13 +116,15 @@ public class ReviewController {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("paymentCompleteCode", paymentCompleteCode);
 		
-		List<Review> reviewList = reviewService.getReviewList(paramMap);
+		List<Review> reviewAdminList = reviewService.getReviewAdminList();
 		
 		model.addAttribute("title", "FoodRefurb : 상품평 조회");
-		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewAdminList", reviewAdminList);
 		
 		return "review/reviewList";
 	}
+	
+	
 	/**
 	 * 관리자 상품평 목록
 	 */
@@ -128,15 +132,9 @@ public class ReviewController {
 	public String getReviewAdminList(Model model) {
 		log.info("reviewAdminList ReviewController.java 실행");
 		List<Review> reviewAdminList = reviewService.getReviewAdminList();
-		log.info("reviewAdminList ReviewController.java : ", reviewAdminList);
+		log.info("리뷰 받은값 : {}", reviewAdminList);
 		System.out.println(reviewAdminList.get(0).getReviewNum() + "<- reviewAdminList.get(0).getReviewNum() ReviewController.java");
 		System.out.println(reviewAdminList.get(0).getGoodsRefurbCode() + "<- reviewAdminList.get(0).getGoodsRefurbCode() ReviewController.java");
-		System.out.println(reviewAdminList.get(0).getPaymentCompleteCode() + "<- reviewAdminList.get(0).getPaymentCompleteCode() ReviewController.java");
-		System.out.println(reviewAdminList.get(0).getReviewScoreCode() + "<- reviewAdminList.get(0).getReviewScoreCode() ReviewController.java");
-		System.out.println(reviewAdminList.get(0).getReviewContent() + "<- reviewAdminList.get(0).getReviewContent() ReviewController.java");
-		System.out.println(reviewAdminList.get(0).getReviewImg() + "<- reviewAdminList.get(0).getReviewImg() ReviewController.java");
-		System.out.println(reviewAdminList.get(0).getReviewEntryDate() + "<- reviewAdminList.get(0).getReviewEntryDate() ReviewController.java");
-		System.out.println(reviewAdminList.get(0).getMemberId() + "<- reviewAdminList.get(0).getMemberId() ReviewController.java");
 		
 		model.addAttribute("title", "FoodRefurb : 상품평 목록");
 		model.addAttribute("titleName", "상품평 목록");

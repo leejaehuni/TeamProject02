@@ -13,7 +13,6 @@
 		<result column="review_img"				property="reviewImg"/>
 		<result	column="review_entry_date"		property="reviewEntryDate"/>
 
-<!-- 
 
 		<association property="member" javaType="Member">
 			<result column="member_id" 				property="memberId"/>
@@ -44,7 +43,7 @@
 			<result column="delivery_detail_addr" 		property="deliveryDetailAddr"/>
 			<result column="payment_date" 				property="paymentDate"/>
 		</association>
-		<association property="goods" javaType="Goods">
+		<association property="goodsRefund" javaType="GoodsRefund">
 			<result column="goods_refurb_code" 			property="goodsRefurbCode"/>
 			<result column="seller_store_num" 			property="sellerStoreNum"/>
 			<result column="goods_large_code" 			property="goodsLargeCode"/>
@@ -69,12 +68,23 @@
 		</association>
 		
 		
- -->		
 	</resultMap>
+	<select id="passwordCheck" resultMap="reviewResultMap">
+		/*패스워드 체크*/
+		SELECT
+			member_pw
+		FROM
+			member
+		WHERE
+			member_pw = #{memberPw}; 
+		
+	</select>
 	
-	<insert id="addReview" parameterType="Review">
-	INSERT INTO tb_review
-	(	 review_num
+	<insert id="getReviewList" parameterType="Review">
+		/*상품평 등록*/
+		INSERT INTO tb_review
+		(
+		 review_num
 		,member_id
 		,payment_complete_code
 		,goods_refurb_code
@@ -82,17 +92,18 @@
 		,review_content
 		,review_img
 		,review_entry_date
-	) 
+		)
 		VALUES 
-	(	 #{reviewNum}
+		(
+		 #{reviewNum}
 		,#{memberId}
 		,#{paymentCompleteCode}
 		,#{goodsRefurbCode}
 		,#{reviewScoreCode}
 		,#{reviewContent}
-		,#{reviewImg}
+		,NULL
 		,CURDATE()
-	);
+		);
 	</insert>
 	
 	<select id="getReviewAdminList" resultMap="reviewResultMap">
@@ -119,8 +130,7 @@
 		INNER JOIN
 		after_payment_info AS a
 		ON 
-		r.payment_complete_code = a.payment_complete_code
-		ORDER BY cast(SUBSTRING_INDEX(r.review_num,'_',-1) AS UNSIGNED) ASC;
+		r.payment_complete_code = a.payment_complete_code;
 	</select>
 	
  	

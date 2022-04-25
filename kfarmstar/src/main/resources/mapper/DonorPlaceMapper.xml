@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kfarmstar.admin.mapper.DonorPlaceMapper">
+	
+	<resultMap type="DonationPlace" id="donationPlaceResultMap">
+		<result column="donation_center_num" 			property="donationCenterNum"/>
+		<result column="donation_apply_num" 			property="donationApplyNum"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="donation_recipient_name" 		property="donationRecipientName"/>
+		<result column="donation_introduction" 			property="donationIntroduction"/>
+		<result column="donation_recipient_phone" 		property="donationRecipientPhone"/>
+		<result column="donation_recipient_email" 		property="donationRecipientEmail"/>
+		<result column="donation_recipient_addr" 		property="donationRecipientAddr"/>
+		<association property="donationApply" javaType="DonationApply">
+			<result column="donation_apply_num" 			property="donationApplyNum"/>
+			<result column="donation_apply_date" 			property="donationApplyDate"/>
+			<result column="donation_apply_info" 			property="donationApplyInfo"/>
+			<result column="donation_apply_completion" 		property="donationApplyCompletion"/>
+			<result column="donation_license_state" 		property="donationLicenseState"/>
+			<result column="donation_license_num" 			property="donationLicenseNum"/>
+		</association>
+	</resultMap>
+	<resultMap type="DonationApply" id="donationApplyResultMap">
+		<result column="donation_apply_num" 			property="donationApplyNum"/>
+		<result column="donation_apply_date" 			property="donationApplyDate"/>
+		<result column="donation_apply_info" 			property="donationApplyInfo"/>
+		<result column="donation_apply_completion" 		property="donationApplyCompletion"/>
+		<result column="donation_license_state" 		property="donationLicenseState"/>
+		<result column="donation_license_num" 			property="donationLicenseNum"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 					property="memberId"/>
+			<result column="member_name" 				property="memberName"/>
+			<result column="member_level" 				property="memberLevel"/>
+			<result column="member_pw" 					property="memberPw"/>
+			<result column="member_nickname" 			property="memberNickname"/>
+			<result column="member_phone" 				property="memberPhone"/>
+			<result column="member_post_num" 			property="memberPostNum"/>
+			<result column="member_addr" 				property="memberAddr"/>
+			<result column="member_detail_addr" 		property="memberDetailAddr"/>
+			<result column="member_birth" 				property="memberBirth"/>
+			<result column="member_email" 				property="memberEmail"/>
+			<result column="member_point" 				property="memberPoint"/>
+			<result column="member_date" 				property="memberDate"/>
+		</association>
+	</resultMap>
+	
+	<select id="passwordCheck" resultMap="donationPlaceResultMap">
+		/*패스워드 체크*/
+		SELECT
+			member_pw
+		FROM
+			member
+		WHERE
+			member_pw = #{memberPw}; 
+		
+	</select>
+	
+	<select id="confirmDonorPlace" resultMap="donationPlaceResultMap">
+		/*기부 상품 사용처 등록 심사,승인*/
+		SELECT 
+		 a.donation_apply_num
+		,m.member_id
+		,a.donation_apply_date
+		,a.donation_apply_info
+		,a.donation_apply_completion
+		,a.donation_license_state
+		,a.donation_license_num
+		FROM tb_donation_recipient_apply AS a
+		INNER JOIN
+		member AS m
+		on
+		a.member_id = m.member_id
+		ORDER BY cast(SUBSTRING_INDEX('donation_apply_num','_',-1) AS UNSIGNED) ASC;
+	</select>
+	
+	<insert id="applyDonorPlace" parameterType="DonationApply">
+		/*기부상품 사용처 등록 신청*/
+		INSERT INTO tb_donation_recipient_apply
+		(
+		 donation_apply_num
+		,member_id
+		,donation_apply_date
+		,donation_apply_info
+		,donation_apply_completion
+		,donation_license_state
+		,donation_license_num
+		)
+		VALUES 
+		(
+		 #{donationApplyNum}
+		,#{memberId}
+		,CURDATE()
+		,#{donationApplyInfo}
+		,CURDATE()
+		,#{donationLicenseState}
+		,#{donationLicenseNum}
+		);
+	</insert>
+	
+	<insert id="addDonorPlace" parameterType="DonationPlace">
+		/*기부 상품 사용처 등록*/
+		INSERT INTO tb_donation_recipient_info
+		(
+		 donation_center_num
+		,donation_apply_num
+		,member_id
+		,donation_recipient_name
+		,donation_recipient_phone
+		,donation_recipient_email
+		,donation_recipient_addr
+		)
+		VALUES 
+		(
+		 #{donationCenterNum}
+		,#{donationApplyNum}
+		,#{memberId}
+		,#{donationRecipientName}
+		,#{donationRecipientPhone}
+		,#{donationRecipientEmail}
+		,#{donationRecipientAddr}
+		);
+	</insert>
+	
+	<select id="getDonorPlaceList" resultMap="donationPlaceResultMap">
+		/*기부 상품 사용처*/
+		SELECT 
+			 e.donation_center_num
+			,a.donation_apply_num
+			,m.member_id
+			,e.donation_recipient_name
+			,e.donation_introduction
+			,e.donation_recipient_phone
+			,e.donation_recipient_email
+			,e.donation_recipient_addr
+		FROM 
+			tb_donation_recipient_info AS e
+		INNER JOIN
+			tb_donation_recipient_apply AS a
+		ON
+			e.donation_apply_num = a.donation_apply_num
+		INNER JOIN
+			member AS m
+		ON
+			e.member_id = m.member_id
+		;
+	</select>
+	
+</mapper>

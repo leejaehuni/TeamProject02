@@ -23,7 +23,8 @@
 			
 		    <!-- iCheck -->
 		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-			<Script type="text/javascript">
+			<script type="text/javascript">
+			
 		    //삭제버튼
 		     function removeReview(reviewNum){
 		        if(confirm("정말 삭제하시겠습니까?")){
@@ -34,7 +35,7 @@
 		        }
 		        
 		      }
-  			</Script>  
+  			</script>  
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -83,11 +84,11 @@
 							</div>
 						</div>
 						<div class="x_content">
-		
+							
 							<table id="reviewAdmin" class="table table-bordered table-striped">
 								<thead>
 									<tr>
-										<th>리뷰번호</th>
+										<th>리뷰No</th>
 										<th>리뷰작성자</th>
 										<th>평점</th>
 										<th>리뷰 내용</th>

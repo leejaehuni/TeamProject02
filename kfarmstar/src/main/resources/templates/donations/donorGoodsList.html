@@ -63,57 +63,42 @@
 					</div>
 					<div class="x_content">
 	
-						<table class="table table-bordered">
+						<table class="table table-striped jambo_table bulk_action">
 							<thead>
-								<tr>
+								<tr class="headings">
 									<th>#</th>
-									<th>기부 상품 번호</th>
 									<th>기부 상품 사진</th>
+									<th>기부 사업장 명</th>
 									<th>기부 상품명</th>
 									<th>기증자 아이디</th>
 									<th>기부 상품 배송 방법</th>
 									<th>기부 신청 등록 일자</th>
+									<th>기능</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="d : ${donorGoodsList}">
 									<td th:text="${d.donationBoardCode}"></td>
 									<td th:text="${d.goodsDonationImg}"></td>
+									<td th:text="${d.sellerStoreNum}"></td>
 									<td th:text="${d.goodsDonationName}"></td>
 									<td th:text="${d.memberId}"></td>
 									<td th:text="${d.goodsDonationDeliveryWay}"></td>
-									<th th:text="${d.donationRequestEntryDate}"></th>
+									<td th:text="${d.donationRequestEntryDate}"></td>
+									<td>
+		                            	<a th:href="@{/donations/modifyDonorGoods(memberId=${d.memberId})}">
+		                            		<input type="button" value="수정">
+		                            	</a>
+		                            	<a th:href="@{/donations/removeDonorGoods}">
+		                            		<input type="button" value="삭제">
+		                            	</a>
+	                            	</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="list form-group" style=" text-align: center;">
-							<div class="pagination">
-								<div class="dataTables_paginate paging_simple_numbers"
-									id="datatable_paginate">
-									<ul class="pagination">
-										<li class="paginate_button previous disabled"
-											id="datatable_previous"><a href="#"
-											aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-										</li>
-										<li class="paginate_button active"><a href="#"
-											aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
-										<li class="paginate_button next" id="datatable_next"><a
-											href="#" aria-controls="datatable" data-dt-idx="7"
-											tabindex="0">Next</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
+						<!--  -->
+							<div th:replace="fragments/pagination :: paginationFragment"></div>
 					</div>
 				</div>
 			</div>

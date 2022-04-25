@@ -21,9 +21,30 @@
 		<!-- 사용자 정의 Script -->
 		<th:block layout:fragment="customScript">
 			
-		    <!-- iCheck -->
-		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-			
+			<script type="text/javascript">
+				$(function(){
+					function validationCheck(data){
+						if(typeof data == 'undefined' || data == '' || data == null){
+							return false;
+						}
+						return true;
+					}
+					
+					$('#addDonorGoodsBtn').click(function(){
+						var isSubmit = true;
+						var inputObj = $('#addDonorGoodsForm').find('input');
+						
+						$.each(inputObj, function(){
+							var inputData = $(this).val();
+							var result = validationCheck(inputData);
+							
+							if(!result){
+								alert('필수 항목입니다. 입력해주세요');
+								$(this).focus();
+								isSubmit = false;
+								return false;
+							}
+			</script>
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -50,11 +71,12 @@
 							method="post" enctype="multipart/form-data">
 							<div class="field item form-group">
 								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자
-										아이디</strong><span class="required">*</span></label>
+										아이디</strong><span class="required"></span></label>
 								<div class="col-md-6 col-sm-6">
 									<input class="form-control" data-validate-length-range="6"
-										data-validate-words="2" th:value="${session.SID}" name="memberId"
-										required="required">
+										data-validate-words="2" name="memberId"
+										required="required" readonly="readonly">
+										[[${id}]]
 								</div>
 							</div>
 							<div class="field item form-group">
@@ -77,8 +99,7 @@
 								<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
 										내용 </strong></label>
 								<div class="col-md-6">
-									<textarea class="col-auto form-control" type="text"
-										name="introduction"></textarea>
+									<textarea class="col-auto form-control" name="introduction"></textarea>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -90,11 +111,10 @@
 										style="font-size: 10px; color: gray;">※파일 확장자가 .gif / .jpg
 										/ .png 인 파일만 업로드 가능합니다.</span>
 								</div>
-				
 							</div>
 							<div class="form-group row">
 								<label for="heard"
-									class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong></label>
+									class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong>*</label>
 								<select id="heard" class="form-control col-md-6 col-sm-6" required>
 									<option value="k1">택배</option>
 									<option value="k2">직접배송</option>
@@ -102,10 +122,10 @@
 								</select>
 							</div>
 							<div class="addDonorGoodsBtn" style=" text-align: center;">
-								<div class="form-group">
-									<button type="button" class="addBtn btn-primary" id="btn-update">등록</button>
-									<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
-								</div>
+								<div class="col-md-6 offset-md-3">
+                                     <button type="button" class="btn btn-primary">등록</button>
+                                     <button type="button" class="btn btn-success">취소</button>
+                                 </div>
 							</div>
 						</form>
 					</div>

@@ -4,6 +4,14 @@
 	  layout:decorate="~{layout/default}">
 	
 		<!-- 사용자 정의 Css -->
+		<style>
+		/* Chrome, Safari, Edge, Opera */
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		</style>
 		<th:block layout:fragment="customCss">
 			 <!-- Bootstrap -->
 		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -89,13 +97,15 @@
 							<label class="col-form-label col-md-4  label-align"><strong>
 									사용처 소개</strong><span class="required">*</span></label>
 							<div class="col-md-6 col-sm-6">
-								<textarea type="text" required="required" name="introduction"></textarea>
+								<textarea required="required" name="introduction"></textarea>
 							</div>
 						</div>
 						<div class="addDonorPlaceBtn" style=" text-align: center;">
 							<div class="form-group">
-									<button type="button" class="addBtn btn-primary" id="btn-update">등록</button>
-									<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+									<div class="col-md-6 offset-md-3">
+                                     <button type="button" class="btn btn-primary">등록</button>
+                                     <button type="button" class="btn btn-success">취소</button>
+                                 </div>
 							</div>
 						</div>
 					</form>

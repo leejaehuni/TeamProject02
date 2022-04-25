@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kfarmstar.admin.mapper.DonorGoodsMapper;
-import com.kfarmstar.dto.DonorGoods;
+import com.kfarmstar.dto.DonationGoods;
 
 @Service
 @Transactional
@@ -19,12 +19,39 @@ public class DonorGoodsService {
 		this.donorGoodsMapper = donorGoodsMapper;
 	}
 	
-	//기부 상품 목록
-	public List<DonorGoods> getDonorGoodsList() {
+	/**
+	 * 기부 상품 삭제
+	 */
+	 public int removeGoods(DonationGoods donationGoods, int donationBoardCode) {
+		int result = donorGoodsMapper.removeDonorGoods(donationBoardCode);
 		
-		List<DonorGoods> donorGoodsList = donorGoodsMapper.getDonorGoodsList();
+		 return result;
+	 }
+	
+	/**
+	 * 기부 상품 수정
+	 */
+	public int modifyDonorGoods(DonationGoods donationGoods) {
+		return donorGoodsMapper.modifyDonorGoods(donationGoods);
+	}
+	
+	/**
+	 * 기부 상품 등록
+	 */
+	public void addDonorGoods(DonationGoods donationGoods, String donorGoodsId) {
+		donorGoodsMapper.addDonorGoods(donationGoods, donorGoodsId);
+	}
+		
+	
+	/**
+	 * 기부 상품 목록
+	 */
+	public List<DonationGoods> getDonorGoodsList() {
+		
+		List<DonationGoods> donorGoodsList = donorGoodsMapper.getDonorGoodsList();
 				
 		return donorGoodsList;
 	}
+
 		
 }
