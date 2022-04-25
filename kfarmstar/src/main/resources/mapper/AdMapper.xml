@@ -175,6 +175,37 @@
 		</association>
 	</resultMap>
 
+	
+	<select id="adPayDetailByApplyCode" resultType="AfterAdPay"  resultMap="afterAdPayResultMap">
+		/* 광고 신청 번호에 따른 광고 결제 정보 조회 */
+		SELECT 
+			  p.ad_pay_complete_code
+			, p.ad_payment_code
+			, p.ad_apply_code
+			, p.ad_pay_type_code
+			, p.ad_cate
+			, ad_contract_term
+			, p.ad_start_date
+			, p.ad_end_date
+			, p.ad_contract_price
+			, p.ad_pay_time
+			, t.member_id
+			, t.ad_pay_option
+			, t.ad_pay_card_type
+			, t.ad_pay_card_num
+			, t.ad_pay_account_type
+			, t.ad_pay_account_num
+			, t.ad_pay_phone_carrier
+			, t.ad_pay_phone_num
+		FROM 
+			after_ad_payment AS p
+		INNER JOIN
+			ad_pay_type AS t
+		ON
+			p.ad_pay_type_code = t.ad_pay_type_code
+		WHERE p.ad_apply_code = #{adApplyCode};
+	</select>
+
 	<select id="getAdBenefitByGrade" parameterType="String" resultMap="gradeMap">
 		/* 회원 아이디에 따른 등급별 혜택 조회 */
 		SELECT 
@@ -304,7 +335,6 @@
 		UPDATE ad_apply_permit
 		SET
 			ad_permit_state= '결제완료'
-			, manager_id = #{managerId}
 		WHERE ad_apply_code= #{adApplyCode};
 	</update>
 	
@@ -364,10 +394,17 @@
 			, a.manager_id
 			, a.ad_permit_date
 			FROM ad_apply_permit AS a
-			WHERE 
-				   a.ad_permit_state = '결제완료'
-				OR a.ad_permit_state = '광고중'
-				OR a.ad_permit_state = '광고완료'
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="searchKey != null and searchKey != '' and searchValue != ''">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
+			<![CDATA[ AND a.ad_start_date >= #{startDate} AND  a.ad_end_date <= #{endDate} ]]>
+			</if>
+				AND ( a.ad_permit_state = '결제완료'
+					OR a.ad_permit_state = '광고중'
+					OR a.ad_permit_state = '광고완료')
+		</trim>
 			ORDER BY cast(SUBSTRING_INDEX(a.ad_apply_code,'_',-1) AS UNSIGNED) ASC;
 	</select>
 	
@@ -398,6 +435,9 @@
 			</if>
 			<if test="searchKey != null and searchKey != '' and searchValue != ''">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDate != null and startDate != '' and endDate != '' and endDate != null">
+				AND a.ad_apply_date BETWEEN #{startDate} AND #{endDate}
 			</if>
 		</trim>
 		ORDER BY cast(SUBSTRING_INDEX(a.ad_apply_code,'_',-1) AS UNSIGNED) ASC;
@@ -452,7 +492,7 @@
 			, a.ad_goods_url		=#{adGoodsUrl}
 			, a.ad_content			=#{adContent}
 			, a.ad_img				=#{adImg}
-		WHERE a.ad_apply_code		=#{adApplyCode}
+		WHERE a.ad_apply_code		=#{adApplyCode};
 	</update>
 	
 	

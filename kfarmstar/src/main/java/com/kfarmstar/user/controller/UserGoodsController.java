@@ -31,7 +31,9 @@ public class UserGoodsController {
 	}
 	
 	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-13
 	 * 사용자 화면 - 상품 상세 정보 조회
 	 */
 	@GetMapping("/userGoodsDetail")
@@ -71,8 +73,9 @@ public class UserGoodsController {
 
 	
 	
-	
-	/**
+	/*
+	 * 작성자 : 이지수
+	 * 작성일자 : 22-04-11
 	 * 사용자 화면 - 상품 목록 조회
 	 */
 	@GetMapping("/userGoodsList")
@@ -84,6 +87,7 @@ public class UserGoodsController {
 		log.info("searchCate:{}", searchCate);
 		log.info("searchValue:{}", searchValue);
 		Map<String, Object> paramMap = new HashMap<String , Object>();
+		List<Goods> adGoods = userGoodsService.getAdGoods();
 		
 		paramMap.put("searchCate", searchCate);
 		paramMap.put("searchValue", searchValue);
@@ -95,6 +99,7 @@ public class UserGoodsController {
 		model.addAttribute("breadTitle", "Refurb Goods");
 		model.addAttribute("breadSubTitle", "Goods List");
 		model.addAttribute("goodsList", goodsList);
+		model.addAttribute("adGoods", adGoods);
 		
 		return "userGoods/userGoodsList";
 	}

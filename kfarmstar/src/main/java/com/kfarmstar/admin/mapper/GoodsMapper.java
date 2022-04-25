@@ -23,7 +23,7 @@ public interface GoodsMapper {
 	// seller_store_num 스토어별 상품 등록 (store_goods_large 테이블 등록)
 	public int addStoreGoodsLarge(StoreGoodsLarge storeGoodsLarge);
 
-	// seller_store_num 스토어별 상품 등록 (store_goods_large 테이블 등록)
+	// seller_store_num 스토어별 상품 등록 (store_goods_small 테이블 등록)
 	public int addStoreGoodsSmall(StoreGoodsSmall storeGoodsSmall);
 	
 	// 판매자 아이디별 seller_store_num 조회
@@ -62,7 +62,7 @@ public interface GoodsMapper {
 	// 소분류 코드별 정보 조회
 	public GoodsSmall getSmallCateInfoByCode(String goodsSmallCate);
 
-	// 소분류 카테고리 목록
+	// 소분류 카테고리 목록 조회
 	public List<GoodsSmall> getSmallCateList(String goodsLargeCate);
 	
 

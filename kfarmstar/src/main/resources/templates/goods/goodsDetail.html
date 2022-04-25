@@ -17,10 +17,6 @@
 		<link th:href="@{/vendors/google-code-prettify/bin/prettify.min.css}" rel="stylesheet">
 		<!-- Select2 -->
 		<link th:href="@{/vendors/select2/dist/css/select2.min.css}" rel="stylesheet">
-		<!-- Switchery -->
-		<link th:href="@{/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
-		<!-- starrr -->
-		<link th:href="@{/vendors/starrr/dist/starrr.css}" rel="stylesheet">
 		<!-- bootstrap-daterangepicker -->
 		<link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 		
@@ -28,31 +24,17 @@
 	
 	<!-- 사용자 정의 JsScript 파일-->
 	<th:block layout:fragment="customJsScript">
-		<!-- bootstrap-progressbar -->
-		<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
 		<!-- iCheck -->
 		<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
 		<!-- bootstrap-daterangepicker -->
 		<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 		<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
-		<!-- bootstrap-wysiwyg -->
-		<script th:src="@{/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js}"></script>
-		<script th:src="@{/vendors/jquery.hotkeys/jquery.hotkeys.js}"></script>
-		<script th:src="@{/vendors/google-code-prettify/src/prettify.js}"></script>
-		<!-- jQuery Tags Input -->
-		<script th:src="@{/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
-		<!-- Switchery -->
-		<script th:src="@{/vendors/switchery/dist/switchery.min.js}"></script>
 		<!-- Select2 -->
 		<script th:src="@{/vendors/select2/dist/js/select2.full.min.js}"></script>
-		<!-- Parsley -->
-		<script th:src="@{/vendors/parsleyjs/dist/parsley.min.js}"></script>
 		<!-- Autosize -->
 		<script th:src="@{/vendors/autosize/dist/autosize.min.js}"></script>
 		<!-- jQuery autocomplete -->
 		<script th:src="@{/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js}"></script>
-		<!-- starrr -->
-		<script th:src="@{/vendors/starrr/dist/starrr.js}"></script>
 	</th:block>
 	
 	<!-- 사용자 정의 Script-->
@@ -318,15 +300,6 @@
 											<div class="col-md-2 col-sm-2">
 												<label class="control-label">상품 사진</label>
 											</div>
-											<!-- <div class="img-fluid col-md-8">
-												<th:block th:if="${not #lists.isEmpty(goods.fileList)}" th:each="l : ${goods.fileList}">
-													<img th:src="@{${ '/' + #strings.replace(l.filePath, '\', '/')}}" class="img-fluid"/> 
-												</th:block>
-											</div> -->
-											<!-- <div class="col-md-6 col-sm-6 ">
-												<input type="file" disabled="disabled" multiple="multiple">
-											</div> -->
-											
 											
 											<div class="col-lg-8 col-md-8" th:if="${not #lists.isEmpty(goods.fileList)}">
 												<div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
