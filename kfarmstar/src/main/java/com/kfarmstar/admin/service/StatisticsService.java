@@ -40,10 +40,4 @@ private static final Logger log = LoggerFactory.getLogger(NoticeBoardService.cla
 		
 		return goodsTypeStatisticsList;
 	}
-		
-		
-		
-		
-		
-		
 }

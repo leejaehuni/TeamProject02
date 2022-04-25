@@ -111,6 +111,4 @@ public class NoticeBoardController {
 		return "noticeboard/removeNotice";
 	}
 	
-	
-	
 }
