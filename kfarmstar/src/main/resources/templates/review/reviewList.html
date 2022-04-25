@@ -24,49 +24,7 @@
 		    <!-- iCheck -->
 		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
 			
-			<script>
-			document.addEventListener('DOMContentLoaded', function(){ //DOM 생성 후 이벤트 리스너 등록
-			    //더보기 버튼 이벤트 리스너
-			    document.querySelector('.btn_open').addEventListener('click', function(e){
-			        
-			        let classList = document.querySelector('.detailinfo').classList; // 더보기 프레임의 클래스 정보 얻기
-			        let contentHeight = document.querySelector('.detailinfo > .content').offsetHeight; //컨텐츠 높이 얻기
-
-			        // 2단계이면 전체보기로
-			        if(classList.contains('showstep2')){
-			            classList.remove('showstep2');
-			        }
-			        // 1단계이면 2단계로
-			        if(classList.contains('showstep1')){
-			            classList.remove('showstep1');
-			            if(contentHeight > 600){
-			                classList.add('showstep2');
-			            }else{
-			                document.querySelector('.btn_open').classList.add('hide');
-			            }
-			        }
-			        //전체보기시 더보기 버튼 감추기 & 감추기 버튼 표시
-			        if(!classList.contains('showstep1') && !classList.contains('showstep2')){
-			            e.target.classList.add('hide');
-			            document.querySelector('.btn_close').classList.remove('hide');
-			            
-			        }
-			        document.querySelector('.btn_close').addEventListener('click', function(e){
-			            e.target.classList.add('hide');
-			            document.querySelector('.btn_open').classList.remove('hide'); // 더보기 버튼 감춤
-			            document.querySelector('.detailinfo').classList.add('showstep1'); // 초기 감춤 상태로 복귀
-			        });
-			        window.addEventListener('load', function(){
-					    let contentHeight = document.querySelector('.detailinfo > .content').offsetHeight; //컨텐츠 높이 얻기
-					    if(contentHeight <= 100){
-					        document.querySelector('.detailinfo').classList.remove('showstep1'); // 초기값보다 작으면 전체 컨텐츠 표시
-					        document.querySelector('.btn_open').classList.add('hide'); // 버튼 감춤
-					    }
-					});
-			        
-			    });
-			});
-			</script>
+			
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -76,77 +34,127 @@
 		
 		<!-- 사용자 정의 contents -->
 		<th:block layout:fragment="customContents">
-			<link rel="stylesheet" type="text/css" th:href="@{/asset/css/list.css}">
 			<link href="/asset/css/review.css" rel="stylesheet" />
 			<div class="low">
-				<div class="card card-outline-primary">
-					<div class="col-lg-12">
-						<div class="card-header">
-							<h4><i class="fa fa-thumbs-up"> </i> 리뷰</h4>
-						</div>
+				<div class="container" style="text-align: center;">
+					<div class="col-md-12 col-sm-12">
 						<div class="x_title">
-	
+			
 							<!-- START : 화면 경로
-	                 		============================== -->
+					                 ============================== -->
 							<div th:replace="fragments/titleBreadcrumb :: breadcrumbFragment"></div>
 							<!-- END : 화면 경로
-		                 	============================== -->
-	
+					                 ============================== -->
+			
 						</div>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>평점</th>
-									<th>리뷰내용</th>
-									<th>작성자</th>
-									<th>작성일자</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="l : ${reviewList}">
-									<td th:text="${l.reviewScore}"></td>
-									<td th:text="${l.reviewContent"></td>
-						
-									<td th:text="${l.memberId}"></td>
-									<td th:text="${l.reviewEntryDate}"></td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="detailinfo showstep1">
-						    <div class="content"></div>
-						</div>
-						<a href="#" class="btn_open">더보기</a>
-						<a href="#" class="btn_close hide">감추기</a>
-						<div class="list form-group" style=" text-align: center;">
-							<div class="pagination">
-								<div class="dataTables_paginate paging_simple_numbers"
-									id="datatable_paginate">
-									<ul class="pagination">
-										<li class="paginate_button previous disabled"
-											id="datatable_previous"><a href="#"
-											aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-										</li>
-										<li class="paginate_button active"><a href="#"
-											aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
-										<li class="paginate_button "><a href="#"
-											aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
-										<li class="paginate_button next" id="datatable_next"><a
-											href="#" aria-controls="datatable" data-dt-idx="7"
-											tabindex="0">Next</a></li>
-									</ul>
+					<div class="x_panel">
+						<div class="make-star">
+							<form class="mb-3" name="addReviewForm" id="addReviewForm"method="post">
+								<fieldset>
+								 	<input type="hidden" name="reviewScoreCode" th:value="${reviewScoreCode}">
+									<span class="text-bold">별점을 선택해주세요</span> 
+									<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
+									
+									<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
+									 
+									<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label> 
+									
+									<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label> 
+									
+									<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
+								</fieldset>
+								<div class="Contentspo">
+										<textarea class="col-auto form-control"
+											id="reviewContents" placeholder="리뷰를 입력해주세요"></textarea>
+									<div class="photoRevlew form-group">
+											<input multiple="multiple" type="file" name="filename[]"
+												accept=".gif, .jpg, .png" required="required" /> <span
+												style="font-size: 10px; color: gray;">※파일 확장자가 .gif / .jpg /.png 인 파일만 업로드 가능합니다.</span>
+									</div>
 								</div>
+								<div class="reviewBtn">
+									<div class="col-md-6 offset-md-8">
+	                                    <button type="button" class="btn btn-primary">등록</button>
+	                                    <button type="button" class="btn btn-success">취소</button>
+                                 	</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="x_panel">
+						<div class="reviewForm" th:each="r : ${reviewAdminList}" >
+							<div style="position: absolute;  left: 10%;  transform: translateX(-50%);  transform: translateY(-30px);">
+								<span th:text="${r.reviewNum}">리뷰No</span>
+								<span th:text="${r.memberId}">작성자</span>
+							</div>
+							
+<!-- 							
+							<div class="star">
+								<span th:text="${r.reviewScoreCode}">평점</span>
+							</div>
+							
+							 -->
+							<div class="rating" id="viewScore" data-rate="3" style="position: absolute;  left: 45%;  transform: translateX(-50%); transform: translateY(-35px); ">
+								<label class="yellowstar" for="rate1" th:if="${r.reviewScoreCode} == 1">★</label>
+								<input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1" th:if="${r.reviewScoreCode} == 1">★★★★</label>
+								
+								<label class="yellowstar" for="rate2" th:if="${r.reviewScoreCode} == 2">★★</label>		
+								<input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2" th:if="${r.reviewScoreCode} == 2">★★★</label>
+								
+								<label class="yellowstar" for="rate3" th:if="${r.reviewScoreCode} == 3">★★★</label> 
+								<input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3" th:if="${r.reviewScoreCode} == 3">★★</label> 
+								
+								<label class="yellowstar" for="rate4" th:if="${r.reviewScoreCode} == 4">★★★★</label>
+								<input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4" th:if="${r.reviewScoreCode} == 4">★</label> 
+								
+								<label class="yellowstar" for="rate5" th:if="${r.reviewScoreCode} == 5">★★★★★</label>
+								<input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5" th:if="${r.reviewScoreCode} == 5"></label>
+							</div>
+							<div class="reviewImg" style="position: absolute;  left: 25%;  transform: translateX(-30%); transform: translateY(0px);">
+								<span th:text="${r.reviewImg}"></span>
+								<span th:text="${r.goodsRefurbCode}">상품명</span>
+							</div>
+							<div style="text-align: center;">
+								<span th:text="${r.reviewContent}">내용</span>
+							</div>
+							<div style="text-align: right;">
+								<span th:text="${r.reviewEntryDate}">리뷰작성완료일시</span>
+							</div>
+							<div id="upDeBtn">
+								<a href="#" class="btn-gradient green mini">수정</a>
+								<a href="#" class="btn-gradient red mini">삭제</a>
+							</div>
+						</div>
+					
+					<div class="list form-group" style=" text-align: center;">
+						<div class="pagination">
+							<div class="dataTables_paginate paging_simple_numbers"
+								id="datatable_paginate">
+								<ul class="pagination">
+									<li class="paginate_button previous disabled"
+										id="datatable_previous"><a href="#"
+										aria-controls="datatable" data-dt-idx="0" tabindex="0">이전 페이지</a>
+									</li>
+									<li class="paginate_button active"><a href="#"
+										aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
+									<li class="paginate_button "><a href="#"
+										aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
+									<li class="paginate_button "><a href="#"
+										aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
+									<li class="paginate_button "><a href="#"
+										aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
+									<li class="paginate_button "><a href="#"
+										aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
+									<li class="paginate_button next" id="datatable_next"><a
+										href="#" aria-controls="datatable" data-dt-idx="7"
+										tabindex="0">다음 페이지</a></li>
+								</ul>
 							</div>
 						</div>
 					</div>
+					</div>	
 				</div>
 			</div>
-		</th:block>
+		</div>
+	</th:block>
 </html>

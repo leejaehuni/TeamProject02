@@ -5,39 +5,116 @@
 
 <mapper namespace="com.kfarmstar.admin.mapper.DonorGoodsMapper">
 
-   <resultMap type="DonorGoods" id="donorGoodsResultMap">
-      <result column="donation_board_code"          property="donationBoardCode"/>
-      <result column="seller_store_num"             property="sellerStoreNum"/>
-      <result column="member_id"                   property="memberId"/>
-      <result column="goods_donation_img"            property="goodsDonationImg"/>
-      <result column="donation_content"             property="donationContent"/>
-      <result column="entry_time"                property="goodsDonationCount"/>
-      <result column="goods_donation_name"          property="goodsDonationName"/>
-      <result column="goods_donation_delivery_way"    property="goodsDonationDeliveryWay"/>
-      <result column="donation_request_entry_date"    property="donationRequestEntryDate"/>
-   </resultMap>
-   
-   <select id="getDonorGoodsList" resultType="DonorGoods" resultMap="donorGoodsResultMap">
-      /*기부 상품 조회*/
-      SELECT 
-       d.donation_board_code
-      ,s.seller_store_num
-      ,m.member_id
-      ,d.goods_donation_img
-      ,d.donation_content
-      ,d.donation_request_entry_date
-      ,d.goods_donation_count
-      ,d.goods_donation_name
-      ,d.goods_donation_delivery_way
-      FROM tb_goods_donation_entry AS d
-      INNER JOIN
-      seller_store AS s
-      ON
-      d.seller_store_num = s.seller_store_num
-      INNER JOIN 
-      member AS m
-      ON 
-      d.member_id = m.member_id
-      ORDER BY cast(SUBSTRING_INDEX(donation_board_code ,'_',-1) AS UNSIGNED) ASC;
-   </select>
-</mapper>   
+	<resultMap type="DonationGoods" id="donationGoodsResultMap">
+		<result column="donation_board_code" 			property="donationBoardCode"/>
+		<result column="seller_store_num" 				property="sellerStoreNum"/>
+		<result column="member_id" 						property="memberId"/>
+		<result column="goods_donation_img"				property="goodsDonationImg"/>
+		<result column="donation_content" 				property="donationContent"/>
+		<result column="goods_donation_count" 			property="goodsDonationCount"/>
+		<result column="goods_donation_name" 			property="goodsDonationName"/>
+		<result column="goods_donation_delivery_way" 	property="goodsDonationDeliveryWay"/>
+		<result column="donation_request_entry_date" 	property="donationRequestEntryDate"/>
+		<association property="member" javaType="Member">
+			<result column="member_id" 					property="memberId"/>
+			<result column="member_name" 				property="memberName"/>
+			<result column="member_level" 				property="memberLevel"/>
+			<result column="member_pw" 					property="memberPw"/>
+			<result column="member_nickname" 			property="memberNickname"/>
+			<result column="member_phone" 				property="memberPhone"/>
+			<result column="member_post_num" 			property="memberPostNum"/>
+			<result column="member_addr" 				property="memberAddr"/>
+			<result column="member_detail_addr" 		property="memberDetailAddr"/>
+			<result column="member_birth" 				property="memberBirth"/>
+			<result column="member_email" 				property="memberEmail"/>
+			<result column="member_point" 				property="memberPoint"/>
+			<result column="member_date" 				property="memberDate"/>
+		</association>
+		<association property="sellerStore" javaType="SellerStore">
+			<result column="seller_tore_num"			property="sellerStoreNum"/>
+			<result column="seller_store_name"			property="sellerStoreName"/>
+			<result column="seller_license_num"			property="sellerLicenseNum"/>
+			<result column="seller_store_phone"			property="sellerStorePhone"/>
+			<result column="seller_entry_date"			property="sellerEntryDate"/>
+			<result column="seller_store_post_num"		property="sellerStorePostNum"/>
+			<result column="seller_store_addr"			property="sellerStoreAddr"/>
+			<result column="seller_store_detail_addr"	property="sellerStoreDetailAddr"/>
+			<result column="seller_tax_type"			property="sellerTaxType"/>
+		</association>
+	</resultMap>
+	
+	<delete id="removeDonorGoods" parameterType="DonationGoods">
+		/*기부상품 삭제*/
+		DELETE
+		FROM 
+			tb_goods_donation_entry 
+		WHERE 
+			donation_board_code=#{donationBoardCode};
+	</delete>
+	
+	<update id="modifyDonorGoods" parameterType="DonationGoods">
+		/*기부상품 수정*/
+		UPDATE tb_goods_donation_entry
+		SET
+			donation_board_code= #{donationBoardCode},
+			seller_store_num=#{sellerStoreNum},
+			member_id=#{memberId},
+			goods_donation_img=#{goodsDonationImg}, 
+			donation_content=#{donationContent},
+			donation_request_entry_date=CURDATE(),
+			goods_donation_count=#{goodsDonationCount},
+			goods_donation_name=#{goodsDonationName},
+			goods_donation_delivery_way=#{goodsDonationDeliveryWay}
+		WHERE donation_board_code=#{donationBoardCode};
+	</update>
+		
+	<insert id="addDonorGoods" parameterType="DonationGoods">
+		/* 기부상품 등록 */
+		INSERT INTO tb_goods_donation_entry
+		(
+			 donation_board_code
+			,seller_store_num
+			,member_id
+			,goods_donation_img
+			,donation_content
+			,donation_request_entry_date
+			,goods_donation_count
+			,goods_donation_name
+			,goods_donation_delivery_way
+		)VALUES(
+			 #{donationBoardCode}
+			,#{sellerStoreNum}
+			,#{memberId}
+			,#{goodsDonationImg}
+			,#{donationContent}
+			, CURDATE()
+			,#{goodsDonationCount}
+			,#{goodsDonationName}
+			,#{goodsDonationDeliveryWay}
+			ORDER BY CAST(SUBSTRING_INDEX(donationBoardCode,'_',-1) AS UNSIGNED) ASC
+		);
+	</insert>
+	
+	<select id="getDonorGoodsList" resultMap="donationGoodsResultMap">
+		/*기부 상품 조회*/
+		SELECT 
+		 d.donation_board_code
+		,s.seller_store_num
+		,m.member_id
+		,d.goods_donation_img
+		,d.donation_content
+		,d.donation_request_entry_date
+		,d.goods_donation_count
+		,d.goods_donation_name
+		,d.goods_donation_delivery_way
+		FROM tb_goods_donation_entry AS d
+		INNER JOIN
+		seller_store AS s
+		ON
+		d.seller_store_num = s.seller_store_num
+		INNER JOIN 
+		member AS m
+		ON 
+		d.member_id = m.member_id;
+	</select>
+</mapper>	

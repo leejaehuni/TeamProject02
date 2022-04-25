@@ -44,72 +44,69 @@
 				                 ============================== -->
 		
 				</div>
-				<form id="modifyDonorGoodsForm"
-					th:action="@{donations/modifyDonorGoodsForm}" method="post">
-					<div class="field item form-group">
-						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자
-								아이디</strong><span class="required">*</span></label>
-						<div class="col-md-6 col-sm-6">
-							<input class="form-control" data-validate-length-range="6"
-								data-validate-words="2" th:value="${session.SID}" name="memberId"
-								required="required">
+				<div class="row justify-content-center">
+					<form id="addDonorGoodsForm" th:action="@{donations/addDonorGoods}"
+						method="post" enctype="multipart/form-data">
+						<div class="field item form-group">
+							<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기증자
+									아이디</strong><span class="required"></span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" data-validate-length-range="6"
+									data-validate-words="2" name="memberId"
+									required="required" readonly="readonly">
+									[[${id}]]
+							</div>
 						</div>
-					</div>
-					<div class="field item form-group">
-						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
-								상품명</strong><span class="required">*</span></label>
-						<div class="col-md-6 col-sm-6">
-							<input class="form-control" name="goodsDonationName"
-								data-validate-length-range="5,15" type="text">
+						<div class="field item form-group">
+							<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+									상품명</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" name="goodsDonationName"
+									data-validate-length-range="5,15" type="text">
+							</div>
 						</div>
-					</div>
-					<div class="field item form-group">
-						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
-								내용</strong><span class="required">*</span></label>
-						<div class="col-md-6 col-sm-6">
-							<input class="form-control" name="donationContent"
-								data-validate-length-range="5,15" type="text">
+						<div class="field item form-group">
+							<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+									상품갯수</strong><span class="required">*</span></label>
+							<div class="col-md-6 col-sm-6">
+								<input class="form-control" name="goodsDonationCount"
+									data-validate-length-range="5,15" type="text">
+							</div>
 						</div>
-					</div>
-					<div class="field item form-group">
-						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
-								상품갯수</strong><span class="required">*</span></label>
-						<div class="col-md-6 col-sm-6">
-							<input class="form-control" name="goodsDonationCount"
-								data-validate-length-range="5,15" type="text">
+						<div class="field item form-group">
+							<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+									내용 </strong></label>
+							<div class="col-md-6">
+								<textarea class="col-auto form-control" name="introduction"></textarea>
+							</div>
 						</div>
-					</div>
-					<div class="field item form-group">
-						<label for="heard"
-							class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong></label>
-						<select id="heard" class="form-control col-md-6 col-sm-6" required>
-							<option value="k1">택배</option>
-							<option value="k2">직접배송</option>
-							<option value="k3">방문수령</option>
-						</select>
-					</div>
-					<div class="field item form-group">
-						<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
-								상품 사진</strong></label>>
-						<button id="btn-upload" type="button"
-							style="border: 1px solid #ddd; outline: none;">파일 추가</button>
-						<input id="input_file col-md-6 col-sm-6" multiple="multiple"
-							type="file" style="display: none;"> <span
-							style="font-size: 10px; color: gray;">※사진첨부는 최대 10개까지 등록이
-							가능합니다.</span>
-						<div class="data_file_txt" id="data_file_txt" style="margin: 40px;">
-							<span>첨부 파일</span> <br />
-							<div id="articlefileChange"></div>
+						<div class="form-group row">
+							<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>기부
+									상품 사진</strong></label>
+							<div class="col-md-6">
+								<input multiple="multiple" type="file" name="filename[]"
+									accept=".gif, .jpg, .png" required="required"> <span
+									style="font-size: 10px; color: gray;">※파일 확장자가 .gif / .jpg
+									/ .png 인 파일만 업로드 가능합니다.</span>
+							</div>
 						</div>
-						<button type="submit" style="border: 1px solid #ddd; outline: none;">전송</button>
-					</div>
+						<div class="form-group row">
+							<label for="heard"
+								class="col-form-label col-md-3 col-sm-3  label-align"><strong>배송방법</strong></label>
+							<select id="heard" class="form-control col-md-6 col-sm-6" required>
+								<option value="k1">택배</option>
+								<option value="k2">직접배송</option>
+								<option value="k3">방문수령</option>
+							</select>
+						</div>
 					<div class="modifyDonorGoodsBtn" style=" text-align: center;">
-						<div class="form-group">
-							<button type="button" class="modifyBtn btn-primary" id="btn-update">수정</button>
-							<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
-						</div>
+						<div class="col-md-6 offset-md-3">
+	                        <button type="button" class="btn btn-primary">수정</button>
+	                        <button type="button" class="btn btn-success">취소</button>
+	                    </div>
 					</div>
 				</form>
+				</div>
 			</div>
 		</th:block>
 </html>

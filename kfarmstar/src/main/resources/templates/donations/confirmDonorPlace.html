@@ -24,6 +24,83 @@
 		    <!-- iCheck -->
 		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
 			
+			<script type="text/javascript">
+    $(function(){
+      $('.Confirm').on('click',function(){        
+        var donationApplyNum = $(this).parent().find('.donationApplyNum').text();
+        sessionStorage.setItem("donationApplyNum", donationApplyNum);
+        var donationApplyInfo = $(this).parent().find('.donationApplyInfo').text();
+        
+        if(donationApplyInfo == '승인완료'){
+          alert('이미 승인이 완료된 신청건 입니다.');
+        }else if(donationApplyInfo == '승인거절'){
+          alert('이미 승인이 거절된 신청건 입니다.');
+        }else{
+          
+          swal({
+                    title: "승인 하시겠습니까?",
+                    text: "승인 후에는 수정이 불가합니다.",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#A0CF8F",
+                    confirmButtonText: "승인완료",
+                    cancelButtonText: "승인거절",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                //승인 눌렀을 때
+                function(isConfirm){
+                    if (isConfirm) {
+                      var memberId = $('#SID').val();
+                      var donationApplyNum = sessionStorage.getItem("donationApplyNum");
+                var state = "state_confirm_com";
+                      
+                      var request = $.ajax({
+                      url: "/confirmDonorPlace", //요청 주소
+                      method: "GET", //요청 방식
+                      data: {"memberId" : memberId, "donationApplyNum" : donationApplyNum}, //전달 할 파라미터
+                      dataType: "html" //받아 올 포맷방식
+                  });
+                    //응답이 완료 되었을 경우 실행
+                request.done(function( data ) {
+                  console.log(data,"data");
+                  location.reload();
+                });
+                      //응답 실패
+                request.fail(function(request,status,error){
+                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                  });
+                    }
+                    else {
+                      var memberId = $('#SID').val();
+                      var donationApplyNum = sessionStorage.getItem("donationApplyNum");
+                var state = "state_confirm_rej";
+                      
+                      var request = $.ajax({
+                      url: "/confirmDonorPlace", //요청 주소
+                      method: "GET", //요청 방식
+                      data: {"memberId" : memberId, "donationApplyNum" : donationApplyNum,}, //전달 할 파라미터
+                      dataType: "html" //받아 올 포맷방식
+                  });
+                    //응답이 완료 되었을 경우 실행
+                request.done(function( data ) {
+                  console.log(data,"data");
+                  location.reload();
+                });
+                      //응답 실패
+                request.fail(function(request,status,error){
+                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                  });
+                    }
+                });   
+        }
+        
+      }); 
+      
+    })
+  </script>
+			
+			
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -58,9 +135,9 @@
 								</div>
 							</div>
 							<div class="table-responsive m-t-40">
-								<table id="confirmDonorPlace"
-									class="table table-bordered table-striped">
+								<table class="table table-striped jambo_table bulk_action">
 									<thead>
+										<tr class="headings">
 										<tr>
 											<th>기부상품 사용처 신청 번호</th>
 											<th>아이디</th>
@@ -74,49 +151,21 @@
 											<th>승인 완료 일시</th>
 										</tr>
 									</thead>
-									<tbody th:id="donorPlacePass">
-										<tr th:each="l : ${donorPlacePass}">
-											<td th:text="${l.donationApplyNum}"></td>
-											<td th:text="${l.memberId}"></td>
-											<td th:text="${l.donationLicenseNum}"></td>
-											<td th:text="${l.donationLicenseState}"></td>
-											<td th:text="${l.donationRecipientName}"></td>
-											<td th:text="${l.donationRecipientPhone}"></td>
-											<td th:text="${l.donationApplyDate}"></td>
+									<tbody th:id="confirmDonorPlace">
+										<tr th:each="a : ${donorPlacePass}">
+											<td th:text="${a.donationApplyNum}"></td>
+											<td th:text="${a.memberId}"></td>
+											<td th:text="${a.donationLicenseNum}"></td>
+											<td th:text="${a.donationLicenseState}"></td>
+											<td th:text="${a.donationRecipientName}"></td>
+											<td th:text="${a.donationRecipientPhone}"></td>
+											<td th:text="${a.donationApplyDate}"></td>
 											<td class="btn btn-pink btn-sm Confirm">승인</td>
-											<td th:text="${l.donationApplyInfo}"></td>
-											<td th:text="${l.donationApplyCompletion}"></td>
+											<td th:text="${a.donationApplyInfo}"></td>
+											<td th:text="${a.donationApplyCompletion}"></td>
 										</tr>
 									</tbody>
 								</table>
-							</div>
-							<div class="list form-group" style=" text-align: center;">
-								<div class="pagination">
-									<div class="dataTables_paginate paging_simple_numbers"
-										id="datatable_paginate">
-										<ul class="pagination">
-											<li class="paginate_button previous disabled"
-												id="datatable_previous"><a href="#"
-												aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-											</li>
-											<li class="paginate_button active"><a href="#"
-												aria-controls="datatable" data-dt-idx="1" tabindex="0">1</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="2" tabindex="0">2</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="3" tabindex="0">3</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="4" tabindex="0">4</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="5" tabindex="0">5</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="datatable" data-dt-idx="6" tabindex="0">6</a></li>
-											<li class="paginate_button next" id="datatable_next"><a
-												href="#" aria-controls="datatable" data-dt-idx="7"
-												tabindex="0">Next</a></li>
-										</ul>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>

@@ -5,6 +5,14 @@
 	
 		<!-- 사용자 정의 Css -->
 		<th:block layout:fragment="customCss">
+			<style>
+			/* Chrome, Safari, Edge, Opera */
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+			  -webkit-appearance: none;
+			  margin: 0;
+			}
+			</style>
 			 <!-- Bootstrap -->
 		    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
 		    <!-- Font Awesome -->
@@ -21,9 +29,13 @@
 		<!-- 사용자 정의 Script -->
 		<th:block layout:fragment="customScript">
 			
-		    <!-- iCheck -->
+		    <!-- 신청서 체크 -->
 		    <script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
-			
+			<script type="text/javascript">
+		      window.onload = function() {
+		        swal.fire("승인 신청서를 작성해주세요.")
+		       };
+			</script>
    		</th:block>
 
 		<!-- 사용자 정의 title -->
@@ -53,17 +65,18 @@
 									<input type="hidden" name="bizCode" id="bizCode">
 									<div class="field item form-group">
 										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
-											사용처 아이디<span>*</span></strong></label> 
+											사용처 아이디<span></span></strong></label> 
 										<div class="col-md-6 col-sm-6">
 											<input type="text" class="donorGoodsApply form-control"
-												name="memberId" th:value="${session.SID}" readonly="readonly">
+												name="memberId" readonly="readonly">
+												[[${placeId}]]
 										</div>	
 									</div>
 									<div class="field item form-group">
 										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
 											사용처 전화번호<span>*</span></strong></label> 
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="donorGoodsApply form-control"
+											<input type="number" class="donorGoodsApply"
 												id="donationLicenseNum" name="donationLicenseNum">
 										</div>	
 									</div>
@@ -71,8 +84,8 @@
 										<label class="col-form-label col-md-3 col-sm-3  label-align"><strong>
 											사업자 등록 번호<span>*</span></strong></label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="donorGoodsApply form-control"
-												id="donationLicenseNum" name="donationLicenseNum" placeholder="사업자 등록 번호">
+											<input type="number" class="donorGoodsApply form-control"
+												id="donationLicenseNum" name="donationLicenseNum" placeholder="사업자 등록 번호 입력하세요">
 											<p>10자리의 숫자로 입력해주세요.</p>
 											<div id="Check"></div>
 										</div>	 
@@ -98,8 +111,10 @@
 									</div>
 		
 									<div class="form-group" style=" text-align: center;">
-										<button type="button" class="addBtn btn-primary" id="btn-update">등록</button>
-										<button type="button" class="cancelBtn btn-secondary" id="btn-cancel">취소</button>
+										<div class="col-md-6 offset-md-3">
+	                                     <button type="button" class="btn btn-primary">등록</button>
+	                                     <button type="button" class="btn btn-success">취소</button>
+	                                 </div>
 									</div>
 								</form>
 							</div>
