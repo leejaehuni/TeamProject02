@@ -121,8 +121,4 @@ SELECT
 			WHERE
 			s.goods_small_cate = #{goodsSmallCate}
 	</select>
-	
-	
-	
-	
 </mapper>

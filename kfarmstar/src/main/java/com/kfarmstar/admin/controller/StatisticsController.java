@@ -18,7 +18,6 @@ import com.kfarmstar.admin.service.GoodsService;
 import com.kfarmstar.admin.service.StatisticsService;
 import com.kfarmstar.dto.GoodsLarge;
 import com.kfarmstar.dto.GoodsSmall;
-import com.kfarmstar.dto.Member;
 import com.kfarmstar.dto.Statistics;
 
 @Controller

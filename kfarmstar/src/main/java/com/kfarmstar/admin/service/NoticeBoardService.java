@@ -37,6 +37,7 @@ public class NoticeBoardService {
 		return noticeBoardList;
 		
 	}
+	
 	//공지게시글 조회
 	public NoticeBoard getDetailNotice(String noticeNum) {
 		System.out.println("getDetailNotice NoticeBoardService.java");
@@ -52,7 +53,7 @@ public class NoticeBoardService {
 		 //pk컬럼에 들어갈 코드를 자동으로 만들어주는 Mapper //pk로 쓸 db의 컬럼명 //코드가 들어갈 db의 테이블명 
 		  String newCode = commonMapper.getNewCode("notice_num", "notice_board");
 		  noticeBoard.setNoticeNum(newCode);
-		  noticeBoard.setMemberId(sessionId); //임의로 넣은 등록자 아이디
+		  noticeBoard.setMemberId(sessionId);
 		  
 		  int result = noticeBoardMapper.addNotice(noticeBoard);
 		  
