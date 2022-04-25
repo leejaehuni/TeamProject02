@@ -33,9 +33,7 @@ public class DeliveryService {
 	public List<DeliveryCompany> getCompanyList() {
 
 		log.info("===== service getCompanyList 시작 =====");
-		
 		List<DeliveryCompany> companyList = deliveryMapper.getCompanyList();
-		
 		log.info("===== service getCompanyList 매퍼 값 받아오기 완료 =====");
 		
 		return companyList;
@@ -45,9 +43,7 @@ public class DeliveryService {
 	public List<CompanyEmployee> getEmployeeList() {
 		
 		log.info("===== service getEmployeeList 시작 =====");
-		
 		List<CompanyEmployee> employeeList = deliveryMapper.getEmployeeList();
-		
 		log.info("===== service getEmployeeList 매퍼 값 받아오기 완료 =====");
 		
 		return employeeList;
@@ -58,9 +54,7 @@ public class DeliveryService {
 	public List<DeliveryGoods> getDeliveryList() {
   
 		log.info("===== service getDeliveryList 시작 =====");
-		
 		List<DeliveryGoods> deliveryList = deliveryMapper.getDeliveryList();
-		
 		log.info("===== service getDeliveryList 매퍼 값 받아오기 완료 =====");
   
 		return deliveryList; 
@@ -71,9 +65,7 @@ public class DeliveryService {
 	public List<DeliveryPickup> getPickupList() {
 
 		log.info("===== service getPickupList 시작 =====");
-		
 		List<DeliveryPickup> pickupList = deliveryMapper.getPickupList();
-
 		log.info("===== service getPickupList 매퍼 값 받아오기 완료 =====");
 		
 		return pickupList;
@@ -82,9 +74,11 @@ public class DeliveryService {
 	//배송 회사 내역 조회
 	public DeliveryCompany getCompany(String companyCode) {
 		
-		if(deliveryMapper.getCompany(companyCode) != null) {
+		DeliveryCompany codeGetCompany = deliveryMapper.getCompany(companyCode);
+		
+		if(codeGetCompany != null) {
 			log.info("===== service getCompany 매퍼 값 받아오기 완료 =====");
-			return deliveryMapper.getCompany(companyCode);
+			return codeGetCompany;
 		}else {
 			log.info("===== service getCompany 에러 =====");
 			return null;
@@ -93,16 +87,18 @@ public class DeliveryService {
 	
 	
 	//배송 운송장 내역 조회
+	/*
+	 * public DeliveryGoods getDelivery(String deliveryNum) {
+	 * 
+	 * DeliveryGoods numGetDelivery = deliveryMapper.getDelivery(deliveryNum);
+	 * 
+	 * if(numGetDelivery != null) {
+	 * log.info("===== service getDelivery 매퍼 값 받아오기 완료 ====="); return
+	 * numGetDelivery; }else { log.info("===== service getDelivery 에러 =====");
+	 * return null; } }
+	 */
 	
-	public DeliveryGoods getDelivery(String deliveryNum) {
-		
-		log.info("===== service getDelivery 매퍼 값 받아오기 완료 =====");
-		
-		return deliveryMapper.getDelivery(deliveryNum);
-	}
-	
-	
-	//배송 회사 내역 수정
+	//배송 회사 정보 수정
 	/*
 	public List<DeliveryCompany> modifyCompany() {
 		
@@ -116,7 +112,7 @@ public class DeliveryService {
 	}
 	*/
 	
-	//회사 직원 내역 수정
+	//회사 직원 정보 수정
 
 	//운송장 내역 수정
 	//집하 내역 수정
@@ -126,24 +122,33 @@ public class DeliveryService {
 	//배송 등록
 	public List<DeliveryGoods> addDeliveryCompany() {
 		
+		log.info("===== service addDeliveryCompany 시작 =====");
 		List<DeliveryGoods> addDeliveryCompany = deliveryMapper.addDeliveryCompany();
+		log.info("===== service addDeliveryCompany 매퍼 값 받아오기 완료 =====");
 		
 		return addDeliveryCompany;
 	}
 	public List<DeliveryGoods> addDeliveryGoods() {
 		
+		log.info("===== service addDeliveryGoods 시작 =====");
 		List<DeliveryGoods> addDeliveryGoods = deliveryMapper.addDeliveryGoods();
+		log.info("===== service addDeliveryGoods 매퍼 값 받아오기 완료 =====");
 		
 		return addDeliveryGoods;
 	}
 	public void addDelivery(DeliveryGoods deliveryGoods) {
+		
+		log.info("===== service addDeliveryGoods 시작 =====");
 		deliveryMapper.addDelivery(deliveryGoods);
+		log.info("===== service addDeliveryGoods 매퍼 값 받아오기 완료 =====");
 	}
-	public List<DeliveryCompany> changeDelivery() {
+	public DeliveryCompany getCompanyByCompanyCode(String companyCode) {
 		
-		List<DeliveryCompany> changeDelivery = deliveryMapper.changeDelivery();
+		log.info("===== service getCompanyByCompanyCode 시작 =====");
+		DeliveryCompany getDelivery = deliveryMapper.getCompanyByCompanyCode(companyCode);
+		log.info("===== service getCompanyByCompanyCode 매퍼 값 받아오기 완료 =====");
 		
-		return changeDelivery;
+		return getDelivery;
 	}
 	
 	//집하 등록

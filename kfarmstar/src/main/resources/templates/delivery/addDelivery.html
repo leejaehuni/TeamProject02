@@ -43,28 +43,47 @@
 	<th:block layout:fragment="customScript">
 		<script>
 		$(function(){
-			$('#addDeliveryCompany').change(function(){
-				console.log('되나?');
-				var companyName = $('select[name="companyName"]').val();
-				console.log(companyName);
-				if(companyName != '' && companyName != null){
-					console.log('ajax실행');
+			var phoneInput = $('input[name="companyPhone"]');
+			var addrInput = $('input[name="companyAddr"]');
+			var detailInput = $('input[name="companyDtailAddr"]');
+			$('#addDeliveryCompany').ready(function(){
+				var companyCode = $('select[name="companyCode"]').val();
+				console.log(companyCode);
+				if(companyCode != '' && companyCode != null){
+					console.log('ready ajax실행 전');
 					$.ajax({
-						 url: '/delivery/changeDelivery'
-						,type: 'POST'
-						,data: {'companyName' : companyName}
+						 url: '/delivery/getDeliveryByCompanyCode'
+						,type: 'post'
+						,data: {'companyCode' : companyCode}
 						,dataType: 'json'
 						,success: function(data){
-							console.log(data);
-							/* 
-							if(data != null && data != ''){
-								$('#addFormCompany input').prop('disabled', false);
-							}else{									
-								$('#addMemberForm input').not('input[name="memberId"]').prop('disabled', true);
-								$('#addMemberForm button').not('#idCheck').prop('disabled', true);
-								$('#addMemberForm select').prop('disabled', true);
-							}
-							 */
+							console.log(phoneInput);
+							phoneInput.val(data.companyPhone);
+							console.log(addrInput);
+							addrInput.val(data.companyAddr);
+							console.log(detailInput);
+							detailInput.val(data.companyAddrDetail);
+						}
+					});
+				}
+			});
+			$('#addDeliveryCompany').change(function(){
+				var companyCode = $('select[name="companyCode"]').val();
+				console.log(companyCode);
+				if(companyCode != '' && companyCode != null){
+					console.log('change ajax실행 전');
+					$.ajax({
+						 url: '/delivery/getDeliveryByCompanyCode'
+						,type: 'post'
+						,data: {'companyCode' : companyCode}
+						,dataType: 'json'
+						,success: function(data){
+							console.log(phoneInput);
+							phoneInput.val(data.companyPhone);
+							console.log(addrInput);
+							addrInput.val(data.companyAddr);
+							console.log(detailInput);
+							detailInput.val(data.companyAddrDetail);
 						}
 					});
 				}
@@ -130,9 +149,9 @@
 											<div class="col-sm-1"></div>
 											<label class="control-label col-sm-2 col-12">택배 회사 <span class="required">*</span></label>
 											<div class="col-sm-8 col-12">
-												<select class="form-control" id="addDeliveryCompany" name="companyName">
+												<select class="form-control" id="addDeliveryCompany" name="companyCode">
 													<th:block th:if="${not #lists.isEmpty(addDeliveryCompany)}" th:each="DC : ${addDeliveryCompany}">
-														<option th:value="${DC.deliveryCompany.companyName}">[[${DC.deliveryCompany.companyName}]]</option>
+														<option th:value="${DC.companyCode}">[[${DC.companyName}]]</option>
 													</th:block>
 													<th:block th:unless="${not #lists.isEmpty(addDeliveryCompany)}">
 														<option>등록된 정보가 없습니다.</option>
@@ -145,7 +164,7 @@
 											<div class="col-sm-1"></div>
 											<label class="control-label col-sm-2 col-12">회사 연락처</label>
 											<div class="col-sm-8 col-12">
-												<input type="text" class="form-control" value="#" readonly>
+												<input type="text" class="form-control" name="companyPhone" readonly>
 											</div>
 											<div class="col-sm-1"></div>
 										</div>
@@ -153,10 +172,10 @@
 											<div class="col-sm-1"></div>
 											<label class="control-label col-sm-2 col-12">회사 주소</label>
 											<div class="col-sm-5 col-8">
-												<input type="text" class="form-control" value="#" readonly>
+												<input type="text" class="form-control" name="companyAddr" readonly>
 											</div>
 											<div class="col-sm-3 col-4">
-												<input type="text" class="form-control" value="상세주소" readonly>
+												<input type="text" class="form-control" name="companyDtailAddr" readonly>
 											</div>
 										</div>
 									</form>
@@ -167,9 +186,9 @@
 											<div class="col-sm-1"></div>
 											<label class="control-label col-sm-2 col-12">배송 상품 선택</label>
 											<div class="col-sm-8 col-12">
-												<select class="form-control">
+												<select class="form-control" id="addDeliveryGoods" name="goodsRefurbCode">
 													<th:block th:if="${not #lists.isEmpty(addDeliveryGoods)}" th:each="DG : ${addDeliveryGoods}">
-														<option th:value="${DG.goods.goodsRefurbName}">[[${DG.goods.goodsRefurbName}]]</option>
+														<option th:value="${DG.goodsRefurbCode}">[[${DG.goodsRefurbName}]]</option>
 													</th:block>
 													<th:block th:unless="${not #lists.isEmpty(addDeliveryGoods)}">
 														<option>등록된 정보가 없습니다.</option>
