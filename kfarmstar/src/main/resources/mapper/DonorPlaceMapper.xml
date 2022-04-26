@@ -58,7 +58,7 @@
 		
 	</select>
 	
-	<select id="confirmDonorPlace" resultMap="donationPlaceResultMap">
+	<select id="confirmDonorPlace" resultMap="donationApplyResultMap">
 		/*기부 상품 사용처 등록 심사,승인*/
 		SELECT 
 		 a.donation_apply_num
