@@ -320,7 +320,7 @@
 		WHERE ad_apply_code = #{adApplyCode};
 	</update>
 
-	<update id="adApproveCancel" parameterType="AdApply">
+	<update id="adApproveCancle" parameterType="AdApply">
 		/* 광고 승인취소 버튼 클릭시 진행 상태가 광고불가 로 변경 */
 		UPDATE ad_apply_permit
 		SET

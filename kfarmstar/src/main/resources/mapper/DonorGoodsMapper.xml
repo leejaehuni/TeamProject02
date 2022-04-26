@@ -87,7 +87,7 @@
 			,#{memberId}
 			,#{goodsDonationImg}
 			,#{donationContent}
-			, CURDATE()
+			,CURDATE()
 			,#{goodsDonationCount}
 			,#{goodsDonationName}
 			,#{goodsDonationDeliveryWay}

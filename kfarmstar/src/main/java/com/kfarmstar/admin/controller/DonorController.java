@@ -79,7 +79,7 @@ public class DonorController {
 		log.info("addDonorGoods DonorController : ", donorGoodsId);
 		model.addAttribute("title", "상품등록");
 		model.addAttribute("titleName", "기부 상품  등록");
-		model.addAttribute("id", donorGoodsId);
+		model.addAttribute("addid", donorGoodsId);
 		
 		return "donations/addDonorGoods";
 	}
