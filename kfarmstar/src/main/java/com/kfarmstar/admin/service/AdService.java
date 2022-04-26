@@ -192,10 +192,10 @@ public class AdService {
 
 	
 	// 광고 승인 취소
-	public int adApproveCancle(AdApply adApply, String sessionId) {
+	public int adApproveCancel(AdApply adApply, String sessionId) {
 		log.info("sessionId {}" , sessionId);
 		adApply.setManagerId(sessionId);
-		return adMapper.adApproveCancle(adApply);
+		return adMapper.adApproveCancel(adApply);
 	}
 	
 	

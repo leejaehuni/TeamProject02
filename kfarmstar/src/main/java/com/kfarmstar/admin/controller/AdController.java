@@ -235,18 +235,18 @@ public class AdController {
 	 * (관리자 : 신청 상세 화면을 보고 승인 버튼을 누르면 진행 상태가 결제전 으로 바뀐다)
 	 * @param adApplyCode
 	 */
-	@GetMapping("/adApproveCancle")
-	public String adApproveCancle(AdApply adApply, HttpSession session) {
+	@GetMapping("/adApproveCancel")
+	public String adApproveCancel(AdApply adApply, HttpSession session) {
 		log.info("광고 거절 처리");
 		String sessionId = (String) session.getAttribute("SID");
-		adService.adApproveCancle(adApply, sessionId);
+		adService.adApproveCancel(adApply, sessionId);
 		return "redirect:/advertisement/adApplyList";
 	}
 	
 	
 	
 	/**
-	 * 광고 등록 처리 (보류)
+	 * 광고 등록 처리
 	 */
 	@GetMapping("/addAdvertising")
 	public String addAdvertising(Model model) {
@@ -279,8 +279,6 @@ public class AdController {
 	}
 	
 	
-	/****************************************** 작업중 *********************************************/
-	
 	/*
 	 * 작성자 : 이지수
 	 * 작성일자 : 22-04-10
@@ -302,8 +300,6 @@ public class AdController {
 	}
 	
 	
-	
-	
 	/**
 	 * 광고 결제 후 상세 페이지
 	 * @param model
@@ -321,26 +317,6 @@ public class AdController {
 		
 		return "advertisement/adPaymentDetail";
 	}
-	
-/*	
-	@GetMapping("/adPaymentList")
-	public String getAdPaymentList(Model model) {
-		model.addAttribute("title", "FoodRefurb : 광고 결제 목록");
-		model.addAttribute("titleName", "광고 결제 목록");
-		
-		return "advertisement/adPaymentList";
-	}
-	
-	
-	@GetMapping("/adPaymentOrderInfo")
-	public String adPaymentOrderInfo(Model model) {
-		model.addAttribute("title", "FoodRefurb : 광고 결제");
-		model.addAttribute("titleName", "광고 결제");
-		
-		return "advertisement/adPaymentOrderInfo";
-	}
-	
-*/
 	
 	
 	/*
@@ -483,7 +459,7 @@ public class AdController {
 	
 	
 	/**
-	 * 광고 신청 취소 화면 ... 이것도 뭔가 이상하다..? 고민해보기
+	 * 광고 신청 취소 화면 
 	 */
 	@GetMapping("/removeAdApply")
 	public String removeAdApply(Model model) {
