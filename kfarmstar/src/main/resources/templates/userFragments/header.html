@@ -19,13 +19,14 @@
                                 <a th:href="@{https://www.facebook.com/}"><i class="fa fa-facebook"></i></a>
                                 <a th:href="@{https://twitter.com/?lang=ko}"><i class="fa fa-twitter"></i></a>
                                 <a th:href="@{https://www.instagram.com/}"><i class="fa fa-instagram"></i></a>
+                                <a th:href="@{/userMember/myPage}"><span th:unless="${session.SID == null}">마이페이지</span></a>
                             </div>
                             <div class="header__top__right__language" th:if="${session.SLEVEL == '관리자' || session.SLEVEL == '판매자'}">
-                                	<a  th:href="@{/}">관리 페이지</a>
+                                	<a th:href="@{/}">관리 페이지</a>
                             </div>
                             <div class="header__top__right__auth">
-                                <a th:if="${session.SID == null}" th:href="@{/userMember/login}"><i class="fa fa-user"></i> 로그인</a>
-                                <a th:unless="${session.SID == null}" th:href="@{/userMember/logout}"><i class="fa fa-user"></i> 로그아웃</a>
+                           		<a th:if="${session.SID == null}" th:href="@{/userMember/login}"><i class="fa fa-user"></i>로그인</a>
+		                        <a th:unless="${session.SID == null}" th:href="@{/userMember/logout}"><i class="fa fa-user"></i> 로그아웃</a>
                             </div>
                         </div>
                     </div>
