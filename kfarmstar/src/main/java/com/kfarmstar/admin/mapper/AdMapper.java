@@ -50,7 +50,7 @@ public interface AdMapper {
 	public int adApproveUpdate(AdApply adApply);
 
 	// 진행상태 : 광고 승인 취소
-	public int adApproveCancle(AdApply adApply);
+	public int adApproveCancel(AdApply adApply);
 	
 	// 진행상태 : 광고 결제완료 처리
 	public int adPayComplete(AdApply adApply);

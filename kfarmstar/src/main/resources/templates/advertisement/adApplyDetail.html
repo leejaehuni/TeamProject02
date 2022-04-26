@@ -286,14 +286,6 @@
 											<div class="col-lg-8 col-md-8" th:unless="${not #lists.isEmpty(adApply.fileList)}">
 												<img th:src="@{/asset/img/noImage.jpg}" class="img-fluid"/> 
 											</div>
-											
-											<!-- <div class="col-md-3 col-sm-3">
-												<img th:src="@{/img/exOrange.jpg}" class="img-fluid"
-													alt="Responsive image" name="adImg" th:value="${adApply.adImg}">
-											</div>
-											<div class="col-md-5 col-sm-5">
-												<input type="file">
-											</div> -->
 										</div>
 									</td>
 								</tr>
@@ -309,10 +301,10 @@
 								<a th:href="@{/advertisement/adApproveUpdate(adApplyCode=${adApply.adApplyCode})}" 
 									th:if="${adApply.adPermitState}=='신청중' and ${sessionLevel}=='관리자'" role="button" 
 									class="btn btn-success" aria-pressed="true">승인</a>
-								<a th:href="@{/advertisement/adApproveCancle(adApplyCode=${adApply.adApplyCode})}" 
+								<a th:href="@{/advertisement/adApproveCancel(adApplyCode=${adApply.adApplyCode})}" 
 									th:if="${adApply.adPermitState}=='신청중' and ${sessionLevel}=='관리자'" role="button"
 									 class="btn btn-warning" aria-pressed="true">거절</a>	
-								<a th:href="@{/advertisement/adApproveCancle(adApplyCode=${adApply.adApplyCode})}" 
+								<a th:href="@{/advertisement/adApproveCancel(adApplyCode=${adApply.adApplyCode})}" 
 									th:if="${adApply.adPermitState}=='결제전' and ${sessionLevel}=='관리자'" role="button" 
 									class="btn btn-warning" aria-pressed="true">승인취소</a>
 							</div>
